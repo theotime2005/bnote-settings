@@ -1,8 +1,8 @@
 <script>
-import { settings_value } from "@/settings.js";
+import settings from "@/settings.js";
 
 export default {
-  name: "Setting",
+  name: "SettingComponent",
   props: {
     name: {
       type: String,
@@ -12,17 +12,19 @@ export default {
       type: Object,
       required: true,
     },
-    settingValue: {
+    setting_value: {
       required: true,
     },
   },
+  data() {
+    return {
+      settings_value: settings.settings_value,
+    };
+  },
   methods: {
     updateSetting(value) {
-      this.$emit("update:settingValue", value); // Émet la nouvelle valeur vers le parent
-    },
-    getLabel(value) {
-      // Utilisation de settings_value pour afficher le label
-      return settings_value[value] || value;
+      console.log(this.setting.values);
+      this.$emit("update:setting_value", this.setting_value); // Émet la nouvelle valeur vers le parent
     },
   },
 };
@@ -35,7 +37,7 @@ export default {
     <input
       type="checkbox"
       :id="name"
-      :checked="settingValue"
+      :checked="setting_value"
       @change="updateSetting($event.target.checked)"
     />
   </div>
@@ -45,7 +47,7 @@ export default {
     <label :for="name">{{ name }}</label>
     <select
       :id="name"
-      :value="settingValue"
+      :value="setting_value"
       @change="updateSetting($event.target.value)"
     >
       <option
@@ -53,7 +55,7 @@ export default {
         :key="option"
         :value="option"
       >
-        {{ getLabel(option) }}
+        {{ settings_value[option] }}
       </option>
     </select>
   </div>
@@ -66,7 +68,7 @@ export default {
       :id="name"
       :min="setting.min"
       :max="setting.max"
-      :value="settingValue"
+      :value="setting_value"
       @input="updateSetting($event.target.value)"
     />
   </div>

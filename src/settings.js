@@ -2,8 +2,8 @@ const all_settings = {
   system: {
     "braille_type": {
       type: "menu",
-      values: ["dot_8", "grade1", "grade2"],
-      default: "dot_8",
+      values: ["dot-8", "grade1", "grade2"],
+      default: "dot-8",
     },
     "auto_sync_date": {
       type: "checkbox",
@@ -101,8 +101,8 @@ const all_settings = {
   editor: {
     "braille_type": {
       type: "menu",
-      values: ["dot_8", "grade1", "grade2"],
-      default: "dot_8",
+      values: ["dot-8", "grade1", "grade2"],
+      default: "dot-8",
     },
     "line_length": {
       type: "number",
@@ -159,8 +159,8 @@ const all_settings = {
     },
     "braille_type": {
       type: "menu",
-      values: ["dot_8", "grade1"],
-      default: "dot_8",
+      values: ["dot-8", "grade1"],
+      default: "dot-8",
     },
     "notes_dots": {
       type: "menu",
@@ -236,8 +236,8 @@ const all_settings = {
     },
     "braille_type": {
       type: "menu",
-      values: ["dot_8", "grade1"],
-      default: "dot_8",
+      values: ["dot-8", "grade1"],
+      default: "dot-8",
     },
     "notes_dots": {
       type: "menu",
@@ -312,7 +312,7 @@ const all_settings = {
 };
 
 const settings_value = {
-  "dot_8": "Braille informatique (8 points)",
+  "dot-8": "Braille informatique (8 points)",
   "grade1": "Braille intégral (6 points",
   "grade2": "Braille abrégé (6 points)",
   "main_apps_menu": "Menu principal",
@@ -343,4 +343,5 @@ const settings_value = {
   "after_each_section": "Après chaque section",
 };
 
-module.exports={ all_settings, settings_value };
+const settings = { all_settings: all_settings, settings_value: settings_value };
+export default settings;
