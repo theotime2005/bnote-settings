@@ -1,4 +1,4 @@
-const settings = {
+const all_settings = {
   system: {
     "braille_type": {
       type: "menu",
@@ -343,4 +343,4 @@ const settings_value = {
   "after_each_section": "Après chaque section",
 };
 
-export default { settings, settings_value };
+module.exports={ all_settings, settings_value };
