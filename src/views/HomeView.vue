@@ -13,6 +13,7 @@ export default {
   },
   methods: {
     getData() {
+      this.settingsData=this.$refs.upload.fileData;
       this.fileIsImported=true;
     },
   },
