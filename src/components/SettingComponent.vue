@@ -24,8 +24,7 @@ export default {
   },
   methods: {
     updateSetting(value) {
-      console.log(this.setting.values);
-      this.$emit("setting-change");
+      this.$emit("setting-change", this.settingValue);
     },
   },
 };
