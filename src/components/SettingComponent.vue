@@ -19,12 +19,13 @@ export default {
   data() {
     return {
       settings_value: settings.settings_value,
+      settingValue: this.setting_value,
     };
   },
   methods: {
     updateSetting(value) {
       console.log(this.setting.values);
-      this.$emit("update:setting_value", this.setting_value); // Émet la nouvelle valeur vers le parent
+      this.$emit("setting-change");
     },
   },
 };
@@ -38,7 +39,8 @@ export default {
       type="checkbox"
       :id="name"
       :checked="setting_value"
-      @change="updateSetting($event.target.checked)"
+      @change="updateSetting"
+      v-model="settingValue"
     />
   </div>
 
@@ -48,7 +50,8 @@ export default {
     <select
       :id="name"
       :value="setting_value"
-      @change="updateSetting($event.target.value)"
+      @change="updateSetting"
+      v-model="settingValue"
     >
       <option
         v-for="option in setting.values"
@@ -69,7 +72,8 @@ export default {
       :min="setting.min"
       :max="setting.max"
       :value="setting_value"
-      @input="updateSetting($event.target.value)"
+      @input="updateSetting"
+      v-model="settingValue"
     />
   </div>
 </template>
