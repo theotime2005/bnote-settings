@@ -2,7 +2,6 @@
 import UploadFile from "@/components/UploadFile.vue";
 import settings from "@/settings.js";
 import SettingComponent from "@/components/SettingComponent.vue";
-import { isNoCORSSafelistedRequest } from "jsdom/lib/jsdom/living/fetch/header-types.js";
 
 export default {
   components: {
@@ -26,18 +25,25 @@ export default {
     };
   },
   methods: {
-    isNoCORSSafelistedRequest,
-    getData() {
+    get_data() {
       this.settingsData = this.$refs.upload.fileData;
       this.fileIsImported = true;
       this.complete_empty_values();
+    },
+    clean_data() {
+      const confirm = window.confirm("Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier.");
+      if (confirm) {
+        this.settingsData = {};
+        this.fileIsImported = false;
+      }
     },
     complete_empty_values() {
       // Check data and complete if there are not all values
       for (let section in this.all_settings) {
         for (let setting in this.all_settings[section]) {
-          if (!this.settingsData[section][setting]) {
-            this.settingsData[section][setting] = this.all_settings[section][setting];
+          if (this.settingsData[section][setting]===undefined) {
+            console.log("complete", section, setting);
+            this.settingsData[section][setting] = this.all_settings[section][setting].default;
           }
         }
       }
@@ -49,26 +55,39 @@ export default {
       this.settingsData[section][key] = new_value;
     },
     save() {
-      console.log(this.settingsData);
+      const question = window.confirm("Voulez-vous vraiment télécharger le fichier?");
+      return question ? this.download_file() : null;
+    },
+    download_file() {
+      const stringData = JSON.stringify(this.settingsData, null, 2);
+      const blob_data = new Blob([stringData], { type: "application/json" });
+      const url_object = URL.createObjectURL(blob_data);
+      // Create link
+      const link = document.createElement("a");
+      link.href = url_object;
+      const file_name = `settings ${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}.bnote`;
+      link.download=file_name;
+      link.click();
+      URL.revokeObjectURL(url_object);
     },
   },
 };
 </script>
 <template>
+  <h1>Gestion des préférences du B.note</h1>
   <div v-if="!fileIsImported">
-    <h1>Accueil</h1>
     <p>Bienvenu sur l'interface en ligne de gestion des paramètres de B.note.</p>
-    <UploadFile ref="upload" @file-uploaded="getData" />
+    <UploadFile ref="upload" @file-uploaded="get_data" />
   </div>
   <div v-if="fileIsImported">
-    <h1>Fichier de préférences</h1>
+    <h2>Fichier de préférences</h2>
     <form class="settings" @submit.prevent="save">
       <!-- system -->
       <div id="system">
-        <h2>Interface utilisateur</h2>
-        <button @click="togle_menu('system')">{{display_menu['system'] ? 'Réduir' : 'Afficher'}} la section</button>
-        <div class="setting" v-if="display_menu['system']" v-for="setting in all_settings['system']" :key="setting['id']">
-          <SettingComponent
+        <h3>Interface utilisateur</h3>
+        <button type="button" @click="togle_menu('system')">{{display_menu['system'] ? 'Réduir' : 'Afficher'}} la section</button>
+        <div class="setting" v-if="display_menu['system']">
+          <SettingComponent v-for="setting in all_settings['system']" :key="setting['id']"
             :setting="setting"
             :setting_value="settingsData['system'][setting['id']]"
             :name="setting['name']"
@@ -78,10 +97,10 @@ export default {
       </div>
       <!-- editor -->
       <div id="editor">
-        <h2>Éditeur</h2>
-        <button @click="togle_menu('editor')">{{display_menu['editor'] ? 'Réduir' : 'Afficher'}} la section</button>
-        <div class="setting" v-if="display_menu['editor']" v-for="setting in all_settings['editor']" :key="setting['id']">
-          <SettingComponent
+        <h3>Éditeur</h3>
+        <button type="button" @click="togle_menu('editor')">{{display_menu['editor'] ? 'Réduir' : 'Afficher'}} la section</button>
+        <div class="setting" v-if="display_menu['editor']">
+          <SettingComponent v-for="setting in all_settings['editor']" :key="setting['id']"
             :setting="setting"
             :setting_value="settingsData['editor'][setting['id']]"
             :name="setting['name']"
@@ -91,10 +110,10 @@ export default {
       </div>
       <!-- music -->
       <div id="music">
-        <h2>Musique</h2>
-        <button @click="togle_menu('music')">{{display_menu['music'] ? 'Réduir' : 'Afficher'}} la section</button>
+        <h3>Musique</h3>
+        <button type="button" @click="togle_menu('music')">{{display_menu['music'] ? 'Réduir' : 'Afficher'}} la section</button>
         <div v-if="display_menu['music']">
-          <h3>musicxml</h3>
+          <h4>musicxml</h4>
           <div class="setting" v-for="setting in all_settings['music_xml']" :key="setting['id']">
             <SettingComponent
               :setting="setting"
@@ -103,7 +122,7 @@ export default {
               @setting-change="save_new_value('music_xml', setting['id'], $event)"
             />
           </div>
-          <h3>bxml</h3>
+          <h4>bxml</h4>
           <div class="setting" v-for="setting in all_settings['music_bxml']" :key="setting['id']">
             <SettingComponent
               :setting="setting"
@@ -114,9 +133,9 @@ export default {
           </div>
         </div>
       </div>
-      <button type="submit">Sauvegarder (non fonctionnel pour le moment)</button>
+      <button type="submit">Télécharger le fichier</button>
     </form>
-
+    <button type="button" @click="clean_data">Effacer la configuration actuelle</button>
   </div>
 </template>
 

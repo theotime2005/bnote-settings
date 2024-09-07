@@ -23,7 +23,7 @@ export default {
     };
   },
   methods: {
-    updateSetting(value) {
+    updateSetting() {
       this.$emit("setting-change", this.settingValue);
     },
   },

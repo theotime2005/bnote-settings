@@ -13,7 +13,7 @@ const all_settings = {
       type: "checkbox",
       default: false,
     },
-    "space_in_label": {
+    "spaces_in_label": {
       id: "space_in_label",
       name: "Espace dans les éléments",
       type: "checkbox",
