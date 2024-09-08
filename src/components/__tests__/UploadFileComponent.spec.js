@@ -1,13 +1,13 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi } from "vitest";
-import UploadFile from "@/components/UploadFile.vue";
+import UploadFileComponent from "@/components/UploadFileComponent.vue";
 
 
-describe("UploadFile.vue", () => {
+describe("UploadFileComponent.vue", () => {
 
   // Test pour vérifier la gestion de la sélection de fichier
   it("devrait gérer correctement la sélection de fichier", async () => {
-    const wrapper = mount(UploadFile);
+    const wrapper = mount(UploadFileComponent);
 
     // Simule un événement de changement de fichier
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
@@ -24,7 +24,7 @@ describe("UploadFile.vue", () => {
 
   // Test pour vérifier l'alerte quand aucun fichier n'est sélectionné
   it("devrait afficher une alerte si aucun fichier n'est sélectionné", () => {
-    const wrapper = mount(UploadFile);
+    const wrapper = mount(UploadFileComponent);
     window.alert = vi.fn(); // Mock de window.alert
 
     // Simule la soumission du formulaire sans fichier sélectionné
@@ -36,7 +36,7 @@ describe("UploadFile.vue", () => {
 
   // Test pour vérifier l'alerte si le format de fichier est incorrect
   it("devrait afficher une alerte si le format du fichier est incorrect", async () => {
-    const wrapper = mount(UploadFile);
+    const wrapper = mount(UploadFileComponent);
     window.alert = vi.fn(); // Mock de window.alert
 
     // Simule la sélection d'un fichier avec une mauvaise extension
@@ -58,7 +58,7 @@ describe("UploadFile.vue", () => {
 
   // Test pour vérifier la lecture du fichier et l'émission de l'événement
   it("devrait lire le contenu du fichier et émettre l'événement \"file-uploaded\"", async () => {
-    const wrapper = mount(UploadFile);
+    const wrapper = mount(UploadFileComponent);
     const fileContent = JSON.stringify({ message: "hello world" });
     const file = new File([fileContent], "test.bnote", { type: "text/plain" });
 

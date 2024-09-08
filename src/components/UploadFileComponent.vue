@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: "UploadFileComponent",
   data() {
     return {
       fileInput: null,
