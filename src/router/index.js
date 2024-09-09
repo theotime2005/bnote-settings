@@ -6,4 +6,8 @@ const router = createRouter({
   routes: routes,
 });
 
+router.afterEach((to) => {
+  document.title=`${to.name} | Gestion du B.note`;
+});
+
 export default router;
