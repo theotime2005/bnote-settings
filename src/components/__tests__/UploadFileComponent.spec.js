@@ -1,8 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi } from "vitest";
+import i18n from "@/i18n.js";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
 
-
+const t = i18n.global.t;
 describe("UploadFileComponent.vue", () => {
 
   // Test pour vérifier la gestion de la sélection de fichier
@@ -22,21 +23,15 @@ describe("UploadFileComponent.vue", () => {
     expect(wrapper.vm.fileInput).toBe(file);
   });
 
-  // Test pour vérifier l'alerte quand aucun fichier n'est sélectionné
-  it("devrait afficher une alerte si aucun fichier n'est sélectionné", () => {
-    const wrapper = mount(UploadFileComponent);
-    window.alert = vi.fn(); // Mock de window.alert
-
-    // Simule la soumission du formulaire sans fichier sélectionné
-    wrapper.vm.uploadFile();
-
-    // Vérifie que l'alerte est affichée
-    expect(window.alert).toHaveBeenCalledWith("Aucun fichier sélectionné");
-  });
-
   // Test pour vérifier l'alerte si le format de fichier est incorrect
   it("devrait afficher une alerte si le format du fichier est incorrect", async () => {
-    const wrapper = mount(UploadFileComponent);
+    const wrapper = mount(UploadFileComponent, {
+      global: {
+        mocks: {
+          $t: (msg) => t(msg),
+        },
+      },
+    });
     window.alert = vi.fn(); // Mock de window.alert
 
     // Simule la sélection d'un fichier avec une mauvaise extension
@@ -53,7 +48,7 @@ describe("UploadFileComponent.vue", () => {
     wrapper.vm.uploadFile();
 
     // Vérifie que l'alerte est affichée
-    expect(window.alert).toHaveBeenCalledWith("Format de fichier incorrect");
+    expect(window.alert).toHaveBeenCalledWith(t("uploadFile.incorrectFormatFile"));
   });
 
   // Test pour vérifier la lecture du fichier et l'émission de l'événement

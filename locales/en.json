@@ -1,0 +1,28 @@
+{
+  "homeTitle": "Home",
+  "downloadTitle": "Download page",
+  "settingsTitle": "Settings management",
+  "home": {
+    "message-1": "Welcome to the site dedicated to B.note. On this site, you will find useful resources for B.note, as well as a preference management interface.",
+    "goto-settings": "Goto the management interface"
+  },
+  "download": {
+    "title": "Download B.note",
+    "message-1": "Since version 3.0.0 of B.note, the source code is free and available on <a href='https://github.com/devel-erb/bnote'>GitHub</a>. Download the image below",
+    "eurobrailleTitle": "Eurobraille website",
+    "message2": "The official version of B.note is available on the Eurobraille website. You can download it from the site.",
+    "downloadEurobraille": "Download the version of Eurobraille",
+    "otherTitle": "Other version",
+    "message3": "I provide another version whose source code is available <a href=\"https://github.com/theotime2005/bnote\">Here</a>. You can download it below",
+    "downloadOtherLast": "Download {version}"
+  },
+  "uploadFile": {
+    "incorrectFormatFile": "Incorrect file format",
+    "show": "Show"
+  },
+  "footer": {
+    "message1": "This web application is free of rights. The source code is fully reusable and editable",
+    "code": "See the code on GitHub",
+    "message2": "Your contributions are welcome."
+  }
+}

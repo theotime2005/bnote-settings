@@ -5,9 +5,9 @@ export default {
 </script>
 
 <template>
-  <h1>Accueil</h1>
-  <p>Bienvenu sur le site dédié au B.note. Sur ce site, vous trouverez des ressources utiles au B.note, ainsi qu'une interface de gestion des préférences.</p>
-  <RouterLink to="/settings">Accéder à l'interface de gestion</RouterLink>
+  <h1>{{$t('homeTitle')}}</h1>
+  <p>{{$t('home.message-1')}}</p>
+  <RouterLink to="/settings">{{$t('home.goto-settings')}}</RouterLink>
 </template>
 
 <style scoped>

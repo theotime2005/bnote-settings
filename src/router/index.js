@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import i18n from "@/i18n.js";
 import routes from "@/router/router-list.js";
 
 const router = createRouter({
@@ -6,8 +7,9 @@ const router = createRouter({
   routes: routes,
 });
 
+const t = i18n.global.t;
 router.afterEach((to) => {
-  document.title=`${to.name} | Gestion du B.note`;
+  document.title=`${t(to.name)} | Gestion du B.note`;
 });
 
 export default router;

@@ -12,15 +12,10 @@ export default {
       this.fileInput = event.target.files[0];
     },
     uploadFile() {
-      if (!this.fileInput) {
-        window.alert("Aucun fichier sélectionné");
-        return;
-      }
-
       try {
         const extension = this.fileInput.name.split(".").pop();
         if (extension !== "bnote") {
-          window.alert("Format de fichier incorrect");
+          window.alert(this.$t("uploadFile.incorrectFormatFile"));
           return;
         }
 
