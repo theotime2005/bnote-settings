@@ -1,0 +1,57 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    # Lundi à 00:00 UTC
+    - cron: '0 0 * * 1'
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout du code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Configuration de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      # Installation des dépendances et mise à jour des paquets
+      - name: Install and update npm dependencies
+        run: |
+          npm install
+          npm update
+
+      # Commit les changements dans une nouvelle branche
+      - name: Commit and push updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b update-deps-$(date +'%Y%m%d')
+          git add .
+          git commit -m "Update dependencies"
+          git push origin update-deps-$(date +'%Y%m%d')
+
+      # Créer une Pull Request
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: update-deps-$(date +'%Y%m%d')
+          title: "Update npm dependencies"
+          body: "This PR updates npm dependencies automatically."
+          labels: automatic-update, dependencies
+          assignees: your-github-username
+
+      # Auto Merge la PR si les checks passent
+      - name: Auto Merge Pull Request
+        uses: pascalgn/automerge-action@v0.14.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          merge_method: squash
+          commit_message: "Auto-merge dependencies update"
+          pull_request_review: "approved"
