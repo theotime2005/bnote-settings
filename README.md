@@ -27,7 +27,7 @@ git clone git@github.com:theotime2005/bnote-settings
 
 Une fois dans le dossier du projet, entrez la ligne suivante
 
-````shell
+```shell
 npm install
 ```
 
@@ -64,4 +64,6 @@ npm run lint
 - Vérifier le linting,
 - Ouvrir une Pull Request.
 Si vos modification sont acceptées, la PR sera merged dans le projet et déployée sur le site.
-````
+
+## Server Discord
+Un serveur Discord est joignable pour recevoir toutes les dernières informations à propos de l'évolution du site, ainsi que celle du B.note. Vous pouvez le rejoindre [Par ici](https://discord.gg/V3kd6MMP)
