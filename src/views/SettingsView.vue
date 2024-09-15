@@ -80,7 +80,7 @@ export default {
     <UploadFileComponent ref="upload" @file-uploaded="get_data" />
   </div>
   <div v-if="fileIsImported">
-    <h2>Fichier de préférences</h2>
+    <h2>{{$t('settingsPage.title2')}}</h2>
     <form class="settings" @submit.prevent="save">
       <!-- system -->
       <div id="system">
@@ -146,9 +146,9 @@ export default {
           </div>
         </div>
       </div>
-      <button type="submit">Télécharger le fichier</button>
+      <button type="submit">{{$t('settingsPage.download')}}</button>
     </form>
-    <button type="button" @click="clean_data">Effacer la configuration actuelle</button>
+    <button type="button" @click="clean_data">{{$t('settingsPage.openOther')}}</button>
   </div>
 </template>
 

@@ -16,7 +16,9 @@
     },
     "uploadFile": {
         "incorrectFormatFile": "Incorrect file format",
-        "show": "Show"
+        "show": "Show",
+        "title": "Import file",
+        "select": "Select a file"
     },
     "footer": {
         "message1": "This web application is free of rights. The source code is fully reusable and editable",
@@ -124,12 +126,16 @@
         "title": "Settings B.note management",
         "message": "Welcome to the B.note online settings management interface.",
         "show": "Expand the section",
-        "hide": "Reduce the section"
+        "hide": "Reduce the section",
+        "title2": "Settings file",
+        "download": "Download file",
+        "openOther": "Open an other file"
     },
     "title": "B.note management",
     "languages": {
         "select": "Choose a language",
         "fr": "French",
-        "en": "English"
+        "en": "English",
+        "it": "Italian"
     }
 }

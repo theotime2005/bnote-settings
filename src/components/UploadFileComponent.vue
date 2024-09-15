@@ -42,7 +42,7 @@ export default {
     <form @submit.prevent="uploadFile">
       <label for="select">{{$t('uploadFile.select')}}</label>
       <input type="file" id="select" @change="handleFileUpload" accept=".bnote" required />
-      <button type="submit">Afficher</button>
+      <button type="submit">{{$t('uploadFile.show')}}</button>
     </form>
   </div>
 </template>

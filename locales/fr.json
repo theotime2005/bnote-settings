@@ -3,7 +3,8 @@
   "languages": {
     "select": "Choisir une langue",
     "fr": "Français",
-    "en": "Anglais"
+    "en": "Anglais",
+    "it": "Italien"
   },
   "home": {
     "title": "Accueil",
@@ -131,7 +132,10 @@
   "settingsPage": {
     "title": "Gestion des préférences du B.note",
     "message": "Bienvenu sur l'interface en ligne de gestion des paramètres de B.note.",
+    "title2": "Fichier de préférences",
     "show": "Développer la section",
-    "hide": "Réduire la section"
+    "hide": "Réduire la section",
+    "download": "Télécharger le fichier",
+    "openOther": "Ouvrir un autre fichier"
   }
 }
