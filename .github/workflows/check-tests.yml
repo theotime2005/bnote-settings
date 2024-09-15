@@ -23,3 +23,11 @@ jobs:
 
       - name: Run all tests
         run: npx vitest run
+
+      # Collecter les résultats des tests
+      - name: Store test results (optional)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: ./test-results
