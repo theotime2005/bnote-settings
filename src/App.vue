@@ -6,6 +6,8 @@ import FooterComponent from "@/components/FooterComponent.vue";
 
 <template>
   <NaveBarreComponent/>
-  <RouterView/>
+  <div>
+    <RouterView/>
+  </div>
   <FooterComponent/>
 </template>

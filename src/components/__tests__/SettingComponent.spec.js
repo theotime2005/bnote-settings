@@ -5,7 +5,7 @@ import SettingComponent from "@/components/SettingComponent.vue";
 describe("SettingComponent.vue", () => {
 
   // Test pour l'input checkbox
-  it("devrait rendre une checkbox et émettre l'événement \"setting-change\" lors d'une modification", async () => {
+  it("devrait rendre une checkbox et émettre l'événement 'setting-change' lors d'une modification", async () => {
     const wrapper = mount(SettingComponent, {
       props: {
         name: "Test Checkbox",
@@ -29,7 +29,7 @@ describe("SettingComponent.vue", () => {
   });
 
   // Test pour le dropdown (menu)
-  it("devrait rendre un menu déroulant et émettre l'événement \"setting-change\" lors d'une modification", async () => {
+  it("devrait rendre un menu déroulant et émettre l'événement 'setting-change' lors d'une modification", async () => {
     const wrapper = mount(SettingComponent, {
       props: {
         name: "Test Menu",
@@ -38,9 +38,7 @@ describe("SettingComponent.vue", () => {
       },
       global: {
         mocks: {
-          settings: {
-            settings_value: { option1: "Option 1", option2: "Option 2", option3: "Option 3" },
-          },
+          $t: (msg) => msg,
         },
       },
     });
@@ -60,7 +58,7 @@ describe("SettingComponent.vue", () => {
   });
 
   // Test pour l'input number
-  it("devrait rendre un champ number et émettre l'événement \"setting-change\" lors d'une modification", async () => {
+  it("devrait rendre un champ number et émettre l'événement 'setting-change' lors d'une modification", async () => {
     const wrapper = mount(SettingComponent, {
       props: {
         name: "Test Number",

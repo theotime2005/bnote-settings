@@ -1,17 +1,17 @@
 const routes =  [
   {
     path: "/",
-    name: "homeTitle",
+    name: "home",
     component: () => import("@/views/HomeView.vue"),
   },
   {
     path: "/download",
-    name: "downloadTitle",
+    name: "download",
     component: () => import("@/views/DownloadPageView.vue"),
   },
   {
     path: "/settings",
-    name: "settingsTitle",
+    name: "settingsPage",
     component: () => import("../views/SettingsView.vue"),
   },
 ];

@@ -1,6 +1,6 @@
 <script>
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
-import settings from "@/settings.js";
+import all_settings from "@/settings.js";
 import SettingComponent from "@/components/SettingComponent.vue";
 
 export default {
@@ -13,8 +13,7 @@ export default {
     return {
       fileIsImported: false,
       settingsData: {},
-      all_settings: settings.all_settings,
-      settings_value: settings.settings_value,
+      all_settings: all_settings,
       // menu variables
       display_menu: {
         system: false,
@@ -75,9 +74,9 @@ export default {
 };
 </script>
 <template>
-  <h1>Gestion des préférences du B.note</h1>
+  <h1>{{$t('settingsPage.title')}}</h1>
   <div v-if="!fileIsImported">
-    <p>Bienvenu sur l'interface en ligne de gestion des paramètres de B.note.</p>
+    <p>{{$t('settingsPage.message')}}</p>
     <UploadFileComponent ref="upload" @file-uploaded="get_data" />
   </div>
   <div v-if="fileIsImported">
@@ -85,50 +84,63 @@ export default {
     <form class="settings" @submit.prevent="save">
       <!-- system -->
       <div id="system">
-        <h3>Interface utilisateur</h3>
-        <button type="button" @click="togle_menu('system')">{{display_menu['system'] ? 'Réduir' : 'Afficher'}} la section</button>
+        <h3>{{$t('settingsName.system.title')}}</h3>
+        <button type="button" @click="togle_menu('system')">{{display_menu['system'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
         <div class="setting" v-if="display_menu['system']">
           <SettingComponent v-for="setting in all_settings['system']" :key="setting['id']"
             :setting="setting"
             :setting_value="settingsData['system'][setting['id']]"
-            :name="setting['name']"
+            :name="$t(`settingsName.system.${setting['id']}`)"
             @setting-change="save_new_value('system', setting['id'], $event)"
+          />
+        </div>
+      </div>
+      <!-- Explorer -->
+      <div id="explorer">
+        <h3>{{$t('settingsName.explorer.title')}}</h3>
+        <button type="button" @click="togle_menu('explorer')">{{display_menu['explorer'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['explorer']">
+          <SettingComponent v-for="setting in all_settings['explorer']" :key="setting['id']"
+                            :setting="setting"
+                            :setting_value="settingsData['explorer'][setting['id']]"
+                            :name="$t(`settingsName.explorer.${setting['id']}`)"
+                            @setting-change="save_new_value('explorer', setting['id'], $event)"
           />
         </div>
       </div>
       <!-- editor -->
       <div id="editor">
-        <h3>Éditeur</h3>
-        <button type="button" @click="togle_menu('editor')">{{display_menu['editor'] ? 'Réduir' : 'Afficher'}} la section</button>
+        <h3>{{$t('settingsName.editor.title')}}</h3>
+        <button type="button" @click="togle_menu('editor')">{{display_menu['editor'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
         <div class="setting" v-if="display_menu['editor']">
           <SettingComponent v-for="setting in all_settings['editor']" :key="setting['id']"
             :setting="setting"
             :setting_value="settingsData['editor'][setting['id']]"
-            :name="setting['name']"
+            :name="$t(`settingsName.editor.${setting['id']}`)"
             @setting-change="save_new_value('editor', setting['id'], $event)"
           />
         </div>
       </div>
       <!-- music -->
       <div id="music">
-        <h3>Musique</h3>
-        <button type="button" @click="togle_menu('music')">{{display_menu['music'] ? 'Réduir' : 'Afficher'}} la section</button>
+        <h3>{{$t('settingsName.music.title')}}</h3>
+        <button type="button" @click="togle_menu('music')">{{display_menu['music'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
         <div v-if="display_menu['music']">
-          <h4>musicxml</h4>
+          <h4>{{$t('settingsName.music.musicxml')}}</h4>
           <div class="setting" v-for="setting in all_settings['music_xml']" :key="setting['id']">
             <SettingComponent
               :setting="setting"
               :setting_value="settingsData['music_xml'][setting['id']]"
-              :name="setting['name']"
+              :name="$t(`settingsName.music.${setting['id']}`)"
               @setting-change="save_new_value('music_xml', setting['id'], $event)"
             />
           </div>
-          <h4>bxml</h4>
+          <h4>{{$t('settingsName.music.bxml')}}</h4>
           <div class="setting" v-for="setting in all_settings['music_bxml']" :key="setting['id']">
             <SettingComponent
               :setting="setting"
               :setting_value="settingsData['music_bxml'][setting['id']]"
-              :name="setting['name']"
+              :name="$t(`settingsName.music.${setting['id']}`)"
               @setting-change="save_new_value('music_bxml', setting['id'], $event)"
             />
           </div>

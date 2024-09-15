@@ -1,8 +1,12 @@
 {
-  "homeTitle": "Accueil",
-  "downloadTitle": "Page de téléchargement",
-  "settingsTitle": "Gestion des préférences",
+  "title": "Gestion du B.note",
+  "languages": {
+    "select": "Choisir une langue",
+    "fr": "Français",
+    "en": "Anglais"
+  },
   "home": {
+    "title": "Accueil",
     "message-1": "Bienvenu sur le site dédié au B.note. Sur ce site, vous trouverez des ressources utiles au B.note, ainsi qu'une interface de gestion des préférences.",
     "goto-settings": "Accéder à l'interface de gestion"
   },
@@ -17,6 +21,8 @@
     "downloadOtherLast": "Télécharger {version}"
   },
   "uploadFile": {
+    "title": "Importer un fichier",
+    "select": "Sélectionnez un fichier",
     "incorrectFormatFile": "Format de fichier incorrect",
     "show": "Afficher"
   },
@@ -24,5 +30,108 @@
     "message1": "Cette application web est libre de droit. Le code source est entièrement réutilisable et modifiable",
     "code": "Voir le code sur GitHub",
     "message2": "Vos contribution sont les bienvenues."
+  },
+  "settingsName": {
+    "system": {
+      "title": "Interface utilisateur",
+      "braille_type": "Type de braille",
+      "auto_sync_date": "Synchronisation automatique de la date",
+      "spaces_in_label": "Espaces dans les labels",
+      "shortcuts_visible": "Raccourcis visibles",
+      "app_explorer": "Afficher l'app Explorateur",
+      "app_settings": "Afficher l'app Préférences",
+      "app_agenda": "Afficher l'app Agenda",
+      "app_radio": "Afficher l'app radio",
+      "app_mp3": "Afficher l'app Mp3",
+      "app_timer": "Afficher l'app Chronomètre",
+      "app_translator": "Afficher l'app Traducteur",
+      "app_wikipedia": "Afficher l'app Wikipedia",
+      "app_write_word": "Afficher l'app Ecrire un mot",
+      "app_operation": "Afficher l'app Opération",
+      "app_mines": "Afficher l'app Démineur",
+      "app_mastermind": "Afficher l'app Mastermind",
+      "developer": "Mode développeur"
+    },
+    "explorer": {
+      "title": "explorateur",
+      "empty_bluetooth_shutdown": "Vider le dossier bluetooth à l'extinction",
+      "empty_trash_shutdown": "Vider la corbeille à l'extinction",
+      "number_recent_files": "Nombre de fichiers récents"
+    },
+    "editor": {
+      "title": "Éditeur",
+      "braille_type": "Type de braille",
+      "line_length": "Longueur de ligne",
+      "dot78_visible": "Points 7 et 8 visibles",
+      "cursor_visible": "Curseur visible",
+      "forward_display_mode": "Avance de l'afficheur",
+      "autoscroll": "Défilement automatique"
+    },
+    "math": {
+      "title": "Mathématiques",
+      "angle": "Unité d'angle",
+      "fraction": "Fraction",
+      "precision": "Précision",
+      "format": "Format"
+    },
+    "music": {
+      "title": "Musique",
+      "musicxml": "musicXML",
+      "bxml": "BXML",
+      "edit_mode": "Mode édition",
+      "braille_type": "Type de braille",
+      "notes_dots": "Points des notes",
+      "ascending_chords": "intervalles ascendants",
+      "fingering": "Afficher les doigtés",
+      "clef": "Afficher les clefs",
+      "parts": "Afficher les parties",
+      "measure_b123": "Mesure B123",
+      "measure_number": "Numéro de mesure",
+      "measure_every": "Numéro de mesure tous les",
+      "view": "Vue",
+      "section": "Section",
+      "measures_per_section": "Mesures par section",
+      "words": "Annotations",
+      "credit_words": "Texte hors musique",
+      "lyrics": "Paroles",
+      "karaoke": "Karaoké"
+    }
+  },
+  "settingsValues": {
+    "dot-8": "Braille informatique (8 points)",
+    "grade1": "Braille intégral (6 points",
+    "grade2": "Braille abrégé (6 points)",
+    "main_apps_menu": "Menu principal",
+    "more_apps_menu": "Sous menu plus d'apps",
+    "invisible": "Invisible",
+    "normal": "Normal",
+    "significative": "Significative",
+    "degree": "Degré",
+    "radian": "Radian",
+    "scientific": "Scientifique",
+    "expert": "Expert",
+    "read": "Lecture",
+    "edit": "Édition",
+    "listen": "Écoute",
+    "8_dots": "8 points",
+    "6_dots": "6 points",
+    "6_dots_with_group": "6 points avec groupes",
+    "name": "Nom",
+    "abbreviation": "Abréviation",
+    "by_section": "Par section",
+    "by_part": "Par partie",
+    "total_part": "Partie complète",
+    "system": "Système",
+    "number": "Numéro",
+    "no": "Non",
+    "after_each_note": "Après chaque note",
+    "before_each_section": "Avant chaque section",
+    "after_each_section": "Après chaque section"
+  },
+  "settingsPage": {
+    "title": "Gestion des préférences du B.note",
+    "message": "Bienvenu sur l'interface en ligne de gestion des paramètres de B.note.",
+    "show": "Développer la section",
+    "hide": "Réduire la section"
   }
 }

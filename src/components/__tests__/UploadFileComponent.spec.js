@@ -4,19 +4,26 @@ import i18n from "@/i18n.js";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
 
 const t = i18n.global.t;
+
 describe("UploadFileComponent.vue", () => {
 
   // Test pour vérifier la gestion de la sélection de fichier
   it("devrait gérer correctement la sélection de fichier", async () => {
-    const wrapper = mount(UploadFileComponent);
+    const wrapper = mount(UploadFileComponent, {
+      global: {
+        mocks: {
+          $t: (msg) => t(msg),
+        },
+      },
+    });
 
     // Simule un événement de changement de fichier
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
     const input = wrapper.find("input[type=\"file\"]");
 
     // Simule manuellement l'événement `change`
-    await input.element.dispatchEvent(new Event("change", { bubbles: true }));
     Object.defineProperty(input.element, "files", { value: [file] });
+    await input.trigger("change");
 
     // Vérifie que fileInput a bien reçu le fichier
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
@@ -32,6 +39,7 @@ describe("UploadFileComponent.vue", () => {
         },
       },
     });
+
     window.alert = vi.fn(); // Mock de window.alert
 
     // Simule la sélection d'un fichier avec une mauvaise extension
@@ -39,8 +47,8 @@ describe("UploadFileComponent.vue", () => {
     const input = wrapper.find("input[type=\"file\"]");
 
     // Simule manuellement l'événement `change`
-    await input.element.dispatchEvent(new Event("change", { bubbles: true }));
     Object.defineProperty(input.element, "files", { value: [file] });
+    await input.trigger("change");
 
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
 
@@ -53,7 +61,14 @@ describe("UploadFileComponent.vue", () => {
 
   // Test pour vérifier la lecture du fichier et l'émission de l'événement
   it("devrait lire le contenu du fichier et émettre l'événement \"file-uploaded\"", async () => {
-    const wrapper = mount(UploadFileComponent);
+    const wrapper = mount(UploadFileComponent, {
+      global: {
+        mocks: {
+          $t: (msg) => t(msg),
+        },
+      },
+    });
+
     const fileContent = JSON.stringify({ message: "hello world" });
     const file = new File([fileContent], "test.bnote", { type: "text/plain" });
 
@@ -68,8 +83,8 @@ describe("UploadFileComponent.vue", () => {
 
     // Simule manuellement l'événement `change`
     const input = wrapper.find("input[type=\"file\"]");
-    await input.element.dispatchEvent(new Event("change", { bubbles: true }));
     Object.defineProperty(input.element, "files", { value: [file] });
+    await input.trigger("change");
 
     // Simule la sélection du fichier
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });

@@ -38,9 +38,9 @@ export default {
 
 <template>
   <div>
-    <h2>Importer un fichier</h2>
+    <h2>{{$t('uploadFile.title')}}</h2>
     <form @submit.prevent="uploadFile">
-      <label for="select">Sélectionner un fichier</label>
+      <label for="select">{{$t('uploadFile.select')}}</label>
       <input type="file" id="select" @change="handleFileUpload" accept=".bnote" required />
       <button type="submit">Afficher</button>
     </form>

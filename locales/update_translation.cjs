@@ -22,10 +22,13 @@ const fr = loadFile("fr.json");
 
 function checkAndUpdate(objStart, otherObj) {
   for (let key in objStart) {
-    if (!otherObj.hasOwnProperty.call(key)) {
-      otherObj[key] = objStart[key];
-    } else if (typeof objStart[key] === "object" && !Array.isArray(objStart[key])) {
-      checkAndUpdate(objStart[key], otherObj[key]);
+    if (typeof objStart[key] === "object") {
+      otherObj[key] = checkAndUpdate(objStart[key], otherObj[key] || {});
+    } else {
+      if (!otherObj[key]) {
+        console.log(`New key found: ${key}`);
+        otherObj[key] = `*${objStart[key]}`;
+      }
     }
   }
   return otherObj;
