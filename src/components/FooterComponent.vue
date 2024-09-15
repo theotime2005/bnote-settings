@@ -1,15 +1,19 @@
 <script>
+import LanguageComponent from "@/components/LanguageComponent.vue";
+
 export default {
   name: "FooterComponent",
+  components: { LanguageComponent },
 };
 </script>
 
 <template>
   <footer>
-    <p>Cette application web est libre de droit. Le code source est entièrement réutilisable et modifiable</p>
-    <a href="https://github.com/theotime2005/bnote-settings">Voir le code sur GitHub</a>
-    <p>Vos contribution sont les bienvenues.</p>
+    <p>{{$t('footer.message1')}}</p>
+    <a href="https://github.com/theotime2005/bnote-settings">{{$t('footer.code')}}</a>
+    <p>{{$t('footer.message2')}}</p>
   </footer>
+  <LanguageComponent/>
 </template>
 
 <style scoped>

@@ -1,5 +1,4 @@
 <script>
-import settings from "@/settings.js";
 
 export default {
   name: "SettingComponent",
@@ -18,7 +17,6 @@ export default {
   },
   data() {
     return {
-      settings_value: settings.settings_value,
       settingValue: this.setting_value,
     };
   },
@@ -57,7 +55,7 @@ export default {
         :key="option"
         :value="option"
       >
-        {{ settings_value[option] }}
+        {{ $t(`settingsValues.${option}`) }}
       </option>
     </select>
   </div>
