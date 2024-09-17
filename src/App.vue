@@ -6,7 +6,7 @@ import FooterComponent from "@/components/FooterComponent.vue";
 
 <template>
   <NaveBarreComponent/>
-  <div>
+  <div class="flex flex-col flex-grow overflow-y-scroll">
     <RouterView/>
   </div>
   <FooterComponent/>
