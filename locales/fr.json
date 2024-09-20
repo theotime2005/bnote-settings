@@ -96,6 +96,29 @@
       "credit_words": "Texte hors musique",
       "lyrics": "Paroles",
       "karaoke": "Karaoké"
+    },
+    "speech": {
+      "title": "Synthèse",
+      "volume_headphone": "Volume des écouteurs",
+      "volume_hp": "Volume des haut-parleurs",
+      "speed": "Vitesse",
+      "synthesis": "Synthétiseur"
+    },
+    "radio": {
+      "title": "Audio",
+      "volume_headphone": "Volume des écouteurs",
+        "volume_hp": "Volume des haut-parleurs"
+    },
+    "agenda": {
+      "title": "Agenda",
+      "default_presentation": "Présentation par défaut",
+      "remember": "Rappeler les événements à faire"
+    },
+    "braille_learning": {
+      "title": "Ecrire mot et opération",
+      "use_vocal": "Utiliser la synthèse vocal",
+      "keep_spaces": "Conserver les espaces",
+      "write_all": "Tout écrire"
     }
   },
   "settingsValues": {
@@ -127,7 +150,21 @@
     "no": "Non",
     "after_each_note": "Après chaque note",
     "before_each_section": "Avant chaque section",
-    "after_each_section": "Après chaque section"
+    "after_each_section": "Après chaque section",
+    "picotts": "Picots",
+    "mbrola": "Mbrola",
+    "cerence": "Cerence",
+    "espeak": "Espeak",
+    "standard": "Standard",
+    "not_done": "Non fait",
+    "today": "Aujourd'hui",
+    "calendar": "Calendrier",
+    "no": "Jamais",
+    "same": "Le jour même",
+    "tomorrow": "Le jour suivant",
+    "same_tomorrow": "Le jour même et le suivant",
+    "auto": "Automatiquement",
+    "ask": "Sur demande"
   },
   "settingsPage": {
     "title": "Gestion des préférences du B.note",

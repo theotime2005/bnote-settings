@@ -21,6 +21,10 @@ export default {
         explorer: false,
         editor: false,
         music: false,
+        speech: false,
+        radio: false,
+        agenda: false,
+        braille_learning: false,
       },
     };
   },
@@ -165,6 +169,58 @@ export default {
               @setting-change="save_new_value('music_bxml', setting['id'], $event)"
             />
           </div>
+        </div>
+      </div>
+      <!-- Musique -->
+      <div id="speech">
+        <h3>{{$t('settingsName.speech.title')}}</h3>
+        <button type="button" @click="togle_menu('speech')">{{display_menu['speech'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['speech']">
+          <SettingComponent v-for="setting in all_settings['speech']" :key="setting['id']"
+                            :setting="setting"
+                            :setting_value="settingsData['speech'][setting['id']]"
+                            :name="$t(`settingsName.speech.${setting['id']}`)"
+                            @setting-change="save_new_value('speech', setting['id'], $event)"
+          />
+        </div>
+      </div>
+      <!-- Audio -->
+      <div id="Audio">
+        <h3>{{$t('settingsName.radio.title')}}</h3>
+        <button type="button" @click="togle_menu('radio')">{{display_menu['radio'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['radio']">
+          <SettingComponent v-for="setting in all_settings['radio']" :key="setting['id']"
+                            :setting="setting"
+                            :setting_value="settingsData['radio'][setting['id']]"
+                            :name="$t(`settingsName.radio.${setting['id']}`)"
+                            @setting-change="save_new_value('radio', setting['id'], $event)"
+          />
+        </div>
+      </div>
+      <!-- Agenda -->
+      <div id="agenda">
+        <h3>{{$t('settingsName.agenda.title')}}</h3>
+        <button type="button" @click="togle_menu('agenda')">{{display_menu['agenda'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['agenda']">
+          <SettingComponent v-for="setting in all_settings['agenda']" :key="setting['id']"
+                            :setting="setting"
+                            :setting_value="settingsData['agenda'][setting['id']]"
+                            :name="$t(`settingsName.agenda.${setting['id']}`)"
+                            @setting-change="save_new_value('agenda', setting['id'], $event)"
+          />
+        </div>
+      </div>
+      <!-- Braille Learning -->
+      <div id="braille_learning">
+        <h3>{{$t('settingsName.braille_learning.title')}}</h3>
+        <button type="button" @click="togle_menu('braille_learning')">{{display_menu['braille_learning'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['braille_learning']">
+          <SettingComponent v-for="setting in all_settings['braille_learning']" :key="setting['id']"
+                            :setting="setting"
+                            :setting_value="settingsData['braille_learning'][setting['id']]"
+                            :name="$t(`settingsName.braille_learning.${setting['id']}`)"
+                            @setting-change="save_new_value('braille_learning', setting['id'], $event)"
+          />
         </div>
       </div>
       <button type="submit">{{$t('settingsPage.download')}}</button>
