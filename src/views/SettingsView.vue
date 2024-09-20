@@ -41,7 +41,7 @@ export default {
       // Check data and complete if there are not all values
       for (let section in this.all_settings) {
         for (let setting in this.all_settings[section]) {
-          if (this.settingsData[section][setting]===undefined) {
+          if (this.settingsData[section][setting] === undefined) {
             console.log("complete", section, setting);
             this.settingsData[section][setting] = this.all_settings[section][setting].default;
           }
@@ -66,94 +66,111 @@ export default {
       const link = document.createElement("a");
       link.href = url_object;
       const file_name = `settings ${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}.bnote`;
-      link.download=file_name;
+      link.download = file_name;
       link.click();
       URL.revokeObjectURL(url_object);
     },
+    // Méthode pour fermer tous les menus
+    closeAllMenus() {
+      for (let key in this.display_menu) {
+        this.display_menu[key] = false;
+      }
+    },
+    // Gestion de l'événement de touche "Escape"
+    handleKeyPress(event) {
+      if (event.key === "Escape") {
+        this.closeAllMenus();
+      }
+    },
+  },
+  mounted() {
+    // Ajoute l'écouteur pour détecter la touche "Escape"
+    window.addEventListener("keydown", this.handleKeyPress);
+  },
+  beforeUnmount() {
+    // Retire l'écouteur lorsqu'on quitte le composant
+    window.removeEventListener("keydown", this.handleKeyPress);
   },
 };
 </script>
 
 <template>
-  <div class="p-3">
-    <h1 class="text-3xl mb-3">{{$t('settingsPage.title')}}</h1>
-    <div v-if="!fileIsImported">
-      <p class="mb-5">{{$t('settingsPage.message')}}</p>
-      <UploadFileComponent ref="upload" @file-uploaded="get_data" />
-    </div>
-
-    <div v-if="fileIsImported" class="mt-5 w-full p-2 flex flex-col items-center justify-center gap-5">
-      <h2 class="text-2xl">{{$t('settingsPage.title2')}}</h2>
-      <form class="w-fit bg-white/10 rounded settings p-5 flex flex-col items-center justify-center gap-10" @submit.prevent="save">
-        <!-- system -->
-        <div id="system">
-          <h3>{{$t('settingsName.system.title')}}</h3>
-          <button class="w-fit p-2 rounded mt-2 bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200" type="button" @click="togle_menu('system')">{{display_menu['system'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
-          <div class="setting" v-if="display_menu['system']">
-            <SettingComponent v-for="setting in all_settings['system']" :key="setting['id']"
+  <h1>{{$t('settingsPage.title')}}</h1>
+  <div v-if="!fileIsImported">
+    <p>{{$t('settingsPage.message')}}</p>
+    <UploadFileComponent ref="upload" @file-uploaded="get_data" />
+  </div>
+  <div v-if="fileIsImported">
+    <h2>{{$t('settingsPage.title2')}}</h2>
+    <form class="settings" @submit.prevent="save">
+      <!-- system -->
+      <div id="system">
+        <h3>{{$t('settingsName.system.title')}}</h3>
+        <button type="button" @click="togle_menu('system')">{{display_menu['system'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['system']">
+          <SettingComponent v-for="setting in all_settings['system']" :key="setting['id']"
             :setting="setting"
             :setting_value="settingsData['system'][setting['id']]"
             :name="$t(`settingsName.system.${setting['id']}`)"
             @setting-change="save_new_value('system', setting['id'], $event)"
-            />
-          </div>
+          />
         </div>
-        <!-- Explorer -->
-        <div id="explorer">
-          <h3>{{$t('settingsName.explorer.title')}}</h3>
-          <button class="w-fit p-2 rounded mt-2 bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200" type="button" @click="togle_menu('explorer')">{{display_menu['explorer'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
-          <div class="setting" v-if="display_menu['explorer']">
-            <SettingComponent v-for="setting in all_settings['explorer']" :key="setting['id']"
-            :setting="setting"
-            :setting_value="settingsData['explorer'][setting['id']]"
-            :name="$t(`settingsName.explorer.${setting['id']}`)"
-            @setting-change="save_new_value('explorer', setting['id'], $event)"
-            />
-          </div>
+      </div>
+      <!-- Explorer -->
+      <div id="explorer">
+        <h3>{{$t('settingsName.explorer.title')}}</h3>
+        <button type="button" @click="togle_menu('explorer')">{{display_menu['explorer'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['explorer']">
+          <SettingComponent v-for="setting in all_settings['explorer']" :key="setting['id']"
+                            :setting="setting"
+                            :setting_value="settingsData['explorer'][setting['id']]"
+                            :name="$t(`settingsName.explorer.${setting['id']}`)"
+                            @setting-change="save_new_value('explorer', setting['id'], $event)"
+          />
         </div>
-        <!-- editor -->
-        <div id="editor">
-          <h3>{{$t('settingsName.editor.title')}}</h3>
-          <button class="w-fit p-2 rounded mt-2 bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200" type="button" @click="togle_menu('editor')">{{display_menu['editor'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
-          <div class="setting" v-if="display_menu['editor']">
-            <SettingComponent v-for="setting in all_settings['editor']" :key="setting['id']"
+      </div>
+      <!-- editor -->
+      <div id="editor">
+        <h3>{{$t('settingsName.editor.title')}}</h3>
+        <button type="button" @click="togle_menu('editor')">{{display_menu['editor'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div class="setting" v-if="display_menu['editor']">
+          <SettingComponent v-for="setting in all_settings['editor']" :key="setting['id']"
             :setting="setting"
             :setting_value="settingsData['editor'][setting['id']]"
             :name="$t(`settingsName.editor.${setting['id']}`)"
             @setting-change="save_new_value('editor', setting['id'], $event)"
-            />
-          </div>
+          />
         </div>
-        <!-- music -->
-        <div id="music">
-          <h3>{{$t('settingsName.music.title')}}</h3>
-          <button class="w-fit p-2 rounded mt-2 bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200" type="button" @click="togle_menu('music')">{{display_menu['music'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
-          <div v-if="display_menu['music']">
-            <h4>{{$t('settingsName.music.musicxml')}}</h4>
-            <div class="setting" v-for="setting in all_settings['music_xml']" :key="setting['id']">
-              <SettingComponent
+      </div>
+      <!-- music -->
+      <div id="music">
+        <h3>{{$t('settingsName.music.title')}}</h3>
+        <button type="button" @click="togle_menu('music')">{{display_menu['music'] ? $t('settingsPage.hide') : $t('settingsPage.show')}}</button>
+        <div v-if="display_menu['music']">
+          <h4>{{$t('settingsName.music.musicxml')}}</h4>
+          <div class="setting" v-for="setting in all_settings['music_xml']" :key="setting['id']">
+            <SettingComponent
               :setting="setting"
               :setting_value="settingsData['music_xml'][setting['id']]"
               :name="$t(`settingsName.music.${setting['id']}`)"
               @setting-change="save_new_value('music_xml', setting['id'], $event)"
-              />
-            </div>
-            <h4>{{$t('settingsName.music.bxml')}}</h4>
-            <div class="setting" v-for="setting in all_settings['music_bxml']" :key="setting['id']">
-              <SettingComponent
+            />
+          </div>
+          <h4>{{$t('settingsName.music.bxml')}}</h4>
+          <div class="setting" v-for="setting in all_settings['music_bxml']" :key="setting['id']">
+            <SettingComponent
               :setting="setting"
               :setting_value="settingsData['music_bxml'][setting['id']]"
               :name="$t(`settingsName.music.${setting['id']}`)"
               @setting-change="save_new_value('music_bxml', setting['id'], $event)"
-              />
-            </div>
+            />
           </div>
         </div>
-        <button class="w-full p-2 rounded mt-2 bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200" type="submit">{{$t('settingsPage.download')}}</button>
-      </form>
-      <button class="w-fit p-2 rounded bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200" type="button" @click="clean_data">{{$t('settingsPage.openOther')}}</button>
-    </div>
+      </div>
+      <button type="submit">{{$t('settingsPage.download')}}</button>
+    </form>
+    <button type="button" @click="clean_data">{{$t('settingsPage.openOther')}}</button>
   </div>
-  </template>
+</template>
 
 <style scoped></style>
