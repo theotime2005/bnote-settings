@@ -96,6 +96,29 @@
             "credit_words": "Testo fuori dalla musica",
             "lyrics": "Testi",
             "karaoke": "Karaoke"
+        },
+        "speech": {
+            "title": "Sintesi",
+            "volume_headphone": "Volume delle cuffie",
+            "volume_hp": "Volume degli altoparlanti",
+            "speed": "Velocità",
+            "synthesis": "Sintetizzatore"
+        },
+        "radio": {
+            "title": "Audio",
+            "volume_headphone": "Volume delle cuffie",
+            "volume_hp": "Volume degli altoparlanti"
+        },
+        "agenda": {
+            "title": "Agenda",
+            "default_presentation": "Presentazione di default",
+            "remember": "Ricordare gli eventi da fare"
+        },
+        "braille_learning": {
+            "title": "Scrivere parola e operazione",
+            "use_vocal": "Utilizzare la sintesi vocale",
+            "keep_spaces": "Conservare gli spazi",
+            "write_all": "Scrivere tutto"
         }
     },
     "settingsValues": {
@@ -127,7 +150,20 @@
         "no": "No",
         "after_each_note": "Dopo ogni nota",
         "before_each_section": "Prima di ogni sezione",
-        "after_each_section": "Dopo ogni sezione"
+        "after_each_section": "Dopo ogni sezione",
+        "picotts": "Picots",
+        "mbrola": "Mbrola",
+        "cerence": "Cerence",
+        "espeak": "Espeak",
+        "standard": "Standard",
+        "not_done": "Non fatto",
+        "today": "Oggi",
+        "calendar": "Calendario",
+        "same": "Il giorno stesso",
+        "tomorrow": "Il giorno dopo",
+        "same_tomorrow": "Il giorno stesso e il giorno successivo",
+        "auto": "Automaticamente",
+        "ask": "Su richiesta"
     },
     "settingsPage": {
         "title": "Gestione delle preferenze del B.note",
