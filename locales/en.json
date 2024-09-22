@@ -89,6 +89,29 @@
             "credit_words": "Credit words",
             "lyrics": "Lyrics",
             "karaoke": "Karaoke"
+        },
+        "speech": {
+            "title": "Synthesis",
+            "volume_headphone": "Headphone volume",
+            "volume_hp": "Speaker volume",
+            "speed": "Speed",
+            "synthesis": "Synthesizer"
+        },
+        "radio": {
+            "title": "Audio",
+            "volume_headphone": "Headphone volume",
+            "volume_hp": "Speaker volume"
+        },
+        "agenda": {
+            "title": "Agenda",
+            "default_presentation": "Default presentation",
+            "remember": "Remind the events to do"
+        },
+        "braille_learning": {
+            "title": "Write word and operation",
+            "use_vocal": "Use voice synthesis",
+            "keep_spaces": "Preserve the spaces",
+            "write_all": "Write everything"
         }
     },
     "settingsValues": {
@@ -120,7 +143,20 @@
         "no": "No",
         "after_each_note": "After each note",
         "before_each_section": "Before each section",
-        "after_each_section": "After each section"
+        "after_each_section": "After each section",
+        "picotts": "Picots",
+        "mbrola": "Mbrola",
+        "cerence": "Cerence",
+        "espeak": "Espeak",
+        "standard": "Standard",
+        "not_done": "Not done",
+        "today": "Today",
+        "calendar": "Calendar",
+        "same": "The same day",
+        "tomorrow": "The next day",
+        "same_tomorrow": "The same day and the next",
+        "auto": "Automatically",
+        "ask": "On request"
     },
     "settingsPage": {
         "title": "Settings B.note management",

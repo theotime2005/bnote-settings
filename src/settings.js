@@ -374,6 +374,83 @@ const all_settings = {
       default: true,
     },
   },
+  speech: {
+    volume_headphone: {
+      id: "volume_headphone",
+      type: "number",
+      min: 0,
+      max: 100,
+      default: 50,
+    },
+    volume_hp: {
+      id: "volume_hp",
+      type: "number",
+      min: 0,
+      max: 100,
+      default: 50,
+    },
+    speed: {
+      id: "speed",
+      type: "number",
+      min: 40,
+      max: 240,
+      default :100,
+    },
+    synthesis: {
+      id: "synthesis",
+      type: "menu",
+      values: ["picotts", "mbrola", "espeak", "cerence"],
+      default: "cerence",
+    },
+  },
+  radio: {
+    volume_headphone: {
+      id: "volume_headphone",
+      type: "number",
+      min: 0,
+      max: 100,
+      default: 50,
+    },
+    volume_hp: {
+      id: "volume_hp",
+      type: "number",
+      min: 0,
+      max: 100,
+      default: 50,
+    },
+  },
+  agenda: {
+    default_presentation: {
+      id: "default_presentation",
+      type: "menu",
+      values: ["standard", "not_done", "today", "calendar"],
+      default: "standard",
+    },
+    remember: {
+      id: "remember",
+      type: "menu",
+      values: ["no", "same", "tomorrow", "same_tomorrow"],
+      default: "no",
+    },
+  },
+  braille_learning: {
+    use_vocal: {
+      id: "use_vocal",
+      type: "menu",
+      values: ["auto", "ask", "no"],
+      default: "auto",
+    },
+    keep_spaces: {
+      id: "keep_spaces",
+      type: "checkbox",
+      default: false,
+    },
+    write_all: {
+      id: "write_all",
+      type: "checkbox",
+      default: false,
+    },
+  },
 };
 
 export default all_settings;
