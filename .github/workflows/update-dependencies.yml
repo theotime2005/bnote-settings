@@ -1,57 +1,45 @@
-name: Update Dependencies
+name: Update Node.js Dependencies
 
+# Déclenchement à chaque push sur la branche main et chaque lundi à 8h00
 on:
+  push:
+    branches:
+      - main
   schedule:
-    # Lundi à 00:00 UTC
-    - cron: '0 0 * * 1'
+    - cron: '0 8 * * MON'  # Tous les lundis à 08h00 UTC
 
 jobs:
-  update-deps:
+  update-dependencies:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout du code
+      # Utilisation de la dernière version de checkout et node
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Configuration de Node.js
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 'latest'
+          node-version: 'node16' # Remplacer par la version de node souhaitée (ex: node18)
 
-      # Installation des dépendances et mise à jour des paquets
-      - name: Install and update npm dependencies
+      # Installation des dépendances
+      - name: Install dependencies
+        run: npm install
+
+      # Mise à jour des dépendances
+      - name: Update dependencies
+        run: npm update
+
+      # Si tu veux créer un commit après la mise à jour
+      - name: Commit updated dependencies
         run: |
-          npm install
-          npm update
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json package.json
+          git commit -m "Update dependencies" || echo "No changes to commit"
 
-      # Commit les changements dans une nouvelle branche
-      - name: Commit and push updates
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b update-deps-$(date +'%Y%m%d')
-          git add .
-          git commit -m "Update dependencies"
-          git push origin update-deps-$(date +'%Y%m%d')
-
-      # Créer une Pull Request
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          branch: update-deps-$(date +'%Y%m%d')
-          title: "Update npm dependencies"
-          body: "This PR updates npm dependencies automatically."
-          labels: automatic-update, dependencies
-          assignees: your-github-username
-
-      # Auto Merge la PR si les checks passent
-      - name: Auto Merge Pull Request
-        uses: pascalgn/automerge-action@v0.14.3
+      # Push des changements avec le GITHUB_TOKEN
+      - name: Push changes
+        run: git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          merge_method: squash
-          commit_message: "Auto-merge dependencies update"
-          pull_request_review: "approved"
