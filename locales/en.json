@@ -165,7 +165,8 @@
         "hide": "Reduce the section",
         "title2": "Settings file",
         "download": "Download file",
-        "openOther": "Open an other file"
+        "openOther": "Open an other file",
+        "create": "Show the default model"
     },
     "title": "B.note management",
     "languages": {

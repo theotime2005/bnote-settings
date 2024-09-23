@@ -173,6 +173,7 @@
     "show": "Développer la section",
     "hide": "Réduire la section",
     "download": "Télécharger le fichier",
-    "openOther": "Ouvrir un autre fichier"
+    "openOther": "Ouvrir un autre fichier",
+    "create": "Afficher le modèle par défaut"
   }
 }

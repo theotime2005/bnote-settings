@@ -52,6 +52,17 @@ export default {
         }
       }
     },
+    createBasicData() {
+      const data = {};
+      for (let section in this.all_settings) {
+        data[section] = {};
+        for (let setting in this.all_settings[section]) {
+          data[section][setting] = this.all_settings[section][setting].default;
+        }
+      }
+      this.settingsData=data;
+      this.fileIsImported = true;
+    },
     togle_menu(key) {
       this.display_menu[key] = !this.display_menu[key];
     },
@@ -103,6 +114,8 @@ export default {
   <div v-if="!fileIsImported">
     <p>{{$t('settingsPage.message')}}</p>
     <UploadFileComponent ref="upload" @file-uploaded="get_data" />
+    <hr/>
+    <button type="button" @click="createBasicData">{{$t('settingsPage.create')}}</button>
   </div>
   <div v-if="fileIsImported">
     <h2>{{$t('settingsPage.title2')}}</h2>
