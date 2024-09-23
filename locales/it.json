@@ -172,6 +172,7 @@
         "hide": "Riduci la sezione",
         "title2": "File delle preferenze",
         "download": "Scaricare il file",
-        "openOther": "Aprire un altro file"
+        "openOther": "Aprire un altro file",
+        "create": "Visualizzare il modello predefinito"
     }
 }
