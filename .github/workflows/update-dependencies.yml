@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 'node16' # Remplacer par la version de node souhaitée (ex: node18)
+          node-version: 'latest'
 
       # Installation des dépendances
       - name: Install dependencies
@@ -35,11 +35,8 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add package-lock.json package.json
-          git commit -m "Update dependencies" || echo "No changes to commit"
-
-      # Push des changements avec le GITHUB_TOKEN
-      - name: Push changes
-        run: git push
+          git add package.json package-lock.json
+          git commit -m "Bump version to ${{ env.bump_type }}"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
