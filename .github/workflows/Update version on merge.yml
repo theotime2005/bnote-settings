@@ -6,24 +6,24 @@ on:
 
 jobs:
   update-version:
-    if: github.event.pull_request.merged == true
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 'latest' # Spécifiez la version de Node.js que vous utilisez
+          node-version: 'latest'
 
       - name: Determine version bump
         id: version_bump
         run: |
-          if [[ "${{ github.event.pull_request.head.ref }}" == "[BUGFIX]"* ]]; then
+          if [ "${{ github.event.pull_request.title }}" == "[BUGFIX]"* ]; then
             echo "bump_type=minor" >> $GITHUB_ENV
-          elif [[ "${{ github.event.pull_request.head.ref }}" == "[FEATURE]"* ]]; then
+          elif [ "${{ github.event.pull_request.title }}" == "[FEATURE]"* ]; then
             echo "bump_type=major" >> $GITHUB_ENV
           else
             echo "bump_type=none" >> $GITHUB_ENV
@@ -38,8 +38,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add package.json package-lock.json
-          git commit -m "Bump version to ${{ env.bump_type }}"
-          git push
+          git push origin HEAD:main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
