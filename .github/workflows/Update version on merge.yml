@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # Spécifiez la version de Node.js que vous utilisez
+          node-version: 'latest' # Spécifiez la version de Node.js que vous utilisez
 
       - name: Determine version bump
         id: version_bump
@@ -40,6 +40,6 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add package.json package-lock.json
           git commit -m "Bump version to ${{ env.bump_type }}"
-          git push origin main
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
