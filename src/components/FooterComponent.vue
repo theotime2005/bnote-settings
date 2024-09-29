@@ -1,9 +1,15 @@
 <script>
 import LanguageComponent from "@/components/LanguageComponent.vue";
+import packageInfo from "../../package.json";
 
 export default {
   name: "FooterComponent",
   components: { LanguageComponent },
+  data() {
+    return {
+      version: packageInfo.version,
+    };
+  },
 };
 </script>
 <template>
@@ -16,6 +22,7 @@ export default {
     </div>
     <LanguageComponent/>
     <a class="text-green-400 hover:text-green-300 hover:underline transition-all duration-200" href="https://github.com/theotime2005/bnote-settings">{{$t('footer.code')}}</a>
+    <p>{{$t('footer.version', {version: version})}}</p>
   </footer>
 </template>
 

@@ -30,7 +30,8 @@
     "footer": {
         "message1": "Questa applicazione web è libera da diritti. Il codice sorgente è completamente riutilizzabile e modificabile",
         "code": "Vedi il codice su GitHub",
-        "message2": "I tuoi contributi sono benvenuti."
+        "message2": "I tuoi contributi sono benvenuti.",
+        "version": "Versione : {version}"
     },
     "settingsName": {
         "system": {
