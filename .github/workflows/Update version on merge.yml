@@ -1,0 +1,45 @@
+name: Update Version on Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  update-version:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Spécifiez la version de Node.js que vous utilisez
+
+      - name: Determine version bump
+        id: version_bump
+        run: |
+          if [[ "${{ github.event.pull_request.head.ref }}" == "[BUGFIX]"* ]]; then
+            echo "bump_type=minor" >> $GITHUB_ENV
+          elif [[ "${{ github.event.pull_request.head.ref }}" == "[FEATURE]"* ]]; then
+            echo "bump_type=major" >> $GITHUB_ENV
+          else
+            echo "bump_type=none" >> $GITHUB_ENV
+          fi
+
+      - name: Bump version
+        if: env.bump_type != 'none'
+        run: npm version ${{ env.bump_type }}
+
+      - name: Commit and push changes
+        if: env.bump_type != 'none'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "Bump version to ${{ env.bump_type }}"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

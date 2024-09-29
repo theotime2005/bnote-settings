@@ -23,7 +23,8 @@
     "footer": {
         "message1": "This web application is free of rights. The source code is fully reusable and editable",
         "code": "See the code on GitHub",
-        "message2": "Your contributions are welcome."
+        "message2": "Your contributions are welcome.",
+        "version": "Version : {version}"
     },
     "settingsName": {
         "system": {
