@@ -15,7 +15,7 @@ jobs:
     steps:
       # Utilisation de la dernière version de checkout et node
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -30,13 +30,18 @@ jobs:
       - name: Update dependencies
         run: npm update
 
-      # Si tu veux créer un commit après la mise à jour
-      - name: Commit updated dependencies
+      # Vérification des changements dans package.json ou package-lock.json
+      - name: Check for changes
+        run: git diff --exit-code package.json package-lock.json || echo "Changes found"
+
+      # Si des modifications sont détectées, les committer et les pousser
+      - name: Commit and push changes
+        if: success() && steps.check-for-changes.outcome != 'success'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add package.json package-lock.json
-          git commit -m "Bump version to ${{ env.bump_type }}"
+          git commit -m "Update dependencies"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
