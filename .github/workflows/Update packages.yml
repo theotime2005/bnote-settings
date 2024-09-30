@@ -1,8 +1,11 @@
 name: Update packages.yml
+
 on:
   push:
     branches:
-      - test-action
+      - main
+    schedule:
+        - cron: '0 8 * * MON'
 
 jobs:
   nodejs:
@@ -23,7 +26,8 @@ jobs:
           git add package.json package-lock.json
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update packages"
+          commit_date=date
+          git commit -m "Update packages $commit_date"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
