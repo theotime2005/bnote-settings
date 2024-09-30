@@ -30,4 +30,4 @@ jobs:
           git commit -m "Update packages $commit_date"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
