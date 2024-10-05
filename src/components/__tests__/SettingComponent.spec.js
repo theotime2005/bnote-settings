@@ -9,6 +9,7 @@ describe("SettingComponent.vue", () => {
     const wrapper = mount(SettingComponent, {
       props: {
         name: "Test Checkbox",
+        label_id: "category.checkbox",
         setting: { type: "checkbox" },
         setting_value: true,
       },
@@ -33,6 +34,7 @@ describe("SettingComponent.vue", () => {
     const wrapper = mount(SettingComponent, {
       props: {
         name: "Test Menu",
+        label_id: "category.dropdownmenu",
         setting: { type: "menu", values: ["option1", "option2", "option3"] },
         setting_value: "option1",
       },
@@ -62,6 +64,7 @@ describe("SettingComponent.vue", () => {
     const wrapper = mount(SettingComponent, {
       props: {
         name: "Test Number",
+        label_id: "category.editbox",
         setting: { type: "number", min: 1, max: 10 },
         setting_value: 5,
       },
@@ -79,5 +82,17 @@ describe("SettingComponent.vue", () => {
 
     // Vérifie que l'événement 'setting-change' a été émis
     expect(wrapper.emitted("setting-change")[0]).toEqual([7]);
+  });
+
+  it("should Doit afficher le for du label passé en prop", () => {
+    const wrapper = mount(SettingComponent, {
+      props: {
+        name: "Test Checkbox",
+        label_id: "category.checkbox",
+        setting: { type: "checkbox" },
+        setting_value: true,
+      },
+    });
+    expect(wrapper.find("label").attributes("for")).toBe("category.checkbox");
   });
 });

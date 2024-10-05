@@ -7,6 +7,10 @@ export default {
       type: String,
       required: true,
     },
+    label_id: {
+      type: String,
+      required: true,
+    },
     setting: {
       type: Object,
       required: true,
@@ -25,28 +29,29 @@ export default {
       this.$emit("setting-change", this.settingValue);
     },
   },
+  emits: ["setting-change"],
 };
 </script>
 
 <template>
+  <label :for="label_id">{{name}}</label>
   <!-- Checkbox -->
-  <div v-if="setting.type === 'checkbox'">
-    <label :for="name">{{ name }}</label>
-    <input
-      type="checkbox"
-      :id="name"
-      :checked="setting_value"
-      @change="updateSetting"
-      v-model="settingValue"
-    />
-  </div>
+  <input
+    v-if="setting.type === 'checkbox'"
+    type="checkbox"
+    :id="label_id"
+    :name="name"
+    :checked="setting_value"
+    @change="updateSetting"
+    v-model="settingValue"
+  />
 
   <!-- Dropdown menu -->
-  <div v-else-if="setting.type === 'menu'">
-    <label :for="name">{{ name }}</label>
-    <select
-      :id="name"
+  <select
+      v-else-if="setting.type === 'menu'"
+      :id="label_id"
       :value="setting_value"
+      :name="name"
       @change="updateSetting"
       v-model="settingValue"
     >
@@ -54,25 +59,24 @@ export default {
         v-for="option in setting.values"
         :key="option"
         :value="option"
+        :name="option"
       >
         {{ $t(`settingsValues.${option}`) }}
       </option>
     </select>
-  </div>
 
   <!-- Number input -->
-  <div v-else-if="setting.type === 'number'">
-    <label :for="name">{{ name }}</label>
-    <input
-      type="number"
-      :id="name"
-      :min="setting.min"
-      :max="setting.max"
-      :value="setting_value"
-      @input="updateSetting"
-      v-model="settingValue"
-    />
-  </div>
+  <input
+    v-else-if="setting.type === 'number'"
+    type="number"
+    :id="label_id"
+    :name="name"
+    :min="setting.min"
+    :max="setting.max"
+    :value="setting_value"
+    @input="updateSetting"
+    v-model="settingValue"
+  />
 </template>
 
 <style scoped>
