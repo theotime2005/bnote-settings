@@ -15,9 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      uses: actions/checkout@v4.2.0
-      with:
-        token: ${{ secrets.ADMIN_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v4.2.0
+        with:
+          token: ${{ secrets.ADMIN_TOKEN }}
 
       - name: Switch to the main branch
         run: git checkout main
