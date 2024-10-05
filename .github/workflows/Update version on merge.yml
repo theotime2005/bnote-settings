@@ -31,8 +31,10 @@ jobs:
         id: version_bump
         run: |
           if [ "${{ github.event.pull_request.title }}" == "[BUGFIX]"* ]; then
-            echo "bump_type=minor" >> $GITHUB_ENV
+            echo "bump_type=patch" >> $GITHUB_ENV
           elif [ "${{ github.event.pull_request.title }}" == "[FEATURE]"* ]; then
+            echo "bump_type=minor" >> $GITHUB_ENV
+          elif [ "${{ github.event.pull_request.title }}" == "[NEWFEATURE]"* ]; then
             echo "bump_type=major" >> $GITHUB_ENV
           else
             echo "bump_type=none" >> $GITHUB_ENV
