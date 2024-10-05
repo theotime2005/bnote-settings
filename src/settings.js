@@ -147,6 +147,7 @@ const all_settings = {
       id: "forward_display_mode",
       type: "menu",
       values: ["normal", "significative"],
+      default: "normal",
     },
     "autoscroll": {
       id: "autoscroll",
