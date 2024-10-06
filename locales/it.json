@@ -8,14 +8,14 @@
     },
     "home": {
         "title": "Home",
-        "message-1": "Benvenuto nel sito dedicato al <strong>B.note</strong>. Su questo sito troverai risorse utili per il <strong>B.note</strong>, oltre a un'interfaccia di gestione delle preferenze.",
+        "message-1": "Benvenuto nel sito dedicato al B.NOTE. Su questo sito troverai risorse utili per il B.NOTE, oltre a un'interfaccia di gestione delle preferenze.",
         "goto-settings": "Accedi all'interfaccia di gestione"
     },
     "download": {
         "title": "Download B.note",
-        "message-1": "Dalla versione 3.0.0 di <strong>B.note</strong>, il codice sorgente è libero e disponibile su <a href='https://github.com/devel-erb/bnote'>GitHub</a>. Scarica l'immagine qui sotto.",
+        "message-1": "Dalla versione 3.0.0 di B.NOTE, il codice sorgente è libero e disponibile su <a href='https://github.com/devel-erb/bnote'>GitHub</a>. Scarica l'immagine qui sotto.",
         "eurobrailleTitle": "Sito di Eurobraille",
-        "message2": "La versione ufficiale di <strong>B.note</strong> è disponibile sul sito di Eurobraille. Puoi scaricarla dal sito.",
+        "message2": "La versione ufficiale di B.NOTE è disponibile sul sito di Eurobraille. Puoi scaricarla dal sito.",
         "downloadEurobraille": "Scarica la versione di Eurobraille",
         "otherTitle": "Altra versione",
         "message3": "Metto a disposizione un'altra versione il cui codice sorgente è disponibile <a href=\"https://github.com/theotime2005/bnote\">qui</a>. Puoi scaricarla qui sotto",
@@ -148,7 +148,7 @@
     },
     "settingsPage": {
         "title": "Gestione delle preferenze del B.note",
-        "message": "Benvenuto nell'interfaccia online di gestione delle impostazioni di <strong>B.note</strong>.",
+        "message": "Benvenuto nell'interfaccia online di gestione delle impostazioni di B.NOTE.",
         "show": "Espandi la sezione",
         "hide": "Riduci la sezione",
         "title2": "File delle preferenze",
