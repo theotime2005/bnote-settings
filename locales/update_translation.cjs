@@ -17,8 +17,8 @@ function writeFile(file, data) {
   fs.writeFileSync(file, JSON.stringify(data, null, 4), "utf8");
 }
 
-const otherFile = loadFile(process.argv[2]);
-const fr = loadFile("fr.json");
+const source = loadFile(process.argv[2]);
+const otherFile = loadFile(process.argv[3]);
 
 function checkAndUpdate(objStart, otherObj) {
   for (let key in objStart) {
@@ -34,6 +34,6 @@ function checkAndUpdate(objStart, otherObj) {
   return otherObj;
 }
 
-const newFile = checkAndUpdate(fr, otherFile);
+const newFile = checkAndUpdate(source, otherFile);
 
-writeFile(process.argv[2], newFile);
+writeFile(process.argv[3], newFile);
