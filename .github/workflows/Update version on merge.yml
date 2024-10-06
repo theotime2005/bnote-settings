@@ -29,29 +29,25 @@ jobs:
           node-version: 'latest'
 
       - name: Determine version bump
-        id: version_bump
         run: |
           if [ "${{ github.event.pull_request.title }}" == "[BUGFIX]"* ]; then
-            echo "bump_type=patch" >> $GITHUB_ENV
+            news="patch"
+            npm version patch
           elif [ "${{ github.event.pull_request.title }}" == "[FEATURE]"* ]; then
-            echo "bump_type=minor" >> $GITHUB_ENV
+            news="minor"
+            npm version minor
           elif [ "${{ github.event.pull_request.title }}" == "[NEWFEATURE]"* ]; then
-            echo "bump_type=major" >> $GITHUB_ENV
+          news="major"
+            npm version major
           else
-            echo "bump_type=none" >> $GITHUB_ENV
+            news="none"
           fi
 
-      - name: Bump version
-        if: env.bump_type != 'none'
-        run: npm version ${{ env.bump_type }} --no-git-tag-version
-
       - name: Commit and push changes
-        if: env.bump_type != 'none'
+        if: news != 'none'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add package.json
-          git commit -m "Bump version to ${{ env.bump_type }}"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
