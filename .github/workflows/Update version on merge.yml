@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   update-version:
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ github.event.pull_request.merged == true }} # Check if the PR is merged
     runs-on: ubuntu-latest
 
     steps:
@@ -29,22 +29,24 @@ jobs:
           node-version: 'latest'
 
       - name: Determine version bump
+        id: version_bump
         run: |
-          if [[ "${{ github.event.pull_request.head.ref }}" == "[BUGFIX]"* ]]; then
-            news="minor"
+          if [[ "${{ github.event.pull_request.title }}" == *"[BUGFIX]"* ]]; then
+            echo "news=minor" >> $GITHUB_ENV
             npm version minor
-          elif [[ "${{ github.event.pull_request.head.ref }}" == "[FEATURE]"* ]]; then
-            news="major"
+          elif [[ "${{ github.event.pull_request.title }}" == *"[FEATURE]"* ]]; then
+            echo "news=major" >> $GITHUB_ENV
             npm version major
           else
-            news="none"
+            echo "news=none" >> $GITHUB_ENV
           fi
 
       - name: Commit and push changes
-        if: news != 'none'
+        if: env.news != 'none'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "Bump version"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
