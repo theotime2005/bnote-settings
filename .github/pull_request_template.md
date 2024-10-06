@@ -1,11 +1,14 @@
-## Problème
+## Problem
 
-<Décrivez ici le problème rencontré avec une référence à l'Issue s'il y en a.>
+Describe the problem that you are trying to solve.
 
 ## Solution
 
-<Décrire ici la solution proposée pour remédier au problème.>
+Describe the solution you have implemented.
 
 ## Remarque
 
-<Avez-vous quelque chose à ajouter?>
+Add any additional information that you think is important.
+
+## Test
+How can we test the changes?
