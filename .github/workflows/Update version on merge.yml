@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   update-version:
-    if: '${{ github.event.pull_request.merged }}'
+    if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
 
     steps:
@@ -30,14 +30,11 @@ jobs:
 
       - name: Determine version bump
         run: |
-          if [ "${{ github.event.pull_request.title }}" == "[BUGFIX]"* ]; then
-            news="patch"
-            npm version patch
-          elif [ "${{ github.event.pull_request.title }}" == "[FEATURE]"* ]; then
+          if [[ "${{ github.event.pull_request.head.ref }}" == "[BUGFIX]"* ]]; then
             news="minor"
             npm version minor
-          elif [ "${{ github.event.pull_request.title }}" == "[NEWFEATURE]"* ]; then
-          news="major"
+          elif [[ "${{ github.event.pull_request.head.ref }}" == "[FEATURE]"* ]]; then
+            news="major"
             npm version major
           else
             news="none"
