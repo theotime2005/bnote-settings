@@ -37,9 +37,12 @@ jobs:
         id: version_bump
         run: |
           if [[ "${{ github.event.pull_request.title }}" == *"[BUGFIX]"* ]]; then
+            echo "news=patch" >> $GITHUB_ENV
+            npm version patch
+          elif [[ "${{ github.event.pull_request.title }}" == *"[MINORFEATURE]"* ]]; then
             echo "news=minor" >> $GITHUB_ENV
             npm version minor
-          elif [[ "${{ github.event.pull_request.title }}" == *"[FEATURE]"* ]]; then
+          elif [[ "${{ github.event.pull_request.title }}" == *"[MAJORFEATURE]"* ]]; then
             echo "news=major" >> $GITHUB_ENV
             npm version major
           else
