@@ -1,14 +1,14 @@
 {
   "home": {
-    "message-1": "Welcome to the site dedicated to <strong>B.note</strong>. On this site, you will find useful resources for <strong>B.note</strong>, as well as a settings management interface.",
+    "message-1": "Welcome to the site dedicated to B.NOTE. On this site, you will find useful resources for B.NOTE, as well as a settings management interface.",
     "goto-settings": "Go to the interface management",
     "title": "Home"
   },
   "download": {
     "title": "B.note download",
-    "message-1": "Since version 3.0.0 of <strong>B.note</strong>, the source code is free and available on <a href='https://github.com/devel-erb/bnote'>GitHub</a>. Download the image below.",
+    "message-1": "Since version 3.0.0 of B.NOTE, the source code is free and available on <a href='https://github.com/devel-erb/bnote'>GitHub</a>. Download the image below.",
     "eurobrailleTitle": "Eurobraille website",
-    "message2": "The official version of <strong>B.note</strong> is available on the Eurobraille website. You can download it from the site.",
+    "message2": "The official version of B.NOTE is available on the Eurobraille website. You can download it from the site.",
     "downloadEurobraille": "Download the version of Eurobraille",
     "otherTitle": "Other version",
     "message3": "I provide another version whose source code is available <a href=\"https://github.com/theotime2005/bnote\">Here</a>. You can download it below",
@@ -139,7 +139,7 @@
   },
   "settingsPage": {
     "title": "Settings B.note management",
-    "message": "Welcome to the <strong>B.note</strong> online settings management interface.",
+    "message": "Welcome to the B.NOTE online settings management interface.",
     "show": "Expand the section",
     "hide": "Reduce the section",
     "title2": "Settings file",
