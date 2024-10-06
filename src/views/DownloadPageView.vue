@@ -40,11 +40,11 @@ export default {
       <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" href="https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/">{{$t('download.downloadEurobraille')}}</a>
     </div>
 
-    <div class="flex flex-col mt-3">
-      <h2 class="text-3xl">{{$t('download.otherTitle')}}</h2>
-      <p v-html="$t('download.message3')"></p>
-      <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="last_version['file']">{{$t('download.downloadOtherLast', {version: last_version['tag']})}}</a>
-    </div>
+<!--    <div class="flex flex-col mt-3">-->
+<!--      <h2 class="text-3xl">{{$t('download.otherTitle')}}</h2>-->
+<!--      <p v-html="$t('download.message3')"></p>-->
+<!--      <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="last_version['file']">{{$t('download.downloadOtherLast', {version: last_version['tag']})}}</a>-->
+<!--    </div>-->
   </div>
 </template>
 
