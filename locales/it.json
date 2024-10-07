@@ -31,7 +31,8 @@
         "message1": "Questa applicazione web è libera da diritti. Il codice sorgente è completamente riutilizzabile e modificabile",
         "code": "Vedi il codice su GitHub",
         "message2": "I tuoi contributi sono benvenuti.",
-        "version": "Versione : {version}"
+        "version": "Versione : {version}",
+        "label": "Menu in fondo alla pagina"
     },
     "settingsName": {
         "system": "Interfaccia utente",
@@ -57,7 +58,6 @@
         "empty_trash_shutdown": "Svuota il cestino allo spegnimento",
         "number_recent_files": "Numero di file recenti",
         "editor": "Editor",
-        "braille_type": "Tipo di braille",
         "line_length": "Lunghezza della linea",
         "dot78_visible": "Punti 7 e 8 visibili",
         "cursor_visible": "Cursore visibile",
@@ -72,7 +72,6 @@
         "musicxml": "musicXML",
         "bxml": "BXML",
         "edit_mode": "Modalità di modifica",
-        "braille_type": "Tipo di braille",
         "notes_dots": "Punti delle note",
         "ascending_chords": "Intervalli ascendenti",
         "fingering": "Mostra le diteggiature",
@@ -154,6 +153,11 @@
         "title2": "File delle preferenze",
         "download": "Scaricare il file",
         "openOther": "Aprire un altro file",
-        "create": "Visualizzare il modello predefinito"
+        "create": "Visualizzare il modello predefinito",
+        "defaultName": "Configurazione di default",
+        "downloadName": "Preferenza {data}"
+    },
+    "header": {
+        "mainMenu": "Menu principale"
     }
 }

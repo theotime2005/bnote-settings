@@ -13,7 +13,7 @@ export default {
 };
 </script>
 <template>
-  <footer class="bg-slate-900 p-2 flex flex-col items-center justify-center text-[11px] border-t border-t-slate-600">
+  <footer class="bg-slate-900 p-2 flex flex-col items-center justify-center text-[11px] border-t border-t-slate-600" :aria-label="$t('footer.label')">
     <div class="flex">
       <div class="flex flex-col justify-center items-center">
         <p>{{$t('footer.message1')}}</p>

@@ -1,5 +1,8 @@
 {
   "title": "Gestion du B.note",
+  "header": {
+    "mainMenu": "Menu principal"
+  },
   "languages": {
     "select": "Choisir une langue",
     "fr": "Français",
@@ -28,6 +31,7 @@
     "show": "Afficher"
   },
   "footer": {
+    "label": "Menu de bas de page",
     "message1": "Cette application web est libre de droit. Le code source est entièrement réutilisable et modifiable",
     "code": "Voir le code sur GitHub",
     "message2": "Vos contribution sont les bienvenues.",
@@ -149,10 +153,12 @@
     "title": "Gestion des préférences du B.note",
     "message": "Bienvenue sur l'interface en ligne de gestion des paramètres de B.NOTE.",
     "title2": "Fichier de préférences",
+    "defaultName": "Configuration par défaut",
     "show": "Développer la section",
     "hide": "Réduire la section",
     "download": "Télécharger le fichier",
     "openOther": "Ouvrir un autre fichier",
-    "create": "Afficher le modèle par défaut"
+    "create": "Afficher le modèle par défaut",
+    "downloadName": "Préférence {date}"
   }
 }
