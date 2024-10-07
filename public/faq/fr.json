@@ -1,0 +1,23 @@
+[
+  {
+    "question": "Comment puis-je exporter les préférences de mon B.note pour les visualiser sur le site ?",
+    "answer": {
+      "a": "Pour exporter le fichier de préférence depuis votre b.note, suivez ses étapes:",
+      "b": [
+        "Rendez-vous dans les préférences",
+        "Allez dans le menu Interface utilisateur puis cliquez sur Exporter préférences",
+        "Donnez un nom à votre fichier",
+        "Validez, le fichier sera enregistré dans le dossier Préférences",
+        "Rendez-vous dans le dossier Préférences via l'explorateur",
+        "Vous avez 2 possibilités, soit de copier le fichier sur une clef usb, soit d'envoyer le fichier par Bluetooth"
+      ],
+      "c": "Une fois le fichier sur votre ordinateur, vous n'aurez qu'à vous rendre sur la page de gestion des préférences pour visualiser le fichier."
+    }
+  },
+  {
+    "question": "Comment puis-je contribuer au site?",
+    "answer": {
+      "a": "Vous pouvez vous rendre sur le dépôt GitHub accessible en bas de page et suivre le guide de contribution."
+    }
+  }
+]

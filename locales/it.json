@@ -9,7 +9,9 @@
     "home": {
         "title": "Home",
         "message-1": "Benvenuto nel sito dedicato al B.NOTE. Su questo sito troverai risorse utili per il B.NOTE, oltre a un'interfaccia di gestione delle preferenze.",
-        "goto-settings": "Accedi all'interfaccia di gestione"
+        "goto-settings": "Accedi all'interfaccia di gestione",
+        "title2": "Cos'è?",
+        "message2": "Il B.NOTE è un display prodotto dalla società francese Eurobraille. Questo dispositivo può essere impostato in diversi modi, dal tipo di braille alla visualizzazione di alcune applicazioni. Per consentire a una persona vedente di configurarlo, questo sito offre un'interfaccia semplice che genera un file che può poi essere caricato nel B.NOTE. L'utente dovrà quindi solo aprire il file per caricare le nuove preferenze."
     },
     "download": {
         "title": "Download B.note",
@@ -155,9 +157,16 @@
         "openOther": "Aprire un altro file",
         "create": "Visualizzare il modello predefinito",
         "defaultName": "Configurazione di default",
-        "downloadName": "Preferenza {data}"
+        "downloadName": "Preferenza {data}",
+        "how": "Come funziona?",
+        "explication": "È possibile creare un file direttamente dal sito utilizzando il modello predefinito o caricare il file da un dispositivo."
     },
     "header": {
         "mainMenu": "Menu principale"
+    },
+    "faq": {
+        "title": "Domande frequenti",
+        "presentation": "Benvenuto nelle FAQ del sito. Questa FAQ è diversa a seconda della lingua selezionata.",
+        "nofaq": "Nessuna FAQ disponibile in questa lingua."
     }
 }

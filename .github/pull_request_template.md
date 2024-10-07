@@ -6,7 +6,7 @@ Describe the problem that you are trying to solve.
 
 Describe the solution you have implemented.
 
-## Remarque
+## Note
 
 Add any additional information that you think is important.
 
