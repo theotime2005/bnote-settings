@@ -11,6 +11,7 @@ export default {
   },
   data() {
     return {
+      file_name: "",
       fileIsImported: false,
       settingsData: {},
       all_settings: all_settings,
@@ -31,6 +32,8 @@ export default {
   methods: {
     get_data() {
       this.settingsData = this.$refs.upload.fileData;
+      const file_name = this.$refs.upload.fileInput.name;
+      this.file_name = file_name.split(".")[0];
       this.fileIsImported = true;
       this.complete_empty_values();
     },
@@ -60,6 +63,7 @@ export default {
         }
       }
       this.settingsData = data;
+      this.file_name=this.$t("settingsPage.defaultName");
       this.fileIsImported = true;
     },
     togle_menu(key) {
@@ -79,7 +83,8 @@ export default {
       // Create link
       const link = document.createElement("a");
       link.href = url_object;
-      const file_name = `settings ${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}.bnote`;
+      const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+      const file_name = this.$t("settingsPage.downloadName", { date: file_date })+".bnote";
       link.download = file_name;
       link.click();
       URL.revokeObjectURL(url_object);
@@ -117,10 +122,10 @@ export default {
     <button type="button" @click="createBasicData">{{ $t('settingsPage.create') }}</button>
   </div>
   <div v-if="fileIsImported">
-    <h2>{{ $t('settingsPage.title2') }}</h2>
-    <form class="settings" @submit.prevent="save">
+    <h2>{{file_name}}</h2>
+    <form class="settings" :aria-label="$t('settingsPage.title2')" @submit.prevent="save">
       <!-- system -->
-      <div id="system">
+      <div id="system" :aria-label="$t('settingsName.system')">
         <h3>{{ $t('settingsName.system') }}</h3>
         <button type="button" @click="togle_menu('system')">
           {{ display_menu['system'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -135,8 +140,9 @@ export default {
           />
         </div>
       </div>
+      <br>
       <!-- Explorer -->
-      <div id="explorer">
+      <div id="explorer" :aria-label="$t('settingsName.explorer')">
         <h3>{{ $t('settingsName.explorer') }}</h3>
         <button type="button" @click="togle_menu('explorer')">
           {{ display_menu['explorer'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -151,8 +157,9 @@ export default {
           />
         </div>
       </div>
+      <br>
       <!-- editor -->
-      <div id="editor">
+      <div id="editor" :aria-label="$t('settingsName.editor')">
         <h3>{{ $t('settingsName.editor') }}</h3>
         <button type="button" @click="togle_menu('editor')">
           {{ display_menu['editor'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -167,8 +174,9 @@ export default {
           />
         </div>
       </div>
+      <br>
       <!-- music -->
-      <div id="music">
+      <div id="music" :aria-label="$t('settingsName.music')">
         <h3>{{ $t('settingsName.music') }}</h3>
         <button type="button" @click="togle_menu('music')">
           {{ display_menu['music'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -196,8 +204,9 @@ export default {
           </div>
         </div>
       </div>
-      <!-- Musique -->
-      <div id="speech">
+      <br>
+      <!-- Speech -->
+      <div id="speech" :aria-label="$t('settingsName.speech')">
         <h3>{{ $t('settingsName.speech') }}</h3>
         <button type="button" @click="togle_menu('speech')">
           {{ display_menu['speech'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -212,8 +221,9 @@ export default {
           />
         </div>
       </div>
+      <br>
       <!-- Audio -->
-      <div id="Audio">
+      <div id="Audio" :aria-label="$t('settingsName.radio')">
         <h3>{{ $t('settingsName.radio') }}</h3>
         <button type="button" @click="togle_menu('radio')">
           {{ display_menu['radio'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -228,8 +238,9 @@ export default {
           />
         </div>
       </div>
+      <br>
       <!-- Agenda -->
-      <div id="agenda">
+      <div id="agenda" :aria-label="$t('settingsName.agenda')">
         <h3>{{ $t('settingsName.agenda') }}</h3>
         <button type="button" @click="togle_menu('agenda')">
           {{ display_menu['agenda'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -244,8 +255,9 @@ export default {
           />
         </div>
       </div>
+      <br>
       <!-- Braille Learning -->
-      <div id="braille_learning">
+      <div id="braille_learning" :aria-label="$t('settingsName.braille_learning')">
         <h3>{{ $t('settingsName.braille_learning') }}</h3>
         <button type="button" @click="togle_menu('braille_learning')">
           {{ display_menu['braille_learning'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
@@ -260,6 +272,7 @@ export default {
           />
         </div>
       </div>
+      <br>
       <button type="submit">{{ $t('settingsPage.download') }}</button>
     </form>
     <button type="button" @click="clean_data">{{ $t('settingsPage.openOther') }}</button>
