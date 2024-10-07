@@ -34,6 +34,7 @@ export default {
 </script>
 
 <template>
+<div>
   <label :for="label_id">{{name}}</label>
   <!-- Checkbox -->
   <input
@@ -48,22 +49,22 @@ export default {
 
   <!-- Dropdown menu -->
   <select
-      v-else-if="setting.type === 'menu'"
-      :id="label_id"
-      :value="setting_value"
-      :name="name"
-      @change="updateSetting"
-      v-model="settingValue"
+    v-else-if="setting.type === 'menu'"
+    :id="label_id"
+    :value="setting_value"
+    :name="name"
+    @change="updateSetting"
+    v-model="settingValue"
+  >
+    <option
+      v-for="option in setting.values"
+      :key="option"
+      :value="option"
+      :name="option"
     >
-      <option
-        v-for="option in setting.values"
-        :key="option"
-        :value="option"
-        :name="option"
-      >
-        {{ $t(`settingsValues.${option}`) }}
-      </option>
-    </select>
+      {{ $t(`settingsValues.${option}`) }}
+    </option>
+  </select>
 
   <!-- Number input -->
   <input
@@ -77,6 +78,8 @@ export default {
     @input="updateSetting"
     v-model="settingValue"
   />
+</div>
+  <br>
 </template>
 
 <style scoped>
