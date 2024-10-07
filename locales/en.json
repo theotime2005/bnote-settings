@@ -2,7 +2,9 @@
     "home": {
         "message-1": "Welcome to the site dedicated to B.NOTE. On this site, you will find useful resources for B.NOTE, as well as a settings management interface.",
         "goto-settings": "Go to the interface management",
-        "title": "Home"
+        "title": "Home",
+        "title2": "What is it?",
+        "message2": "The B.NOTE is a display manufactured by the French company Eurobraille. This device can be configured in different ways, from the braille type to the display of certain applications. In order to allow a clairvoyant person to configure it, this site offers a simple interface generating a file that can then be loaded into the B.NOTE. The user will then only have to open the file to load the new preferences."
     },
     "download": {
         "title": "B.note download",
@@ -148,7 +150,9 @@
         "openOther": "Open an other file",
         "create": "Show the default model",
         "defaultName": "Default configuration",
-        "downloadName": "Settings {date}"
+        "downloadName": "Settings {date}",
+        "how": "How does it work?",
+        "explication": "You can either create a file directly from the site using the default template or load the file from a device."
     },
     "title": "B.note management",
     "languages": {
@@ -159,5 +163,10 @@
     },
     "header": {
         "mainMenu": "Main menu"
+    },
+    "faq": {
+        "title": "FAQ",
+        "presentation": "Welcome to the site's FAQ. This FAQ is different depending on the language selected.",
+        "nofaq": "No FAQ available in this language."
     }
 }

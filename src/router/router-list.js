@@ -14,6 +14,11 @@ const routes =  [
     name: "settingsPage",
     component: () => import("../views/SettingsView.vue"),
   },
+  {
+    path: "/faq",
+    name: "faq",
+    component: () => import("@/views/FaqView.vue"),
+  },
 ];
 
 export default routes;

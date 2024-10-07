@@ -12,6 +12,10 @@ export default {
       <p>{{$t('home.message-1')}}</p>
       <RouterLink class="text-left w-fit flex items-center justify-center text-green-400 rounded duration-200 transition-all hover:border-green-400 hover:text-green-200 hover:underline" to="/settings">{{$t('home.goto-settings')}}</RouterLink>
     </div>
+    <div class="flex flex-col text-justify">
+      <h2 class="text-2xl mt-5">{{$t('home.title2')}}</h2>
+      <p>{{$t('home.message2')}}</p>
+    </div>
   </div>
 </template>
 
