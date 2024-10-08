@@ -1,7 +1,7 @@
 {
   "name": "bnote-settings",
   "version": "2.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,9 +10,18 @@
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "electron": "electron ."
+    "electron": "electron .",
+    "pack": "electron-builder",
+    "build:desktop": "npm run build && npm run pack"
   },
   "main": "electron.js",
+  "build": {
+    "appId": "com.theotime",
+    "files": [
+      "./dist/**/*",
+      "electron.js"
+    ]
+  },
   "dependencies": {
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
@@ -26,6 +35,7 @@
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.20",
     "electron": "^32.1.2",
+    "electron-builder": "^25.1.7",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
     "jsdom": "^24.1.0",

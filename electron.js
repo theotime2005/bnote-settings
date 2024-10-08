@@ -1,17 +1,17 @@
 import { app, BrowserWindow } from "electron";
-import * as path from "node:path";
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true, // Permet d'utiliser les modules Node.js dans le rendu
-      contextIsolation: false, // Désactive l'isolation de contexte pour simplifier le développement
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
-  win.loadURL("http://localhost:5173"); // Remplacez par le port de votre application Vue.js
+  // Charge le fichier HTML généré par Vite lors de la construction
+  win.loadFile("dist/index.html");
 }
 
 app.whenReady().then(createWindow);
