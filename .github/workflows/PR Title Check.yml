@@ -2,7 +2,7 @@ name: PR Title Check
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened] # Correction ici
     branches:
       - main
 
@@ -16,7 +16,7 @@ jobs:
 
       - name: Validate PR title
         run: |
-          if [[ ! "${{ github.event.pull_request.title }}" =~ ^\[(BUGFIX|MINORFEATURE|MAJORFEATURE)\] ]]; then
+          if [[ ! "$(echo '${{ github.event.pull_request.title }}' | grep -E '^\[(BUGFIX|MINORFEATURE|MAJORFEATURE)\]')" ]]; then
             echo "Error: Pull request title must start with [BUGFIX], [MINORFEATURE], or [MAJORFEATURE]."
             exit 1
           fi
