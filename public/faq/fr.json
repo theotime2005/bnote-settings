@@ -15,6 +15,25 @@
     }
   },
   {
+    "question": "Comment puis-je importer le fichier sur mon appareil une fois celui-ci généré ?",
+    "answer": {
+      "a": "Pour appliquer la configuration sur votre appareil, suivez ces étapes :",
+      "b": [
+        "Envoyez le fichier par bluetooth dans le B.NOTE",
+        "Rendez-vous dans le dossier Bluetooth de l'appareil et coupez le fichier dans le dossier Préférences",
+        "Cliquez sur le fichier",
+        "Valider pour confirmer l'application des paramètres."
+      ],
+      "c": "Vous pouvez aussi mettre le fichier sur une clef usb et l'ouvrir de puis cette clef sur le B.NOTE."
+    }
+  },
+  {
+    "question": "Où puis-je me procurer de la documentation sur le B.NOTE ?",
+    "answer": {
+      "a": "Vous pouvez vous rendre sur le site d'Eurobraille pour trouver plus d'informations sur le B.NOTE"
+    }
+  },
+  {
     "question": "Comment puis-je contribuer au site?",
     "answer": {
       "a": "Vous pouvez vous rendre sur le dépôt GitHub accessible en bas de page et suivre le guide de contribution."

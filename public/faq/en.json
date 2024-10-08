@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How can I export my B.note settings to view them on the site?",
+    "answer": {
+      "a": "To export the setting file from your B.note, follow these steps:",
+      "b": [
+        "Go to settings",
+        "Go to the User Interface menu and click on Export settings",
+        "Give a name to your file",
+        "Confirm, the file will be saved in the Settings folder",
+        "Go to the Settings folder via the explorer",
+        "You have 2 options, either copy the file to a USB stick or send the file via Bluetooth"
+      ],
+      "c": "Once the file is on your computer, you just need to go to the settings management page to view the file."
+    }
+  },
+  {
+    "question": "How can I import the file to my device once it is generated?",
+    "answer": {
+      "a": "To apply the configuration to your device, follow these steps:",
+      "b": [
+        "Send the file via Bluetooth to the B.NOTE",
+        "Go to the Bluetooth folder of the device and move the file to the Settings folder",
+        "Click on the file",
+        "Confirm to apply the settings."
+      ],
+      "c": "You can also put the file on a USB stick and open it from the stick on the B.NOTE."
+    }
+  },
+  {
+    "question": "Where can I find documentation on the B.NOTE?",
+    "answer": {
+      "a": "You can visit the Eurobraille website for more information on the B.NOTE."
+    }
+  },
+  {
+    "question": "How can I contribute to the site?",
+    "answer": {
+      "a": "You can go to the GitHub repository accessible at the bottom of the page and follow the contribution guide."
+    }
+  }
+]
