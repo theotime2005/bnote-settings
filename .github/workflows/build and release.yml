@@ -5,9 +5,11 @@ on:
     tags:
       - '*'
 
+permissions:
+    contents: write
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
@@ -55,12 +57,12 @@ jobs:
           asset_name: bnote-settings-${{ github.ref_name }}.dmg
           asset_content_type: application/octet-stream
 
-      - name: Upload Windows
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/build/bnote-settings.exe
-          asset_name: bnote-settings-${{ github.ref_name }}.exe
-          asset_content_type: application/octet-stream
+#      - name: Upload Windows
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: dist/build/bnote-settings.exe
+#          asset_name: bnote-settings-${{ github.ref_name }}.exe
+#          asset_content_type: application/octet-stream
