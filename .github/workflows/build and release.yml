@@ -26,6 +26,15 @@ jobs:
           npm run build
           npm run build:all
 
+            - name: Determine if prerelease
+        id: prerelease
+        run: |
+          if [[ "${GITHUB_REF##*/}" == *"beta"* || "${GITHUB_REF##*/}" == *"alpha"* ]]; then
+            echo "prerelease=true" >> $GITHUB_ENV
+          else
+            echo "prerelease=false" >> $GITHUB_ENV
+          fi
+
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -35,14 +44,24 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
-          prerelease: false
+          prerelease: ${{ env.prerelease }}
 
-      - name: Upload Linux
+      - name: Upload Mac
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/build/bnote-settings
-          asset_name: # To be specified
-          asset_content_type: application/zip
+          asset_path: dist/build/bnote-settings.dmg
+          asset_name: bnote-settings.dmg
+          asset_content_type: application/octet-stream
+
+      - name: Upload Windows
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/build/bnote-settings.exe
+          asset_name: bnote-settings.exe
+          asset_content_type: application/octet-stream
