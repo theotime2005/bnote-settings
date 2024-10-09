@@ -21,14 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build project and determine if prerelease
+        id: prerelease
         run: |
           npm run build
           npm run build:all
-
-            - name: Determine if prerelease
-        id: prerelease
-        run: |
           if [[ "${GITHUB_REF##*/}" == *"beta"* || "${GITHUB_REF##*/}" == *"alpha"* ]]; then
             echo "prerelease=true" >> $GITHUB_ENV
           else
