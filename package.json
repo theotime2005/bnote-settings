@@ -21,7 +21,7 @@
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "electron": "electron .",
+    "electron": "npm run build && electron .",
     "pack": "electron-builder",
     "build:linux": "electron-builder --linux",
     "build:mac": "electron-builder --mac",
