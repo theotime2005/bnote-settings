@@ -13,14 +13,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GH_TOKEN }}
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: 'latest'
 
       - name: Install dependencies
         run: npm install
@@ -30,7 +28,7 @@ jobs:
         run: |
           npm run build
           npm run build:mac
-          if [[ "${GITHUB_REF##*/}" == *"beta"* || "${GITHUB_REF##*/}" == *"alpha"* ]]; then
+          if [[ "${{ github.ref_name }}" == *"beta"* || "${{ github.ref_name }}" == *"alpha"* ]]; then
             echo "prerelease=true" >> $GITHUB_ENV
           else
             echo "prerelease=false" >> $GITHUB_ENV
@@ -48,7 +46,7 @@ jobs:
           prerelease: ${{ env.prerelease }}
 
       - name: Upload Mac
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1  # Vérifie la version la plus récente
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
