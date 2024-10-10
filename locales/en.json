@@ -168,5 +168,16 @@
         "title": "FAQ",
         "presentation": "Welcome to the site's FAQ. This FAQ is different depending on the language selected.",
         "nofaq": "No FAQ available in this language."
+    },
+    "desktop": {
+        "title": "Download the desktop application",
+        "message": "You can download the desktop application to manage B.NOTE preferences. This application is available for MacOS and Windows.",
+        "macArm64": "MacOS Arm64 processor",
+        "macX64": "MacOS Intel x64 processor",
+        "windowsX64": "Windows x64",
+        "downloadMacArm64": "Download the version {version} (.dmg format)",
+        "downloadMacX64": "Download the version {version} (.dmg format)",
+        "downloadWindowsX64": "Download the version {version} (.exe format)",
+        "githubReleases": "View releases on GitHub"
     }
 }
