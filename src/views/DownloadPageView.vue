@@ -1,9 +1,13 @@
 <script>
+import DownloadDesktopComponent from "@/components/DownloadDesktopComponent.vue";
+
 export default {
   name: "DownloadPageView",
+  components: { DownloadDesktopComponent },
   data() {
     return {
       last_version: {},
+      desktopMode: false
     };
   },
   methods: {
@@ -26,7 +30,9 @@ export default {
     },
   },
   mounted() {
+    this.desktopMode = window.isElectron
     this.get_last_version();
+    console.log(this.desktopMode)
   },
 };
 </script>
@@ -63,6 +69,7 @@ export default {
           <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" href="https://github.com/theotime2005/bnote/releases" target="_blank">{{$t("download.releases")}}</a>
         </div>
   </div>
+  <DownloadDesktopComponent v-if="!desktopMode"/>
 </template>
 
 <style scoped></style>

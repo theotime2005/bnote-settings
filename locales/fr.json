@@ -24,8 +24,7 @@
     "downloadEurobraille": "Télécharger la version d'Eurobraille",
     "otherTitle": "Autre version",
     "message3": "Je mets à disposition une autre version dont le code source est disponible <a href=\"https://github.com/theotime2005/bnote\">Ici</a>. Vous pouvez la télécharger ci-dessous",
-    "downloadOtherLast": "Télécharger {version}",
-    "releases": "Voir toutes les versions sur GitHub"
+    "downloadOtherLast": "Télécharger {version}"
   },
   "uploadFile": {
     "title": "Importer un fichier",
@@ -59,10 +58,6 @@
     "app_mines": "Afficher l'app Démineur",
     "app_mastermind": "Afficher l'app Mastermind",
     "developer": "Mode développeur",
-    "bluetooth": "Bluetooth",
-    "bnote_visible": "Rendre détectable",
-    "bnote_name": "Nom de l'appareil",
-    "bt_simul_esys": "Simulation du mode Esys",
     "explorer": "explorateur",
     "empty_bluetooth_shutdown": "Vider le dossier bluetooth à l'extinction",
     "empty_trash_shutdown": "Vider la corbeille à l'extinction",
@@ -137,7 +132,7 @@
     "total_part": "Partie complète",
     "system": "Système",
     "number": "Numéro",
-    "no": "Jamais",
+    "no": "Non",
     "after_each_note": "Après chaque note",
     "before_each_section": "Avant chaque section",
     "after_each_section": "Après chaque section",
@@ -149,12 +144,12 @@
     "not_done": "Non fait",
     "today": "Aujourd'hui",
     "calendar": "Calendrier",
+    "no": "Jamais",
     "same": "Le jour même",
     "tomorrow": "Le jour suivant",
     "same_tomorrow": "Le jour même et le suivant",
     "auto": "Automatiquement",
-    "ask": "Sur demande",
-    "default": "Par défaut"
+    "ask": "Sur demande"
   },
   "settingsPage": {
     "title": "Gestion des préférences du B.note",
@@ -186,5 +181,16 @@
     "message3": "N'hésitez pas à nous faire remonter toutes suggestions ou problème via GitHub.",
     "feature": "Suggérer une nouvelle fonctionnalité",
     "bug_report": "Signaler un bug"
+  },
+  "desktop": {
+    "title": "Télécharger l'application de bureau",
+    "message": "Vous pouvez télécharger l'application de bureau pour gérer les préférences de B.NOTE. Cette application est disponible pour MacOS et Windows.",
+    "macArm64": "MacOS processeur Arm64",
+    "macX64": "MacOS processeur Intel x64",
+    "windowsX64": "Windows x64",
+    "downloadMacArm64": "Télécharger la version {version} (format .dmg)",
+    "downloadMacX64": "Télécharger la version {version} (format .dmg)",
+    "downloadWindowsX64": "Télécharger la version {version} (format .exe)",
+    "githubReleases": "Voir les releases sur GitHub"
   }
 }
