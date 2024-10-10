@@ -3,25 +3,20 @@ name: Build and Release
 on:
   push:
     tags:
-      - '*'  # Accepte tous les tags
-
-permissions:
-  contents: write
-  packages: write
-  actions: write
+      - '*'
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: macos-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'latest'
+          node-version: 'lts/*'
 
       - name: Install dependencies
         run: npm install
@@ -30,20 +25,21 @@ jobs:
         id: prerelease
         run: |
           npm run build
-          npm run build:mac
-          if [[ "${{ github.ref_name }}" == *"beta"* || "${{ github.ref_name }}" == *"alpha"* ]]; then
+          npm run build:all
+          if [[ "${GITHUB_REF##*/}" == *"beta"* || "${GITHUB_REF##*/}" == *"alpha"* ]]; then
             echo "prerelease=true" >> $GITHUB_ENV
           else
             echo "prerelease=false" >> $GITHUB_ENV
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1.1.0
+        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         with:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           tag_name: ${{ github.ref_name }}
           release_name: Release ${{ github.ref_name }}
           draft: false
@@ -57,4 +53,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/build/bnote-settings.dmg
           asset_name: bnote-settings-${{ github.ref_name }}.dmg
+          asset_content_type: application/octet-stream
+
+      - name: Upload Windows
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/build/bnote-settings.exe
+          asset_name: bnote-settings-${{ github.ref_name }}.exe
           asset_content_type: application/octet-stream
