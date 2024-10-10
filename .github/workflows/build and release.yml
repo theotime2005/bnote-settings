@@ -21,28 +21,28 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Get project version
-        id: get_version
-        run: echo "version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
-
-      - name: Build project
+      - name: Build project and determine if prerelease
+        id: prerelease
         run: |
           npm run build
-          npm run build:all
+          npm run build:all -- --no-publish
+          if [[ "${GITHUB_REF##*/}" == *"beta"* || "${GITHUB_REF##*/}" == *"alpha"* ]]; then
+            echo "prerelease=true" >> $GITHUB_ENV
+          else
+            echo "prerelease=false" >> $GITHUB_ENV
+          fi
 
-      # Remplace la création de release par la version obtenue
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          tag_name: ${{ env.version }}
-          release_name: Release ${{ env.version }}
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
           draft: false
-          prerelease: false
+          prerelease: ${{ env.prerelease }}
 
-      # Upload assets
       - name: Upload Mac x64
         uses: actions/upload-release-asset@v1
         env:
