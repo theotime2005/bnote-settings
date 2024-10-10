@@ -5,20 +5,20 @@ on:
     tags:
       - '*'
 
-permissions:
-    contents: write
+permissions: write-all
+
 jobs:
   build:
     runs-on: self-hosted
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
 
@@ -56,13 +56,3 @@ jobs:
           asset_path: dist/build/bnote-settings.dmg
           asset_name: bnote-settings-${{ github.ref_name }}.dmg
           asset_content_type: application/octet-stream
-
-#      - name: Upload Windows
-#        uses: actions/upload-release-asset@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: dist/build/bnote-settings.exe
-#          asset_name: bnote-settings-${{ github.ref_name }}.exe
-#          asset_content_type: application/octet-stream
