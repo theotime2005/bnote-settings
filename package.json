@@ -1,7 +1,18 @@
 {
   "name": "bnote-settings",
-  "version": "2.1.0",
-  "private": true,
+  "version": "3.0.0-beta.6",
+  "author": {
+    "name": "Theotime Berthod",
+    "email": "theo.blind@yahoo.com"
+  },
+  "description": "Interface to manage the B.note settings",
+  "repository": {
+    "directory": "./",
+    "type": "git",
+    "url": "https://github.com/theotime2005/bnote-settings"
+  },
+  "homepage": "https://manage-bnote.vercel.app",
+  "private": false,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +20,59 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "electron": "electron .",
+    "pack": "electron-builder",
+    "build:linux": "electron-builder --linux",
+    "build:mac": "electron-builder --mac",
+    "build:windows": "electron-builder --windows",
+    "build:all": "electron-builder --mac --windows"
+  },
+  "main": "electron.js",
+  "build": {
+    "appId": "com.theotime.bnote",
+    "productName": "BNoteSettings",
+    "files": [
+      "dist/**/*",
+      "electron.js"
+    ],
+    "mac": {
+      "category": "public.app-category.utility",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Utility"
+    },
+    "directories": {
+      "output": "dist/build"
+    },
+    "artifactName": "bnote-settings-${os}-${arch}.${ext}"
   },
   "dependencies": {
     "pinia": "^2.1.7",
@@ -23,6 +86,8 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.20",
+    "electron": "^32.1.2",
+    "electron-builder": "^25.1.7",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
     "jsdom": "^24.1.0",
