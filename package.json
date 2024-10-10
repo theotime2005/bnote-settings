@@ -69,19 +69,10 @@
       ],
       "category": "Utility"
     },
-    "extraResources": [
-      {
-        "from": "resources/",
-        "to": "resources/",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ],
     "directories": {
       "output": "dist/build"
     },
-    "artifactName": "bnote-settings.${ext}"
+    "artifactName": "bnote-settings-${os}-${arch}.${ext}"
   },
   "dependencies": {
     "pinia": "^2.1.7",
