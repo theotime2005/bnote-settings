@@ -45,14 +45,24 @@ jobs:
           draft: false
           prerelease: ${{ env.prerelease }}
 
-      - name: Upload Mac
+      - name: Upload Mac x64
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/build/bnote-settings.dmg
-          asset_name: bnote-settings-${{ github.ref_name }}.dmg
+          asset_path: dist/build/bnote-settings-mac-x64.dmg
+          asset_name: bnote-settings-${{github.href_name}}-mac-x64.dmg
+          asset_content_type: application/octet-stream
+
+      - name: Upload Mac arm64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/build/bnote-settings-mac-arm64.dmg
+          asset_name: bnote-settings-${{github.href_name}}-mac-arm64.dmg
           asset_content_type: application/octet-stream
 
       - name: Upload Windows
@@ -61,6 +71,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/build/bnote-settings.exe
-          asset_name: bnote-settings-${{ github.ref_name }}.exe
+          asset_path: dist/build/bnote-settings-win-x64.exe
+          asset_name: bnote-settings-${{github.href_name}}-win-x64.exe
           asset_content_type: application/octet-stream
