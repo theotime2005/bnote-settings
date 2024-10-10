@@ -39,4 +39,4 @@ jobs:
         with:
           prerelease: ${{ env.prerelease }}
           files:
-            - 'dist/build/bnote-settings.dmg'
+            'dist/build/bnote-settings.dmg'
