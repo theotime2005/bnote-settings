@@ -172,12 +172,6 @@
     "desktop": {
         "title": "Download the desktop application",
         "message": "You can download the desktop application to manage B.NOTE preferences. This application is available for MacOS and Windows.",
-        "macArm64": "",
-        "macX64": "",
-        "windowsX64": "",
-        "downloadMacArm64": "",
-        "downloadMacX64": "",
-        "downloadWindowsX64": "",
         "githubReleases": "View releases on GitHub",
         "mac": "MacOS",
         "windows": "Windows ",
