@@ -178,6 +178,10 @@
         "downloadMacArm64": "Scaricare la versione {version} (formato .dmg)",
         "downloadMacX64": "Scaricare la versione {version} (formato .dmg)",
         "downloadWindowsX64": "Scaricare la versione {version} (formato .exe)",
-        "githubReleases": "*Voir les releases sur GitHub"
+        "githubReleases": "*Voir les releases sur GitHub",
+        "mac": "*MacOS",
+        "windows": "*Windows ",
+        "downloadMac": "*Télécharger la version {version} (format .dmg)",
+        "downloadWindows": "*Télécharger la version {version} (format .exe)"
     }
 }
