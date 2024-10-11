@@ -15,8 +15,10 @@ export default {
         const response = await request.json()
         for (let i = 0; i < response.length; i++) {
           // Rajouter le filtrage du pre release ici
-          this.versionInformation = response[i]
-          break
+          if (!response[i].prerelease) {
+            this.versionInformation = response[i]
+            break
+          }
         }
       } catch (e) {
         console.error(e)
