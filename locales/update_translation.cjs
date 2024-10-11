@@ -39,6 +39,8 @@ function clearOldValues(obj_start, other_obj) {
     if (!obj_start[key]) {
       console.log("Old key", key);
       delete other_obj[key];
+    } else if (typeof obj_start[key]==="object") {
+      other_obj[key] = clearOldValues(obj_start[key], other_obj[key]);
     }
   }
   return other_obj;

@@ -184,12 +184,10 @@
   "desktop": {
     "title": "Scaricare l'applicazione desktop",
     "message": "È possibile scaricare l'applicazione desktop per gestire le preferenze di B.NOTE. Questa applicazione è disponibile per MacOS e Windows.",
-    "macArm64": "MacOS processore Arm64",
-    "macX64": "MacOS processore Intel x64",
-    "windowsX64": "Windows x64",
-    "downloadMacArm64": "Scaricare la versione {version} (formato .dmg)",
-    "downloadMacX64": "Scaricare la versione {version} (formato .dmg)",
-    "downloadWindowsX64": "Scaricare la versione {version} (formato .exe)",
-    "githubReleases": "Vedere le uscite su GitHub"
+    "githubReleases": "Vedere le uscite su GitHub",
+    "mac": "MacOS",
+    "windows": "Windows ",
+    "downloadMac": "Scaricare la versione {version} (formato .dmg)",
+    "downloadWindows": "Scaricare la versione {version} (formato .exe)"
   }
 }
