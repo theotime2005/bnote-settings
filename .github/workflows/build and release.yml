@@ -26,7 +26,7 @@ jobs:
         run: |
           npm run build
           npm run build:all -- --publish never
-          if [[ "${GITHUB_REF##*/}" == *"beta"* || "${GITHUB_REF##*/}" == *"alpha"* ]]; then
+          if [[ "${GITHUB_REF##*/}" == *"beta"* || "${GITHUB_REF##*/}" == *"alpha"* || "${GITHUB_REF##*/}" == *"rc"* ]]; then
             echo "prerelease=true" >> $GITHUB_ENV
           else
             echo "prerelease=false" >> $GITHUB_ENV
