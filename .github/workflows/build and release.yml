@@ -36,7 +36,7 @@ jobs:
         id: generate_notes
         run: |
           # Extract the last tag and generate the commit logs since the last tag
-          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^)
+          LAST_TAG=$(git describe --tags --abbrev=0 HEAD~1 || git describe --tags --abbrev=0)
           echo "Last tag: $LAST_TAG"
           RELEASE_NOTES=$(git log $LAST_TAG..HEAD --oneline --no-merges)
           echo "Release notes: $RELEASE_NOTES"
@@ -61,7 +61,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/build/bnote-settings-mac.dmg
-          asset_name: bnote-settings-mac-${{github.ref}}.dmg
+          asset_name: bnote-settings-mac-${{ github.ref }}.dmg
           asset_content_type: application/octet-stream
 
       - name: Upload Windows
@@ -71,5 +71,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/build/bnote-settings-win.exe
-          asset_name: bnote-settings-win-${{github.ref}}.exe
+          asset_name: bnote-settings-win-${{ github.ref }}.exe
           asset_content_type: application/octet-stream
