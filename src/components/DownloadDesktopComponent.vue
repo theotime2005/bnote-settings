@@ -1,34 +1,34 @@
 <script>
 export default {
-  name: 'DownloadDesktopComponent',
+  name: "DownloadDesktopComponent",
   data() {
     return {
-      versionInformation: null
-    }
+      versionInformation: null,
+    };
   },
   methods: {
     async get_information() {
       try {
         const request = await fetch(
-          'https://api.github.com/repos/theotime2005/bnote-settings/releases'
-        )
-        const response = await request.json()
+          "https://api.github.com/repos/theotime2005/bnote-settings/releases",
+        );
+        const response = await request.json();
         for (let i = 0; i < response.length; i++) {
           // Rajouter le filtrage du pre release ici
           if (!response[i].prerelease) {
-            this.versionInformation = response[i]
-            break
+            this.versionInformation = response[i];
+            break;
           }
         }
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    },
   },
   mounted() {
-    this.get_information()
-  }
-}
+    this.get_information();
+  },
+};
 </script>
 
 <template>

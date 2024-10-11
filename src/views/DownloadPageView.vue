@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       last_version: {},
-      desktopMode: false
+      desktopMode: false,
     };
   },
   methods: {
@@ -30,9 +30,9 @@ export default {
     },
   },
   mounted() {
-    this.desktopMode = window.isElectron
+    this.desktopMode = window.isElectron;
     this.get_last_version();
-    console.log(this.desktopMode)
+    console.log(this.desktopMode);
   },
 };
 </script>
