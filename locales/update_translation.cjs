@@ -34,6 +34,17 @@ function checkAndUpdate(objStart, otherObj) {
   return otherObj;
 }
 
-const newFile = checkAndUpdate(source, otherFile);
+function clearOldValues(obj_start, other_obj) {
+  for (let key in other_obj) {
+    if (!obj_start[key]) {
+      console.log("Old key", key);
+      delete other_obj[key];
+    }
+  }
+  return other_obj;
+}
+
+const tmp = checkAndUpdate(source, otherFile);
+const newFile = clearOldValues(source, tmp);
 
 writeFile(process.argv[3], newFile);
