@@ -1,7 +1,18 @@
-<script setup>
-import { RouterView } from "vue-router";
+<script>
 import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import { RouterView } from "vue-router";
+export default {
+  name: "App",
+  components: {
+    NaveBarreComponent,
+    FooterComponent,
+    RouterView,
+  },
+  mounted() {
+    this.$router.push("/");
+  },
+};
 </script>
 
 <template>
@@ -11,3 +22,6 @@ import FooterComponent from "@/components/FooterComponent.vue";
   </div>
   <FooterComponent/>
 </template>
+
+<style>
+</style>

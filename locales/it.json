@@ -168,5 +168,14 @@
         "title": "Domande frequenti",
         "presentation": "Benvenuto nelle FAQ del sito. Questa FAQ è diversa a seconda della lingua selezionata.",
         "nofaq": "Nessuna FAQ disponibile in questa lingua."
+    },
+    "desktop": {
+        "title": "Scaricare l'applicazione desktop",
+        "message": "È possibile scaricare l'applicazione desktop per gestire le preferenze di B.NOTE. Questa applicazione è disponibile per MacOS e Windows.",
+        "githubReleases": "*Voir les releases sur GitHub",
+        "mac": "*MacOS",
+        "windows": "*Windows ",
+        "downloadMac": "*Télécharger la version {version} (format .dmg)",
+        "downloadWindows": "*Télécharger la version {version} (format .exe)"
     }
 }
