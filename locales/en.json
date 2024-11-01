@@ -99,7 +99,8 @@
         "bluetooth": "Bluetooth",
         "bnote_visible": "Make detectable",
         "bnote_name": "Device name",
-        "bt_simul_esys": "Esys simulation mode"
+        "bt_simul_esys": "Esys simulation mode",
+        "timezone": "Time zone"
     },
     "settingsValues": {
         "dot-8": "Dot 8",
