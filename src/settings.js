@@ -30,7 +30,7 @@ const all_settings = {
     "app_settings": {
       id: "app_settings",
       type: "menu",
-      values: ["invisible", "main_apps_menu", "more_apps_menu"],
+      values: ["main_apps_menu", "more_apps_menu"],
       default: "main_apps_menu",
     },
     "app_agenda": {
