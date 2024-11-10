@@ -12,11 +12,11 @@ jobs:
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Validate PR title
         run: |
-          if [[ ! "$(echo '${{ github.event.pull_request.title }}' | grep -E '^\[(BUGFIX|MINORFEATURE|MAJORFEATURE)\]')" ]]; then
-            echo "Error: Pull request title must start with [BUGFIX], [MINORFEATURE], or [MAJORFEATURE]."
+          if [[ ! "$(echo '${{ github.event.pull_request.title }}' | grep -E '^\[(BUGFIX|MINORFEATURE|MAJORFEATURE|TECH)\]')" ]]; then
+            echo "Error: Pull request title must start with [BUGFIX], [MINORFEATURE], [TECH], or [MAJORFEATURE]."
             exit 1
           fi
