@@ -35,3 +35,4 @@ cd locale
 node update_translation.cjs <base_language> <target_language>
 ```
 New translations will be marked with a "*".
+NOTE: tests include a translation checking, based on french language.
