@@ -85,6 +85,20 @@ export default {
       v-model="settingValue"
       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
     />
+
+    <!-- Text input -->
+    <input
+      v-else-if="setting.type === 'text'"
+      type="text"
+      :id="label_id"
+      :name="name"
+      :min="setting.min"
+      :max="setting.max"
+      :value="setting_value"
+      @input="updateSetting"
+      v-model="settingValue"
+      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+    />
   </div>
   <br>
 </template>
