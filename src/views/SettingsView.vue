@@ -18,7 +18,7 @@ export default {
       // menu variables
       display_menu: {
         system: false,
-        main_menu: false,
+        bluetooth: false,
         explorer: false,
         editor: false,
         music: false,
@@ -144,6 +144,21 @@ export default {
                               :name="$t(`settingsName.${setting['id']}`)"
                               :label_id="`system.${setting['id']}`"
                               @setting-change="save_new_value('system', setting['id'], $event)" />
+          </div>
+        </div>
+        <!-- Bluetooth -->
+        <div id="bluetooth" :aria-label="$t('settingsName.bluetooth')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t('settingsName.bluetooth') }}</h3>
+          <button type="button" @click="togle_menu('bluetooth')" class="text-sm text-blue-500 hover:underline">
+            {{ display_menu['bluetooth'] ? $t('settingsPage.hide') : $t('settingsPage.show') }}
+          </button>
+          <div class="setting" v-if="display_menu['bluetooth']">
+            <SettingComponent v-for="setting in all_settings['bluetooth']" :key="setting['id']"
+                              :setting="setting"
+                              :setting_value="settingsData['bluetooth'][setting['id']]"
+                              :name="$t(`settingsName.${setting['id']}`)"
+                              :label_id="`bluetooth.${setting['id']}`"
+                              @setting-change="save_new_value('bluetooth', setting['id'], $event)" />
           </div>
         </div>
 

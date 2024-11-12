@@ -101,7 +101,11 @@
         "braille_learning": "Scrivere parola e operazione",
         "use_vocal": "Utilizzare la sintesi vocale",
         "keep_spaces": "Conservare gli spazi",
-        "write_all": "Scrivere tutto"
+        "write_all": "Scrivere tutto",
+        "bluetooth": "Bluetooth",
+        "bnote_visible": "Rendere rilevabile",
+        "bnote_name": "Nome dell'apparecchio",
+        "bt_simul_esys": "Simulazione della modalità Esys"
     },
     "settingsValues": {
         "dot-8": "Braille informatico (8 punti)",

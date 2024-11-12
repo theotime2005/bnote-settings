@@ -94,7 +94,11 @@
         "braille_learning": "Write word and operation",
         "use_vocal": "Use voice synthesis",
         "keep_spaces": "Preserve the spaces",
-        "write_all": "Write everything"
+        "write_all": "Write everything",
+        "bluetooth": "Bluetooth",
+        "bnote_visible": "Make detectable",
+        "bnote_name": "Device name",
+        "bt_simul_esys": "Esys simulation mode"
     },
     "settingsValues": {
         "dot-8": "Dot 8",
