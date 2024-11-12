@@ -100,6 +100,23 @@ const all_settings = {
       default: false,
     },
   },
+  bluetooth: {
+    bnote_visible: {
+      id: "bnote_visible",
+      type: "checkbox",
+      default: true,
+    },
+    bnote_name: {
+      id: "bnote_name",
+      type: "text",
+      default: "",
+    },
+    bt_simul_esys: {
+      id: "bt_simul_esys",
+      type: "checkbox",
+      default: false,
+    },
+  },
   explorer: {
     "empty_bluetooth_shutdown": {
       id: "empty_bluetooth_shutdown",
