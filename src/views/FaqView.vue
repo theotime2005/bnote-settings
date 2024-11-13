@@ -3,41 +3,41 @@ export default {
   name: "FaqView",
   data() {
     return {
-      faq: null,
-    };
+      faq: null
+    }
   },
   methods: {
     async loadFaq() {
-      this.faq = null;
-      const file_name = `faq/${this.$i18n.locale}.json`;
+      this.faq = null
+      const file_name = `faq/${this.$i18n.locale}.json`
       try {
-        const request = await fetch(file_name);
+        const request = await fetch(file_name)
         if (request.ok) {
-          this.faq = await request.json();
+          this.faq = await request.json()
         }
       } catch (e) {
-        console.error(e);
+        console.error(e)
       }
-    },
+    }
   },
   mounted() {
-    this.loadFaq();
+    this.loadFaq()
   },
   watch: {
     "$i18n.locale": {
       immediate: true,
       handler() {
-        this.loadFaq();
-      },
-    },
-  },
-};
+        this.loadFaq()
+      }
+    }
+  }
+}
 </script>
 
 <template>
   <div class="max-w-4xl mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-center mb-6">{{ $t('faq.title') }}</h1>
-    <p class="text-lg text-gray-600 text-center mb-8">{{ $t('faq.presentation') }}</p>
+    <h1 class="text-3xl font-bold text-center mb-6">{{ $t("faq.title") }}</h1>
+    <p class="text-lg text-gray-600 text-center mb-8">{{ $t("faq.presentation") }}</p>
 
     <div v-if="faq && faq.length">
       <article
@@ -52,12 +52,16 @@ export default {
           :key="`faq-answer-${index}-${subIndex}`"
           class="ml-4"
         >
-          <p v-if="typeof element === 'string'" class="text-base text-gray-700 mb-2">{{ element }}</p>
+          <p v-if="typeof element === 'string'" class="text-base text-gray-700 mb-2">
+            {{ element }}
+          </p>
 
           <ol v-else-if="Array.isArray(element)" class="list-decimal list-inside ml-6">
-            <li v-for="(subElement, subElemIndex) in element"
-                :key="`faq-subelement-${index}-${subIndex}-${subElemIndex}`"
-                class="text-base text-gray-700 mb-1">
+            <li
+              v-for="(subElement, subElemIndex) in element"
+              :key="`faq-subelement-${index}-${subIndex}-${subElemIndex}`"
+              class="text-base text-gray-700 mb-1"
+            >
               {{ subElement }}
             </li>
           </ol>
@@ -65,10 +69,8 @@ export default {
       </article>
     </div>
 
-    <p v-else class="text-center text-gray-500">{{ $t('faq.nofaq') }}</p>
+    <p v-else class="text-center text-gray-500">{{ $t("faq.nofaq") }}</p>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

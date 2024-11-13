@@ -1,13 +1,13 @@
 <script setup>
-import { RouterView } from "vue-router";
-import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
-import FooterComponent from "@/components/FooterComponent.vue";
+import { RouterView } from "vue-router"
+import NaveBarreComponent from "@/components/NaveBarreComponent.vue"
+import FooterComponent from "@/components/FooterComponent.vue"
 </script>
 
 <template>
-  <NaveBarreComponent/>
+  <NaveBarreComponent />
   <div class="flex flex-col flex-grow overflow-y-scroll">
-    <RouterView/>
+    <RouterView />
   </div>
-  <FooterComponent/>
+  <FooterComponent />
 </template>
