@@ -8,8 +8,12 @@ export default {
   },
   methods: {
     changeLanguage() {
-      this.$i18n.locale=this.current_language;
-      document.documentElement.lang=this.current_language;
+      this.$i18n.locale = this.current_language;
+      const path = this.$route.path.split("/");
+      const newPath = path.slice(2);
+
+      this.$router.push(`/${this.current_language}/${newPath.join("/")}`);
+      document.documentElement.lang = this.current_language;
     },
   },
   mounted() {
@@ -20,18 +24,13 @@ export default {
 
 <template>
   <div class="flex gap-2">
-    <label for="language">{{$t('languages.select')}}</label>
+    <label for="language">{{ $t('languages.select') }}</label>
     <select :value="current_language" v-model="current_language" @change="changeLanguage">
-      <option
-      v-for="language in $i18n.availableLocales"
-      :key="language"
-      :value="language">
-      {{ $t(`languages.${language}`) }}
-    </option>
-  </select>
-</div>
+      <option v-for="language in $i18n.availableLocales" :key="language" :value="language">
+        {{ $t(`languages.${language}`) }}
+      </option>
+    </select>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

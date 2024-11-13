@@ -35,7 +35,7 @@ describe("unit | Settings", () => {
           }
           return true;
         case "text":
-          return true
+          return true;
         }
       }
       for (let section in all_settings) {
