@@ -6,7 +6,6 @@ import UploadFileComponent from "@/components/UploadFileComponent.vue";
 const t = i18n.global.t;
 
 describe("UploadFileComponent.vue", () => {
-
   // Test pour vérifier la gestion de la sélection de fichier
   it("devrait gérer correctement la sélection de fichier", async () => {
     const wrapper = mount(UploadFileComponent, {

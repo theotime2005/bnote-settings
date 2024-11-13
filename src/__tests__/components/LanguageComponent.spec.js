@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import LanguageComponent from "@/components/LanguageComponent.vue";
 
 describe("LanguageComponent", () => {
@@ -7,7 +7,13 @@ describe("LanguageComponent", () => {
     const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
     const wrapper = mount(LanguageComponent, {
       global: {
-        mocks: { $i18n, $t: (msg) => msg },
+        mocks: {
+          $i18n, $t: (msg) => msg,
+          $route: {
+            params: { lang: "en" },
+            path: "/en/path",
+          },
+        },
       },
     });
 
@@ -18,7 +24,16 @@ describe("LanguageComponent", () => {
     const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
     const wrapper = mount(LanguageComponent, {
       global: {
-        mocks: { $i18n, $t: (msg) => msg },
+        mocks: {
+          $i18n, $t: (msg) => msg,
+          $route: {
+            params: { lang: "en" },
+            path: "/en/path",
+          },
+          $router: {
+            push: (path) => path,
+          },
+        },
       },
     });
 
