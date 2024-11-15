@@ -21,7 +21,8 @@
         "downloadEurobraille": "Scarica la versione di Eurobraille",
         "otherTitle": "Altra versione",
         "message3": "Metto a disposizione un'altra versione il cui codice sorgente è disponibile <a href=\"https://github.com/theotime2005/bnote\">qui</a>. Puoi scaricarla qui sotto",
-        "downloadOtherLast": "Scarica {version}"
+        "downloadOtherLast": "Scarica {version}",
+        "releases": "Vedere tutte le versioni su GitHub"
     },
     "uploadFile": {
         "title": "Carica un file",
