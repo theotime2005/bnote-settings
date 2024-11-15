@@ -34,6 +34,7 @@ export default {
       <a
         class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300"
         href="https://www.eurobraille.fr/download/telecharger-le-fichier-image-de-la-carte-sd-3-3-0-b-note/"
+        target="_blank"
         title="Télécharger l'image de la carte SD de B.note"
         >Télécharger l'image de la carte SD</a
       >
@@ -45,15 +46,17 @@ export default {
       <a
         class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300"
         href="https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/"
+        target="_blank"
         >{{ $t("download.downloadEurobraille") }}</a
       >
     </div>
 
-    <!--    <div class="flex flex-col mt-3">-->
-    <!--      <h2 class="text-3xl">{{$t('download.otherTitle')}}</h2>-->
-    <!--      <p v-html="$t('download.message3')"></p>-->
-    <!--      <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="last_version['file']">{{$t('download.downloadOtherLast', {version: last_version['tag']})}}</a>-->
-    <!--    </div>-->
+        <div class="flex flex-col mt-3">
+          <h2 class="text-3xl">{{$t('download.otherTitle')}}</h2>
+          <p v-html="$t('download.message3')"></p>
+          <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="last_version['file']">{{$t('download.downloadOtherLast', {version: last_version['tag']})}}</a>
+          <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" href="https://github.com/theotime2005/bnote/releases" target="_blank">{{$t("download.releases")}}</a>
+        </div>
   </div>
 </template>
 
