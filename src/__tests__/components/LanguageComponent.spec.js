@@ -10,10 +10,6 @@ describe("LanguageComponent", () => {
         mocks: {
           $i18n,
           $t: (msg) => msg,
-          $route: {
-            params: { lang: "en" },
-            path: "/en/path",
-          },
         },
       },
     });
@@ -28,13 +24,7 @@ describe("LanguageComponent", () => {
         mocks: {
           $i18n,
           $t: (msg) => msg,
-          $route: {
-            params: { lang: "en" },
-            path: "/en/path",
-          },
-          $router: {
-            push: (path) => path,
-          },
+
         },
       },
     });
