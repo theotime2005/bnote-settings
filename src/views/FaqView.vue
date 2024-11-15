@@ -3,35 +3,35 @@ export default {
   name: "FaqView",
   data() {
     return {
-      faq: null
-    }
+      faq: null,
+    };
   },
   methods: {
     async loadFaq() {
-      this.faq = null
-      const file_name = `faq/${this.$i18n.locale}.json`
+      this.faq = null;
+      const file_name = `faq/${this.$i18n.locale}.json`;
       try {
-        const request = await fetch(file_name)
+        const request = await fetch(file_name);
         if (request.ok) {
-          this.faq = await request.json()
+          this.faq = await request.json();
         }
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    },
   },
   mounted() {
-    this.loadFaq()
+    this.loadFaq();
   },
   watch: {
     "$i18n.locale": {
       immediate: true,
       handler() {
-        this.loadFaq()
-      }
-    }
-  }
-}
+        this.loadFaq();
+      },
+    },
+  },
+};
 </script>
 
 <template>

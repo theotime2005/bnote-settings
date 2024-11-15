@@ -4,35 +4,35 @@ export default {
   data() {
     return {
       fileInput: null,
-      fileData: null
-    }
+      fileData: null,
+    };
   },
   methods: {
     handleFileUpload(event) {
-      this.fileInput = event.target.files[0]
+      this.fileInput = event.target.files[0];
     },
     uploadFile() {
       try {
-        const extension = this.fileInput.name.split(".").pop()
+        const extension = this.fileInput.name.split(".").pop();
         if (extension !== "bnote") {
-          window.alert(this.$t("uploadFile.incorrectFormatFile"))
-          return
+          window.alert(this.$t("uploadFile.incorrectFormatFile"));
+          return;
         }
 
-        const file = new FileReader()
-        file.readAsText(this.fileInput)
+        const file = new FileReader();
+        file.readAsText(this.fileInput);
 
         file.onloadend = (e) => {
-          this.fileData = JSON.parse(e.target.result)
+          this.fileData = JSON.parse(e.target.result);
 
-          this.$emit("file-uploaded")
-        }
+          this.$emit("file-uploaded");
+        };
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>

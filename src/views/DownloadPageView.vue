@@ -3,27 +3,27 @@ export default {
   name: "DownloadPageView",
   data() {
     return {
-      last_version: {}
-    }
+      last_version: {},
+    };
   },
   methods: {
     async get_last_version() {
       try {
-        const request = await fetch("https://api.github.com/repos/theotime2005/bnote/releases")
-        const response = await request.json()
-        const version = response[0]
-        console.log(version)
-        this.last_version["tag"] = version["tag_name"]
-        this.last_version["file"] = version["assets"][0]["browser_download_url"]
+        const request = await fetch("https://api.github.com/repos/theotime2005/bnote/releases");
+        const response = await request.json();
+        const version = response[0];
+        console.log(version);
+        this.last_version["tag"] = version["tag_name"];
+        this.last_version["file"] = version["assets"][0]["browser_download_url"];
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    },
   },
   mounted() {
-    this.get_last_version()
-  }
-}
+    this.get_last_version();
+  },
+};
 </script>
 
 <template>
