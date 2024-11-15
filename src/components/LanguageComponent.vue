@@ -9,10 +9,6 @@ export default {
   methods: {
     changeLanguage() {
       this.$i18n.locale = this.current_language;
-      const path = this.$route.path.split("/");
-      const newPath = path.slice(2);
-
-      this.$router.push(`/${this.current_language}/${newPath.join("/")}`);
       document.documentElement.lang = this.current_language;
     },
   },
