@@ -29,9 +29,7 @@ jobs:
         run: npm install
 
       - name: Update packages
-        run: |
-          npm update
-          npm formate
+        run: npm update
 
       - name: Commit and push changes
         run: |
