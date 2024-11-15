@@ -1,14 +1,14 @@
 <script>
-import routes from "@/router/router-list.js"
+import routes from "@/router/router-list.js";
 
 export default {
   name: "NaveBarreComponent",
   data() {
     return {
-      routes: routes
-    }
-  }
-}
+      routes: routes,
+    };
+  },
+};
 </script>
 
 <template>

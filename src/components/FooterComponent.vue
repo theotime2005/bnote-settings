@@ -1,16 +1,16 @@
 <script>
-import LanguageComponent from "@/components/LanguageComponent.vue"
-import packageInfo from "../../package.json"
+import LanguageComponent from "@/components/LanguageComponent.vue";
+import packageInfo from "../../package.json";
 
 export default {
   name: "FooterComponent",
   components: { LanguageComponent },
   data() {
     return {
-      version: packageInfo.version
-    }
-  }
-}
+      version: packageInfo.version,
+    };
+  },
+};
 </script>
 <template>
   <footer

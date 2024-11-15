@@ -1,35 +1,36 @@
 <script>
+
 export default {
   name: "SettingComponent",
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     label_id: {
       type: String,
-      required: true
+      required: true,
     },
     setting: {
       type: Object,
-      required: true
+      required: true,
     },
     setting_value: {
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      settingValue: this.setting_value
-    }
+      settingValue: this.setting_value,
+    };
   },
   methods: {
     updateSetting() {
-      this.$emit("setting-change", this.settingValue)
-    }
+      this.$emit("setting-change", this.settingValue);
+    },
   },
-  emits: ["setting-change"]
-}
+  emits: ["setting-change"],
+};
 </script>
 
 <template>
@@ -61,8 +62,13 @@ export default {
       v-model="settingValue"
       class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
     >
-      <option v-for="option in setting.values" :key="option" :value="option" :name="option">
-        {{ $t(`settingsValues.${option}`) }}
+      <option
+        v-for="option in setting.values"
+        :key="option"
+        :value="option"
+        :name="option"
+      >
+        {{ !setting.isTranslate ? $t(`settingsValues.${option}`) : option }}
       </option>
     </select>
 
@@ -94,7 +100,7 @@ export default {
       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
     />
   </div>
-  <br />
+  <br>
 </template>
 
 <style scoped>

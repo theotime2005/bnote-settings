@@ -3,23 +3,23 @@ export default {
   name: "LanguageComponent",
   data() {
     return {
-      current_language: null
-    }
+      current_language: null,
+    };
   },
   methods: {
     changeLanguage() {
-      this.$i18n.locale = this.current_language
-      const path = this.$route.path.split("/")
-      const newPath = path.slice(2)
+      this.$i18n.locale = this.current_language;
+      const path = this.$route.path.split("/");
+      const newPath = path.slice(2);
 
-      this.$router.push(`/${this.current_language}/${newPath.join("/")}`)
-      document.documentElement.lang = this.current_language
-    }
+      this.$router.push(`/${this.current_language}/${newPath.join("/")}`);
+      document.documentElement.lang = this.current_language;
+    },
   },
   mounted() {
-    this.current_language = this.$i18n.locale
-  }
-}
+    this.current_language = this.$i18n.locale;
+  },
+};
 </script>
 
 <template>

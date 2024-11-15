@@ -1,13 +1,13 @@
 <script>
-import UploadFileComponent from "@/components/UploadFileComponent.vue"
-import all_settings from "@/settings.js"
-import SettingComponent from "@/components/SettingComponent.vue"
+import UploadFileComponent from "@/components/UploadFileComponent.vue";
+import all_settings from "@/settings.js";
+import SettingComponent from "@/components/SettingComponent.vue";
 
 export default {
   name: "SettingsView",
   components: {
     UploadFileComponent,
-    SettingComponent
+    SettingComponent,
   },
   data() {
     return {
@@ -25,25 +25,25 @@ export default {
         speech: false,
         radio: false,
         agenda: false,
-        braille_learning: false
-      }
-    }
+        braille_learning: false,
+      },
+    };
   },
   methods: {
     get_data() {
-      this.settingsData = this.$refs.upload.fileData
-      const file_name = this.$refs.upload.fileInput.name
-      this.file_name = file_name.split(".")[0]
-      this.fileIsImported = true
-      this.complete_empty_values()
+      this.settingsData = this.$refs.upload.fileData;
+      const file_name = this.$refs.upload.fileInput.name;
+      this.file_name = file_name.split(".")[0];
+      this.fileIsImported = true;
+      this.complete_empty_values();
     },
     clean_data() {
       const confirm = window.confirm(
-        "Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier."
-      )
+        "Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier.",
+      );
       if (confirm) {
-        this.settingsData = {}
-        this.fileIsImported = false
+        this.settingsData = {};
+        this.fileIsImported = false;
       }
     },
     complete_empty_values() {
@@ -51,68 +51,68 @@ export default {
       for (let section in this.all_settings) {
         for (let setting in this.all_settings[section]) {
           if (this.settingsData[section][setting] === undefined) {
-            this.settingsData[section][setting] = this.all_settings[section][setting].default
+            this.settingsData[section][setting] = this.all_settings[section][setting].default;
           }
         }
       }
     },
     createBasicData() {
-      const data = {}
+      const data = {};
       for (let section in this.all_settings) {
-        data[section] = {}
+        data[section] = {};
         for (let setting in this.all_settings[section]) {
-          data[section][setting] = this.all_settings[section][setting].default
+          data[section][setting] = this.all_settings[section][setting].default;
         }
       }
-      this.settingsData = data
-      this.file_name = this.$t("settingsPage.defaultName")
-      this.fileIsImported = true
+      this.settingsData = data;
+      this.file_name = this.$t("settingsPage.defaultName");
+      this.fileIsImported = true;
     },
     togle_menu(key) {
-      this.display_menu[key] = !this.display_menu[key]
+      this.display_menu[key] = !this.display_menu[key];
     },
     save_new_value(section, key, new_value) {
-      this.settingsData[section][key] = new_value
+      this.settingsData[section][key] = new_value;
     },
     save() {
-      const question = window.confirm("Voulez-vous vraiment télécharger le fichier?")
-      return question ? this.download_file() : null
+      const question = window.confirm("Voulez-vous vraiment télécharger le fichier?");
+      return question ? this.download_file() : null;
     },
     download_file() {
-      const stringData = JSON.stringify(this.settingsData, null, 2)
-      const blob_data = new Blob([stringData], { type: "application/json" })
-      const url_object = URL.createObjectURL(blob_data)
+      const stringData = JSON.stringify(this.settingsData, null, 2);
+      const blob_data = new Blob([stringData], { type: "application/json" });
+      const url_object = URL.createObjectURL(blob_data);
       // Create link
-      const link = document.createElement("a")
-      link.href = url_object
-      const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`
-      const file_name = this.$t("settingsPage.downloadName", { date: file_date }) + ".bnote"
-      link.download = file_name
-      link.click()
-      URL.revokeObjectURL(url_object)
+      const link = document.createElement("a");
+      link.href = url_object;
+      const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+      const file_name = this.$t("settingsPage.downloadName", { date: file_date }) + ".bnote";
+      link.download = file_name;
+      link.click();
+      URL.revokeObjectURL(url_object);
     },
     // Méthode pour fermer tous les menus
     closeAllMenus() {
       for (let key in this.display_menu) {
-        this.display_menu[key] = false
+        this.display_menu[key] = false;
       }
     },
     // Gestion de l'événement de touche "Escape"
     handleKeyPress(event) {
       if (event.key === "Escape") {
-        this.closeAllMenus()
+        this.closeAllMenus();
       }
-    }
+    },
   },
   mounted() {
     // Ajoute l'écouteur pour détecter la touche "Escape"
-    window.addEventListener("keydown", this.handleKeyPress)
+    window.addEventListener("keydown", this.handleKeyPress);
   },
   beforeUnmount() {
     // Retire l'écouteur lorsqu'on quitte le composant
-    window.removeEventListener("keydown", this.handleKeyPress)
-  }
-}
+    window.removeEventListener("keydown", this.handleKeyPress);
+  },
+};
 </script>
 
 <template>
