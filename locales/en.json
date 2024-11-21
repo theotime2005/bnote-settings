@@ -144,7 +144,8 @@
         "tomorrow": "The next day",
         "same_tomorrow": "The same day and the next",
         "auto": "Automatically",
-        "ask": "On request"
+        "ask": "On request",
+        "default": "Default value"
     },
     "settingsPage": {
         "title": "Settings B.note management",

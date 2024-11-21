@@ -154,7 +154,8 @@
     "tomorrow": "Le jour suivant",
     "same_tomorrow": "Le jour même et le suivant",
     "auto": "Automatiquement",
-    "ask": "Sur demande"
+    "ask": "Sur demande",
+    "default": "Par défaut"
   },
   "settingsPage": {
     "title": "Gestion des préférences du B.note",
