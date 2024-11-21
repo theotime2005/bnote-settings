@@ -13,6 +13,11 @@ describe("SettingComponent.vue", () => {
         setting: { type: "checkbox" },
         setting_value: true,
       },
+      global: {
+        mocks: {
+          $t: (msg) => msg,
+        },
+      },
     });
 
     // Vérifie que la checkbox est cochée initialement
@@ -101,6 +106,11 @@ describe("SettingComponent.vue", () => {
         setting: { type: "number", min: 1, max: 10 },
         setting_value: 5,
       },
+      global: {
+        mocks: {
+          $t: (msg) => msg,
+        },
+      },
     });
 
     // Vérifie que la valeur initiale est '5'
@@ -124,6 +134,11 @@ describe("SettingComponent.vue", () => {
         label_id: "category.checkbox",
         setting: { type: "checkbox" },
         setting_value: true,
+      },
+      global: {
+        mocks: {
+          $t: (msg) => msg,
+        },
       },
     });
     expect(wrapper.find("label").attributes("for")).toBe("category.checkbox");

@@ -28,6 +28,10 @@ export default {
     updateSetting() {
       this.$emit("setting-change", this.settingValue);
     },
+    setDefault() {
+      this.settingValue = this.setting.default;
+      this.$emit("setting-change", this.settingValue);
+    },
   },
   emits: ["setting-change"],
 };
@@ -99,6 +103,13 @@ export default {
       v-model="settingValue"
       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
     />
+    <!-- Button to set the default value -->
+    <button
+      @click="setDefault"
+      class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      v-if="settingValue!==setting.default">
+      {{ $t("settingsValues.default") }}
+    </button>
   </div>
   <br>
 </template>
