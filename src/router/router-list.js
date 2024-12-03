@@ -20,10 +20,10 @@ const routes = [
     component: () => import("@/views/FaqView.vue"),
   },
   {
-    path: '/about',
+    path: "/about",
     name: "about",
-    component: () => import("@/views/AboutView.vue")
-  }
+    component: () => import("@/views/AboutView.vue"),
+  },
 ];
 
 export default routes;

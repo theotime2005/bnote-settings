@@ -1,7 +1,7 @@
 <script>
 export default {
-  name: 'About'
-}
+  name: "AboutView",
+};
 </script>
 
 <template>
