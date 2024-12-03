@@ -44,7 +44,6 @@
     "system": "Interface utilisateur",
     "braille_type": "Type de braille",
     "auto_sync_date": "Synchronisation automatique de la date",
-    "timezone": "Fuseau horaire",
     "spaces_in_label": "Espaces dans les labels",
     "shortcuts_visible": "Raccourcis visibles",
     "app_explorer": "Afficher l'app Explorateur",

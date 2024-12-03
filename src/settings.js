@@ -469,25 +469,4 @@ const all_settings = {
   },
 };
 
-// Add time zone setting
-async function addTimeZone(settings) {
-  try {
-    const request = await fetch("https://timeapi.io/api/timezone/availabletimezones");
-    const response = await request.json();
-    settings["system"]["timezone"] = {
-      id: "timezone",
-      type: "menu",
-      values: response,
-      default: "Europe/Paris",
-      isTranslate: true,
-    };
-    return settings;
-  } catch (e) {
-    console.error(e);
-    return settings;
-  }
-}
-
-addTimeZone(all_settings);
-
 export default all_settings;
