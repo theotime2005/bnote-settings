@@ -174,5 +174,16 @@
     "title": "FAQ",
     "presentation": "Bienvenue sur la FAQ du site. Cette FAQ est différentes selon la langue sélectionnée.",
     "nofaq": "Pas de FAQ disponible dans cette langue."
+  },
+  "about": {
+    "title": "A propos du site",
+    "message1": "Ce site a été créé en 2024 par Théotime Berthod. Son code source est libre sur GitHub.",
+    "contribution": "Vous souhaitez contribuer ?",
+    "message2": "Si vous êtes développeur ou développeuse et que vous souhaitez rejoindre l'aventure, n'hésitez plus. Nous serons toujours heureux de voir le site s'enrichir de nouvelles fonctionalités",
+    "github": "Voir le code source sur GitHub",
+    "feature-bug": "Une idée ou un bug ?",
+    "message3": "N'hésitez pas à nous faire remonter toutes suggestions ou problème via GitHub.",
+    "feature": "Suggérer une nouvelle fonctionnalité",
+    "bug_report": "Signaler un bug"
   }
 }

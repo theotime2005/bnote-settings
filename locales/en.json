@@ -175,5 +175,16 @@
         "title": "FAQ",
         "presentation": "Welcome to the site's FAQ. This FAQ is different depending on the language selected.",
         "nofaq": "No FAQ available in this language."
+    },
+    "about": {
+        "title": "About website",
+        "message1": "This site was created in 2024 by Théotime Berthod. Its source code is free on GitHub.",
+        "contribution": "Do you want to contribute?",
+        "message2": "If you are a developer and want to join the adventure, do not hesitate any longer. We will always be happy to see the site enriched with new features",
+        "github": "View the source code on GitHub",
+        "feature-bug": "An idea or a bug?",
+        "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
+        "feature": "Suggest a new feature",
+        "bug_report": "Report a bug"
     }
 }
