@@ -166,7 +166,8 @@
         "defaultName": "Configurazione di default",
         "downloadName": "Preferenza {data}",
         "how": "Come funziona?",
-        "explication": "È possibile creare un file direttamente dal sito utilizzando il modello predefinito o caricare il file da un dispositivo."
+        "explication": "È possibile creare un file direttamente dal sito utilizzando il modello predefinito o caricare il file da un dispositivo.",
+        "question": "Vuoi davvero scaricare il file?"
     },
     "header": {
         "mainMenu": "Menu principale"

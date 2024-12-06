@@ -75,7 +75,7 @@ export default {
       this.settingsData[section][key] = new_value;
     },
     save() {
-      const question = window.confirm("Voulez-vous vraiment télécharger le fichier?");
+      const question = window.confirm(this.$t("settingsPage.question"));
       return question ? this.download_file() : null;
     },
     download_file() {
