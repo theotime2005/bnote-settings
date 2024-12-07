@@ -168,7 +168,8 @@
     "create": "Afficher le modèle par défaut",
     "downloadName": "Préférence {date}",
     "how": "Comment ça marche?",
-    "explication": "Vous pouvez soit créer un fichier directement à partir du site en utilisant le modèle par défaut, soit charger le fichier d'un appareil."
+    "explication": "Vous pouvez soit créer un fichier directement à partir du site en utilisant le modèle par défaut, soit charger le fichier d'un appareil.",
+    "question": "Voulez-vous vraiment télécharger le fichier ?"
   },
   "faq": {
     "title": "FAQ",
