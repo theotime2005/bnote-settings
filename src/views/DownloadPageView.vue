@@ -11,8 +11,13 @@ export default {
       try {
         const request = await fetch("https://api.github.com/repos/theotime2005/bnote/releases");
         const response = await request.json();
-        const version = response[0];
-        console.log(version);
+        let version = null;
+        for (let i = 0; i < response.length; i++) {
+          if (response[i]["prerelease"] === false) {
+            version = response[i];
+            break;
+          }
+        }
         this.last_version["tag"] = version["tag_name"];
         this.last_version["file"] = version["assets"][0]["browser_download_url"];
       } catch (e) {
