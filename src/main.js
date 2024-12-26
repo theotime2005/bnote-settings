@@ -7,6 +7,12 @@ import router from "./router";
 
 const app = createApp(App);
 
+// Vérifiez si vous êtes dans un environnement Electron
+const isElectron = !!(window && window.process && window.process.versions && window.process.versions.electron);
+
+// Définissez la variable globale
+window.isElectron = isElectron;
+
 app.use(createPinia());
 app.use(router);
 
