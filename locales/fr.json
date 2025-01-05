@@ -45,6 +45,7 @@
     "braille_type": "Type de braille",
     "auto_sync_date": "Synchronisation automatique de la date",
     "spaces_in_label": "Espaces dans les labels",
+    "button_in_first": "Bouton au début des boîtes dialogue de message",
     "shortcuts_visible": "Raccourcis visibles",
     "app_explorer": "Afficher l'app Explorateur",
     "app_settings": "Afficher l'app Préférences",

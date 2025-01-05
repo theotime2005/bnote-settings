@@ -100,7 +100,8 @@
         "bnote_visible": "Make detectable",
         "bnote_name": "Device name",
         "bt_simul_esys": "Esys simulation mode",
-        "timezone": "Time zone"
+        "timezone": "Time zone",
+        "button_in_first": "Button in first in message dialog box"
     },
     "settingsValues": {
         "dot-8": "Dot 8",

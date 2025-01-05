@@ -16,6 +16,11 @@ const all_settings = {
       type: "checkbox",
       default: false,
     },
+    "button_in_first": {
+      id: "button_in_first",
+      type: "checkbox",
+      default: true,
+    },
     "shortcuts_visible": {
       id: "shortcuts_visible",
       type: "checkbox",

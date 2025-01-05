@@ -107,7 +107,8 @@
         "bnote_visible": "Rendere rilevabile",
         "bnote_name": "Nome dell'apparecchio",
         "bt_simul_esys": "Simulazione della modalità Esys",
-        "timezone": "Fuso orario"
+        "timezone": "Fuso orario",
+        "button_in_first": "Pulsanto all'inizio delle finestre di dialogo dei messaggi"
     },
     "settingsValues": {
         "dot-8": "Braille informatico (8 punti)",
