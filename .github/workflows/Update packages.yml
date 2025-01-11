@@ -31,7 +31,7 @@ jobs:
       - name: Update packages
         run: npm update
 
-      - name: Check if tests pass
+      - name: Check if tests past
         run: npx vitest run
 
       - name: Commit and push changes
