@@ -1,20 +1,11 @@
-import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi } from "vitest";
-import i18n from "@/i18n.js";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
-
-const t = i18n.global.t;
+import { render, t } from "@/__tests__/helpers.js";
 
 describe("UploadFileComponent.vue", () => {
   // Test pour vérifier la gestion de la sélection de fichier
   it("devrait gérer correctement la sélection de fichier", async () => {
-    const wrapper = mount(UploadFileComponent, {
-      global: {
-        mocks: {
-          $t: (msg) => t(msg),
-        },
-      },
-    });
+    const wrapper = render(UploadFileComponent);
 
     // Simule un événement de changement de fichier
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
@@ -31,13 +22,7 @@ describe("UploadFileComponent.vue", () => {
 
   // Test pour vérifier l'alerte si le format de fichier est incorrect
   it("devrait afficher une alerte si le format du fichier est incorrect", async () => {
-    const wrapper = mount(UploadFileComponent, {
-      global: {
-        mocks: {
-          $t: (msg) => t(msg),
-        },
-      },
-    });
+    const wrapper = render(UploadFileComponent);
 
     window.alert = vi.fn(); // Mock de window.alert
 
@@ -60,13 +45,7 @@ describe("UploadFileComponent.vue", () => {
 
   // Test pour vérifier la lecture du fichier et l'émission de l'événement
   it("devrait lire le contenu du fichier et émettre l'événement \"file-uploaded\"", async () => {
-    const wrapper = mount(UploadFileComponent, {
-      global: {
-        mocks: {
-          $t: (msg) => t(msg),
-        },
-      },
-    });
+    const wrapper = render(UploadFileComponent);
 
     const fileContent = JSON.stringify({ message: "hello world" });
     const file = new File([fileContent], "test.bnote", { type: "text/plain" });
