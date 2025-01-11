@@ -14,8 +14,7 @@
         "downloadEurobraille": "Download the version of Eurobraille",
         "otherTitle": "Other version",
         "message3": "I provide another version whose source code is available <a href=\"https://github.com/theotime2005/bnote\">Here</a>. You can download it below",
-        "downloadOtherLast": "Download {version}",
-        "releases": "See all versions on GitHub"
+        "downloadOtherLast": "Download {version}"
     },
     "uploadFile": {
         "incorrectFormatFile": "Incorrect file format",
@@ -95,12 +94,7 @@
         "braille_learning": "Write word and operation",
         "use_vocal": "Use voice synthesis",
         "keep_spaces": "Preserve the spaces",
-        "write_all": "Write everything",
-        "bluetooth": "Bluetooth",
-        "bnote_visible": "Make detectable",
-        "bnote_name": "Device name",
-        "bt_simul_esys": "Esys simulation mode",
-        "timezone": "Time zone"
+        "write_all": "Write everything"
     },
     "settingsValues": {
         "dot-8": "Dot 8",
@@ -144,8 +138,7 @@
         "tomorrow": "The next day",
         "same_tomorrow": "The same day and the next",
         "auto": "Automatically",
-        "ask": "On request",
-        "default": "Default value"
+        "ask": "On request"
     },
     "settingsPage": {
         "title": "Settings B.note management",
@@ -187,5 +180,14 @@
         "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
         "feature": "Suggest a new feature",
         "bug_report": "Report a bug"
+    },
+    "desktop": {
+        "title": "Download the desktop application",
+        "message": "You can download the desktop application to manage B.NOTE preferences. This application is available for MacOS and Windows.",
+        "githubReleases": "View releases on GitHub",
+        "mac": "MacOS",
+        "windows": "Windows ",
+        "downloadMac": "Download the version {version} (.dmg format)",
+        "downloadWindows": "Download the version {version} (.exe format)"
     }
 }
