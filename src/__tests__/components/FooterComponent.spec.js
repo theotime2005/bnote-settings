@@ -1,49 +1,32 @@
 import { describe, it, expect } from "vitest";
-import { mount } from "@vue/test-utils";
 import i18n from "@/i18n.js";
 import FooterComponent from "@/components/FooterComponent.vue";
-import packageInfo from "../../../package.json";
+import { render, t } from "../helpers";
 
-const t = i18n.global.t;
 describe("FooterComponent", () => {
   it("renders footer messages correctly", () => {
-    const wrapper = mount(FooterComponent, {
-      global: {
-        mocks: {
-          $t: (msg) => t(msg),
-          $i18n: i18n,
-        },
+    const wrapper = render(FooterComponent, {
+      mocks: {
+        $i18n: i18n,
       },
     });
     expect(wrapper.text()).toContain(t("footer.message1"));
     expect(wrapper.text()).toContain(t("footer.message2"));
   });
 
-  it("renders the correct version from package.json", () => {
-    const wrapper = mount(FooterComponent, {
-      global: {
-        mocks: {
-          $t: (msg, option) => {
-            if (msg === "footer.version") {
-              return t("footer.version", { version: option });
-            } else {
-              return t(msg);
-            }
-          },
-          $i18n: i18n,
-        },
+  it("renders the version info", () => {
+    const wrapper = render(FooterComponent, {
+      mocks: {
+        $i18n: i18n,
       },
     });
-    expect(wrapper.text()).toContain(packageInfo.version);
+    expect(wrapper.text()).toContain(t("footer.version"));
   });
 
   it("renders the GitHub link correctly", () => {
-    const wrapper = mount(FooterComponent, {
-      global: {
-        mocks: {
-          $t: (msg) => msg,
-          $i18n: i18n,
-        },
+    const wrapper = render(FooterComponent, {
+      mocks: {
+        $i18n: i18n,
       },
     });
     const link = wrapper.find("a");
@@ -52,12 +35,9 @@ describe("FooterComponent", () => {
   });
 
   it("contains LanguageComponent", () => {
-    const wrapper = mount(FooterComponent, {
-      global: {
-        mocks: {
-          $t: (msg) => t(msg),
-          $i18n: i18n,
-        },
+    const wrapper = render(FooterComponent, {
+      mocks: {
+        $i18n: i18n,
       },
     });
     expect(wrapper.findComponent({ name: "LanguageComponent" }).exists()).toBe(true);

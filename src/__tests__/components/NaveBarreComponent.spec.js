@@ -1,60 +1,53 @@
 import { describe, it, expect } from "vitest";
-import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
 import routes from "@/router/router-list.js";
+import { createRouter, createWebHistory } from "vue-router";
+import { render } from "@/__tests__/helpers";
 
 describe("NaveBarreComponent", () => {
-  it("renders a menu item for each route", () => {
-    const wrapper = shallowMount(NaveBarreComponent, {
-      global: {
-        components: {
-          RouterLink: RouterLinkStub,
-        },
-        mocks: {
-          $t: (msg) => msg,
-        },
-      },
+  // Créez une instance de routeur avec les routes définies
+  const router = createRouter({
+    history: createWebHistory(),
+    routes,
+  });
+
+  it("renders a menu item for each route", async () => {
+    const wrapper = render(NaveBarreComponent, {
+      plugins: [router],
     });
-    const menuItems = wrapper.findAllComponents(RouterLinkStub);
+
+    // Attendez que le routeur soit prêt
+    await router.isReady();
+
+    const menuItems = wrapper.findAllComponents({ name: "RouterLink" });
     expect(menuItems.length).toBe(routes.length);
   });
 
-  it("renders the correct route paths", () => {
-    const wrapper = shallowMount(NaveBarreComponent, {
-      global: {
-        components: {
-          RouterLink: RouterLinkStub,
-        },
-        mocks: {
-          $t: (msg) => msg,
-        },
-      },
+  it("renders the correct route paths", async () => {
+    const wrapper = render(NaveBarreComponent, {
+      plugins: [router],
     });
-    const menuItems = wrapper.findAllComponents(RouterLinkStub);
+
+    await router.isReady();
+
+    const menuItems = wrapper.findAllComponents({ name: "RouterLink" });
     if (menuItems.length > 0) {
       menuItems.forEach((item, index) => {
-        expect(item.attributes("to")).toBe(routes[index].path);
+        expect(item.props("to")).toBe(routes[index].path);
       });
     }
   });
 
-  it("handles empty routes array", () => {
-    const wrapper = shallowMount(NaveBarreComponent, {
-      data() {
-        return {
-          routes: [],
-        };
-      },
-      global: {
-        components: {
-          RouterLink: RouterLinkStub,
-        },
-        mocks: {
-          $t: (msg) => msg,
-        },
-      },
+  it("handles empty routes array", async () => {
+    const wrapper = render(NaveBarreComponent, {
+      plugins: [router],
+    }, {}, {
+      routes: [],
     });
-    const menuItems = wrapper.findAllComponents(RouterLinkStub);
+
+    await router.isReady();
+
+    const menuItems = wrapper.findAllComponents({ name: "RouterLink" });
     expect(menuItems.length).toBe(0);
   });
 });
