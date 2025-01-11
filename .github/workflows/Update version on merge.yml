@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.0
         with:
-          token: ${{ secrets.ADMIN_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
       - name: Switch to the main branch
         run: git checkout main
 
