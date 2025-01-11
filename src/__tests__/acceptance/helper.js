@@ -1,9 +1,10 @@
-import { vi } from "vitest";
-import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import router from "@/router/index.js";
+import { mount } from "@vue/test-utils";
+import { vi } from "vitest";
+
 import App from "@/App.vue";
 import i18n from "@/i18n.js";
+import router from "@/router/index.js";
 
 
 /**
