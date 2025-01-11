@@ -17,9 +17,6 @@ function writeFile(file, data) {
   fs.writeFileSync(file, JSON.stringify(data, null, 4), "utf8");
 }
 
-const source = loadFile(process.argv[2]);
-const otherFile = loadFile(process.argv[3]);
-
 function checkAndUpdate(objStart, otherObj) {
   for (let key in objStart) {
     if (typeof objStart[key] === "object") {
@@ -44,7 +41,17 @@ function clearOldValues(obj_start, other_obj) {
   return other_obj;
 }
 
-const tmp = checkAndUpdate(source, otherFile);
-const newFile = clearOldValues(source, tmp);
+const source_file = process.argv[2];
+const other_files = process.argv.slice(3);
 
-writeFile(process.argv[3], newFile);
+// load source file
+const source = loadFile(source_file);
+
+// Actualize other files
+other_files.forEach((file) => {
+  console.log("Actualizing", file);
+  const other = loadFile(file);
+  const updated = checkAndUpdate(source, other);
+  const cleared = clearOldValues(source, updated);
+  writeFile(file, cleared);
+});
