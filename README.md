@@ -2,7 +2,7 @@
 
 ## The project
 
-B.note is a braille display designed by Eurobraille. You can find more information about the device on [the website](www.eurobraille.fr).
+B.note is a braille display designed by Eurobraille. You can find more information about the device on [the website](www.eurobraille.com).
 
 The purpose of this web interface is to allow sighted people to configure the B.note settings directly, without having to go through the device's internal braille interface.
 
