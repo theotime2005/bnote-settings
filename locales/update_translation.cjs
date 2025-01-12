@@ -33,6 +33,10 @@ function checkAndUpdate(objStart, otherObj) {
 
 function clearOldValues(obj_start, other_obj) {
   for (let key in other_obj) {
+    // Check in object if it's present in obj_start
+    if (typeof obj_start[key] === "object") {
+      other_obj[key] = clearOldValues(obj_start[key], other_obj[key]);
+    }
     if (!obj_start[key]) {
       console.log("Old key", key);
       delete other_obj[key];
