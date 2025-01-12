@@ -40,7 +40,7 @@ describe("SettingComponent.vue", () => {
       const select = wrapper.find("select");
       expect(select.element.value).toBe("option1");
       // Vérifie que le texte est bien passé par la traduction
-      expect(select.element[0].textContent).toBe("settingsValues.option1");
+      expect(select.element[0].textContent).toBe("settings.values.option1");
 
       // Simule une sélection d'option
       await select.setValue("option2");
