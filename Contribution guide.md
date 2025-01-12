@@ -32,7 +32,7 @@ After opening pull request, some tests will be executed to check the linting.
 To add any new content like sentences, you must fill the translation files. Once done for one language, you can update the other languages using the script in the "locales" file, by indicating the source and target languages. For instance:
 ```shell
 cd locale
-node update_translation.cjs <base_language> <target_language>
+node update_translation.cjs <base_language> <target_language1> <target_language2> ...
 ```
 New translations will be marked with a "*".
 NOTE: tests include a translation checking, based on french language.
