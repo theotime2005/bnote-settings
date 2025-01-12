@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run all tests
-        run: npx vitest run
+        run: npm test
 
       # Collecter les résultats des tests
       - name: Store test results (optional)
