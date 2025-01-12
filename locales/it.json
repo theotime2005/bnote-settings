@@ -15,12 +15,14 @@
     },
     "download": {
         "title": "Download B.note",
-        "message-1": "Dalla versione 3.0.0 di B.NOTE, il codice sorgente è libero e disponibile su <a href='https://github.com/devel-erb/bnote'>GitHub</a>. Scarica l'immagine qui sotto.",
+        "message-1": "Dalla versione 3.0.0 di B.NOTE, il codice sorgente è libero e disponibile su",
         "eurobrailleTitle": "Sito di Eurobraille",
         "message2": "La versione ufficiale di B.NOTE è disponibile sul sito di Eurobraille. Puoi scaricarla dal sito.",
         "downloadEurobraille": "Scarica la versione di Eurobraille",
         "otherTitle": "Altra versione",
-        "message3": "Metto a disposizione un'altra versione il cui codice sorgente è disponibile <a href=\"https://github.com/theotime2005/bnote\">qui</a>. Puoi scaricarla qui sotto",
+        "message3": "Metto a disposizione un'altra versione il cui codice sorgente è disponibile ",
+        "message-3-1": "QUI.",
+        "message-3-2": "Puoi scaricarla qui sotto",
         "downloadOtherLast": "Scarica {version}",
         "releases": "Vedere tutte le versioni su GitHub"
     },
@@ -107,8 +109,7 @@
             "bluetooth": "Bluetooth",
             "bnote_visible": "Rendere rilevabile",
             "bnote_name": "Nome dell'apparecchio",
-            "bt_simul_esys": "Simulazione della modalità Esys",
-            "timezone": "Fuso orario"
+            "bt_simul_esys": "Simulazione della modalità Esys"
         },
         "values": {
             "dot-8": "Braille informatico (8 punti)",

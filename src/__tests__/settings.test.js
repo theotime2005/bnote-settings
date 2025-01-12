@@ -1,7 +1,6 @@
-import { describe, it, expect } from "vitest";
 import all_settings from "@/settings.js";
 
-// Test unitaire pour vérifier les valeurs par défaut
+// Check the format of settings
 describe("unit | Settings", () => {
   describe("# Check the format of settings", () => {
     it("should format of settings is correct", () => {

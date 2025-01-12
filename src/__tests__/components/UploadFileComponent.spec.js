@@ -1,89 +1,88 @@
-import { describe, it, expect, vi } from "vitest";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
-import { render, t } from "@/__tests__/helpers.js";
+import { render, t } from "@/__tests__/components/helpers.js";
 
 describe("UploadFileComponent.vue", () => {
-  // Test pour vérifier la gestion de la sélection de fichier
-  it("devrait gérer correctement la sélection de fichier", async () => {
+  // Test to verify file selection handling
+  it("should handle file selection correctly", async () => {
     const wrapper = render(UploadFileComponent);
 
-    // Simule un événement de changement de fichier
+    // Simulate a file change event
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
     const input = wrapper.find("input[type=\"file\"]");
 
-    // Simule manuellement l'événement `change`
+    // Manually trigger the `change` event
     Object.defineProperty(input.element, "files", { value: [file] });
     await input.trigger("change");
 
-    // Vérifie que fileInput a bien reçu le fichier
+    // Verify that fileInput has received the file
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
     expect(wrapper.vm.fileInput).toBe(file);
   });
 
-  // Test pour vérifier l'alerte si le format de fichier est incorrect
-  it("devrait afficher une alerte si le format du fichier est incorrect", async () => {
+  // Test to verify alert when file format is incorrect
+  it("should display an alert if the file format is incorrect", async () => {
     const wrapper = render(UploadFileComponent);
 
-    window.alert = vi.fn(); // Mock de window.alert
+    window.alert = vi.fn(); // Mock window.alert
 
-    // Simule la sélection d'un fichier avec une mauvaise extension
+    // Simulate selecting a file with an incorrect extension
     const file = new File(["test content"], "test.txt", { type: "text/plain" });
     const input = wrapper.find("input[type=\"file\"]");
 
-    // Simule manuellement l'événement `change`
+    // Manually trigger the `change` event
     Object.defineProperty(input.element, "files", { value: [file] });
     await input.trigger("change");
 
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
 
-    // Simule la soumission du fichier avec le mauvais format
+    // Simulate file submission with incorrect format
     wrapper.vm.uploadFile();
 
-    // Vérifie que l'alerte est affichée
+    // Verify that the alert is displayed
     expect(window.alert).toHaveBeenCalledWith(t("uploadFile.incorrectFormatFile"));
   });
 
-  // Test pour vérifier la lecture du fichier et l'émission de l'événement
-  it("devrait lire le contenu du fichier et émettre l'événement \"file-uploaded\"", async () => {
+  // Test to verify file reading and event emission
+  it("should read file content and emit the \"file-uploaded\" event", async () => {
     const wrapper = render(UploadFileComponent);
 
     const fileContent = JSON.stringify({ message: "hello world" });
     const file = new File([fileContent], "test.bnote", { type: "text/plain" });
 
-    // Mock FileReader et son comportement
+    // Mock FileReader and its behavior
     const mockFileReader = {
       readAsText: vi.fn(),
-      onloadend: null, // onloadend sera défini après
+      onloadend: null, // onloadend will be defined later
     };
 
-    // Mock de FileReader global
+    // Mock global FileReader
     window.FileReader = vi.fn(() => mockFileReader);
 
-    // Simule manuellement l'événement `change`
+    // Manually trigger the `change` event
     const input = wrapper.find("input[type=\"file\"]");
     Object.defineProperty(input.element, "files", { value: [file] });
     await input.trigger("change");
 
-    // Simule la sélection du fichier
+    // Simulate file selection
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
 
-    // Définir `onloadend` comme une fonction et simuler l'événement de fin de lecture
+    // Define `onloadend` as a function and simulate the end of file reading event
     mockFileReader.onloadend = vi.fn((e) => {
-      e.target = { result: fileContent }; // Simule le contenu du fichier lu
-      wrapper.vm.fileData = JSON.parse(e.target.result); // Met à jour fileData
-      wrapper.$emit("file-uploaded"); // Émet l'événement après la lecture
+      e.target = { result: fileContent }; // Simulate file content being read
+      wrapper.vm.fileData = JSON.parse(e.target.result); // Update fileData
+      wrapper.$emit("file-uploaded"); // Emit the event after reading
     });
 
-    // Simule la soumission du fichier
+    // Simulate file submission
     wrapper.vm.uploadFile();
 
-    // Appelle onloadend pour simuler la fin de la lecture du fichier
+    // Call onloadend to simulate the end of file reading
     mockFileReader.onloadend({ target: { result: fileContent } });
 
-    // Vérifie que fileData a bien été mis à jour
+    // Verify that fileData has been updated
     expect(wrapper.vm.fileData).toEqual(JSON.parse(fileContent));
 
-    // Vérifie que l'événement 'file-uploaded' a bien été émis
+    // Verify that the "file-uploaded" event has been emitted
     expect(wrapper.emitted("file-uploaded")).toBeTruthy();
   });
 });

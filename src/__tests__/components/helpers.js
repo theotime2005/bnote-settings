@@ -8,22 +8,22 @@ const render = (component, global = {}, properties = {}, data = null) => {
     $t: (msg) => msg,
   };
 
-  // Fusionner les mocks définis dans `global` avec les mocks par défaut
+  // Fusion of the global options with the default mocks
   const global_component = {
     ...global,
     mocks: {
       ...defaultMocks,
-      ...(global.mocks || {}), // Ajouter ou fusionner les mocks personnalisés
+      ...(global.mocks || {}), // Add the mocks from the global options
     },
   };
 
-  // Préparer les options pour le montage
+  // Prepare the options to mount the component
   const mountOptions = {
     global: global_component,
     props: properties,
   };
 
-  // Ajouter l'option `data` si elle est définie
+  // Add the data to the component if it is provided
   if (data) {
     mountOptions.data = () => data;
   }

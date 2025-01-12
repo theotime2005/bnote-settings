@@ -91,13 +91,13 @@ export default {
       link.click();
       URL.revokeObjectURL(url_object);
     },
-    // Méthode pour fermer tous les menus
+    // Method to close all menus
     closeAllMenus() {
       for (let key in this.display_menu) {
         this.display_menu[key] = false;
       }
     },
-    // Gestion de l'événement de touche "Escape"
+    // Gestion of the "Escape" key
     handleKeyPress(event) {
       if (event.key === "Escape") {
         this.closeAllMenus();
@@ -105,11 +105,11 @@ export default {
     },
   },
   mounted() {
-    // Ajoute l'écouteur pour détecter la touche "Escape"
+    // Add listener to the "Escape" key
     window.addEventListener("keydown", this.handleKeyPress);
   },
   beforeUnmount() {
-    // Retire l'écouteur lorsqu'on quitte le composant
+    // Remove listener to the "Escape" key
     window.removeEventListener("keydown", this.handleKeyPress);
   },
 };

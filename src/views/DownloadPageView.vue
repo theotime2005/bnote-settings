@@ -3,6 +3,17 @@ export default {
   name: "DownloadPageView",
   data() {
     return {
+      links: {
+        eurobraille: {
+          download: "https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/",
+          github: "https://github.com/devel-erb/bnote",
+          sdcard: "https://www.eurobraille.fr/download/telecharger-le-fichier-image-de-la-carte-sd-3-3-0-b-note/",
+        },
+        theotime: {
+          github: "https://github.com/theotime2005/bnote",
+          releases: "https://github.com/theotime2005/bnote/releases",
+        },
+      },
       last_version: {},
     };
   },
@@ -35,14 +46,10 @@ export default {
   <div class="p-3">
     <div class="flex flex-col mb-3">
       <h1 class="text-3xl">{{ $t("download.title") }}</h1>
-      <p v-html="$t('download.message-1')"></p>
-      <a
-        class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300"
-        href="https://www.eurobraille.fr/download/telecharger-le-fichier-image-de-la-carte-sd-3-3-0-b-note/"
-        target="_blank"
-        title="Télécharger l'image de la carte SD de B.note"
-        >Télécharger l'image de la carte SD</a
-      >
+      <p>{{$t('download.message-1')}}
+        <a :href="links.eurobraille.github" target="_blank">GitHub</a>.
+      </p>
+
     </div>
 
     <div class="flex flex-col mt-3">
@@ -50,7 +57,7 @@ export default {
       <p>{{ $t("download.message2") }}</p>
       <a
         class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300"
-        href="https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/"
+        :href="links.eurobraille.download"
         target="_blank"
         >{{ $t("download.downloadEurobraille") }}</a
       >
@@ -58,9 +65,12 @@ export default {
 
         <div class="flex flex-col mt-3">
           <h2 class="text-3xl">{{$t('download.otherTitle')}}</h2>
-          <p v-html="$t('download.message3')"></p>
+          <p class="mb-3">{{$t('download.message3')}}
+            <a :href="links.theotime.github" target="_blank">{{$t('download.message-3-1')}}</a>
+            {{$t('download.message-3-2')}}
+          </p>
           <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="last_version['file']">{{$t('download.downloadOtherLast', {version: last_version['tag']})}}</a>
-          <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" href="https://github.com/theotime2005/bnote/releases" target="_blank">{{$t("download.releases")}}</a>
+          <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="links.theotime.releases" target="_blank">{{$t("download.releases")}}</a>
         </div>
   </div>
 </template>
