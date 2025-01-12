@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { render } from "@/__tests__/components/helpers.js";
 
 describe("NaveBarreComponent", () => {
-  // Créez une instance de routeur avec les routes définies
+  // Create a router instance with the routes
   const router = createRouter({
     history: createWebHistory(),
     routes,
@@ -15,7 +15,7 @@ describe("NaveBarreComponent", () => {
       plugins: [router],
     });
 
-    // Attendez que le routeur soit prêt
+    // Wait for the router to be ready
     await router.isReady();
 
     const menuItems = wrapper.findAllComponents({ name: "RouterLink" });

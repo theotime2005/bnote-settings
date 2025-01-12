@@ -39,7 +39,7 @@ describe("LanguageComponent", () => {
 
     const options = wrapper.findAll("option");
     expect(options.length).toBe(2);
-    expect(options[0].text()).toBe("languages.en"); // Vous pouvez remplacer par la traduction correspondante
+    expect(options[0].text()).toBe("languages.en"); // You can use this syntax if you use vue-i
     expect(options[1].text()).toBe("languages.fr");
   });
 });

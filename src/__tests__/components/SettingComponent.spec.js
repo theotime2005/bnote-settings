@@ -3,8 +3,8 @@ import { render } from "@/__tests__/components/helpers.js";
 
 describe("SettingComponent.vue", () => {
 
-  // Test pour l'input checkbox
-  it("devrait rendre une checkbox et émettre l'événement 'setting-change' lors d'une modification", async () => {
+  // Test for the checkbox input
+  it("should render a checkbox and emit the 'setting-change' event upon modification", async () => {
     const wrapper = render(SettingComponent, {}, {
       name: "Test Checkbox",
       label_id: "category.checkbox",
@@ -12,71 +12,75 @@ describe("SettingComponent.vue", () => {
       setting_value: true,
     });
 
-    // Vérifie que la checkbox est cochée initialement
+    // Verify that the checkbox is initially checked
     const checkbox = wrapper.find("input[type=\"checkbox\"]");
     expect(checkbox.element.checked).toBe(true);
 
-    // Simule une modification de la checkbox
+    // Simulate a checkbox modification
     await checkbox.setChecked(false);
 
-    // Vérifie que la valeur de settingValue a été mise à jour
+    // Verify that the settingValue has been updated
     expect(wrapper.vm.settingValue).toBe(false);
 
-    // Vérifie que l'événement 'setting-change' a été émis
+    // Verify that the 'setting-change' event has been emitted
     expect(wrapper.emitted("setting-change")[0]).toEqual([false]);
   });
 
-  // Test pour le dropdown (menu)
-  describe("# Test du dropdown", () => {
-    it("devrait rendre un menu déroulant et émettre l'événement 'setting-change' lors d'une modification avec traduction", async () => {
+  // Test for the dropdown (menu)
+  describe("# Dropdown Test", () => {
+    it("should render a dropdown menu and emit the 'setting-change' event upon modification with translation", async () => {
       const wrapper = render(SettingComponent, {}, {
         name: "Test Menu",
         label_id: "category.dropdownmenu",
         setting: { type: "menu", values: ["option1", "option2", "option3"] },
         setting_value: "option1",
       });
-      // Vérifie que la valeur initiale est 'option1'
+
+      // Verify that the initial value is "option1"
       const select = wrapper.find("select");
       expect(select.element.value).toBe("option1");
-      // Vérifie que le texte est bien passé par la traduction
+
+      // Verify that the text has been translated
       expect(select.element[0].textContent).toBe("settings.values.option1");
 
-      // Simule une sélection d'option
+      // Simulate an option selection
       await select.setValue("option2");
 
-      // Vérifie que la valeur de settingValue a été mise à jour
+      // Verify that the settingValue has been updated
       expect(wrapper.vm.settingValue).toBe("option2");
 
-      // Vérifie que l'événement 'setting-change' a été émis
+      // Verify that the 'setting-change' event has been emitted
       expect(wrapper.emitted("setting-change")[0]).toEqual(["option2"]);
     });
 
-    it("devrait rendre un menu déroulant et émettre l'événement 'setting-change' lors d'une modification sans traduction", async () => {
+    it("should render a dropdown menu and emit the 'setting-change' event upon modification without translation", async () => {
       const wrapper = render(SettingComponent, {}, {
         name: "Test Menu",
         label_id: "category.dropdownmenu",
         setting: { type: "menu", values: ["option1", "option2", "option3"], isTranslate: true },
         setting_value: "option1",
       });
-      // Vérifie que la valeur initiale est 'option1'
+
+      // Verify that the initial value is "option1"
       const select = wrapper.find("select");
       expect(select.element.value).toBe("option1");
-      // Vérifie que le texte est bien passé par la traduction
+
+      // Verify that the text has not been translated
       expect(select.element[0].textContent).toBe("option1");
 
-      // Simule une sélection d'option
+      // Simulate an option selection
       await select.setValue("option2");
 
-      // Vérifie que la valeur de settingValue a été mise à jour
+      // Verify that the settingValue has been updated
       expect(wrapper.vm.settingValue).toBe("option2");
 
-      // Vérifie que l'événement 'setting-change' a été émis
+      // Verify that the 'setting-change' event has been emitted
       expect(wrapper.emitted("setting-change")[0]).toEqual(["option2"]);
     });
   });
 
-  // Test pour l'input number
-  it("devrait rendre un champ number et émettre l'événement 'setting-change' lors d'une modification", async () => {
+  // Test for the number input
+  it("should render a number input and emit the 'setting-change' event upon modification", async () => {
     const wrapper = render(SettingComponent, {}, {
       name: "Test Number",
       label_id: "category.editbox",
@@ -84,22 +88,22 @@ describe("SettingComponent.vue", () => {
       setting_value: 5,
     });
 
-    // Vérifie que la valeur initiale est '5'
+    // Verify that the initial value is "5"
     const numberInput = wrapper.find("input[type=\"number\"]");
     expect(numberInput.element.value).toBe("5");
 
-    // Simule une modification de l'input number
+    // Simulate a number input modification
     await numberInput.setValue(7);
 
-    // Vérifie que la valeur de settingValue a été mise à jour
+    // Verify that the settingValue has been updated
     expect(wrapper.vm.settingValue).toBe(7);
 
-    // Vérifie que l'événement 'setting-change' a été émis
+    // Verify that the 'setting-change' event has been emitted
     expect(wrapper.emitted("setting-change")[0]).toEqual([7]);
   });
 
-  it("Doit afficher le for du label passé en prop", () => {
-    const wrapper=render(SettingComponent, {}, {
+  it("should display the 'for' attribute of the label passed in props", () => {
+    const wrapper = render(SettingComponent, {}, {
       name: "Test Checkbox",
       label_id: "category.checkbox",
       setting: { type: "checkbox" },
