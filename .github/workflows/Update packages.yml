@@ -31,6 +31,9 @@ jobs:
       - name: Update packages
         run: npm update
 
+      - name: Check if tests pass
+        run: npx vitest run
+
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
