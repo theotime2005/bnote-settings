@@ -18,12 +18,14 @@
   },
   "download": {
     "title": "Téléchargement B.note",
-    "message-1": "Depuis la version 3.0.0 de B.NOTE, le code source est libre et disponible sur <a href='https://github.com/devel-erb/bnote'>GitHub</a>. Téléchargez l'image ci-dessous.",
+    "message-1": "Depuis la version 3.0.0 de B.NOTE, le code source est libre et disponible sur",
     "eurobrailleTitle": "Site d'Eurobraille",
     "message2": "La version officielle de B.NOTE est disponible sur le site d'Eurobraille. Vous pouvez la télécharger sur le site.",
     "downloadEurobraille": "Télécharger la version d'Eurobraille",
     "otherTitle": "Autre version",
-    "message3": "Je mets à disposition une autre version dont le code source est disponible <a href=\"https://github.com/theotime2005/bnote\">Ici</a>. Vous pouvez la télécharger ci-dessous",
+    "message3": "Je mets à disposition une autre version dont le code source est disponible",
+    "message-3-1": "ICI.",
+    "message-3-2": "Vous pouvez la télécharger ci-dessous",
     "downloadOtherLast": "Télécharger {version}",
     "releases": "Voir toutes les versions sur GitHub"
   },
