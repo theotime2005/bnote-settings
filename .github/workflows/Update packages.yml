@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.0
         with:
-          token: ${{ secrets.ADMIN_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Checkout to the main branch
         run: git checkout main
@@ -43,4 +43,4 @@ jobs:
           git commit -m "Update package on $commit_date"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
