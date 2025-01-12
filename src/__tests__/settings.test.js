@@ -1,4 +1,3 @@
-import { describe, it, expect } from "vitest";
 import all_settings from "@/settings.js";
 
 // Test unitaire pour vérifier les valeurs par défaut

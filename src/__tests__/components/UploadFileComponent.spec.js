@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
-import { render, t } from "@/__tests__/helpers.js";
+import { render, t } from "@/__tests__/components/helpers.js";
 
 describe("UploadFileComponent.vue", () => {
   // Test pour vérifier la gestion de la sélection de fichier

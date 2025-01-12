@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+
 import LanguageComponent from "@/components/LanguageComponent.vue";
-import { render } from "../helpers";
+import { render } from "./helpers.js";
 
 describe("LanguageComponent", () => {
   it("devrait définir la langue actuelle au montage", () => {

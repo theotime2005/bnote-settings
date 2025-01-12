@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
 import SettingComponent from "@/components/SettingComponent.vue";
-import { render } from "@/__tests__/helpers.js";
+import { render } from "@/__tests__/components/helpers.js";
 
 describe("SettingComponent.vue", () => {
 
