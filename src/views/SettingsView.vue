@@ -65,7 +65,7 @@ export default {
         }
       }
       this.settingsData = data;
-      this.file_name = this.$t("settings.page.defaultName");
+      this.file_name = this.$t("settingsPage.defaultName");
       this.fileIsImported = true;
     },
     togle_menu(key) {
@@ -75,7 +75,7 @@ export default {
       this.settingsData[section][key] = new_value;
     },
     save() {
-      const question = window.confirm(this.$t("settings.page.question"));
+      const question = window.confirm(this.$t("settingsPage.question"));
       return question ? this.download_file() : null;
     },
     download_file() {
@@ -86,7 +86,7 @@ export default {
       const link = document.createElement("a");
       link.href = url_object;
       const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
-      const file_name = this.$t("settings.page.downloadName", { date: file_date }) + ".bnote";
+      const file_name = this.$t("settingsPage.downloadName", { date: file_date }) + ".bnote";
       link.download = file_name;
       link.click();
       URL.revokeObjectURL(url_object);
@@ -117,11 +117,11 @@ export default {
 
 <template>
   <div class="p-6 bg-gray-50">
-    <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $t("settings.page.title") }}</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $t("settingsPage.title") }}</h1>
 
     <div v-if="!fileIsImported" class="bg-white p-4 rounded-md shadow-md">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{ $t("settings.page.how") }}</h2>
-      <p class="text-gray-600 mb-4">{{ $t("settings.page.explication") }}</p>
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{ $t("settingsPage.how") }}</h2>
+      <p class="text-gray-600 mb-4">{{ $t("settingsPage.explication") }}</p>
       <UploadFileComponent ref="upload" @file-uploaded="get_data" />
       <hr class="my-4 border-gray-300" />
       <button
@@ -129,7 +129,7 @@ export default {
         @click="createBasicData"
         class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
       >
-        {{ $t("settings.page.create") }}
+        {{ $t("settingsPage.create") }}
       </button>
     </div>
 
@@ -138,18 +138,18 @@ export default {
 
       <form
         class="settings space-y-6"
-        :aria-label="$t('settings.page.title2')"
+        :aria-label="$t('settingsPage.title2')"
         @submit.prevent="save"
       >
         <!-- system -->
-        <div id="system" :aria-label="$t('settings.id.system')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.system") }}</h3>
+        <div id="system" :aria-label="$t('settingsName.system')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.system") }}</h3>
           <button
             type="button"
             @click="togle_menu('system')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["system"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["system"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div class="setting" v-if="display_menu['system']">
             <SettingComponent
@@ -157,21 +157,21 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['system'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`system.${setting['id']}`"
               @setting-change="save_new_value('system', setting['id'], $event)"
             />
           </div>
         </div>
         <!-- Bluetooth -->
-        <div id="bluetooth" :aria-label="$t('settings.id.bluetooth')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.bluetooth") }}</h3>
+        <div id="bluetooth" :aria-label="$t('settingsName.bluetooth')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.bluetooth") }}</h3>
           <button
             type="button"
             @click="togle_menu('bluetooth')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["bluetooth"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["bluetooth"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div class="setting" v-if="display_menu['bluetooth']">
             <SettingComponent
@@ -179,7 +179,7 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['bluetooth'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`bluetooth.${setting['id']}`"
               @setting-change="save_new_value('bluetooth', setting['id'], $event)"
             />
@@ -187,14 +187,14 @@ export default {
         </div>
 
         <!-- Explorer -->
-        <div id="explorer" :aria-label="$t('settings.id.explorer')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.explorer") }}</h3>
+        <div id="explorer" :aria-label="$t('settingsName.explorer')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.explorer") }}</h3>
           <button
             type="button"
             @click="togle_menu('explorer')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["explorer"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["explorer"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div class="setting" v-if="display_menu['explorer']">
             <SettingComponent
@@ -202,7 +202,7 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['explorer'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`explorer.${setting['id']}`"
               @setting-change="save_new_value('explorer', setting['id'], $event)"
             />
@@ -210,14 +210,14 @@ export default {
         </div>
 
         <!-- editor -->
-        <div id="editor" :aria-label="$t('settings.id.editor')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.editor") }}</h3>
+        <div id="editor" :aria-label="$t('settingsName.editor')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.editor") }}</h3>
           <button
             type="button"
             @click="togle_menu('editor')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["editor"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["editor"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div class="setting" v-if="display_menu['editor']">
             <SettingComponent
@@ -225,7 +225,7 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['editor'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`editor.${setting['id']}`"
               @setting-change="save_new_value('editor', setting['id'], $event)"
             />
@@ -233,36 +233,36 @@ export default {
         </div>
 
         <!-- music -->
-        <div id="music" :aria-label="$t('settings.id.music')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.music") }}</h3>
+        <div id="music" :aria-label="$t('settingsName.music')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.music") }}</h3>
           <button
             type="button"
             @click="togle_menu('music')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["music"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["music"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div v-if="display_menu['music']">
-            <h4 class="text-lg font-medium text-gray-600">{{ $t("settings.id.musicxml") }}</h4>
+            <h4 class="text-lg font-medium text-gray-600">{{ $t("settingsName.musicxml") }}</h4>
             <div class="setting">
               <SettingComponent
                 v-for="setting in all_settings['music_xml']"
                 :key="setting['id']"
                 :setting="setting"
                 :setting_value="settingsData['music_xml'][setting['id']]"
-                :name="$t(`settings.id.${setting['id']}`)"
+                :name="$t(`settingsName.${setting['id']}`)"
                 :label_id="`music_xml.${setting['id']}`"
                 @setting-change="save_new_value('music_xml', setting['id'], $event)"
               />
             </div>
-            <h4 class="text-lg font-medium text-gray-600 mt-4">{{ $t("settings.id.bxml") }}</h4>
+            <h4 class="text-lg font-medium text-gray-600 mt-4">{{ $t("settingsName.bxml") }}</h4>
             <div class="setting">
               <SettingComponent
                 v-for="setting in all_settings['music_bxml']"
                 :key="setting['id']"
                 :setting="setting"
                 :setting_value="settingsData['music_bxml'][setting['id']]"
-                :name="$t(`settings.id.${setting['id']}`)"
+                :name="$t(`settingsName.${setting['id']}`)"
                 :label_id="`music_bxml.${setting['id']}`"
                 @setting-change="save_new_value('music_bxml', setting['id'], $event)"
               />
@@ -270,14 +270,14 @@ export default {
           </div>
         </div>
 
-        <div id="speech" :aria-label="$t('settings.id.speech')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.speech") }}</h3>
+        <div id="speech" :aria-label="$t('settingsName.speech')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.speech") }}</h3>
           <button
             type="button"
             @click="togle_menu('speech')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["speech"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["speech"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div class="setting" v-if="display_menu['speech']">
             <SettingComponent
@@ -285,7 +285,7 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['speech'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`speech.${setting['id']}`"
               @setting-change="save_new_value('speech', setting['id'], $event)"
             />
@@ -293,14 +293,14 @@ export default {
         </div>
 
         <!-- Audio -->
-        <div id="audio" :aria-label="$t('settings.id.radio')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.radio") }}</h3>
+        <div id="audio" :aria-label="$t('settingsName.radio')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.radio") }}</h3>
           <button
             type="button"
             @click="togle_menu('radio')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["radio"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["radio"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div class="setting" v-if="display_menu['radio']">
             <SettingComponent
@@ -308,7 +308,7 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['radio'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`radio.${setting['id']}`"
               @setting-change="save_new_value('radio', setting['id'], $event)"
             />
@@ -316,14 +316,14 @@ export default {
         </div>
 
         <!-- Agenda -->
-        <div id="agenda" :aria-label="$t('settings.id.agenda')" class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.agenda") }}</h3>
+        <div id="agenda" :aria-label="$t('settingsName.agenda')" class="space-y-4">
+          <h3 class="text-xl font-semibold text-gray-700">{{ $t("settingsName.agenda") }}</h3>
           <button
             type="button"
             @click="togle_menu('agenda')"
             class="text-sm text-blue-500 hover:underline"
           >
-            {{ display_menu["agenda"] ? $t("settings.page.hide") : $t("settings.page.show") }}
+            {{ display_menu["agenda"] ? $t("settingsPage.hide") : $t("settingsPage.show") }}
           </button>
           <div class="setting" v-if="display_menu['agenda']">
             <SettingComponent
@@ -331,7 +331,7 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['agenda'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`agenda.${setting['id']}`"
               @setting-change="save_new_value('agenda', setting['id'], $event)"
             />
@@ -341,11 +341,11 @@ export default {
         <!-- Braille learning -->
         <div
           id="braille_learning"
-          :aria-label="$t('settings.id.braille_learning')"
+          :aria-label="$t('settingsName.braille_learning')"
           class="space-y-4"
         >
           <h3 class="text-xl font-semibold text-gray-700">
-            {{ $t("settings.id.braille_learning") }}
+            {{ $t("settingsName.braille_learning") }}
           </h3>
           <button
             type="button"
@@ -353,7 +353,7 @@ export default {
             class="text-sm text-blue-500 hover:underline"
           >
             {{
-              display_menu["braille_learning"] ? $t("settings.page.hide") : $t("settings.page.show")
+              display_menu["braille_learning"] ? $t("settingsPage.hide") : $t("settingsPage.show")
             }}
           </button>
           <div class="setting" v-if="display_menu['braille_learning']">
@@ -362,7 +362,7 @@ export default {
               :key="setting['id']"
               :setting="setting"
               :setting_value="settingsData['braille_learning'][setting['id']]"
-              :name="$t(`settings.id.${setting['id']}`)"
+              :name="$t(`settingsName.${setting['id']}`)"
               :label_id="`braille_learning.${setting['id']}`"
               @setting-change="save_new_value('braille_learning', setting['id'], $event)"
             />
@@ -373,7 +373,7 @@ export default {
           type="submit"
           class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
         >
-          {{ $t("settings.page.download") }}
+          {{ $t("settingsPage.download") }}
         </button>
       </form>
 
@@ -382,7 +382,7 @@ export default {
         @click="clean_data"
         class="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
       >
-        {{ $t("settings.page.openOther") }}
+        {{ $t("settingsPage.openOther") }}
       </button>
     </div>
   </div>
