@@ -190,5 +190,6 @@
         "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
         "feature": "Suggest a new feature",
         "bug_report": "Report a bug"
-    }
+    },
+    "skip-content": "Skip to content"
 }
