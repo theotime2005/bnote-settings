@@ -190,5 +190,6 @@
         "message3": "Non esitate a segnalarci qualsiasi suggerimento o problema tramite GitHub.",
         "feature": "Suggerire una nuova funzionalità",
         "bug_report": "Segnalare un bug"
-    }
+    },
+    "skip-content": "Passare al contenuto"
 }

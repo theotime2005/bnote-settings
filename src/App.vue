@@ -2,12 +2,22 @@
 import { RouterView } from "vue-router";
 import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import { ref } from "vue";
+
+const mainRef = ref(null);
+
+const focusMain = () => {
+  if (mainRef.value) {
+    mainRef.value.focus();
+  }
+};
 </script>
 
 <template>
+  <button @click="focusMain">{{$t('skip-content')}}</button>
   <NaveBarreComponent />
-  <div class="flex flex-col flex-grow overflow-y-scroll">
+  <main class="flex flex-col flex-grow overflow-y-scroll" ref="mainRef" tabindex="-1">
     <RouterView />
-  </div>
+  </main>
   <FooterComponent />
 </template>
