@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <h1>Bonjour</h1>
+  <h1>{{$t('welcome')}}</h1>
 </template>
 
 <style scoped>
