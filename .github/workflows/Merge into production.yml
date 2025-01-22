@@ -26,7 +26,7 @@ jobs:
       - name: Merge main into production
         run: |
           git checkout production
-          git merge main --no-ff -m "Merge branch 'main' into 'production'"
+          git merge origin/main --no-ff -m "Merge branch 'main' into 'production'"
 
       - name: Push changes
         run: |
