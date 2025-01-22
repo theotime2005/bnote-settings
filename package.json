@@ -10,7 +10,9 @@
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "publish": "sh script/release.sh",
+    "release": "standard-version"
   },
   "dependencies": {
     "pinia": "^2.1.7",
@@ -30,6 +32,7 @@
     "jsdom": "^24.1.0",
     "postcss": "^8.4.45",
     "prettier": "^3.2.5",
+    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.10",
     "vite": "^5.4.14",
     "vitest": "^1.6.0"
