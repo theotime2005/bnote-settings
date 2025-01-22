@@ -1,0 +1,35 @@
+name: Merge main into production on tag push
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Déclenche le workflow pour les tags correspondant au schéma v*.*.*
+
+permissions:
+  contents: write
+
+jobs:
+  merge-main-into-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Nécessaire pour récupérer tous les tags
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "bnote-auto-merge@github.com"
+          git config --global user.name "bnote-auto-merge"
+
+      - name: Merge main into production
+        run: |
+          git checkout production
+          git merge main --no-ff -m "Merge branch 'main' into 'production'"
+
+      - name: Push changes
+        run: |
+          git push origin production
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

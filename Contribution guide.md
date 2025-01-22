@@ -17,8 +17,9 @@ Afterwards, you can develop your feature or resolve the issue. Follow this next 
 ## Create a pull request
 To suggest your modification to the repository owner, you must open a pull request. In the title, precize the type of pull request. The scopes are:
 - [BUGFIX] to resolve an issue or a lag,
-- [MINORFEATURE] to suggest a minor fonctionality update,
-- [MAJORFEATURE] to suggest a major fonctionality update,
+- [FEATURE] to create a new feature,
+- [DOC When you want writing docs,
+- [BUMP] When you update a specific dependency,
 - [TECH] To correct a fonctionnality (workflow, method call or other).
 In the description, you must complete the problem and solution sections. An optionnal note exists if you want to add any information.
 
