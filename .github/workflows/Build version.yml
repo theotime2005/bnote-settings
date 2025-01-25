@@ -1,0 +1,39 @@
+# This workflow generates a new version and pushes it to the main branch
+# It runs manually
+
+name: Build version
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-upload-new-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup node js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      - name: Setup git
+        # The name of this bot is bnote-settings-deployer
+        run: git config --global user.name "bnote-settings-deployer" && git config --global user.email "bnote-settings-deployer@github.com"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build new version
+        # Use standard-version to generate a new version
+        run: npm run release
+
+      - name: Push new version
+        run: git push --follow-tags origin main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
