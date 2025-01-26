@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test": "vitest run",
+    "test:wait": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
@@ -15,7 +16,8 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "pinia": "^2.1.7",
+    "@pinia/testing": "^0.1.7",
+    "pinia": "^2.3.0",
     "vue": "^3.4.29",
     "vue-i18n": "^10.0.0",
     "vue-router": "^4.3.3"
