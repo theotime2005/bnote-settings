@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import i18n from "@/i18n.js";
 import routesList from "@/router/router-list.js";
 

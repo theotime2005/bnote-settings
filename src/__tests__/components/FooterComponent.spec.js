@@ -1,6 +1,10 @@
-import i18n from "@/i18n.js";
+import { render, t } from "@/__tests__/components/helpers.js";
 import FooterComponent from "@/components/FooterComponent.vue";
-import { render, t } from "./helpers.js";
+import i18n from "@/i18n.js";
+
+
+
+
 
 describe("FooterComponent", () => {
   it("renders footer messages correctly", () => {

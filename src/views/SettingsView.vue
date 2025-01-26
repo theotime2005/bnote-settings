@@ -1,7 +1,7 @@
 <script>
+import SettingComponent from "@/components/SettingComponent.vue";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
 import all_settings from "@/settings.js";
-import SettingComponent from "@/components/SettingComponent.vue";
 
 export default {
   name: "SettingsView",

@@ -1,6 +1,5 @@
-
+import { render } from "@/__tests__/components/helpers.js";
 import LanguageComponent from "@/components/LanguageComponent.vue";
-import { render } from "./helpers.js";
 
 describe("LanguageComponent", () => {
   it("devrait définir la langue actuelle au montage", () => {

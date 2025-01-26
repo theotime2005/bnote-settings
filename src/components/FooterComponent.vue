@@ -1,6 +1,6 @@
 <script>
+import packageInfo from "@/../package.json";
 import LanguageComponent from "@/components/LanguageComponent.vue";
-import packageInfo from "../../package.json";
 
 export default {
   name: "FooterComponent",
