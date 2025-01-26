@@ -1,5 +1,5 @@
-import SettingComponent from "@/components/SettingComponent.vue";
 import { render } from "@/__tests__/components/helpers.js";
+import SettingComponent from "@/components/SettingComponent.vue";
 
 describe("SettingComponent.vue", () => {
 

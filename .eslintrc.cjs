@@ -12,6 +12,8 @@ module.exports = {
     "@vue/eslint-config-prettier/skip-formatting",
   ],
   plugins: [
+    "import",
+    "simple-import-sort",
     "vitest-globals",
   ],
   overrides: [
@@ -29,6 +31,23 @@ module.exports = {
     "comma-dangle": ["error", "always-multiline"],
     "comma-spacing": ["error", { before: false, after: true }],
     "object-curly-spacing": ["error", "always"],
+    // Simple import sort
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    // Most option to manage imports
+    "import/order": [
+      "error",
+      {
+        groups: [
+          ["builtin", "external"], // Node.js modules et dépendances externes
+          ["internal"],            // Imports internes
+          ["parent", "sibling"],   // Parent et fichiers siblings
+          ["index"],               // Imports de fichiers index
+        ],
+        "newlines-between": "always",
+        alphabetize: { order: "asc", caseInsensitive: true }, // Tri alphabétique
+      },
+    ],
   },
   parserOptions: {
     ecmaVersion: "latest",

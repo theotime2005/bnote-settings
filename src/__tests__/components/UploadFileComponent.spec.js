@@ -1,5 +1,5 @@
-import UploadFileComponent from "@/components/UploadFileComponent.vue";
 import { render, t } from "@/__tests__/components/helpers.js";
+import UploadFileComponent from "@/components/UploadFileComponent.vue";
 
 describe("UploadFileComponent.vue", () => {
   // Test to verify file selection handling

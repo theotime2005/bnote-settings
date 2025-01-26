@@ -1,8 +1,9 @@
 <script setup>
-import { RouterView } from "vue-router";
-import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
-import FooterComponent from "@/components/FooterComponent.vue";
 import { ref } from "vue";
+import { RouterView } from "vue-router";
+
+import FooterComponent from "@/components/FooterComponent.vue";
+import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
 
 const mainRef = ref(null);
 
