@@ -36,4 +36,4 @@ jobs:
       - name: Push new version
         run: git push --follow-tags origin main
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -26,10 +26,10 @@ jobs:
       - name: Merge main into production
         run: |
           git checkout production
-          git merge origin/main --no-ff -m "Merge branch 'main' into 'production'"
+          git merge origin/main --no-edit
 
       - name: Push changes
         run: |
           git push origin production
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
