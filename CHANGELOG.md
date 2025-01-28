@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/theotime2005/bnote-settings/compare/v0.0.1...v0.0.2) (2025-01-28)
+
+
+### Features
+
+* Add a command to run just tests ([8f8dbdb](https://github.com/theotime2005/bnote-settings/commit/8f8dbdb61e5ab012c1ec17252177923f155fb9d7))
+* Add eslint import ([4fda118](https://github.com/theotime2005/bnote-settings/commit/4fda1182fb452c35f167e6c6bf96e983191eda53))
+* Add some rules to eslint.config ([24365e5](https://github.com/theotime2005/bnote-settings/commit/24365e5bc93125135c4a2dcbbf1511dc08a41ce8))
+* Create helper for acceptance tests ([7e1c45e](https://github.com/theotime2005/bnote-settings/commit/7e1c45e8bff3ab72f532d3f532f656e96d11982d))
+* **workflow:** Add a github workflow to generate new version ([e219782](https://github.com/theotime2005/bnote-settings/commit/e219782f1960ec28378b784bc86c40157d9e7314))
+* **workflow:** Add a github workflow to generate new version ([5fbacb7](https://github.com/theotime2005/bnote-settings/commit/5fbacb7694b15a27cd86feae87fbb6c8b3aea115))
+* Write acceptance tests for most pages ([95a65e4](https://github.com/theotime2005/bnote-settings/commit/95a65e43230ca630b4a86d2d617a2b3bb5549296))
+
+
+### Bug Fixes
+
+* Apply eslint ([90b470a](https://github.com/theotime2005/bnote-settings/commit/90b470a63e5e9acec81d828030f1f0a0928a9027))
+* Correct the merge command ([edcf5b8](https://github.com/theotime2005/bnote-settings/commit/edcf5b84560d680b2df533135e76225971fd3b35))
+* Correct the workflow variable ([56f579f](https://github.com/theotime2005/bnote-settings/commit/56f579f461546356b5909e1911f90dca3e4000f1))
+
 ### 0.0.1 (2025-01-22)
 
 
