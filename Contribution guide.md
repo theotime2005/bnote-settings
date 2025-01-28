@@ -22,6 +22,7 @@ To suggest your modification to the repository owner, you must open a pull reque
 - [BUMP] When you update a specific dependency,
 - [TECH] To correct a fonctionnality (workflow, method call or other).
 In the description, you must complete the problem and solution sections. An optionnal note exists if you want to add any information.
+If you prefer, you can write your pull request, but you must explain exactly your modifications and our consequences. You can use the generate comment sumary with Copilot if you know how use this.
 
 ## Rule to accept the pull request
 Your pull request can be accepted only if:
