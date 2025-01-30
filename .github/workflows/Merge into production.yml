@@ -1,4 +1,4 @@
-name: Merge main into production on tag push
+name: "Merge main into production on tag push"
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0  # Nécessaire pour récupérer tous les tags
 
       - name: Set up Git
