@@ -5,7 +5,7 @@ describe("scripts | sendLog", () => {
   let console;
   beforeEach(() => {
     fetch = vi.spyOn(global, "fetch").mockResolvedValue({ ok: true });
-    process.env.LOG_API_URL = "http://example.net";
+    process.env.VUE_APP_LOG_API_URL = "http://example.net";
     console = { log: vi.spyOn(global.console, "log"), error: vi.spyOn(global.console, "error") };
   });
 
@@ -59,7 +59,7 @@ describe("scripts | sendLog", () => {
   describe("Send a log with missing or invalid URL", () => {
     it("does not send a log if LOG_API_URL is missing", async () => {
       // given
-      delete process.env.LOG_API_URL;
+      delete process.env.VUE_APP_LOG_API_URL;
 
       // when
       await sendLog({ fileName: "testFile", functionName: "testFunction", type: "error", log: "Error occurred" });
@@ -70,7 +70,7 @@ describe("scripts | sendLog", () => {
 
     it("does not send a log if LOG_API_URL is invalid", async () => {
       // given
-      process.env.LOG_API_URL = "";
+      process.env.VUE_APP_LOG_API_URL = "";
 
       // when
       await sendLog({ fileName: "testFile", functionName: "testFunction", type: "error", log: "Error occurred" });
