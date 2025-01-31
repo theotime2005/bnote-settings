@@ -10,6 +10,8 @@ on:
 jobs:
   eslint:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # Permet d'ajouter un commentaire dans la PR
 
     steps:
       - name: Checkout code
@@ -24,4 +26,31 @@ jobs:
         run: npm install
 
       - name: Run ESLint
-        run: npm run lint
+        id: eslint
+        continue-on-error: true
+        run: |
+          OUTPUT=$(npx eslint . --format=json)
+          echo "$OUTPUT" > eslint-report.json
+          echo "eslint_output=$OUTPUT" >> "$GITHUB_ENV"
+
+      - name: Check ESLint output
+        id: check_eslint
+        run: |
+          if grep -q '"errorCount": [1-9]' eslint-report.json; then
+            echo "ESLint errors detected"
+            echo "has_errors=true" >> "$GITHUB_ENV"
+          else
+            echo "No ESLint errors"
+            echo "has_errors=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Comment PR on failure
+        if: env.has_errors == 'true'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            🚨 **ESLint errors detected !**
+            ```
+            ${{ env.eslint_output }}
+            ```
+          comment_includes: '🚨 **ESLint errors detected !**'
