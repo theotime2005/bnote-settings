@@ -4,12 +4,11 @@ on:
   pull_request:
     branches:
       - main
-    types:
-      - ready_for_review
 
 jobs:
   eslint:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
 
     steps:
       - name: Checkout code
