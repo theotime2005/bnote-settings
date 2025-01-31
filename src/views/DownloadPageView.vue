@@ -1,4 +1,6 @@
 <script>
+import { sendLog } from "@/scripts/send-error-message-script.js";
+
 export default {
   name: "DownloadPageView",
   data() {
@@ -32,7 +34,7 @@ export default {
         this.last_version["tag"] = version["tag_name"];
         this.last_version["file"] = version["assets"][0]["browser_download_url"];
       } catch (e) {
-        console.error(e);
+        sendLog({ fileName: "DownloadPage", functionName: "get_last_version", type: "error", log: e });
       }
     },
   },

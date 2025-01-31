@@ -1,4 +1,6 @@
 <script>
+import { sendLog } from "@/scripts/send-error-message-script.js";
+
 export default {
   name: "FaqView",
   data() {
@@ -16,7 +18,7 @@ export default {
           this.faq = await request.json();
         }
       } catch (e) {
-        console.error(e);
+        sendLog({ fileName: "FaqView", functionName: "loadFaq", type: "error", log: e });
       }
     },
   },
