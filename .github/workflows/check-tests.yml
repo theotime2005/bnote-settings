@@ -24,12 +24,31 @@ jobs:
         run: npm install
 
       - name: Run all tests
-        run: npm test
+        id: run_tests
+        continue-on-error: true
+        run: |
+          OUTPUT=$(npm test)
+          echo "$OUTPUT" > test-report.txt
+          echo "test_output=$OUTPUT" >> "$GITHUB_ENV"
 
-      # Collecter les résultats des tests
-      - name: Store test results (optional)
-        if: always()
-        uses: actions/upload-artifact@v3
+      - name: Check test results
+        id: check_tests
+        run: |
+          if grep -q 'FAIL' test-report.txt; then
+            echo "Test failures detected"
+            echo "has_failures=true" >> "$GITHUB_ENV"
+          else
+            echo "No test failures"
+            echo "has_failures=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Comment PR on failure
+        if: env.has_failures == 'true'
+        uses: thollander/actions-comment-pull-request@v2
         with:
-          name: test-results
-          path: ./test-results
+          message: |
+            🚨 **Test failures detected !**
+            ```
+            ${{ env.test_output }}
+            ```
+          comment_includes: '🚨 **Test failures detected !**'
