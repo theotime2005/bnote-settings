@@ -1,4 +1,5 @@
 <script>
+import { sendLog } from "@/scripts/send-error-message-script.js";
 export default {
   name: "UploadFileComponent",
   data() {
@@ -28,7 +29,7 @@ export default {
           this.$emit("file-uploaded");
         };
       } catch (error) {
-        console.error(error);
+        sendLog({ fileName: "UploadFileComponent", functionName: "uploadFile", type: "error", log: error });
       }
     },
   },
