@@ -37,7 +37,6 @@ describe("NaveBarreComponent", () => {
       });
     }
   });
-
   it("handles empty routes array", async () => {
     const wrapper = render(NaveBarreComponent, {
       plugins: [router],
