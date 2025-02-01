@@ -8,7 +8,7 @@ import {
   getTranslation,
   loadFile,
   writeFile,
-} from "../../locales/update_translation.js";
+} from "../../scripts/update_translation.js";
 
 vi.mock("fs/promises");
 vi.mock("translatte");
