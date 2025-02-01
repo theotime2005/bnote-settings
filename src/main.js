@@ -1,3 +1,4 @@
+
 import "@/style.css";
 
 import { createPinia } from "pinia";
@@ -13,5 +14,4 @@ app.use(createPinia());
 app.use(router);
 
 app.use(i18n);
-
 app.mount("#app");
