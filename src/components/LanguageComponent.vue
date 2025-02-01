@@ -20,7 +20,7 @@ export default {
 
 <template>
   <div class="flex gap-2">
-    <label for="language">{{ $t("languages.select") }}</label>
+    <label for="language">{{ $t('languages.select') }}</label>
     <select :value="current_language" v-model="current_language" @change="changeLanguage">
       <option v-for="language in $i18n.availableLocales" :key="language" :value="language">
         {{ $t(`languages.${language}`) }}

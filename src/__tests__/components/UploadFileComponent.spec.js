@@ -18,7 +18,6 @@ describe("UploadFileComponent.vue", () => {
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
     expect(wrapper.vm.fileInput).toBe(file);
   });
-
   // Test to verify alert when file format is incorrect
   it("should display an alert if the file format is incorrect", async () => {
     const wrapper = render(UploadFileComponent);
@@ -34,7 +33,6 @@ describe("UploadFileComponent.vue", () => {
     await input.trigger("change");
 
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
-
     // Simulate file submission with incorrect format
     wrapper.vm.uploadFile();
 
@@ -62,7 +60,6 @@ describe("UploadFileComponent.vue", () => {
     const input = wrapper.find("input[type=\"file\"]");
     Object.defineProperty(input.element, "files", { value: [file] });
     await input.trigger("change");
-
     // Simulate file selection
     await wrapper.vm.handleFileUpload({ target: { files: [file] } });
 

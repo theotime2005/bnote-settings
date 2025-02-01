@@ -38,16 +38,11 @@ export default {
 
 <template>
   <div class="w-fit">
-    <h2 class="text-3xl">{{ $t("uploadFile.title") }}</h2>
+    <h2 class="text-3xl">{{$t('uploadFile.title')}}</h2>
     <form @submit.prevent="uploadFile" class="flex flex-col">
-      <label for="select">{{ $t("uploadFile.select") }}</label>
+      <label for="select">{{$t('uploadFile.select')}}</label>
       <input type="file" id="select" @change="handleFileUpload" accept=".bnote" required />
-      <button
-        type="submit"
-        class="w-fit p-2 rounded mt-2 bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200"
-      >
-        {{ $t("uploadFile.show") }}
-      </button>
+      <button type="submit" class="w-fit p-2 rounded mt-2 bg-green-700 hover:bg-transparent hover:text-green-300 hover:scale-95 hover:border-green-300 border border-green-700 transition-all duration-200">{{$t('uploadFile.show')}}</button>
     </form>
   </div>
 </template>

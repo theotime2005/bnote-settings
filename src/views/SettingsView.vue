@@ -134,8 +134,7 @@ export default {
     </div>
 
     <div v-if="fileIsImported" class="bg-white p-6 rounded-md shadow-md">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{ file_name }}</h2>
-
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{file_name}}</h2>
       <form
         class="settings space-y-6"
         :aria-label="$t('settings.page.title2')"
@@ -231,7 +230,6 @@ export default {
             />
           </div>
         </div>
-
         <!-- music -->
         <div id="music" :aria-label="$t('settings.id.music')" class="space-y-4">
           <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.music") }}</h3>
@@ -269,7 +267,6 @@ export default {
             </div>
           </div>
         </div>
-
         <div id="speech" :aria-label="$t('settings.id.speech')" class="space-y-4">
           <h3 class="text-xl font-semibold text-gray-700">{{ $t("settings.id.speech") }}</h3>
           <button
