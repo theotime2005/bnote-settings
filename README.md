@@ -51,3 +51,6 @@ Npm run build
 ### CSS
 
 This project uses [Tailwind](https://tailwindcss.com) for css. You can therefore directly use the classes provided for your formatting.
+
+## Contributing
+You can read the [Contribution guide](Contribution guide.md) file to learn how to contribute to the project.
