@@ -31,6 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Check tests and eslint
+        run: |
+          npm test
+          npm run lint
+
       - name: Build new version
         # Use standard-version to generate a new version
         run: npm run release
