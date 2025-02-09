@@ -9,7 +9,7 @@ jobs:
   vitest:
     runs-on: ubuntu-latest
 
-    if: github.event.pull_request.draft == false
+    if: "!contains(github.event.pull_request.labels.*.name, 'No deployment') && github.event.pull_request.draft == false"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
