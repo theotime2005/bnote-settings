@@ -51,11 +51,7 @@
         "section": "Tests"
       },
       {
-        "type": "TECH",
-        "section": "Technical Tasks"
-      },
-      {
-        "type": "BUMP",
+        "type": "bump",
         "section": "Version Bumps"
       }
     ]
