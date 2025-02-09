@@ -10,7 +10,7 @@ describe("scripts | sendLog", () => {
   });
 
   afterEach(function () {
-    fetch.mockRestore;
+    fetch.mockReset();
     console.log.mockRestore;
   });
 
