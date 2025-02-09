@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/theotime2005/bnote-settings/compare/v0.0.5...v1.0.0) (2025-02-09)
+
+
+### Features
+
+* add labels to dependabot alert ([a8ad1a3](https://github.com/theotime2005/bnote-settings/commit/a8ad1a3f76bf3058ec5ca417a9d43bb2ed48145e))
+
+
+### Bug Fixes
+
+* fix types for standard-version ([39f57ac](https://github.com/theotime2005/bnote-settings/commit/39f57acf8024859a121763dd61cc1c193322e5f9))
+* run only tests when commit changes ([f623c81](https://github.com/theotime2005/bnote-settings/commit/f623c8151a7e745bb351e053ff231f18cdcb4fb8))
+
 ### 0.0.5 (2025-02-08)
 
 ### 0.0.4 (2025-01-31)
