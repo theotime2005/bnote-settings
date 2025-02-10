@@ -10,7 +10,7 @@ jobs:
     if: contains(join(github.event.pull_request.labels.*.name, ','), 'Ready to merge') && github.event.pull_request.draft == false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Enable Auto Merge
         uses: actions/github-script@v6
