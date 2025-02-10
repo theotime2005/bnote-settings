@@ -16,7 +16,7 @@ jobs:
 
       - name: Validate PR title
         run: |
-          if [[ ! "$(echo '${{ github.event.pull_request.title }}' | grep -E '^\[(BUGFIX|FEATURE|TECH|deps-dev|DOC|BUMP)\]')" ]]; then
+          if [[ ! "$(echo '${{ github.event.pull_request.title }}' | grep -E '^\[(BUGFIX|FEATURE|TECH|DOCS|BUMP)\]')" ]]; then
             echo "Error: Pull request title must start with [BUGFIX], [TECH], [DOC], [BUMP] or [FEATURE]."
             exit 1
           fi
