@@ -1,0 +1,24 @@
+name: enable auto merge
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Enable-auto-merge:
+    runs-on: ubuntu-latest
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'Ready to merge')
+
+    steps:
+      - name: Enable auto merge
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            github.pulls.enableAutoMerge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              merge_method: 'merge'
+            })
