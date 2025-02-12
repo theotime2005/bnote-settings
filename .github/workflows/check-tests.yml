@@ -2,8 +2,8 @@ name: Check tests
 
 on:
   pull_request:
-    branches:
-      - main
+    types:
+      - synchronize
 
 jobs:
   vitest:
