@@ -39,7 +39,7 @@ export default {
     },
     clean_data() {
       const confirm = window.confirm(
-        "Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier.",
+        this.$t("settings.page.resetQuestion"),
       );
       if (confirm) {
         this.settingsData = {};

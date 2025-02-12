@@ -173,7 +173,8 @@
       "downloadName": "Préférence {date}",
       "how": "Comment ça marche?",
       "explication": "Vous pouvez soit créer un fichier directement à partir du site en utilisant le modèle par défaut, soit charger le fichier d'un appareil.",
-      "question": "Voulez-vous vraiment télécharger le fichier ?"
+      "question": "Voulez-vous vraiment télécharger le fichier ?",
+      "resetQuestion": "Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier."
     }
   },
   "faq": {
