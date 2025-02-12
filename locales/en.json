@@ -162,7 +162,8 @@
             "downloadName": "Settings {date}",
             "how": "How does it work?",
             "explication": "You can either create a file directly from the site using the default template or load the file from a device.",
-            "question": "Do you really want to download the file?"
+            "question": "Do you really want to download the file?",
+            "resetQuestion": "Do you really want to erase the current configuration? You will need to import another file."
         }
     },
     "title": "B.note management",
