@@ -5,6 +5,8 @@ import vue from "@vitejs/plugin-vue";
 import { dirname } from "path";
 import { defineConfig, loadEnv } from "vite";
 import vitePluginEnvCompatible from "vite-plugin-env-compatible";
+import { sendLog } from "./src/scripts/send-error-message-script.js";
+import packageInfo from "./package.json";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const env = loadEnv(process.env.MODE || "development", __dirname);
@@ -13,6 +15,19 @@ export default defineConfig({
   plugins: [
     vue(),
     vitePluginEnvCompatible(),
+    {
+      name: "show-success-message",
+      closeBundle() {
+      if (process.env.VUE_APP_ENVIRONMENT==="production") {
+        sendLog({
+          fileName: "Vite config",
+          functionName: "closeBundle",
+          type: "success",
+          log: `Congratulations! the version ${packageInfo.version} is deployed successfully!`,
+        })
+      }
+      },
+    },
   ],
   resolve: {
     alias: {
