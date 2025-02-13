@@ -19,7 +19,7 @@ describe("unit | Settings", () => {
           }
           return true;
         case "checkbox":
-          if (!setting.default === undefined || typeof setting.default != "boolean") {
+          if (!setting.default && typeof setting.default != "boolean") {
             console.warn(setting.id, "Incorrect type of default value");
             return false;
           }
