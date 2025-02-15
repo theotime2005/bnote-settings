@@ -74,9 +74,6 @@
             "fraction": "Frazione",
             "precision": "Precisione",
             "format": "Formato",
-            "music": "Musica",
-            "musicxml": "musicXML",
-            "bxml": "BXML",
             "edit_mode": "Modalità di modifica",
             "notes_dots": "Punti delle note",
             "ascending_chords": "Intervalli ascendenti",
@@ -109,7 +106,9 @@
             "bluetooth": "Bluetooth",
             "bnote_visible": "Rendere rilevabile",
             "bnote_name": "Nome dell'apparecchio",
-            "bt_simul_esys": "Simulazione della modalità Esys"
+            "bt_simul_esys": "Simulazione della modalità Esys",
+            "music_xml": "Musica (musicxml)",
+            "music_bxml": "Musica (bxml)"
         },
         "values": {
             "dot-8": "Braille informatico (8 punti)",
