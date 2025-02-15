@@ -131,27 +131,48 @@ export default {
       </button>
     </div>
 
-    <div v-if="fileIsImported" class="bg-white p-6 rounded-md shadow-md">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{file_name}}</h2>
+    <div
+      v-if="fileIsImported"
+      class="bg-white p-6 rounded-lg shadow-lg border border-gray-200"
+    >
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+        {{ file_name }}
+      </h2>
+
       <form
-        class="settings space-y-6"
+        class="space-y-6"
         :aria-label="$t('settings.page.title2')"
         @submit.prevent="save"
       >
-        <section v-for="(settings, section) in all_settings" :key="section">
-          <h3>{{ $t(`settings.id.${section}`) }}</h3>
-          <button type="button" @click="togle_menu(section)">{{ display_menu[section] ? $t('settings.page.hide') : $t('settings.page.show') }}</button>
-          <div v-if="display_menu[section]">
+        <section
+          v-for="(settings, section) in all_settings"
+          :key="section"
+          class="border-b border-gray-300 pb-4"
+        >
+          <h3 class="text-xl font-medium text-gray-700">{{ $t(`settings.id.${section}`) }}</h3>
+          <button
+            type="button"
+            @click="togle_menu(section)"
+            class="mt-2 text-sm text-blue-600 hover:underline focus:outline-none"
+          >
+            {{ display_menu[section] ? $t('settings.page.hide') : $t('settings.page.show') }}
+          </button>
+
+          <div v-if="display_menu[section]" class="mt-4 space-y-4">
             <SettingComponent
-              v-for="(setting, key) in settings" :key="section+'.'+key"
+              v-for="(setting, key) in settings"
+              :key="section+'.'+key"
               :settingSection="section"
               :settingKey="key"
-              :setting="setting"/>
+              :setting="setting"
+              class="p-4 bg-gray-100 rounded-md"
+            />
           </div>
         </section>
+
         <button
           type="submit"
-          class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+          class="w-full px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
         >
           {{ $t("settings.page.download") }}
         </button>
@@ -160,7 +181,7 @@ export default {
       <button
         type="button"
         @click="clean_data"
-        class="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+        class="mt-4 w-full px-4 py-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
       >
         {{ $t("settings.page.openOther") }}
       </button>
