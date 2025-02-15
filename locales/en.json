@@ -67,9 +67,6 @@
             "fraction": "Fraction",
             "precision": "Precision",
             "format": "Format",
-            "music": "Music",
-            "musicxml": "musicXML",
-            "bxml": "BXML",
             "edit_mode": "Edit and play mode",
             "notes_dots": "Notes dots",
             "ascending_chords": "Ascending chords",
@@ -102,7 +99,9 @@
             "bluetooth": "Bluetooth",
             "bnote_visible": "Make detectable",
             "bnote_name": "Device name",
-            "bt_simul_esys": "Esys simulation mode"
+            "bt_simul_esys": "Esys simulation mode",
+            "music_xml": "Music (musicxml)",
+            "music_bxml": "Music (bxml)"
         },
         "values": {
             "dot-8": "Dot 8",

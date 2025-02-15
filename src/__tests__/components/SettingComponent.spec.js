@@ -1,114 +1,85 @@
+import { createTestingPinia } from "@pinia/testing";
+
 import { render } from "@/__tests__/components/helpers.js";
 import SettingComponent from "@/components/SettingComponent.vue";
+import { useSettingsStore } from "@/stores/settingsStore.js";
 
 describe("SettingComponent.vue", () => {
+  const pinia = createTestingPinia({ createSpy: vi.fn });
+  const settingsStore = useSettingsStore();
 
-  // Test for the checkbox input
-  it("should render a checkbox and emit the 'setting-change' event upon modification", async () => {
-    const wrapper = render(SettingComponent, {}, {
-      name: "Test Checkbox",
-      label_id: "category.checkbox",
-      setting: { type: "checkbox" },
-      setting_value: true,
+  beforeEach(() => {
+    settingsStore.getSetting = vi.fn().mockImplementation(() => {
+      return true;
+    });
+    settingsStore.updateSetting = vi.fn();
+  });
+
+  it("renders checkbox and updates store on change", async () => {
+    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+      settingSection: "category",
+      settingKey: "checkbox",
+      setting: { type: "checkbox", default: false },
     });
 
-    // Verify that the checkbox is initially checked
-    const checkbox = wrapper.find("input[type=\"checkbox\"]");
-    expect(checkbox.element.checked).toBe(true);
+    const checkbox = wrapper.find("input[type='checkbox']");
+    expect(checkbox.exists()).toBe(true);
+    expect(checkbox.element.checked).toBe(true); // Valeur retournée par getSetting
 
-    // Simulate a checkbox modification
     await checkbox.setChecked(false);
-
-    // Verify that the settingValue has been updated
-    expect(wrapper.vm.settingValue).toBe(false);
-
-    // Verify that the 'setting-change' event has been emitted
-    expect(wrapper.emitted("setting-change")[0]).toEqual([false]);
+    expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "checkbox", false);
   });
 
-  // Test for the dropdown (menu)
-  describe("# Dropdown Test", () => {
-    it("should render a dropdown menu and emit the 'setting-change' event upon modification with translation", async () => {
-      const wrapper = render(SettingComponent, {}, {
-        name: "Test Menu",
-        label_id: "category.dropdownmenu",
-        setting: { type: "menu", values: ["option1", "option2", "option3"] },
-        setting_value: "option1",
-      });
-
-      // Verify that the initial value is "option1"
-      const select = wrapper.find("select");
-      expect(select.element.value).toBe("option1");
-
-      // Verify that the text has been translated
-      expect(select.element[0].textContent).toBe("settings.values.option1");
-
-      // Simulate an option selection
-      await select.setValue("option2");
-
-      // Verify that the settingValue has been updated
-      expect(wrapper.vm.settingValue).toBe("option2");
-
-      // Verify that the 'setting-change' event has been emitted
-      expect(wrapper.emitted("setting-change")[0]).toEqual(["option2"]);
+  it("renders dropdown and updates store on selection", async () => {
+    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+      settingSection: "category",
+      settingKey: "dropdown",
+      setting: { type: "menu", values: ["option1", "option2"], default: "option1" },
     });
 
-    it("should render a dropdown menu and emit the 'setting-change' event upon modification without translation", async () => {
-      const wrapper = render(SettingComponent, {}, {
-        name: "Test Menu",
-        label_id: "category.dropdownmenu",
-        setting: { type: "menu", values: ["option1", "option2", "option3"], isTranslate: true },
-        setting_value: "option1",
-      });
-
-      // Verify that the initial value is "option1"
-      const select = wrapper.find("select");
-      expect(select.element.value).toBe("option1");
-
-      // Verify that the text has not been translated
-      expect(select.element[0].textContent).toBe("option1");
-
-      // Simulate an option selection
-      await select.setValue("option2");
-
-      // Verify that the settingValue has been updated
-      expect(wrapper.vm.settingValue).toBe("option2");
-
-      // Verify that the 'setting-change' event has been emitted
-      expect(wrapper.emitted("setting-change")[0]).toEqual(["option2"]);
-    });
+    const select = wrapper.find("select");
+    expect(select.exists()).toBe(true);
+    await select.setValue("option2");
+    expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "dropdown", "option2");
   });
 
-  // Test for the number input
-  it("should render a number input and emit the 'setting-change' event upon modification", async () => {
-    const wrapper = render(SettingComponent, {}, {
-      name: "Test Number",
-      label_id: "category.editbox",
-      setting: { type: "number", min: 1, max: 10 },
-      setting_value: 5,
+  it("renders number input and updates store on change", async () => {
+    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+      settingSection: "category",
+      settingKey: "number",
+      setting: { type: "number", min: 1, max: 10, default: 5 },
     });
 
-    // Verify that the initial value is "5"
-    const numberInput = wrapper.find("input[type=\"number\"]");
-    expect(numberInput.element.value).toBe("5");
-
-    // Simulate a number input modification
+    const numberInput = wrapper.find("input[type='number']");
+    expect(numberInput.exists()).toBe(true);
     await numberInput.setValue(7);
-
-    // Verify that the settingValue has been updated
-    expect(wrapper.vm.settingValue).toBe(7);
-
-    // Verify that the 'setting-change' event has been emitted
-    expect(wrapper.emitted("setting-change")[0]).toEqual([7]);
+    expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "number", 7);
   });
 
-  it("should display the 'for' attribute of the label passed in props", () => {
-    const wrapper = render(SettingComponent, {}, {
-      name: "Test Checkbox",
-      label_id: "category.checkbox",
-      setting: { type: "checkbox" },
-      setting_value: true,
+  it("renders text input and updates store on change", async () => {
+    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+      settingSection: "category",
+      settingKey: "text",
+      setting: { type: "text", default: "Hello" },
     });
-    expect(wrapper.find("label").attributes("for")).toBe("category.checkbox");
+
+    const textInput = wrapper.find("input[type='text']");
+    expect(textInput.exists()).toBe(true);
+    await textInput.setValue("New Value");
+    expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "text", "New Value");
+  });
+
+  it("renders button and sets default value", async () => {
+    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+      settingSection: "category",
+      settingKey: "checkbox",
+      setting: { type: "checkbox", default: false },
+    });
+
+    const button = wrapper.find("button");
+    expect(button.exists()).toBe(true);
+
+    await button.trigger("click");
+    expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "checkbox", false);
   });
 });

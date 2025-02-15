@@ -1,39 +1,42 @@
 <script>
+import { useSettingsStore } from "@/stores/settingsStore.js";
 
 export default {
   name: "SettingComponent",
   props: {
-    name: {
+    settingSection: {
       type: String,
+      description: "The setting section",
       required: true,
     },
-    label_id: {
+    settingKey: {
       type: String,
+      description: "The key setting",
       required: true,
     },
     setting: {
       type: Object,
-      required: true,
-    },
-    setting_value: {
+      description: "The setting informations",
       required: true,
     },
   },
   data() {
     return {
-      settingValue: this.setting_value,
+      settingValue: useSettingsStore().getSetting(this.settingSection, this.settingKey),
+      label_id: `${this.settingSection}.${this.settingKey}`,
+      name: this.$t(`settings.id.${this.settingKey}`),
+      settingsStore: useSettingsStore(),
     };
   },
   methods: {
     updateSetting() {
-      this.$emit("setting-change", this.settingValue);
+      useSettingsStore().updateSetting(this.settingSection, this.settingKey, this.settingValue);
     },
     setDefault() {
       this.settingValue = this.setting.default;
-      this.$emit("setting-change", this.settingValue);
+      this.updateSetting();
     },
   },
-  emits: ["setting-change"],
 };
 </script>
 
@@ -50,7 +53,7 @@ export default {
       type="checkbox"
       :id="label_id"
       :name="name"
-      :checked="setting_value"
+      :checked="settingValue"
       @change="updateSetting"
       v-model="settingValue"
       class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
@@ -60,18 +63,13 @@ export default {
     <select
       v-else-if="setting.type === 'menu'"
       :id="label_id"
-      :value="setting_value"
+      :value="settingValue"
       :name="name"
       @change="updateSetting"
       v-model="settingValue"
       class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
     >
-      <option
-        v-for="option in setting.values"
-        :key="option"
-        :value="option"
-        :name="option"
-      >
+      <option v-for="option in setting.values" :key="option" :value="option" :name="option">
         {{ !setting.isTranslate ? $t(`settings.values.${option}`) : option }}
       </option>
     </select>
@@ -84,7 +82,7 @@ export default {
       :name="name"
       :min="setting.min"
       :max="setting.max"
-      :value="setting_value"
+      :value="settingValue"
       @input="updateSetting"
       v-model="settingValue"
       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -96,9 +94,7 @@ export default {
       type="text"
       :id="label_id"
       :name="name"
-      :min="setting.min"
-      :max="setting.max"
-      :value="setting_value"
+      :value="settingValue"
       @input="updateSetting"
       v-model="settingValue"
       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -107,11 +103,12 @@ export default {
     <button
       @click="setDefault"
       class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      v-if="settingValue!==setting.default">
+      v-if="settingValue !== setting.default"
+    >
       {{ $t("settings.values.default") }}
     </button>
   </div>
-  <br>
+  <br />
 </template>
 
 <style scoped>

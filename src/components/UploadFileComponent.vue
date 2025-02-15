@@ -1,11 +1,11 @@
 <script>
 import { sendLog } from "@/scripts/send-error-message-script.js";
+import { useSettingsStore } from "@/stores/settingsStore.js";
 export default {
   name: "UploadFileComponent",
   data() {
     return {
       fileInput: null,
-      fileData: null,
     };
   },
   methods: {
@@ -24,7 +24,7 @@ export default {
         file.readAsText(this.fileInput);
 
         file.onloadend = (e) => {
-          this.fileData = JSON.parse(e.target.result);
+          useSettingsStore().loadSettings(JSON.parse(e.target.result));
 
           this.$emit("file-uploaded");
         };
