@@ -1,63 +1,46 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+/* Réinitialisation des styles de base */
 * {
-    margin: 2rem;
-    padding: 1rem;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    color: white;
 }
 
+/* Styles pour l'élément html */
 html {
-    height: 100dvh;
-    width: 100dvw;
-    background-color: rgb(2 6 23);
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgb(2, 6, 23);
     display: flex;
     flex-direction: column;
 }
 
+/* Styles pour le corps de la page */
 body {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     width: 100%;
     overflow: hidden;
 }
 
+/* Styles pour l'élément racine de l'application */
 #app {
+    flex: 1;
     display: flex;
-    width: 100%;
     flex-direction: column;
-    flex-grow: 1;
+    width: 100%;
     overflow: hidden;
 }
 
+/* Styles pour les éléments select */
 select {
     color: black;
-    width: fit-content;
     background-color: rgb(195, 195, 195);
+    width: auto;
 }
 
-button {
-    background-color: rgb(195, 195, 195);
-    color: black;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-}
-
-input {
-    background-color: rgb(195, 195, 195);
-    color: black;
-    border: none;
-    padding: 0.5rem 1rem;
-}
-
-.setting {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
+.main-content {
+    color: white;
 }
