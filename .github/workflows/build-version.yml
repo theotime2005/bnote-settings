@@ -5,7 +5,7 @@ name: "Build version"
 
 on:
   workflow_dispatch:
-    input:
+    inputs:
       release_type:
         description: "The type of release to generate"
         required: true
