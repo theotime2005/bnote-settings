@@ -61,12 +61,12 @@ export default {
           data[section][setting] = this.all_settings[section][setting].default;
         }
       }
-      useSettingsStore().loadSettings(data);
       this.file_name = this.$t("settings.page.defaultName");
+      useSettingsStore().loadSettings(data, this.file_name);
       this.fileIsImported = true;
     },
     showFile() {
-      this.file_name = this.$refs.upload.file_name;
+      this.file_name = useSettingsStore().getFileName;
       this.fileIsImported = true;
     },
     togle_menu(key) {
@@ -105,6 +105,11 @@ export default {
   mounted() {
     // Add listener to the "Escape" key
     window.addEventListener("keydown", this.handleKeyPress);
+    // Check if store has content
+    if (useSettingsStore().getAllSettings) {
+      this.file_name = useSettingsStore().getFileName;
+      this.fileIsImported = true;
+    }
   },
   beforeUnmount() {
     // Remove listener to the "Escape" key

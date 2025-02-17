@@ -24,7 +24,7 @@ export default {
         file.readAsText(this.fileInput);
 
         file.onloadend = (e) => {
-          useSettingsStore().loadSettings(JSON.parse(e.target.result));
+          useSettingsStore().loadSettings(JSON.parse(e.target.result), this.fileInput.name.split(".")[0]);
 
           this.$emit("file-uploaded");
         };
