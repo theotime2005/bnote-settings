@@ -59,7 +59,7 @@ describe("UploadFileComponent.vue", () => {
     await new Promise(resolve => setTimeout(resolve, 0));
 
     // then
-    expect(mockLoadSettings).toHaveBeenCalledWith(JSON.parse(fileContent));
+    expect(mockLoadSettings).toHaveBeenCalledWith(JSON.parse(fileContent), wrapper.vm.fileInput.name.split(".")[0]);
     expect(wrapper.emitted("file-uploaded")).toBeTruthy();
   });
 });
