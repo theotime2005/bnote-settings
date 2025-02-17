@@ -37,6 +37,7 @@ export default {
       if (confirm) {
         this.fileIsImported = false;
         useSettingsStore().removeAll();
+        window.removeEventListener("beforeunload", this.handleBeforeReload);
       }
     },
     complete_empty_values() {
@@ -64,10 +65,12 @@ export default {
       this.file_name = this.$t("settings.page.defaultName");
       useSettingsStore().loadSettings(data, this.file_name);
       this.fileIsImported = true;
+      window.addEventListener("beforeunload", this.handleBeforeReload);
     },
     showFile() {
       this.file_name = useSettingsStore().getFileName;
       this.fileIsImported = true;
+      window.addEventListener("beforeunload", this.handleBeforeReload);
     },
     togle_menu(key) {
       this.display_menu[key] = !this.display_menu[key];
@@ -101,6 +104,10 @@ export default {
         this.closeAllMenus();
       }
     },
+    handleBeforeReload(event) {
+      event.preventDefault();
+      event.returnValue = "";
+    },
   },
   mounted() {
     // Add listener to the "Escape" key
@@ -109,11 +116,13 @@ export default {
     if (useSettingsStore().getAllSettings) {
       this.file_name = useSettingsStore().getFileName;
       this.fileIsImported = true;
+      window.addEventListener("beforeunload", this.handleBeforeReload);
     }
   },
   beforeUnmount() {
     // Remove listener to the "Escape" key
     window.removeEventListener("keydown", this.handleKeyPress);
+    window.removeEventListener("beforeunload", this.handleBeforeReload);
   },
 };
 </script>
