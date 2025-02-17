@@ -3,10 +3,12 @@ import { defineStore } from "pinia";
 export const useSettingsStore = defineStore("settingsStore", {
   state: () => ({
     settings: {},
+    fileName: "",
   }),
   actions: {
-    loadSettings (settingsObject) {
+    loadSettings (settingsObject, fileName) {
       this.settings = settingsObject;
+      this.fileName = fileName;
     },
     updateSetting(section, key, value) {
       if (!this.settings[section]) {
@@ -16,6 +18,7 @@ export const useSettingsStore = defineStore("settingsStore", {
     },
     removeAll() {
       this.settings = {};
+      this.fileName = "";
     },
   },
   getters: {
@@ -28,7 +31,13 @@ export const useSettingsStore = defineStore("settingsStore", {
       return state.settings[section][key];
     },
     getAllSettings: (state) => {
+      if (Object.keys(state.settings).length === 0) {
+        return null;
+      }
       return state.settings;
+    },
+    getFileName() {
+      return this.fileName || null;
     },
   },
 });

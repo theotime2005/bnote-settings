@@ -3,6 +3,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { useSettingsStore } from "@/stores/settingsStore";
 
 describe("Settings Store", () => {
+  const fileName = "settings";
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -13,16 +14,17 @@ describe("Settings Store", () => {
     const settingsObject = { general: { theme: "dark" } };
 
     // when
-    store.loadSettings(settingsObject);
+    store.loadSettings(settingsObject, fileName);
 
     // then
     expect(store.settings).toEqual(settingsObject);
+    expect(store.fileName).toBe(fileName);
   });
 
   it("updates a setting correctly", () => {
     // given
     const store = useSettingsStore();
-    store.loadSettings({ general: { theme: "dark" } });
+    store.loadSettings({ general: { theme: "dark" } }, fileName);
 
     // when
     store.updateSetting("general", "theme", "light");
@@ -34,7 +36,7 @@ describe("Settings Store", () => {
   it("gets a setting correctly", () => {
     // given
     const store = useSettingsStore();
-    store.loadSettings({ general: { theme: "dark" } });
+    store.loadSettings({ general: { theme: "dark" } }, fileName);
 
     // when
     const theme = store.getSetting("general", "theme");
@@ -47,7 +49,7 @@ describe("Settings Store", () => {
     // given
     const store = useSettingsStore();
     const settingsObject = { general: { theme: "dark" } };
-    store.loadSettings(settingsObject);
+    store.loadSettings(settingsObject, fileName);
 
     // when
     const allSettings = store.getAllSettings;
@@ -60,7 +62,7 @@ describe("Settings Store", () => {
     // given
     const settingsObject = { general: { theme: "dark" } };
     const store = useSettingsStore();
-    store.loadSettings(settingsObject);
+    store.loadSettings(settingsObject, fileName);
 
     // when
     store.updateSetting("nonExistentSection", "key", "value");
@@ -73,7 +75,7 @@ describe("Settings Store", () => {
     // given
     const settingsObject = { general: { theme: "dark" } };
     const store = useSettingsStore();
-    store.loadSettings(settingsObject);
+    store.loadSettings(settingsObject, fileName);
 
     // when
     const value = store.getSetting("nonExistentSection", "key");
