@@ -157,8 +157,7 @@ export default {
           >
             {{ display_menu[section] ? $t('settings.page.hide') : $t('settings.page.show') }}
           </button>
-
-          <div v-if="display_menu[section]" class="mt-4 space-y-4">
+          <div v-if="display_menu[section]" class="mt-4 space-y-4 setting">
             <SettingComponent
               v-for="(setting, key) in settings"
               :key="section+'.'+key"
@@ -186,6 +185,7 @@ export default {
         {{ $t("settings.page.openOther") }}
       </button>
     </div>
+
   </div>
 </template>
 

@@ -7,7 +7,6 @@ import { defineConfig, loadEnv } from "vite";
 import vitePluginEnvCompatible from "vite-plugin-env-compatible";
 import { sendLog } from "./src/scripts/send-error-message-script.js";
 import packageInfo from "./package.json";
-import tailwindcss from '@tailwindcss/vite'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const env = loadEnv(process.env.MODE || "development", __dirname);
@@ -16,7 +15,6 @@ export default defineConfig({
   plugins: [
     vue(),
     vitePluginEnvCompatible(),
-    tailwindcss(),
     {
       name: "show-success-message",
       closeBundle() {
