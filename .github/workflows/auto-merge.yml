@@ -61,5 +61,6 @@ jobs:
 
       - name: Merge pull request if rule is agreed
         if: env.changes_pushed == 'false'
-        run: |
-          curl -s -X PUT -H "Authorization: token ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}" ${{ github.api_url }}/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/merge --data '{"merge_method":"merge"}'
+        run: gh pr merge --auto -m -d
+        env:
+          GH_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
