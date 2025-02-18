@@ -3,12 +3,12 @@ name: Auto-merge
 on:
   pull_request:
     types: [opened, reopened, labeled, unlabeled, synchronize]
-    check_suite:
-      types:
-        - completed
-    status:
-      types:
-        - success
+  check_suite:
+    types:
+      - completed
+  status:
+    types:
+      - success
 
 permissions:
   pull-requests: write
