@@ -28,39 +28,18 @@ jobs:
           token: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
 
       - name: Rebase branch before merge
-        id: rebase
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "auto merge service"
+          git config user.email "auto-merge-service@users.noreply.github.com"
           git fetch origin
           git checkout ${{ github.event.pull_request.base.ref }}
           git pull
           git checkout ${{ github.event.pull_request.head.ref }}
           git pull
           git rebase ${{ github.event.pull_request.base.ref }}
-          if [ $? -ne 0 ]; then
-            echo "Rebase failed"
-            exit 1
-          fi
           git push origin ${{ github.event.pull_request.head.ref }} --force-with-lease
-          if [ $? -eq 0 ]; then
-            echo "changes_pushed=true" >> $GITHUB_ENV
-          else
-            echo "changes_pushed=false" >> $GITHUB_ENV
-          fi
 
-      - name: Initialize changes_pushed variable
-        run: echo "changes_pushed=false" >> $GITHUB_ENV
-
-      - name: Stop and wait for all checks to pass
-        if: env.changes_pushed == 'false'
-        run: |
-          while [ $(curl -s -H "Authorization: token ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}" ${{ github.api_url }}/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/checks | jq '.check_runs[] | select(.status != "completed")' | wc -l) -ne 0 ]; do
-            sleep 5
-          done
-
-      - name: Merge pull request if rule is agreed
-        if: env.changes_pushed == 'false'
+      - name: Enable auto-merge or merge pull request
         run: gh pr merge --auto -m -d
         env:
           GH_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
