@@ -1,0 +1,23 @@
+# This workflow comments on a pull request when it is opened.
+name: Comment Open Pull Request
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  comment-open-pull-request:
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    steps:
+      - name: checkout sources
+        uses: actions/checkout@v4
+      - name: Comment pull request
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body "Hello,
+            Thank you for your contribution to this project. In order for your pull request to be in merging condition, make sure to respect the [contribution guide](https://github.com/theotime2005/bnote-settings/blob/main/Contribution%20guide.md).
+            Once your pull request is validated, the ready to merge label will be added to merge it."
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
