@@ -28,5 +28,3 @@ export default {
     </select>
   </div>
 </template>
-
-<style scoped></style>
