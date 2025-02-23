@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import { render } from "@/__tests__/components/helpers.js";
-import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
+import NavBarComponent from "@/components/NavBarComponent.vue";
 import routes from "@/router/router-list.js";
 
-describe("NaveBarreComponent", () => {
+describe("NavBarComponent", () => {
   // Create a router instance with the routes
   const router = createRouter({
     history: createWebHistory(),
@@ -12,7 +12,7 @@ describe("NaveBarreComponent", () => {
   });
 
   it("renders a menu item for each route", async () => {
-    const wrapper = render(NaveBarreComponent, {
+    const wrapper = render(NavBarComponent, {
       plugins: [router],
     });
 
@@ -24,7 +24,7 @@ describe("NaveBarreComponent", () => {
   });
 
   it("renders the correct route paths", async () => {
-    const wrapper = render(NaveBarreComponent, {
+    const wrapper = render(NavBarComponent, {
       plugins: [router],
     });
 
@@ -38,7 +38,7 @@ describe("NaveBarreComponent", () => {
     }
   });
   it("handles empty routes array", async () => {
-    const wrapper = render(NaveBarreComponent, {
+    const wrapper = render(NavBarComponent, {
       plugins: [router],
     }, {}, {
       routes: [],

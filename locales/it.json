@@ -173,7 +173,9 @@
         }
     },
     "header": {
-        "mainMenu": "Menu principale"
+        "mainMenu": "Menu principale",
+        "open": "Apri il menu di navigazione",
+        "close": "Chiudi il menu di navigazione"
     },
     "faq": {
         "title": "Domande frequenti",

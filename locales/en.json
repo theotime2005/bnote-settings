@@ -173,7 +173,9 @@
         "it": "Italian"
     },
     "header": {
-        "mainMenu": "Main menu"
+        "mainMenu": "Main menu",
+        "open": "Open the navigation menu",
+        "close": "Close the navigation menu"
     },
     "faq": {
         "title": "FAQ",
