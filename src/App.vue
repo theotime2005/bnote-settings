@@ -15,7 +15,7 @@ const focusMain = () => {
 </script>
 
 <template>
-  <button @click="focusMain">{{$t('skip-content')}}</button>
+  <button @click="focusMain" class="sr-only">{{$t('skip-content')}}</button>
   <NavBarComponent />
   <main class="flex flex-col grow overflow-y-scroll" ref="mainRef" tabindex="-1">
     <RouterView />
