@@ -109,7 +109,3 @@ export default {
   </div>
   <br />
 </template>
-
-<style scoped>
-/* Styles personnalisés ici */
-</style>

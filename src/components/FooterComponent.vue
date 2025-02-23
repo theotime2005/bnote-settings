@@ -25,7 +25,3 @@ export default {
     <p>{{$t('footer.version', {version: version})}}</p>
   </footer>
 </template>
-
-<style scoped>
-
-</style>

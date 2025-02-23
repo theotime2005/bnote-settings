@@ -29,7 +29,3 @@ export default {
   <a :href="links.github.issues.report" target="_blank">{{$t('about.bug_report')}}</a>
 
 </template>
-
-<style scoped>
-
-</style>

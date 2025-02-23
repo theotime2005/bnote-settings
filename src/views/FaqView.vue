@@ -70,7 +70,3 @@ export default {
     <p v-else class="text-center text-gray-500">{{ $t('faq.nofaq') }}</p>
   </div>
 </template>
-
-<style scoped>
-
-</style>
