@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { RouterView } from "vue-router";
 
 import FooterComponent from "@/components/FooterComponent.vue";
-import NaveBarreComponent from "@/components/NaveBarreComponent.vue";
+import NavBarComponent from "@/components/NavBarComponent.vue";
 
 const mainRef = ref(null);
 
@@ -16,7 +16,7 @@ const focusMain = () => {
 
 <template>
   <button @click="focusMain">{{$t('skip-content')}}</button>
-  <NaveBarreComponent />
+  <NavBarComponent />
   <main class="flex flex-col grow overflow-y-scroll" ref="mainRef" tabindex="-1">
     <RouterView />
   </main>

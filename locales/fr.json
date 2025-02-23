@@ -2,7 +2,9 @@
   "skip-content": "Passer au contenu",
   "title": "Gestion du B.note",
   "header": {
-    "mainMenu": "Menu principal"
+    "mainMenu": "Menu principal",
+    "open": "Ouvrir le menu de navigation",
+    "close": "Fermer le menu de navigation"
   },
   "languages": {
     "select": "Choisir une langue",
