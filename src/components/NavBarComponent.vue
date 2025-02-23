@@ -17,10 +17,17 @@ export default {
     handleResize() {
       if (window.innerWidth > 768) {
         this.navBarIsVisible = true;
+        this.buttonIsVisible = false;
       } else {
         this.navBarIsVisible = false;
         this.buttonIsVisible = true;
       }
+    },
+    goto() {
+      if (this.buttonIsVisible) {
+        this.toggleNavBar();
+      }
+      this.$emit("move-cursor");
     },
   },
   mounted() {
@@ -47,6 +54,7 @@ export default {
           v-for="route in routes"
           :key="route.name"
           :to="route.path"
+          @click="goto"
         >{{ $t(`${route.name}.title`) }}
         </RouterLink>
       </menu>
