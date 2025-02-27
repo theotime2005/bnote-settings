@@ -10,6 +10,7 @@ export default {
   },
   data() {
     return {
+      mainRef: null,
       hasLanguage: false,
       canReset: false,
     };
@@ -21,6 +22,19 @@ export default {
         this.$refs.mainRef.focus();
       }
     },
+
+    setLocale(locale) {
+      this.$i18n.locale = locale;
+      useLocaleCookie.setLocaleCookie(locale);
+      this.hasLanguage = true;
+      this.$router.push(this.$route.path);
+    },
+
+    resetCookies() {
+      useLocaleCookie.removeCookie();
+      this.hasLanguage = false;
+      this.$router.push(this.$route.path);
+    },
   },
 
   beforeMount() {
@@ -28,16 +42,34 @@ export default {
     const localeCookie = useLocaleCookie.getLocaleCookie();
     if (localeCookie) {
       this.$i18n.locale = localeCookie;
+      this.hasLanguage = true;
+    } else if (process.env.VUE_APP_ENVIRONMENT==="test") {
+      this.hasLanguage = true;
+    }
+    // Toggle the reset cookies variable
+    if (process.env.VUE_APP_ENVIRONMENT==="development") {
+      this.canReset = true;
     }
   },
 };
 </script>
 
 <template>
-  <button @click="focusMain" class="sr-only">{{ $t("skip-content") }}</button>
-  <NavBarComponent @move-cursor="focusMain" />
-  <main class="flex flex-col grow overflow-y-scroll" ref="mainRef" tabindex="-1">
-    <RouterView />
-  </main>
-  <FooterComponent />
+  <div v-if="hasLanguage">
+    <button @click="focusMain" class="sr-only">{{ $t("skip-content") }}</button>
+    <NavBarComponent @move-cursor="focusMain" />
+    <main class="flex flex-col grow overflow-y-scroll" ref="mainRef" tabindex="-1">
+      <RouterView />
+    </main>
+    <FooterComponent />
+  </div>
+  <div v-else>
+    <h1>Select your language</h1>
+    <ul class="flex flex-row">
+      <li v-for="locale in $i18n.availableLocales" :key="locale">
+        <button @click="setLocale(locale)">{{locale}}</button>
+      </li>
+    </ul>
+  </div>
+  <button v-if="canReset" @click="resetCookies">Reset all cookies</button>
 </template>
