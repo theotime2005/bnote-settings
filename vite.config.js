@@ -11,6 +11,7 @@ import packageInfo from "./package.json";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const env = loadEnv(process.env.MODE || "development", __dirname);
+const VUE_APP_ENVIRONMENT = env.VUE_APP_ENVIRONMENT || "development";
 
 export default defineConfig({
   plugins: [
@@ -38,5 +39,6 @@ export default defineConfig({
   },
   define: {
     __APP_ENV__: JSON.stringify(env.APP_ENV),
+    "process.env.VUE_APP_ENVIRONMENT": JSON.stringify(VUE_APP_ENVIRONMENT),
   },
 });
