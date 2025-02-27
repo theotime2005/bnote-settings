@@ -43,4 +43,15 @@ describe("useLocaleCookie", () => {
     expect(result).toBeUndefined();
     expect(cookies.get).toHaveBeenCalledWith("locale");
   });
+
+  it("remove a cookie", () => {
+    // given
+    vi.spyOn(cookies, "remove");
+
+    // when
+    useLocaleCookie.removeCookie();
+
+    // then
+    expect(cookies.remove).toHaveBeenCalledWith("locale");
+  });
 });

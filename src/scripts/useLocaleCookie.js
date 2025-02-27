@@ -8,4 +8,8 @@ export const useLocaleCookie = {
   getLocaleCookie() {
     return cookies.get("locale");
   },
+
+  removeCookie() {
+    cookies.remove("locale");
+  },
 };
