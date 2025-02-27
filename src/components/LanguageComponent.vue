@@ -1,4 +1,5 @@
 <script>
+import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
 export default {
   name: "LanguageComponent",
   data() {
@@ -10,6 +11,7 @@ export default {
     changeLanguage() {
       this.$i18n.locale = this.current_language;
       document.documentElement.lang = this.current_language;
+      useLocaleCookie.setLocaleCookie(this.current_language);
     },
   },
   mounted() {
