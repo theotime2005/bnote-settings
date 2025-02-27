@@ -1,9 +1,11 @@
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { RouterView } from "vue-router";
 
 import FooterComponent from "@/components/FooterComponent.vue";
 import NavBarComponent from "@/components/NavBarComponent.vue";
+import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
 
 const mainRef = ref(null);
 
@@ -12,6 +14,14 @@ const focusMain = () => {
     mainRef.value.focus();
   }
 };
+
+onBeforeMount(function() {
+  // set locale from cookie
+  const localeCookie = useLocaleCookie.getLocaleCookie();
+  if (localeCookie) {
+    useI18n().locale.value = localeCookie;
+  }
+});
 </script>
 
 <template>
