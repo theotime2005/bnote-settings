@@ -54,6 +54,12 @@ export default [
       "object-curly-spacing": ["error", "always"],
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+      "padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "block", next: "block" },
+        { blankLine: "always", prev: "function", next: "function" },
+        { blankLine: "always", prev: "class", next: "function" },
+      ],
     },
   },
   {
