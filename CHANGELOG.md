@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2](https://github.com/theotime2005/bnote-settings/compare/v2.1.1...v2.1.2) (2025-03-02)
+
+
+### Documentation
+
+* create a file to explain the setting system of bnote ([498b94d](https://github.com/theotime2005/bnote-settings/commit/498b94d6fff5bb847c4fe623f7d50fac528e746e))
+* fix Contribution guide ([0b28165](https://github.com/theotime2005/bnote-settings/commit/0b28165cd095dab665c51ce967a47960018bedd5))
+* update readme ([015b3fe](https://github.com/theotime2005/bnote-settings/commit/015b3fe117a91692b1fd8d933ce358dab67364eb))
+
 ### [2.1.1](https://github.com/theotime2005/bnote-settings/compare/v2.1.0...v2.1.1) (2025-03-02)
 
 
