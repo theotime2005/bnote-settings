@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/theotime2005/bnote-settings/compare/v2.1.0...v2.1.1) (2025-03-02)
+
+
+### Features
+
+* Add rule to use const in variables declarations ([65f65ae](https://github.com/theotime2005/bnote-settings/commit/65f65ae3bfe8dedd0460ae97722c71d90cdd042d))
+* Add rules for pading lines ([9b5f24d](https://github.com/theotime2005/bnote-settings/commit/9b5f24dc2bb709c2b8b0af9740c411f9ee89d545))
+* Add some roules to formate code ([6db9f9c](https://github.com/theotime2005/bnote-settings/commit/6db9f9cf9ef0a620a582ac0cd7d018d487c3d36d))
+* autorize linter in vite.config ([024f781](https://github.com/theotime2005/bnote-settings/commit/024f781017636cc9669c21d8f01b7048b8d791f3))
+* remove prettier ([82c263a](https://github.com/theotime2005/bnote-settings/commit/82c263ad0c3778176dacc2106a295206566b02c0))
+* remove unused plugin for eslint ([0e10739](https://github.com/theotime2005/bnote-settings/commit/0e107396626c7a242c03a44f3b96a858774f11a3))
+
+
+### Bug Fixes
+
+* do not comment pull request opened by code owner ([a7cb93e](https://github.com/theotime2005/bnote-settings/commit/a7cb93e5e149bea05e0a3c4aae46df4cea25bd06))
+* Fix the workflow ([e1c37aa](https://github.com/theotime2005/bnote-settings/commit/e1c37aa4b48ab5eed11d020290ae9298d3189a83))
+
 ## 2.1.0 (2025-02-27)
 
 ### 2.0.3 (2025-02-23)
