@@ -21,7 +21,7 @@ export default defineConfig({
     {
       name: "show-success-message",
       closeBundle() {
-        if (process.env.VUE_APP_ENVIRONMENT==="production") {
+        if (process.env.VUE_APP_ENVIRONMENT === "production") {
           sendLog({
             fileName: "Vite config",
             functionName: "closeBundle",

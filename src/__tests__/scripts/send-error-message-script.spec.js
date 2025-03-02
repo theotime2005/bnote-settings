@@ -9,7 +9,7 @@ describe("scripts | sendLog", () => {
     console = { log: vi.spyOn(global.console, "log"), error: vi.spyOn(global.console, "error") };
   });
 
-  afterEach(function () {
+  afterEach(function() {
     fetch.mockReset();
     console.log.mockRestore;
   });

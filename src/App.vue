@@ -43,11 +43,11 @@ export default {
     if (localeCookie) {
       this.$i18n.locale = localeCookie;
       this.hasLanguage = true;
-    } else if (process.env.VUE_APP_ENVIRONMENT==="test") {
+    } else if (process.env.VUE_APP_ENVIRONMENT === "test") {
       this.hasLanguage = true;
     }
     // Toggle the reset cookies variable
-    if (process.env.VUE_APP_ENVIRONMENT==="development") {
+    if (process.env.VUE_APP_ENVIRONMENT === "development") {
       this.canReset = true;
     }
   },

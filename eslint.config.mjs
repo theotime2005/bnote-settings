@@ -61,6 +61,21 @@ export default [
         { blankLine: "always", prev: "class", next: "function" },
       ],
       "prefer-const": ["error"],
+      "space-before-blocks": ["error"],
+      "space-before-function-paren": [
+        "error",
+        {
+          anonymous: "never",
+          named: "never",
+          asyncArrow: "ignore",
+        },
+      ],
+      "space-in-parens": ["error"],
+      "space-infix-ops": ["error"],
+      "func-call-spacing": ["error"],
+      "key-spacing": ["error"],
+      "no-trailing-spaces": ["error"],
+      "no-multi-spaces": ["error"],
     },
   },
   {
