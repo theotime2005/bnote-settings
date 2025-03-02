@@ -36,7 +36,7 @@ async function getTranslation(text, language) {
 }
 
 async function checkAndUpdate(objStart, otherObj, language) {
-  for (let key in objStart) {
+  for (const key in objStart) {
     if (typeof objStart[key] === "object" && objStart[key] !== null) {
       otherObj[key] = await checkAndUpdate(
         objStart[key],
@@ -54,7 +54,7 @@ async function checkAndUpdate(objStart, otherObj, language) {
 }
 
 function clearOldValues(objStart, otherObj) {
-  for (let key in otherObj) {
+  for (const key in otherObj) {
     if (typeof otherObj[key] === "object" && otherObj[key] !== null) {
       otherObj[key] = clearOldValues(objStart[key], otherObj[key]);
     }

@@ -18,7 +18,7 @@ describe("Acceptance | SettingsView", () => {
       expect(fileSelector.exists()).toBe(true);
     });
 
-    it("should display the default model when clicking the default button", async function () {
+    it("should display the default model when clicking the default button", async function() {
       // when
       const defaultButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.create");
 
@@ -30,13 +30,13 @@ describe("Acceptance | SettingsView", () => {
   });
 
   suite("when a file is uploaded", () => {
-    beforeEach(async function () {
+    beforeEach(async function() {
       const defaultButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.create");
       await defaultButton.trigger("click");
     });
 
     describe("test the dialogs box", () => {
-      beforeEach(function () {
+      beforeEach(function() {
         vi.spyOn(window, "confirm").mockReturnValue(true);
       });
 

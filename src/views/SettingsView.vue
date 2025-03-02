@@ -42,8 +42,8 @@ export default {
     },
     complete_empty_values() {
       // Check data and complete if there are not all values
-      for (let section in this.all_settings) {
-        for (let setting in this.all_settings[section]) {
+      for (const section in this.all_settings) {
+        for (const setting in this.all_settings[section]) {
           if (useSettingsStore().getSetting(section, setting) === null) {
             useSettingsStore().updateSetting(
               section,
@@ -56,9 +56,9 @@ export default {
     },
     createBasicData() {
       const data = {};
-      for (let section in this.all_settings) {
+      for (const section in this.all_settings) {
         data[section] = {};
-        for (let setting in this.all_settings[section]) {
+        for (const setting in this.all_settings[section]) {
           data[section][setting] = this.all_settings[section][setting].default;
         }
       }
@@ -94,7 +94,7 @@ export default {
     },
     // Method to close all menus
     closeAllMenus() {
-      for (let key in this.display_menu) {
+      for (const key in this.display_menu) {
         this.display_menu[key] = false;
       }
     },

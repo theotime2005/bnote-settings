@@ -6,7 +6,7 @@ export const useSettingsStore = defineStore("settingsStore", {
     fileName: "",
   }),
   actions: {
-    loadSettings (settingsObject, fileName) {
+    loadSettings(settingsObject, fileName) {
       this.settings = settingsObject;
       this.fileName = fileName;
     },
