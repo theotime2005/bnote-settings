@@ -92,7 +92,6 @@ export default [
       ".idea/",
       ".vscode/",
       "public/",
-      ".prettierrc.json",
       "jsconfig.json",
       "package-lock.json",
       "package.json",
