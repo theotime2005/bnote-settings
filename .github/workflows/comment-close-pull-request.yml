@@ -7,7 +7,7 @@ on:
 jobs:
   comment-close-pull-request:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && github.actor != 'dependabot[bot]'
+    if: github.event.pull_request.merged == true && github.actor != 'dependabot[bot]' && github.actor != 'theotime2005'
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
