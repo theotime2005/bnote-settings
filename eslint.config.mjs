@@ -60,6 +60,7 @@ export default [
         { blankLine: "always", prev: "function", next: "function" },
         { blankLine: "always", prev: "class", next: "function" },
       ],
+      "prefer-const": ["error"],
     },
   },
   {

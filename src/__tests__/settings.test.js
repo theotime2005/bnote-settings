@@ -37,8 +37,8 @@ describe("unit | Settings", () => {
           return true;
         }
       }
-      for (let section in all_settings) {
-        for (let key in all_settings[section]) {
+      for (const section in all_settings) {
+        for (const key in all_settings[section]) {
           expect(checkSettingsIntegrity(all_settings[section][key])).toBe(true);
         }
       }

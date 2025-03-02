@@ -18,7 +18,7 @@ async function sendLog({ fileName, functionName, type, log }) {
     return;
   }
   try {
-    let textMessage = "```json\n"+JSON.stringify(message, null, 2)+"\n```";
+    const textMessage = "```json\n"+JSON.stringify(message, null, 2)+"\n```";
     const request = {
       method: "POST",
       headers: {
