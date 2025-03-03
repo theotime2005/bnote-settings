@@ -18,40 +18,36 @@
   "standard-version": {
     "types": [
       {
-        "type": "feat",
-        "section": "Features"
+        "type": "[FEATURE]",
+        "section": "🚀 New features"
       },
       {
-        "type": "fix",
-        "section": "Bug Fixes"
+        "type": "[BUGFIX]",
+        "section": "🐛 Bug fixes"
       },
       {
-        "type": "chore",
-        "section": "Chores"
+        "type": "[DOCS]",
+        "section": "📚 Documentation"
       },
       {
-        "type": "docs",
-        "section": "Documentation"
+        "type": "[Styles]",
+        "section": "💅 Styles"
       },
       {
-        "type": "style",
-        "section": "Styles"
+        "type": "[REFACTOR]",
+        "section": "🔨 Code Refactoring"
       },
       {
-        "type": "refactor",
-        "section": "Refactors"
+        "type": "[PERF]",
+        "section": "⚡ Performance Improvements"
       },
       {
-        "type": "perf",
-        "section": "Performance"
+        "type": "[TESTs]",
+        "section": "🧪 Tests"
       },
       {
-        "type": "test",
-        "section": "Tests"
-      },
-      {
-        "type": "bump",
-        "section": "Version Bumps"
+        "type": "[BUMP]",
+        "section": "🔖 Version Bump"
       }
     ]
   },
