@@ -19,39 +19,39 @@
     "types": [
       {
         "type": "feat",
-        "section": "Features"
+        "section": "🚀 New features"
       },
       {
         "type": "fix",
-        "section": "Bug Fixes"
+        "section": "🐛 Bug fixes"
       },
       {
         "type": "chore",
-        "section": "Chores"
+        "section": "🔧 Chore"
       },
       {
         "type": "docs",
-        "section": "Documentation"
+        "section": "📚 Documentation"
       },
       {
         "type": "style",
-        "section": "Styles"
+        "section": "💅 Styles"
       },
       {
         "type": "refactor",
-        "section": "Refactors"
+        "section": "🔨 Refactor"
       },
       {
         "type": "perf",
-        "section": "Performance"
+        "section": "⚡ Performance"
       },
       {
         "type": "test",
-        "section": "Tests"
+        "section": "🧪 Tests"
       },
       {
         "type": "bump",
-        "section": "Version Bumps"
+        "section": "🔖 Version bump"
       }
     ]
   },
