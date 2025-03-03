@@ -8,9 +8,7 @@ on:
       - labeled
       - unlabeled
       - synchronize
-  check_suite:
-    types:
-      - completed
+      - ready_for_review
 
 permissions:
   pull-requests: write
