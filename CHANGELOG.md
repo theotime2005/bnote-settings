@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.3](https://github.com/theotime2005/bnote-settings/compare/v2.1.2...v2.1.3) (2025-03-03)
+
+
+### 🚀 New features
+
+* custom the scopes ([8c91fe3](https://github.com/theotime2005/bnote-settings/commit/8c91fe3063e176f0c8a0a801d3f25187372abf10))
+
+
+### 🐛 Bug fixes
+
+* remove unused pr action ([1b7bc96](https://github.com/theotime2005/bnote-settings/commit/1b7bc96ed753e95e50653629edd289ebf4ced699))
+
+
+### 🔨 Refactor
+
+* Refactorr scopes ([5225302](https://github.com/theotime2005/bnote-settings/commit/52253029937625805b744788455fab39bd2cf191))
+
 ### [2.1.2](https://github.com/theotime2005/bnote-settings/compare/v2.1.1...v2.1.2) (2025-03-02)
 
 
