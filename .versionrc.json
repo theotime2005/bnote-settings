@@ -35,6 +35,11 @@
     {
       "type": "bump",
       "section": "🔖 Version bump"
+    },
+    {
+      "type": "tech",
+      "section": "🛠️ Tech",
+      "hidden": false
     }
   ]
 }
