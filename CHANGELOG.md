@@ -1,6 +1,30 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [2.1.4](https://github.com/theotime2005/bnote-settings/compare/v2.1.3...v2.1.4) (2025-03-05)
+
+
+### 🚀 New features
+
+* customize the versionning system ([dc6fe2d](https://github.com/theotime2005/bnote-settings/commit/dc6fe2daf10314e1e99af6897fb6f65cb7ec9454))
+
+
+### 🐛 Bug fixes
+
+* Use the title for pr commit message ([07f80c3](https://github.com/theotime2005/bnote-settings/commit/07f80c3b692e1d42c95dced85ed728ff03d2fcce))
+
+
+### 🛠️ Tech
+
+* add revert to commit and tag ([73351a7](https://github.com/theotime2005/bnote-settings/commit/73351a776e4f44d6a8439952f7a32c6234a42a53))
+* add the tech type to changelog ([f62e6ee](https://github.com/theotime2005/bnote-settings/commit/f62e6eedd87235b2d623e87242fd72f6118ad00b))
+* switch to commit-and-tag ([8c1bbe2](https://github.com/theotime2005/bnote-settings/commit/8c1bbe25a17631876a700d488ea3bd02217d99f7))
+
+
+### ⏪ Revert
+
+* "[TECH] Test again the standard-version configuration" ([523ca08](https://github.com/theotime2005/bnote-settings/commit/523ca08fe45b797e2a413d7479ba42814a4ba3a9))
 
 ### [2.1.3](https://github.com/theotime2005/bnote-settings/compare/v2.1.2...v2.1.3) (2025-03-03)
 
