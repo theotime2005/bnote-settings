@@ -38,8 +38,11 @@
     },
     {
       "type": "tech",
-      "section": "🛠️ Tech",
-      "hidden": false
+      "section": "🛠️ Tech"
+    },
+    {
+      "type": "revert",
+      "section": "⏪ Revert"
     }
   ]
 }
