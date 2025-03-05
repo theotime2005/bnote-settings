@@ -12,52 +12,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "production": "sh script/release.sh",
-    "release": "standard-version",
+    "release": "commit-and-tag-version",
     "prepare": "husky"
-  },
-  "standard-version": {
-    "types": [
-      {
-        "type": "[FEATURE]",
-        "section": "🚀 New features"
-      },
-      {
-        "type": "[BUGFIX]",
-        "section": "🐛 Bug fixes"
-      },
-      {
-        "type": "[CHORE]",
-        "section": "🔧 Chore"
-      },
-      {
-        "type": "[DOCS]",
-        "section": "📚 Documentation"
-      },
-      {
-        "type": "[STYLES]",
-        "section": "💅 Styles"
-      },
-      {
-        "type": "[REFACTOR]",
-        "section": "🔨 Refactor"
-      },
-      {
-        "type": "[PERF]",
-        "section": "⚡ Performance"
-      },
-      {
-        "type": "[TESTS]",
-        "section": "🧪 Tests"
-      },
-      {
-        "type": "[BUMP]",
-        "section": "🔖 Version bump"
-      },
-      {
-        "type": "[TECH]",
-        "section": "🛠️ Technical"
-      }
-    ]
   },
   "dependencies": {
     "@pinia/testing": "^1.0.0",
@@ -77,6 +33,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.6",
+    "commit-and-tag-version": "^12.5.0",
     "eslint": "^9.20.1",
     "eslint-plugin-i18n-json": "^4.0.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
@@ -84,7 +41,6 @@
     "eslint-plugin-vue": "^9.23.0",
     "husky": "^9.1.7",
     "jsdom": "^26.0.0",
-    "standard-version": "^9.5.0",
     "vite": "^6.1.0",
     "vitest": "^3.0.5"
   }
