@@ -5,19 +5,19 @@ import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
+import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
   allConfig: js.configs.all,
+  ...pluginVue.configs["flat/recommended"],
 });
 
 export default [
   ...compat.extends(
-    "plugin:vue/vue3-essential",
     "eslint:recommended",
     "@vue/eslint-config-prettier/skip-formatting",
     "plugin:i18n-json/recommended",
@@ -31,6 +31,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
+        ...globals.browser,
       },
 
       ecmaVersion: "latest",
