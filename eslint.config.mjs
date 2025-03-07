@@ -93,7 +93,7 @@ export default [
       ".idea/",
       ".vscode/",
       "public/",
-      ".versionrc.json",
+      ".releaserc.json",
       "jsconfig.json",
       "package-lock.json",
       "package.json",
