@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "production": "sh script/release.sh",
-    "release": "semantic-release",
+    "release": "commit-and-tag-version",
     "prepare": "husky"
   },
   "dependencies": {
@@ -41,7 +41,6 @@
     "eslint-plugin-vue": "^10.0.0",
     "husky": "^9.1.7",
     "jsdom": "^26.0.0",
-    "semantic-release": "^24.2.3",
     "vite": "^6.1.0",
     "vitest": "^3.0.5"
   }
