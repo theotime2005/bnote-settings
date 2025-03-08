@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.2.0](https://github.com/theotime2005/bnote-settings/compare/v2.1.4...v2.2.0) (2025-03-08)
+
+
+### 🚀 New features
+
+* add conventional changelog to dependencies ([6d3bb22](https://github.com/theotime2005/bnote-settings/commit/6d3bb222b5fcab3f66c06e7f659216d350e3f405))
+* switch to semantic-release ([1e95c6f](https://github.com/theotime2005/bnote-settings/commit/1e95c6f00c7c5968aa7d087cdfec20c136101a5d))
+
+
+### 🐛 Bug fixes
+
+* added package-lock ([9e211ce](https://github.com/theotime2005/bnote-settings/commit/9e211ce3b9dc3ef3da2c72df6555195d57ad8e1b))
+* **semantic:** fix the file ([1b2d7e2](https://github.com/theotime2005/bnote-settings/commit/1b2d7e2b9a9dd988c606512ca24af386976dfbff))
+
+
+### 🛠️ Tech
+
+* adjust configuration of linter ([4a29cca](https://github.com/theotime2005/bnote-settings/commit/4a29ccad9de4b18f01893a0c83a655ef9ea2db7d))
+* remove input from workflow ([9474efb](https://github.com/theotime2005/bnote-settings/commit/9474efb6f8602b1d9a356545f893c2f13fb00c7a))
+
+
+### ⏪ Revert
+
+* Revert "fix(emergency): Fix the releaserc file" ([9477747](https://github.com/theotime2005/bnote-settings/commit/9477747f0b354ac2efde1b7b1c6680f463500901))
+* Revert "fix(emergency): parse for json releaserc" ([44c6e56](https://github.com/theotime2005/bnote-settings/commit/44c6e564f4316ee91fbeeb869fba190d8d9fac62))
+
 ## [2.1.4](https://github.com/theotime2005/bnote-settings/compare/v2.1.3...v2.1.4) (2025-03-05)
 
 
