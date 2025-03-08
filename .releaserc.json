@@ -14,11 +14,11 @@
           { "tag": "TECH", "release": "patch" },
           { "tag": "FEATURE", "release": "minor" },
           { "tag": "BREAKING_CHANGE", "release": "major" }
-        ],
+        ]
       }
     ],
     "@semantic-release/changelog",
     "@semantic-release/github",
-    "@semantic-release/git",
+    "@semantic-release/git"
   ]
 }
