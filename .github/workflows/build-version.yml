@@ -5,6 +5,11 @@ name: "Build version"
 
 on:
   workflow_dispatch:
+    inputs:
+      release_type:
+        description: "The type of release to generate"
+        required: true
+        default: "patch"
 
 permissions:
   contents: write
@@ -14,6 +19,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if input is valid
+        run: |
+          if [[ "${{ github.event.inputs.release_type }}" != "major" && "${{ github.event.inputs.release_type }}" != "minor" && "${{ github.event.inputs.release_type }}" != "patch" ]]; then
+            echo "Invalid release type. Please use 'major', 'minor' or 'patch'."
+            exit 1
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -38,9 +50,8 @@ jobs:
           npm run lint
 
       - name: Build new version
-        run: npm run release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        # Use standard-version to generate a new version
+        run: npm run release -- --release-as ${{ github.event.inputs.release_type }}
 
       - name: Push new version
         run: git push --follow-tags origin main
