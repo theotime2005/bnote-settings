@@ -32,7 +32,3 @@ coverage
 
 # Environment variable
 .env
-
-# packages
-pnpm-lock.yaml
-package-lock.json
