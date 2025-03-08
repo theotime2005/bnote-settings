@@ -8,17 +8,25 @@
       {
         "config": "@theotime2005/conventional-changelog",
         "releaseRules": [
-          { "tag": "BUGFIX", "release": "patch" },
-          { "tag": "BUMP", "release": "patch" },
-          { "tag": "DOC", "release": "patch" },
-          { "tag": "TECH", "release": "patch" },
-          { "tag": "FEATURE", "release": "minor" },
-          { "tag": "BREAKING_CHANGE", "release": "major" }
+          { tag: "BUGFIX", release: "patch" },
+          { tag: "BUMP", release: "patch" },
+          { tag: "DOC", release: "patch" },
+          { tag: "TECH", release: "patch" },
+          { tag: "FEATURE", release: "minor" },
+          { tag: "BREAKING_CHANGE", release: "major" }
         ],
       }
     ],
     "@semantic-release/changelog",
     "@semantic-release/github",
-    "@semantic-release/git",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md",
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
   ]
 }
