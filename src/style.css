@@ -9,53 +9,43 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
 }
 
+/* Reset global styles */
 * {
-    margin: 2rem;
-    padding: 1rem;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    color: white;
 }
 
-html {
-    height: 100dvh;
-    width: 100dvw;
+/* Global styles */
+body {
+    color: white;
     background-color: rgb(2 6 23);
     display: flex;
     flex-direction: column;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    min-height: 100vh;
     width: 100%;
-    overflow: hidden;
 }
 
 #app {
     display: flex;
-    width: 100%;
     flex-direction: column;
     flex-grow: 1;
-    overflow: hidden;
+    width: 100%;
 }
 
-select {
-    color: black;
-    width: fit-content;
-    background-color: rgb(195, 195, 195);
-}
-
-button {
+/* Custom styles for inputs, buttons, and selects */
+.custom-input,
+.custom-button,
+.custom-select {
     background-color: rgb(195, 195, 195);
     color: black;
     border: none;
@@ -63,13 +53,13 @@ button {
     cursor: pointer;
 }
 
-input {
-    background-color: rgb(195, 195, 195);
-    color: black;
-    border: none;
-    padding: 0.5rem 1rem;
+/* Ensure selects and inputs are readable */
+.custom-input,
+.custom-select {
+    width: fit-content;
 }
 
+/* Specific styles for setting components */
 .setting {
     display: flex;
     flex-direction: column;
