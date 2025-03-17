@@ -139,7 +139,7 @@ export default {
       <button
         type="button"
         @click="createBasicData"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 custom-button"
       >
         {{ $t("settings.page.create") }}
       </button>
@@ -167,7 +167,7 @@ export default {
           <button
             type="button"
             @click="togle_menu(section)"
-            class="mt-2 text-sm text-blue-600 hover:underline focus:outline-none"
+            class="mt-2 text-sm text-blue-600 hover:underline focus:outline-none custom-button"
           >
             {{ display_menu[section] ? $t('settings.page.hide') : $t('settings.page.show') }}
           </button>
@@ -185,7 +185,7 @@ export default {
 
         <button
           type="submit"
-          class="w-full px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+          class="w-full px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 custom-button"
         >
           {{ $t("settings.page.download") }}
         </button>
@@ -194,7 +194,7 @@ export default {
       <button
         type="button"
         @click="clean_data"
-        class="mt-4 w-full px-4 py-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+        class="mt-4 w-full px-4 py-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 custom-button"
       >
         {{ $t("settings.page.openOther") }}
       </button>

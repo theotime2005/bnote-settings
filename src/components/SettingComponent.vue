@@ -56,7 +56,7 @@ export default {
       :checked="settingValue"
       @change="updateSetting"
       v-model="settingValue"
-      class="h-4 w-4 text-blue-600 border-gray-300 rounded-sm focus:ring-blue-500"
+      class="h-4 w-4 text-blue-600 border-gray-300 rounded-sm focus:ring-blue-500 custom-input"
     />
 
     <!-- Dropdown menu -->
@@ -67,7 +67,7 @@ export default {
       :name="name"
       @change="updateSetting"
       v-model="settingValue"
-      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-xs focus:outline-hidden focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-xs focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-input"
     >
       <option v-for="option in setting.values" :key="option" :value="option" :name="option">
         {{ !setting.isTranslate ? $t(`settings.values.${option}`) : option }}
@@ -85,7 +85,7 @@ export default {
       :value="settingValue"
       @input="updateSetting"
       v-model="settingValue"
-      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-input"
     />
 
     <!-- Text input -->
@@ -97,12 +97,12 @@ export default {
       :value="settingValue"
       @input="updateSetting"
       v-model="settingValue"
-      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-input"
     />
     <!-- Button to set the default value -->
     <button
       @click="setDefault"
-      class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
+      class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm custom-button"
       v-if="settingValue!==setting.default">
       {{ $t("settings.values.default") }}
     </button>
