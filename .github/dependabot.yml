@@ -13,8 +13,6 @@ updates:
       - Ready to merge
     reviewers:
       - theotime2005
-    assignees:
-      - dependabot
     commit-message:
       prefix: "[BUMP]"
       include: scope
@@ -27,13 +25,11 @@ updates:
       time: '00:00'
     open-pull-requests-limit: 2
     labels:
-      - dependencies
+      - No deployment
       - workflow
       - Ready to merge
     reviewers:
       - theotime2005
-    assignees:
-      - dependabot
     commit-message:
       prefix: "[BUMP]"
       include: scope
