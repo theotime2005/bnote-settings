@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.0](https://github.com/theotime2005/bnote-settings/compare/v2.2.0...v2.3.0) (2025-03-17)
+
+
+### 🐛 Bug fixes
+
+* Remove the assigner for dependabot file ([03939f4](https://github.com/theotime2005/bnote-settings/commit/03939f4d1cb035d84206ac01082ac7e0826956a9))
+
+
+### 🛠️ Tech
+
+* Add check to auto merge ([9ab474a](https://github.com/theotime2005/bnote-settings/commit/9ab474a5a8bb4e49646bff93502125ff910ac538))
+
 ## [2.2.0](https://github.com/theotime2005/bnote-settings/compare/v2.1.4...v2.2.0) (2025-03-08)
 
 
