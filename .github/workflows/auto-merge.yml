@@ -9,6 +9,13 @@ on:
       - unlabeled
       - synchronize
       - ready_for_review
+    branches:
+      - main
+  check_suite:
+    types:
+      - completed
+    status:
+      - success
 
 permissions:
   pull-requests: write
