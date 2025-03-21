@@ -1,7 +1,7 @@
 import { render } from "@/__tests__/acceptance/helper.js";
 
 describe("Acceptance | DownloadPageView", () => {
-  beforeEach(function() {
+  beforeEach(() => {
     global["fetch"] = vi.fn(() => Promise.resolve({}));
   });
   afterEach(() => {

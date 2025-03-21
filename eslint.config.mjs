@@ -77,6 +77,7 @@ export default [
       "key-spacing": ["error"],
       "no-trailing-spaces": ["error"],
       "no-multi-spaces": ["error"],
+      "func-style": ["error", "declaration", { "allowArrowFunctions": false }],
     },
   },
   {

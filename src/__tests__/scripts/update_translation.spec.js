@@ -16,18 +16,18 @@ vi.mock("translatte");
 const mockFs = vi.mocked(fs);
 const mockTranslatte = vi.mocked(translatte);
 
-describe("Translation Script", () => {
-  beforeEach(() => {
-    mockTranslatte.mockImplementation((text, options) => {
+describe("Translation Script", function() {
+  beforeEach(function() {
+    mockTranslatte.mockImplementation(function(text, options) {
       return Promise.resolve({ text: `${text}-${options.to}` });
     });
   });
 
-  afterEach(() => {
+  afterEach(function() {
     mockTranslatte.mockRestore();
   });
 
-  it("should load a JSON file", async () => {
+  it("should load a JSON file", async function() {
     const mockData = { key: "value" };
     mockFs.readFile.mockResolvedValue(JSON.stringify(mockData));
 
@@ -36,7 +36,7 @@ describe("Translation Script", () => {
     expect(mockFs.readFile).toHaveBeenCalledWith("test.json", "utf8");
   });
 
-  it("should handle file read errors", async () => {
+  it("should handle file read errors", async function() {
     mockFs.readFile.mockRejectedValue(new Error("File not found"));
 
     const data = await loadFile("test.json");
@@ -57,7 +57,9 @@ describe("Translation Script", () => {
   it("should handle file write errors", async () => {
     mockFs.writeFile.mockRejectedValue(new Error("Cannot write file"));
 
-    await expect(writeFile("test.json", { key: "value" })).resolves.toBeUndefined();
+    await expect(
+      writeFile("test.json", { key: "value" }),
+    ).resolves.toBeUndefined();
     expect(mockFs.writeFile).toHaveBeenCalled(); // Make sure it was at least called.
   });
 
@@ -109,7 +111,10 @@ describe("Translation Script", () => {
 
   it("should clear old keys recursively", () => {
     const source = { nested: { key1: "value1" } };
-    const other = { nested: { key1: "value1", key2: "oldValue" }, key3: "oldValue" };
+    const other = {
+      nested: { key1: "value1", key2: "oldValue" },
+      key3: "oldValue",
+    };
 
     const cleared = clearOldValues(source, other);
 

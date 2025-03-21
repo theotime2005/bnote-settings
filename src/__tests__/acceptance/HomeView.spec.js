@@ -2,7 +2,7 @@ import { render } from "@/__tests__/acceptance/helper.js";
 
 describe("Acceptance | HomeView", async () => {
   let wrapper;
-  beforeEach(async function() {
+  beforeEach(async () => {
     wrapper = await render("/");
   });
   it("Show the home page", async () => {
