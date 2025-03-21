@@ -9,60 +9,92 @@ describe("scripts | sendLog", () => {
     console = { log: vi.spyOn(global.console, "log"), error: vi.spyOn(global.console, "error") };
   });
 
-  afterEach(function() {
-    fetch.mockReset();
-    console.log.mockRestore;
-  });
-
-  describe("Send a log", () => {
-    it("send a basic log", async () => {
+  describe("Send a log", function() {
+    it("send a basic log", async function() {
       // when
-      await sendLog({ fileName: "testFile", functionName: "testFunction", type: "info", log: "Hello World" });
+      await sendLog({
+        fileName: "testFile",
+        functionName: "testFunction",
+        type: "info",
+        log: "Hello World",
+      });
 
       // then
-      expect(fetch).toHaveBeenCalledWith("http://example.net", expect.any(Object));
+      expect(fetch).toHaveBeenCalledWith(
+        "http://example.net",
+        expect.any(Object),
+      );
       expect(console.log).toHaveBeenCalled;
     });
   });
 
-  describe("Send a log with different types", () => {
-    it("send an error log", async () => {
+  describe("Send a log with different types", function() {
+    it("send an error log", async function() {
       // when
-      await sendLog({ fileName: "testFile", functionName: "testFunction", type: "error", log: "Error occurred" });
+      await sendLog({
+        fileName: "testFile",
+        functionName: "testFunction",
+        type: "error",
+        log: "Error occurred",
+      });
 
       // then
-      expect(fetch).toHaveBeenCalledWith("http://example.net", expect.objectContaining({
-        body: expect.stringContaining("\\\"type\\\": \\\"error\\\""),
-      }));
+      expect(fetch).toHaveBeenCalledWith(
+        "http://example.net",
+        expect.objectContaining({
+          body: expect.stringContaining("\\\"type\\\": \\\"error\\\""),
+        }),
+      );
     });
 
-    it("send a warning log", async () => {
+    it("send a warning log", async function() {
       // when
-      await sendLog({ fileName: "testFile", functionName: "testFunction", type: "warning", log: "Warning issued" });
+      await sendLog({
+        fileName: "testFile",
+        functionName: "testFunction",
+        type: "warning",
+        log: "Warning issued",
+      });
 
       // then
-      expect(fetch).toHaveBeenCalledWith("http://example.net", expect.objectContaining({
-        body: expect.stringContaining("\\\"type\\\": \\\"warning\\\""),
-      }));
+      expect(fetch).toHaveBeenCalledWith(
+        "http://example.net",
+        expect.objectContaining({
+          body: expect.stringContaining("\\\"type\\\": \\\"warning\\\""),
+        }),
+      );
     });
 
-    it("send an info log", async () => {
-      await sendLog({ fileName: "testFile", functionName: "testFunction", type: "info", log: "Information" });
+    it("send an info log", async function() {
+      await sendLog({
+        fileName: "testFile",
+        functionName: "testFunction",
+        type: "info",
+        log: "Information",
+      });
 
       // then
-      expect(fetch).toHaveBeenCalledWith("http://example.net", expect.objectContaining({
-        body: expect.stringContaining("\\\"type\\\": \\\"info\\\""),
-      }));
+      expect(fetch).toHaveBeenCalledWith(
+        "http://example.net",
+        expect.objectContaining({
+          body: expect.stringContaining("\\\"type\\\": \\\"info\\\""),
+        }),
+      );
     });
   });
 
-  describe("Send a log with missing or invalid URL", () => {
+  describe("Send a log with missing or invalid URL", function() {
     it("does not send a log if LOG_API_URL is missing", async () => {
       // given
       delete process.env.VUE_APP_LOG_API_URL;
 
       // when
-      await sendLog({ fileName: "testFile", functionName: "testFunction", type: "error", log: "Error occurred" });
+      await sendLog({
+        fileName: "testFile",
+        functionName: "testFunction",
+        type: "error",
+        log: "Error occurred",
+      });
 
       // then
       expect(fetch).not.toHaveBeenCalled();
@@ -73,7 +105,12 @@ describe("scripts | sendLog", () => {
       process.env.VUE_APP_LOG_API_URL = "";
 
       // when
-      await sendLog({ fileName: "testFile", functionName: "testFunction", type: "error", log: "Error occurred" });
+      await sendLog({
+        fileName: "testFile",
+        functionName: "testFunction",
+        type: "error",
+        log: "Error occurred",
+      });
 
       // then
       expect(fetch).not.toHaveBeenCalled();

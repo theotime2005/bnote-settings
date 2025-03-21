@@ -1,8 +1,10 @@
 import { mount } from "@vue/test-utils";
 
-const t = (msg) => msg;
+function t(msg) {
+  return msg;
+}
 
-const render = (component, global = {}, properties = {}, data = null) => {
+function render(component, global = {}, properties = {}, data = null) {
   // Initialize mocks with the default $t mock
   const defaultMocks = {
     $t: (msg) => msg,
