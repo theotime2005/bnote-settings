@@ -15,9 +15,5 @@ export default mergeConfig(
       root: fileURLToPath(new URL("./", import.meta.url)),
       reporters: process.env.GITHUB_ACTIONS ? ["dot", "github-actions"] : ["dot"],
     },
-    define: {
-      __DEV__: true,
-      "process.env.VUE_APP_ENVIRONMENT": "\"test\"",
-    },
   }),
 );
