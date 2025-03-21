@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import translatte from "translatte";
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import {
   checkAndUpdate,
@@ -17,13 +17,13 @@ const mockFs = vi.mocked(fs);
 const mockTranslatte = vi.mocked(translatte);
 
 describe("Translation Script", () => {
-  beforeAll(() => {
+  beforeEach(() => {
     mockTranslatte.mockImplementation((text, options) => {
       return Promise.resolve({ text: `${text}-${options.to}` });
     });
   });
 
-  afterAll(() => {
+  afterEach(() => {
     mockTranslatte.mockRestore();
   });
 
@@ -93,8 +93,8 @@ describe("Translation Script", () => {
     const updated = await checkAndUpdate(source, other, language);
 
     expect(updated).toEqual({
-      nested: { key1: "oldValue", key2: "*value2" },
-      key3: "*value3",
+      nested: { key1: "oldValue", key2: "*value2-fr" },
+      key3: "*value3-fr",
     });
   });
 
