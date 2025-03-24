@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.1](https://github.com/theotime2005/bnote-settings/compare/v2.3.0...v2.3.1) (2025-03-24)
+
+
+### 🚀 New features
+
+* Use native vite config ([b86552e](https://github.com/theotime2005/bnote-settings/commit/b86552e8c7274c3c7432c43f223c290fcb963c6d))
+* Use specific auto merge for dependabot ([f441d25](https://github.com/theotime2005/bnote-settings/commit/f441d25b8f0cd895f4f130b786c62e154e94d892))
+
+
+### 🐛 Bug fixes
+
+* Fix merge by dependabot ([f187294](https://github.com/theotime2005/bnote-settings/commit/f187294481b43c68e80394dbb2169580a000b992))
+
+
+### 🔨 Refactor
+
+* use function syntaxe ([a31b06f](https://github.com/theotime2005/bnote-settings/commit/a31b06f905615f13d29f9360ed94c2dbb828b817))
+
 ## [2.3.0](https://github.com/theotime2005/bnote-settings/compare/v2.2.0...v2.3.0) (2025-03-17)
 
 
