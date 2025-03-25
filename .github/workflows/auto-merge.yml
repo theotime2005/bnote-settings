@@ -22,9 +22,9 @@ permissions:
   contents: read
 
 jobs:
-  auto_merge_standard:
+  auto_merge:
     runs-on: ubuntu-latest
-    if: contains(join(github.event.pull_request.labels.*.name, ','), 'Ready to merge') && github.event.pull_request.draft == false && github.actor != 'dependabot[bot]'
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'Ready to merge') && github.event.pull_request.draft == false
 
     steps:
       - name: Checkout repository
@@ -48,21 +48,3 @@ jobs:
         run: gh pr merge ${{ github.event.pull_request.number }} --auto -m -d
         env:
           GH_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
-
-  merge_dependabot:
-    runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'Ready to merge') && github.event.pull_request.draft == false && github.actor == 'dependabot[bot]'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Ask rebase to dependabot
-        run: gh pr comment ${{ github.event.pull_request.number }} --body "@dependabot rebase"
-        env:
-            token: ${{ secrets.DEPENDABOT_TOKEN }}
-
-      - name: Ask merge to dependabot
-        run: gh pr comment ${{ github.event.pull_request.number }} --body "@dependabot merge"
-        env:
-          token: ${{ secrets.DEPENDABOT_TOKEN }}
