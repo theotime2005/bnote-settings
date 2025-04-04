@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@pinia/testing": "^1.0.0",
-    "@tailwindcss/vite": "^4.1.1",
+    "@tailwindcss/vite": "^4.1.2",
     "@vue/compiler-sfc": "^3.5.13",
     "js-cookie": "^3.0.5",
     "pinia": "^3.0.1",
