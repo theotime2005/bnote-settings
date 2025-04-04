@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.2](https://github.com/theotime2005/bnote-settings/compare/v2.3.1...v2.3.2) (2025-04-04)
+
+
+### ⏪ Revert
+
+* Revert "feat: Use specific auto merge for dependabot" ([0cf5a22](https://github.com/theotime2005/bnote-settings/commit/0cf5a222430d83d295e2bccda3dd5b403afb1749))
+* Revert "fix: Fix merge by dependabot" ([a4011ae](https://github.com/theotime2005/bnote-settings/commit/a4011ae6233810e81b46c96d00b35787939abada))
+
 ## [2.3.1](https://github.com/theotime2005/bnote-settings/compare/v2.3.0...v2.3.1) (2025-03-24)
 
 
