@@ -12,7 +12,7 @@ async function sendLog({ fileName, functionName, type, log }) {
   };
   // Log the message in the console for Vercel deployment
   console.log(message);
-  const apiUrl = process.env.VUE_APP_LOG_API_URL || null;
+  const apiUrl = import.meta.env.VUE_APP_LOG_API_URL || null;
   if (!apiUrl) {
     console.log("Message not sent, no API URL");
     return;
