@@ -1,5 +1,5 @@
 <script>
-import { sendLog } from "@/scripts/send-error-message-script.js";
+import { sendLog } from "@/scripts/send-log-message-script.js";
 import { useSettingsStore } from "@/stores/settingsStore.js";
 export default {
   name: "UploadFileComponent",

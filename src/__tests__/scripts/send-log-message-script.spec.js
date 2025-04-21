@@ -1,4 +1,4 @@
-import { sendLog } from "@/scripts/send-error-message-script.js";
+import { sendLog } from "@/scripts/send-log-message-script.js";
 
 describe("scripts | sendLog", () => {
   let fetch;

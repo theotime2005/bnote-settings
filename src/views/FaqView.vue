@@ -1,5 +1,5 @@
 <script>
-import { sendLog } from "@/scripts/send-error-message-script.js";
+import { sendLog } from "@/scripts/send-log-message-script.js";
 
 export default {
   name: "FaqView",
