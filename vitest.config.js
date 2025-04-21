@@ -2,7 +2,11 @@ import { fileURLToPath } from "node:url";
 
 import { configDefaults, defineConfig, mergeConfig } from "vitest/config";
 
-import viteConfig from "./vite.config";
+import baseViteConfig from "./vite.config";
+
+const viteConfig = typeof baseViteConfig === "function"
+  ? baseViteConfig({ mode: "test" })
+  : baseViteConfig;
 
 export default mergeConfig(
   viteConfig,
