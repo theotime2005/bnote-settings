@@ -2,7 +2,7 @@
 This file is used to send a notification on the discord server when an error occurs.
  */
 
-async function sendLog({ fileName, functionName, type, log }) {
+async function sendLog({ fileName, functionName, type, log, environment = true }) {
   const redColor = 16711680;
   // Create a message visible and readable
   const message = {
@@ -12,7 +12,7 @@ async function sendLog({ fileName, functionName, type, log }) {
   };
   // Log the message in the console for Vercel deployment
   console.log(message);
-  const apiUrl = import.meta.env.VUE_APP_LOG_API_URL || null;
+  const apiUrl = environment ? import.meta.env.VUE_APP_LOG_API_URL : process.env.VUE_APP_LOG_API_URL;
   if (!apiUrl) {
     console.log("Message not sent, no API URL");
     return;

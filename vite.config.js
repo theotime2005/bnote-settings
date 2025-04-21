@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 
 import packageInfo from "./package.json";
-import { sendLog } from "./src/scripts/send-error-message-script.js";
+import { sendLog } from "./src/scripts/send-log-message-script.js";
 
 export default defineConfig(({ mode }) => {
   const config = {
