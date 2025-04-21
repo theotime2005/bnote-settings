@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.4](https://github.com/theotime2005/bnote-settings/compare/v2.3.3...v2.3.4) (2025-04-21)
+
+
+### 🛠️ Tech
+
+* Change the env call in log send ([f32f4d8](https://github.com/theotime2005/bnote-settings/commit/f32f4d88544ab5f72e2bd187e63cda768e03478e))
+* Rename the logger with correct name ([ef9b922](https://github.com/theotime2005/bnote-settings/commit/ef9b922c306466bce2d7eb5b7e196ec9395cf5f9))
+
 ## [2.3.3](https://github.com/theotime2005/bnote-settings/compare/v2.3.2...v2.3.3) (2025-04-14)
 
 ## [2.3.2](https://github.com/theotime2005/bnote-settings/compare/v2.3.1...v2.3.2) (2025-04-04)
