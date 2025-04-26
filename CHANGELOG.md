@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.4.0](https://github.com/theotime2005/bnote-settings/compare/v2.3.4...v2.4.0) (2025-04-26)
+
+
+### 🚀 New features
+
+* add spanish in app ([bd5b891](https://github.com/theotime2005/bnote-settings/commit/bd5b8912218b3987fdaa131a16455795267214d9))
+* add spanish language ([1dc354b](https://github.com/theotime2005/bnote-settings/commit/1dc354b69407ddd1a6c42b20d13cf5fb6f61f577))
+
 ## [2.3.4](https://github.com/theotime2005/bnote-settings/compare/v2.3.3...v2.3.4) (2025-04-21)
 
 
