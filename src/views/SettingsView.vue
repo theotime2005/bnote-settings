@@ -128,18 +128,18 @@ export default {
 </script>
 
 <template>
-  <div class="p-6 bg-gray-50">
-    <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $t("settings.page.title") }}</h1>
+  <div class="settings-container">
+    <h1 class="settings-title">{{ $t("settings.page.title") }}</h1>
 
-    <div v-if="!fileIsImported" class="bg-white p-4 rounded-md shadow-md">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{ $t("settings.page.how") }}</h2>
-      <p class="text-gray-600 mb-4">{{ $t("settings.page.explication") }}</p>
+    <div v-if="!fileIsImported" class="settings-intro-card">
+      <h2 class="settings-subtitle">{{ $t("settings.page.how") }}</h2>
+      <p class="settings-explanation">{{ $t("settings.page.explication") }}</p>
       <UploadFileComponent ref="upload" @file-uploaded="showFile" />
-      <hr class="my-4 border-gray-300" />
+      <hr class="settings-divider" />
       <button
         type="button"
         @click="createBasicData"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 custom-button"
+        class="settings-button settings-button-blue custom-button"
       >
         {{ $t("settings.page.create") }}
       </button>
@@ -147,45 +147,45 @@ export default {
 
     <div
       v-if="fileIsImported"
-      class="bg-white p-6 rounded-lg shadow-lg border border-gray-200"
+      class="settings-card"
     >
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+      <h2 class="settings-filename">
         {{ file_name }}
       </h2>
 
       <form
-        class="space-y-6"
+        class="settings-form"
         :aria-label="$t('settings.page.title2')"
         @submit.prevent="save"
       >
         <section
           v-for="(settings, section) in all_settings"
           :key="section"
-          class="border-b border-gray-300 pb-4"
+          class="settings-section"
         >
-          <h3 class="text-xl font-medium text-gray-700">{{ $t(`settings.id.${section}`) }}</h3>
+          <h3 class="settings-section-title">{{ $t(`settings.id.${section}`) }}</h3>
           <button
             type="button"
             @click="togle_menu(section)"
-            class="mt-2 text-sm text-blue-600 hover:underline focus:outline-none custom-button"
+            class="settings-toggle-button custom-button"
           >
             {{ display_menu[section] ? $t('settings.page.hide') : $t('settings.page.show') }}
           </button>
-          <div v-if="display_menu[section]" class="mt-4 space-y-4 setting">
+          <div v-if="display_menu[section]" class="settings-group setting">
             <SettingComponent
               v-for="(setting, key) in settings"
               :key="section+'.'+key"
               :settingSection="section"
               :settingKey="key"
               :setting="setting"
-              class="p-4 bg-gray-100 rounded-md"
+              class="settings-item"
             />
           </div>
         </section>
 
         <button
           type="submit"
-          class="w-full px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 custom-button"
+          class="settings-button settings-button-green custom-button"
         >
           {{ $t("settings.page.download") }}
         </button>
@@ -194,7 +194,7 @@ export default {
       <button
         type="button"
         @click="clean_data"
-        class="mt-4 w-full px-4 py-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 custom-button"
+        class="settings-button settings-button-red custom-button"
       >
         {{ $t("settings.page.openOther") }}
       </button>
@@ -202,3 +202,136 @@ export default {
 
   </div>
 </template>
+
+<style scoped>
+.settings-container {
+  padding: 1.5rem;
+  background-color: #f9fafb;
+}
+
+.settings-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.settings-intro-card {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.settings-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.settings-explanation {
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.settings-divider {
+  margin: 1rem 0;
+  border-color: #d1d5db;
+}
+
+.settings-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.settings-filename {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.settings-section {
+  border-bottom: 1px solid #d1d5db;
+  padding-bottom: 1rem;
+}
+
+.settings-section-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.settings-toggle-button {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #2563eb;
+}
+
+.settings-toggle-button:hover {
+  text-decoration: underline;
+}
+
+.settings-group {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.settings-item {
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+}
+
+.settings-button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.settings-button-blue {
+  background-color: #3b82f6;
+}
+
+.settings-button-blue:hover {
+  background-color: #2563eb;
+}
+
+.settings-button-green {
+  background-color: #10b981;
+}
+
+.settings-button-green:hover {
+  background-color: #059669;
+}
+
+.settings-button-red {
+  background-color: #ef4444;
+  margin-top: 1rem;
+}
+
+.settings-button-red:hover {
+  background-color: #dc2626;
+}
+
+.settings-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+</style>
