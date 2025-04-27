@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/theotime2005/bnote-settings/compare/v2.4.0...v3.0.0) (2025-04-27)
+
+
+### 🚀 New features
+
+* Add a job in workflow to check building ([d26a1f1](https://github.com/theotime2005/bnote-settings/commit/d26a1f1e7f6c331a719ffbb32d571ef66279cbf1))
+
+
+### 🔧 Chore
+
+* remove tailwindcss from this project ([fb21db9](https://github.com/theotime2005/bnote-settings/commit/fb21db9c00acbcfcefc7c3b31336368634ba26b8))
+
+
+### 💅 Styles
+
+* update css style sheet ([9577c5b](https://github.com/theotime2005/bnote-settings/commit/9577c5b86d3ff994cddc2f036f5993f901239ef9))
+* use native css for Setting component ([345d142](https://github.com/theotime2005/bnote-settings/commit/345d1423ccbecd603e86b32ad5e4cd607dd0fd7b))
+* use native css in app entry ([4ed2254](https://github.com/theotime2005/bnote-settings/commit/4ed2254b682dee127e15cc1bcc5ad821efd83587))
+* use native css in footer component ([1a6c239](https://github.com/theotime2005/bnote-settings/commit/1a6c2397795eabe91ee89160807686df09974bad))
+* use native css in language component ([9e4688a](https://github.com/theotime2005/bnote-settings/commit/9e4688a6e96fa49d16e7ae451c40c319f8a9c9bf))
+* use native css in views ([4af4920](https://github.com/theotime2005/bnote-settings/commit/4af4920c95ca38722ec53f082881d44b35b341cb))
+* use native css upload file component ([9995b96](https://github.com/theotime2005/bnote-settings/commit/9995b966c632995a9dc0a896aa5cf58c933ad605))
+
 ## [2.4.0](https://github.com/theotime2005/bnote-settings/compare/v2.3.4...v2.4.0) (2025-04-26)
 
 
