@@ -41,9 +41,9 @@ export default {
 </script>
 
 <template>
-  <div class="mb-4">
+  <div class="setting-container">
     <!-- Label -->
-    <label :for="label_id" class="block text-sm font-medium text-gray-700 mb-2">
+    <label :for="label_id" class="setting-label">
       {{ name }}
     </label>
 
@@ -56,7 +56,7 @@ export default {
       :checked="settingValue"
       @change="updateSetting"
       v-model="settingValue"
-      class="h-4 w-4 text-blue-600 border-gray-300 rounded-sm focus:ring-blue-500 custom-input"
+      class="setting-checkbox"
     />
 
     <!-- Dropdown menu -->
@@ -67,7 +67,7 @@ export default {
       :name="name"
       @change="updateSetting"
       v-model="settingValue"
-      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-xs focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-input"
+      class="setting-select"
     >
       <option v-for="option in setting.values" :key="option" :value="option" :name="option">
         {{ !setting.isTranslate ? $t(`settings.values.${option}`) : option }}
@@ -85,7 +85,7 @@ export default {
       :value="settingValue"
       @input="updateSetting"
       v-model="settingValue"
-      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-input"
+      class="setting-input"
     />
 
     <!-- Text input -->
@@ -97,15 +97,83 @@ export default {
       :value="settingValue"
       @input="updateSetting"
       v-model="settingValue"
-      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-input"
+      class="setting-input"
     />
+
     <!-- Button to set the default value -->
     <button
       @click="setDefault"
-      class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm custom-button"
+      class="default-button"
       v-if="settingValue!==setting.default">
       {{ $t("settings.values.default") }}
     </button>
   </div>
   <br />
 </template>
+
+<style scoped>
+.setting-container {
+  margin-bottom: 1.5rem;
+}
+
+.setting-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.setting-checkbox {
+  height: 1rem;
+  width: 1rem;
+  color: #2563eb;
+  border-color: #d1d5db;
+  border-radius: 0.125rem;
+  cursor: pointer;
+}
+
+.setting-checkbox:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.setting-select,
+.setting-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-size: 0.875rem;
+}
+
+.setting-select:focus,
+.setting-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.default-button {
+  margin-top: 0.5rem;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.125rem;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.default-button:hover {
+  background-color: #1d4ed8;
+}
+
+.default-button:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+</style>
