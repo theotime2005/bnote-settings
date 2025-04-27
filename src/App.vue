@@ -56,20 +56,29 @@ export default {
 
 <template>
   <div v-if="hasLanguage">
-    <button @click="focusMain" class="sr-only">{{ $t("skip-content") }}</button>
+    <button @click="focusMain" class="sr-only custom-button">{{ $t("skip-content") }}</button>
     <NavBarComponent @move-cursor="focusMain" />
-    <main class="flex flex-col grow overflow-y-scroll" ref="mainRef" tabindex="-1">
-      <RouterView />
-    </main>
+    <div class="container">
+      <main ref="mainRef" tabindex="-1" class="mt-4">
+        <RouterView />
+      </main>
+    </div>
     <FooterComponent />
   </div>
-  <div v-else>
-    <h1>Select your language</h1>
-    <ul class="flex flex-row">
-      <li v-for="locale in $i18n.availableLocales" :key="locale">
-        <button @click="setLocale(locale)">{{locale}}</button>
-      </li>
-    </ul>
+  <div v-else class="container">
+    <div class="card text-center mt-4">
+      <h1>Select your language</h1>
+      <div class="divider"></div>
+      <ul class="flex gap-4 justify-between mt-4 mb-4">
+        <li v-for="locale in $i18n.availableLocales" :key="locale">
+          <button @click="setLocale(locale)" class="custom-button button-blue">
+            {{ locale }}
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
-  <button v-if="canReset" @click="resetCookies">Reset all cookies</button>
+  <div class="container mt-4" v-if="canReset">
+    <button @click="resetCookies" class="custom-button button-red">Reset all cookies</button>
+  </div>
 </template>
