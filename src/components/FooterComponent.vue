@@ -12,16 +12,51 @@ export default {
   },
 };
 </script>
+
 <template>
-  <footer class="bg-slate-900 p-2 flex flex-col items-center justify-center text-[11px] border-t border-t-slate-600" :aria-label="$t('footer.label')">
-    <div class="flex">
-      <div class="flex flex-col justify-center items-center">
-        <p>{{$t('footer.message1')}}</p>
-        <p>{{$t('footer.message2')}}</p>
+  <footer class="footer-container" :aria-label="$t('footer.label')">
+    <div class="footer-content">
+      <div class="footer-messages">
+        <p>{{ $t('footer.message1') }}</p>
+        <p>{{ $t('footer.message2') }}</p>
       </div>
     </div>
-    <LanguageComponent/>
-    <a class="text-green-400 hover:text-green-300 hover:underline transition-all duration-200" href="https://github.com/theotime2005/bnote-settings">{{$t('footer.code')}}</a>
-    <p>{{$t('footer.version', {version: version})}}</p>
+    <LanguageComponent />
+    <a class="footer-link" href="https://github.com/theotime2005/bnote-settings">{{ $t('footer.code') }}</a>
+    <p>{{ $t('footer.version', {version: version}) }}</p>
   </footer>
 </template>
+
+<style scoped>
+.footer-container {
+  background-color: rgb(15, 23, 42); /* bg-slate-900 */
+  padding: 0.5rem; /* p-2 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  border-top: 1px solid rgb(71, 85, 105); /* border-t border-t-slate-600 */
+}
+
+.footer-content {
+  display: flex;
+}
+
+.footer-messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-link {
+  color: rgb(74, 222, 128); /* text-green-400 */
+  transition: all 0.2s ease;
+}
+
+.footer-link:hover {
+  color: rgb(134, 239, 172); /* hover:text-green-300 */
+  text-decoration: underline;
+}
+</style>

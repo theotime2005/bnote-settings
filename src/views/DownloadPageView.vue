@@ -45,34 +45,74 @@ export default {
 </script>
 
 <template>
-  <div class="p-3">
-    <div class="flex flex-col mb-3">
-      <h1 class="text-3xl">{{ $t("download.title") }}</h1>
+  <div class="download-container">
+    <div class="download-section">
+      <h1 class="download-title">{{ $t("download.title") }}</h1>
       <p>{{$t('download.message-1')}}
-        <a :href="links.eurobraille.github" target="_blank">GitHub</a>.
+        <a :href="links.eurobraille.github" target="_blank" class="download-link">GitHub</a>.
       </p>
-
     </div>
 
-    <div class="flex flex-col mt-3">
-      <h2 class="text-3xl">{{ $t("download.eurobrailleTitle") }}</h2>
+    <div class="download-section">
+      <h2 class="download-title">{{ $t("download.eurobrailleTitle") }}</h2>
       <p>{{ $t("download.message2") }}</p>
       <a
-        class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300"
+        class="download-link"
         :href="links.eurobraille.download"
         target="_blank"
-        >{{ $t("download.downloadEurobraille") }}</a
+      >{{ $t("download.downloadEurobraille") }}</a
       >
     </div>
 
-        <div class="flex flex-col mt-3">
-          <h2 class="text-3xl">{{$t('download.otherTitle')}}</h2>
-          <p class="mb-3">{{$t('download.message3')}}
-            <a :href="links.theotime.github" target="_blank">{{$t('download.message-3-1')}}</a>
-            {{$t('download.message-3-2')}}
-          </p>
-          <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="last_version['file']">{{$t('download.downloadOtherLast', {version: last_version['tag']})}}</a>
-          <a class="text-green-400 duration-200 transition-all hover:underline hover:text-green-300" :href="links.theotime.releases" target="_blank">{{$t("download.releases")}}</a>
-        </div>
+    <div class="download-section">
+      <h2 class="download-title">{{$t('download.otherTitle')}}</h2>
+      <p class="download-description">{{$t('download.message3')}}
+        <a :href="links.theotime.github" target="_blank" class="download-link">{{$t('download.message-3-1')}}</a>
+        {{$t('download.message-3-2')}}
+      </p>
+      <a class="download-link" :href="last_version['file']">
+        {{$t('download.downloadOtherLast', {version: last_version['tag']})}}
+      </a>
+      <a class="download-link" :href="links.theotime.releases" target="_blank">
+        {{$t("download.releases")}}
+      </a>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.download-container {
+  padding: 0.75rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.download-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.download-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: inherit;
+}
+
+.download-description {
+  margin-bottom: 0.75rem;
+}
+
+.download-link {
+  color: rgb(74, 222, 128);
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.download-link:hover {
+  color: rgb(134, 239, 172);
+  text-decoration: underline;
+}
+</style>

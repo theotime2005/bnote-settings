@@ -5,16 +5,60 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col p-3">
-    <h1 class="text-3xl mb-3">{{$t('home.title')}}</h1>
+  <div class="home-container">
+    <h1 class="home-title">{{$t('home.title')}}</h1>
 
-    <div class="flex flex-col text-justify">
+    <div class="home-section">
       <p>{{$t('home.message-1')}}</p>
-      <RouterLink class="text-left w-fit flex items-center justify-center text-green-400 rounded duration-200 transition-all hover:border-green-400 hover:text-green-200 hover:underline" to="/settings">{{$t('home.goto-settings')}}</RouterLink>
+      <RouterLink class="home-link" to="/settings">{{$t('home.goto-settings')}}</RouterLink>
     </div>
-    <div class="flex flex-col text-justify">
-      <h2 class="text-2xl mt-5">{{$t('home.title2')}}</h2>
+    <div class="home-section">
+      <h2 class="home-subtitle">{{$t('home.title2')}}</h2>
       <p>{{$t('home.message2')}}</p>
     </div>
   </div>
 </template>
+
+<style scoped>
+.home-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+}
+
+.home-title {
+  font-size: 1.875rem;
+  margin-bottom: 0.75rem;
+  color: inherit;
+}
+
+.home-section {
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+}
+
+.home-subtitle {
+  font-size: 1.5rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.home-link {
+  text-align: left;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(74, 222, 128);
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.home-link:hover {
+  border-color: rgb(74, 222, 128);
+  color: rgb(134, 239, 172);
+  text-decoration: underline;
+}
+</style>
