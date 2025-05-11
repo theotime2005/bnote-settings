@@ -13,7 +13,7 @@ describe("Acceptance | DownloadPageView", () => {
     const wrapper = await render("/download");
 
     // then
-    expect(wrapper.html()).toContain("download.title");
+    expect(wrapper.html()).toContain("download.title*");
   });
 
   it("Displays eurobraille links", async () => {
