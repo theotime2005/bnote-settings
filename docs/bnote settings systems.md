@@ -90,3 +90,10 @@ If you want to add a category of settings with new settings, do the following:
 ```
 
 Your new category will be added automatically on the management page.
+
+### Add a setting with the script
+You can add a setting with the script by using the following command:
+
+```bash
+npm run add-new-setting -- --file <path-to-file> --section <the category> --key <setting key also use for id> --type <setting type> -- values <use for menu> --default <the default value> --min <the min value> --max <the max value>
+```
