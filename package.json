@@ -16,7 +16,8 @@
     "lint:fix": "eslint . --fix",
     "production": "sh script/release.sh",
     "release": "commit-and-tag-version",
-    "prepare": "husky"
+    "prepare": "husky",
+    "add-new-setting": "node ./src/scripts/add-new-setting.js"
   },
   "dependencies": {
     "@pinia/testing": "^1.0.1",
