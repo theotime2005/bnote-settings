@@ -93,6 +93,8 @@ export default [
     ignores: [
       ".idea/",
       ".vscode/",
+      "src/*.json",
+      "dist/",
       "public/",
       ".versionrc.json",
       "jsconfig.json",

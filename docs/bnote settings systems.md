@@ -35,7 +35,7 @@ settings [here](https://github.com/devel-erb/bnote/blob/main/bnote/tools/setting
 
 ## On the site
 
-On this site, the parameters are stored in [this file](../src/settings.js). They use a similar format but with the
+On this site, the parameters are stored in [this file](../src/settings.json). They use a similar format but with the
 particularity that each parameter is an object containing the following elements:
 
 - id(required): Parameter identifier (for translation),
@@ -51,7 +51,7 @@ particularity that each parameter is an object containing the following elements
 
 ### Add a parameter
 
-You can add a parameter in the [settings file](../src/settings.js) according to the convention above. ATTENTION, the id
+You can add a parameter in the [settings file](../src/settings.json) according to the convention above. ATTENTION, the id
 must simply be an identifier, it will be used to identify this parameter in the translation files.
 Once the parameter is added, go to [the translation folder](../locales) and, for the file of the language of your
 choice, go to the settings.id section. There, simply add the parameter identifier as a key and its name as a value.
@@ -90,3 +90,10 @@ If you want to add a category of settings with new settings, do the following:
 ```
 
 Your new category will be added automatically on the management page.
+
+### Add a setting with the script
+You can add a setting with the script by using the following command:
+
+```bash
+npm run add-new-setting -- --file <path-to-file> --section <the category> --key <setting key also use for id> --type <setting type> -- values <use for menu> --default <the default value> --min <the min value> --max <the max value>
+```

@@ -1,4 +1,4 @@
-import all_settings from "@/settings.js";
+import all_settings from "@/settings.json";
 
 // Check the format of settings
 describe("unit | Settings", () => {
