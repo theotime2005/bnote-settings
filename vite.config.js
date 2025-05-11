@@ -5,7 +5,6 @@ import { defineConfig } from "vite";
 
 import packageInfo from "./package.json";
 import { sendLog } from "./src/scripts/send-log-message-script.js";
-
 export default defineConfig(({ mode }) => {
   const config = {
     plugins: [
