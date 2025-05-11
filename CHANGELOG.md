@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.0](https://github.com/theotime2005/bnote-settings/compare/v3.0.1...v3.1.0) (2025-05-11)
+
+
+### 🚀 New features
+
+* create a json file with settings ([4ee505e](https://github.com/theotime2005/bnote-settings/commit/4ee505e43f5480771dc8fab5b94baee02182e006))
+* create a script with command to add a setting in the settings file ([52e0594](https://github.com/theotime2005/bnote-settings/commit/52e059428379ff322ec0dbece007047c270b9170))
+* migrate usage to json file ([6776c8e](https://github.com/theotime2005/bnote-settings/commit/6776c8e9d597a8ffb147f35ab92a00d7b067b567))
+
+
+### 🔧 Chore
+
+* install yargs ([152e69c](https://github.com/theotime2005/bnote-settings/commit/152e69cf58131c68b5da7a8f3716c06a5f6165ef))
+
+
+### 📚 Documentation
+
+* update the documentation with the script informations ([2cf3c87](https://github.com/theotime2005/bnote-settings/commit/2cf3c87d9bbb1b38e46ca9ce844f725d3b119a49))
+
+
+### 🛠️ Tech
+
+* add nvmrc file and engines ([d7ec504](https://github.com/theotime2005/bnote-settings/commit/d7ec504dc8a20d4cd579b49f2de3b38b26189cc2))
+* exclude files from linter ([a553002](https://github.com/theotime2005/bnote-settings/commit/a553002c3ab9b71ad65425003a6fc4c124df1a4e))
+* update workflows node version ([5d15b57](https://github.com/theotime2005/bnote-settings/commit/5d15b577faad3d4f0efbf6557ca6d91b98dfab1b))
+
 ## [3.0.1](https://github.com/theotime2005/bnote-settings/compare/v3.0.0...v3.0.1) (2025-05-02)
 
 ## [3.0.0](https://github.com/theotime2005/bnote-settings/compare/v2.4.0...v3.0.0) (2025-04-27)
