@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.9",
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.6",
     "commit-and-tag-version": "^12.5.1",
