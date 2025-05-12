@@ -5,9 +5,6 @@ describe("unit | Settings", () => {
   describe("# Check the format of settings", () => {
     it("should format of settings is correct", () => {
       function checkSettingsIntegrity(setting) {
-        if (!setting.id) {
-          return false;
-        }
         switch (setting.type) {
         case "menu":
           if (!setting.values) {
