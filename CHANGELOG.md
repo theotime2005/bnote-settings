@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.1](https://github.com/theotime2005/bnote-settings/compare/v3.1.0...v3.1.1) (2025-05-14)
+
+
+### 🛠️ Tech
+
+* remove the id from the script ([40aae51](https://github.com/theotime2005/bnote-settings/commit/40aae51361aeba00d0994245cab0956d7a21b51d))
+* remove unused id in json file ([fde7752](https://github.com/theotime2005/bnote-settings/commit/fde7752f7146f2ac3ae16842e3b1e6eeb43b9d02))
+
 ## [3.1.0](https://github.com/theotime2005/bnote-settings/compare/v3.0.1...v3.1.0) (2025-05-11)
 
 
