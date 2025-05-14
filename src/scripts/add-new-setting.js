@@ -124,7 +124,6 @@ export class AddNewSetting {
       }
 
       section[this.key] = {
-        id: this.key,
         type: this.type,
         default: this.default,
         ...(this.type === "menu" && { values: this.values }),
