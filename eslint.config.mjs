@@ -7,20 +7,20 @@ import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-  ...pluginVue.configs["flat/recommended"],
 });
 
 export default [
-  ...compat.extends(
-    "eslint:recommended",
+  js.configs.recommended,
+  ...pluginVue.configs["flat/recommended"],
+  ...compat.extends( // Utiliser FlatCompat pour les configurations basées sur des chaînes
     "@vue/eslint-config-prettier/skip-formatting",
-    "plugin:i18n-json/recommended",
+    "plugin:i18n-json/recommended", // Assurez-vous que ce plugin est compatible et installé
   ),
   {
     plugins: {

@@ -30,8 +30,8 @@ export default {
   },
   methods: {
     updateSetting() {
-      if (this.setting.type === 'number') {
-        this.settingValue = parseInt(this.settingValue)
+      if (this.setting.type === "number") {
+        this.settingValue = parseInt(this.settingValue);
       }
       useSettingsStore().updateSetting(this.settingSection, this.settingKey, this.settingValue);
     },
@@ -53,24 +53,24 @@ export default {
     <!-- Checkbox -->
     <input
       v-if="setting.type === 'checkbox'"
-      type="checkbox"
       :id="label_id"
+      v-model="settingValue"
+      type="checkbox"
       :name="name"
       :checked="settingValue"
-      @change="updateSetting"
-      v-model="settingValue"
       class="setting-checkbox"
+      @change="updateSetting"
     />
 
     <!-- Dropdown menu -->
     <select
       v-else-if="setting.type === 'menu'"
       :id="label_id"
+      v-model="settingValue"
       :value="settingValue"
       :name="name"
-      @change="updateSetting"
-      v-model="settingValue"
       class="setting-select"
+      @change="updateSetting"
     >
       <option v-for="option in setting.values" :key="option" :value="option" :name="option">
         {{ !setting.isTranslate ? $t(`settings.values.${option}`) : option }}
@@ -80,16 +80,16 @@ export default {
     <!-- Number input -->
     <div v-else-if="setting.type === 'number'">
       <input
-        type="range"
         :id="label_id"
+        v-model="settingValue"
+        type="range"
         :name="name"
         :min="setting.min"
         :max="setting.max"
         :value="settingValue"
-        @input="updateSetting"
-        v-model="settingValue"
         class="setting-input"
         :list="label_id+'tickmarks'"
+        @input="updateSetting"
       />
       <datalist :id="label_id+'tickmarks'">
         <option :value="setting.min"></option>
@@ -101,20 +101,20 @@ export default {
     <!-- Text input -->
     <input
       v-else-if="setting.type === 'text'"
-      type="text"
       :id="label_id"
+      v-model="settingValue"
+      type="text"
       :name="name"
       :value="settingValue"
-      @input="updateSetting"
-      v-model="settingValue"
       class="setting-input"
+      @input="updateSetting"
     />
 
     <!-- Button to set the default value -->
     <button
-      @click="setDefault"
+      v-if="settingValue!==setting.default"
       class="default-button"
-      v-if="settingValue!==setting.default">
+      @click="setDefault">
       {{ $t("settings.values.default") }}
     </button>
   </div>

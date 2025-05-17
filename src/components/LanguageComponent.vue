@@ -7,15 +7,15 @@ export default {
       current_language: null,
     };
   },
+  mounted() {
+    this.current_language = this.$i18n.locale;
+  },
   methods: {
     changeLanguage() {
       this.$i18n.locale = this.current_language;
       document.documentElement.lang = this.current_language;
       useLocaleCookie.setLocaleCookie(this.current_language);
     },
-  },
-  mounted() {
-    this.current_language = this.$i18n.locale;
   },
 };
 </script>
@@ -25,10 +25,10 @@ export default {
     <label for="language" class="language-label">{{ $t('languages.select') }}</label>
     <select
       id="language"
-      :value="current_language"
       v-model="current_language"
-      @change="changeLanguage"
-      class="language-select">
+      :value="current_language"
+      class="language-select"
+      @change="changeLanguage">
       <option v-for="language in $i18n.availableLocales" :key="language" :value="language">
         {{ $t(`languages.${language}`) }}
       </option>

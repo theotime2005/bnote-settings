@@ -16,6 +16,21 @@ export default {
     };
   },
 
+  beforeMount() {
+    // set locale from cookie
+    const localeCookie = useLocaleCookie.getLocaleCookie();
+    if (localeCookie) {
+      this.$i18n.locale = localeCookie;
+      this.hasLanguage = true;
+    } else if (import.meta.env.MODE === "test") {
+      this.hasLanguage = true;
+    }
+    // Toggle the reset cookies variable
+    if (import.meta.env.MODE === "development") {
+      this.canReset = true;
+    }
+  },
+
   methods: {
     focusMain() {
       if (this.$refs.mainRef) {
@@ -36,27 +51,12 @@ export default {
       this.$router.push(this.$route.path);
     },
   },
-
-  beforeMount() {
-    // set locale from cookie
-    const localeCookie = useLocaleCookie.getLocaleCookie();
-    if (localeCookie) {
-      this.$i18n.locale = localeCookie;
-      this.hasLanguage = true;
-    } else if (import.meta.env.MODE==="test") {
-      this.hasLanguage = true;
-    }
-    // Toggle the reset cookies variable
-    if (import.meta.env.MODE=== "development") {
-      this.canReset = true;
-    }
-  },
 };
 </script>
 
 <template>
   <div v-if="hasLanguage">
-    <button @click="focusMain" class="sr-only custom-button">{{ $t("skip-content") }}</button>
+    <button class="sr-only custom-button" @click="focusMain">{{ $t("skip-content") }}</button>
     <NavBarComponent @move-cursor="focusMain" />
     <div class="container">
       <main ref="mainRef" tabindex="-1" class="mt-4">
@@ -71,14 +71,14 @@ export default {
       <div class="divider"></div>
       <ul class="flex gap-4 justify-between mt-4 mb-4">
         <li v-for="locale in $i18n.availableLocales" :key="locale">
-          <button @click="setLocale(locale)" class="custom-button button-blue">
+          <button class="custom-button button-blue" @click="setLocale(locale)">
             {{ locale }}
           </button>
         </li>
       </ul>
     </div>
   </div>
-  <div class="container mt-4" v-if="canReset">
-    <button @click="resetCookies" class="custom-button button-red">Reset all cookies</button>
+  <div v-if="canReset" class="container mt-4">
+    <button class="custom-button button-red" @click="resetCookies">Reset all cookies</button>
   </div>
 </template>

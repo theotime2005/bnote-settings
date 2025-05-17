@@ -19,6 +19,9 @@ export default {
       last_version: {},
     };
   },
+  mounted() {
+    this.get_last_version();
+  },
   methods: {
     async get_last_version() {
       try {
@@ -37,9 +40,6 @@ export default {
         sendLog({ fileName: "DownloadPage", functionName: "get_last_version", type: "error", log: e });
       }
     },
-  },
-  mounted() {
-    this.get_last_version();
   },
 };
 </script>
