@@ -530,7 +530,7 @@
   "update": {
     "auto_check": {
       "type": "checkbox",
-      "default": "false"
+      "default": false
     }
   }
 }
