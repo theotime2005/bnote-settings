@@ -45,6 +45,6 @@ jobs:
           git push origin ${{ github.event.pull_request.head.ref }} --force-with-lease
 
       - name: Enable auto-merge or merge pull request
-        run: gh pr merge ${{ github.event.pull_request.number }} --auto -m -d
+        run: gh pr merge ${{ github.event.pull_request.number }} --auto -s -d
         env:
           GH_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
