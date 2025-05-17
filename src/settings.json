@@ -526,5 +526,11 @@
       "type": "checkbox",
       "default": false
     }
+  },
+  "update": {
+    "auto_check": {
+      "type": "checkbox",
+      "default": false
+    }
   }
 }
