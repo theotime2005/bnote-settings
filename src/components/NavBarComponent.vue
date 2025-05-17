@@ -3,12 +3,20 @@ import routes from "@/router/router-list.js";
 
 export default {
   name: "NavBarComponent",
+  emits: ["move-cursor"],
   data() {
     return {
       routes: routes,
       buttonIsVisible: false,
       navBarIsVisible: false,
     };
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize(); // Initial check
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     toggleNavBar() {
@@ -30,29 +38,22 @@ export default {
       this.$emit("move-cursor");
     },
   },
-  mounted() {
-    window.addEventListener("resize", this.handleResize);
-    this.handleResize(); // Initial check
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.handleResize);
-  },
 };
 </script>
 
 <template>
   <header class="nav-header">
     <button
+      v-if="buttonIsVisible"
       class="nav-toggle-button"
       @click="toggleNavBar"
-      v-if="buttonIsVisible"
     >{{ navBarIsVisible ? $t('header.close') : $t('header.open') }}</button>
-    <nav class="main-nav" :aria-label="$t('header.mainMenu')" v-if="navBarIsVisible">
+    <nav v-if="navBarIsVisible" class="main-nav" :aria-label="$t('header.mainMenu')">
       <menu class="nav-menu">
         <RouterLink
-          class="nav-link"
           v-for="route in routes"
           :key="route.name"
+          class="nav-link"
           :to="route.path"
           @click="goto"
         >{{ $t(`${route.name}.title`) }}

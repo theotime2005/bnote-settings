@@ -8,6 +8,17 @@ export default {
       faq: null,
     };
   },
+  watch: {
+    "$i18n.locale": {
+      immediate: true,
+      handler() {
+        this.loadFaq();
+      },
+    },
+  },
+  mounted() {
+    this.loadFaq();
+  },
   methods: {
     async loadFaq() {
       this.faq = null;
@@ -20,17 +31,6 @@ export default {
       } catch (e) {
         sendLog({ fileName: "FaqView", functionName: "loadFaq", type: "error", log: e });
       }
-    },
-  },
-  mounted() {
-    this.loadFaq();
-  },
-  watch: {
-    "$i18n.locale": {
-      immediate: true,
-      handler() {
-        this.loadFaq();
-      },
     },
   },
 };
@@ -57,7 +57,8 @@ export default {
           <p v-if="typeof element === 'string'" class="faq-answer-text">{{ element }}</p>
 
           <ol v-else-if="Array.isArray(element)" class="faq-answer-list">
-            <li v-for="(subElement, subElemIndex) in element"
+            <li
+v-for="(subElement, subElemIndex) in element"
                 :key="`faq-subelement-${index}-${subIndex}-${subElemIndex}`"
                 class="faq-answer-list-item">
               {{ subElement }}

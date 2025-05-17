@@ -29,6 +29,21 @@ export default {
       },
     };
   },
+  mounted() {
+    // Add listener to the "Escape" key
+    window.addEventListener("keydown", this.handleKeyPress);
+    // Check if store has content
+    if (useSettingsStore().getAllSettings) {
+      this.file_name = useSettingsStore().getFileName;
+      this.fileIsImported = true;
+      window.addEventListener("beforeunload", this.handleBeforeReload);
+    }
+  },
+  beforeUnmount() {
+    // Remove listener to the "Escape" key
+    window.removeEventListener("keydown", this.handleKeyPress);
+    window.removeEventListener("beforeunload", this.handleBeforeReload);
+  },
   methods: {
     clean_data() {
       const confirm = window.confirm(
@@ -109,21 +124,6 @@ export default {
       event.returnValue = "";
     },
   },
-  mounted() {
-    // Add listener to the "Escape" key
-    window.addEventListener("keydown", this.handleKeyPress);
-    // Check if store has content
-    if (useSettingsStore().getAllSettings) {
-      this.file_name = useSettingsStore().getFileName;
-      this.fileIsImported = true;
-      window.addEventListener("beforeunload", this.handleBeforeReload);
-    }
-  },
-  beforeUnmount() {
-    // Remove listener to the "Escape" key
-    window.removeEventListener("keydown", this.handleKeyPress);
-    window.removeEventListener("beforeunload", this.handleBeforeReload);
-  },
 };
 </script>
 
@@ -138,8 +138,8 @@ export default {
       <hr class="settings-divider" />
       <button
         type="button"
-        @click="createBasicData"
         class="settings-button settings-button-blue custom-button"
+        @click="createBasicData"
       >
         {{ $t("settings.page.create") }}
       </button>
@@ -166,8 +166,8 @@ export default {
           <h3 class="settings-section-title">{{ $t(`settings.id.${section}`) }}</h3>
           <button
             type="button"
-            @click="togle_menu(section)"
             class="settings-toggle-button custom-button"
+            @click="togle_menu(section)"
           >
             {{ display_menu[section] ? $t('settings.page.hide') : $t('settings.page.show') }}
           </button>
@@ -175,8 +175,8 @@ export default {
             <SettingComponent
               v-for="(setting, key) in settings"
               :key="section+'.'+key"
-              :settingSection="section"
-              :settingKey="key"
+              :setting-section="section"
+              :setting-key="key"
               :setting="setting"
               class="settings-item"
             />
@@ -193,8 +193,8 @@ export default {
 
       <button
         type="button"
-        @click="clean_data"
         class="settings-button settings-button-red custom-button"
+        @click="clean_data"
       >
         {{ $t("settings.page.openOther") }}
       </button>

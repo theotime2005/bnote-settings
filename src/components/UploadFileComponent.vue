@@ -3,6 +3,7 @@ import { sendLog } from "@/scripts/send-log-message-script.js";
 import { useSettingsStore } from "@/stores/settingsStore.js";
 export default {
   name: "UploadFileComponent",
+  emits: ["file-uploaded"],
   data() {
     return {
       fileInput: null,
@@ -39,10 +40,10 @@ export default {
 <template>
   <div class="upload-container">
     <h2 class="upload-title">{{ $t('uploadFile.title') }}</h2>
-    <form @submit.prevent="uploadFile" class="upload-form">
+    <form class="upload-form" @submit.prevent="uploadFile">
       <label for="select" class="file-label">{{ $t('uploadFile.select') }}</label>
       <div class="file-input-wrapper">
-        <input type="file" id="select" @change="handleFileUpload" accept=".bnote" required />
+        <input id="select" type="file" accept=".bnote" required @change="handleFileUpload" />
       </div>
       <button type="submit" class="upload-button">{{ $t('uploadFile.show') }}</button>
     </form>
