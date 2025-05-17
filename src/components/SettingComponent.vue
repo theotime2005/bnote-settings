@@ -30,6 +30,9 @@ export default {
   },
   methods: {
     updateSetting() {
+      if (this.setting.type === 'number') {
+        this.settingValue = parseInt(this.settingValue)
+      }
       useSettingsStore().updateSetting(this.settingSection, this.settingKey, this.settingValue);
     },
     setDefault() {
@@ -75,18 +78,25 @@ export default {
     </select>
 
     <!-- Number input -->
-    <input
-      v-else-if="setting.type === 'number'"
-      type="number"
-      :id="label_id"
-      :name="name"
-      :min="setting.min"
-      :max="setting.max"
-      :value="settingValue"
-      @input="updateSetting"
-      v-model="settingValue"
-      class="setting-input"
-    />
+    <div v-else-if="setting.type === 'number'">
+      <input
+        type="range"
+        :id="label_id"
+        :name="name"
+        :min="setting.min"
+        :max="setting.max"
+        :value="settingValue"
+        @input="updateSetting"
+        v-model="settingValue"
+        class="setting-input"
+        :list="label_id+'tickmarks'"
+      />
+      <datalist :id="label_id+'tickmarks'">
+        <option :value="setting.min"></option>
+        <option :value="setting.default"></option>
+        <option :value="setting.max"></option>
+      </datalist>
+    </div>
 
     <!-- Text input -->
     <input
