@@ -43,14 +43,14 @@ describe("SettingComponent.vue", () => {
     expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "dropdown", "option2");
   });
 
-  it("renders number input and updates store on change", async () => {
+  it("renders range input and updates store on change", async () => {
     const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
       settingSection: "category",
       settingKey: "number",
       setting: { type: "number", min: 1, max: 10, default: 5 },
     });
 
-    const numberInput = wrapper.find("input[type='number']");
+    const numberInput = wrapper.find("input[type='range']");
     expect(numberInput.exists()).toBe(true);
     await numberInput.setValue(7);
     expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "number", 7);
