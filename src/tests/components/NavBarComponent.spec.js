@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import { render } from "@/__tests__/components/helpers.js";
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import routes from "@/router/router-list.js";
+import { render } from "@/tests/components/helpers.js";
 
 describe("NavBarComponent", () => {
   // Create a router instance with the routes
