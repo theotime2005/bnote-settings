@@ -1,6 +1,6 @@
-import { render, t } from "@/__tests__/components/helpers.js";
 import FooterComponent from "@/components/FooterComponent.vue";
 import i18n from "@/i18n.js";
+import { render, t } from "@/tests/components/helpers.js";
 
 
 

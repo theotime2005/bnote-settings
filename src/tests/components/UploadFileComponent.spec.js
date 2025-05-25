@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 
-import { render, t } from "@/__tests__/components/helpers.js";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
+import { render, t } from "@/tests/components/helpers.js";
 
 const mockLoadSettings = vi.fn();
 

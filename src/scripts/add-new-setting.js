@@ -2,6 +2,76 @@ import fs from "fs/promises";
 import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
 
+export class AddNewSetting {
+  constructor(options = {}) {
+    const { file, section, key, type, values, defaultValue, min, max, dryRun, force } = options;
+    this.file = file;
+    this.section = section;
+    this.key = key;
+    this.type = type;
+    this.values = values;
+    this.default = defaultValue;
+    this.min = min;
+    this.max = max;
+    this.dryRun = dryRun;
+    this.force = force;
+    this.settings = {};
+  }
+
+  async readAndParseFile(filePath = this.file) {
+    try {
+      const data = await fs.readFile(filePath, "utf-8");
+      return JSON.parse(data);
+    } catch (error) {
+      console.error(`Error reading or parsing file: ${error}`);
+      throw error;
+    }
+  }
+
+  async writeFile(filePath = this.file) {
+    try {
+      const data = JSON.stringify(this.settings, null, 2);
+      await fs.writeFile(filePath, data, "utf-8");
+      console.log(`File written successfully to ${filePath}`);
+    } catch (error) {
+      console.error(`Error writing file: ${error}`);
+      throw error;
+    }
+  }
+
+  async handle() {
+    try {
+      this.settings = await this.readAndParseFile();
+      const section = this.settings[this.section] || {};
+      const setting = section[this.key];
+
+      if (setting && !this.force) {
+        console.log(`Setting ${this.key} already exists in section ${this.section}. Use --force to overwrite.`);
+        return;
+      }
+
+      section[this.key] = {
+        type: this.type,
+        default: this.default,
+        ...(this.type === "menu" && { values: this.values }),
+        ...(this.type === "number" && { min: this.min, max: this.max }),
+      };
+
+      this.settings[this.section] = section;
+
+      if (!this.dryRun) {
+        await this.writeFile();
+        console.log(`The setting ${this.key} has been added to the ${this.section} with these params: ${JSON.stringify(section[this.key], null, 2)}`);
+      } else {
+        console.log("Dry run mode. No changes made., but the following changes would be made:");
+        console.log(`the setting ${this.key} will be added to the ${this.section} with this params: ${JSON.stringify(section[this.key], null, 2)}`);
+      }
+    } catch (error) {
+      console.error(`Error handling settings: ${error}`);
+    }
+  }
+}
+
 const argv = yargs(hideBin(process.argv))
   .option("file", {
     type: "string",
@@ -75,74 +145,4 @@ const argv = yargs(hideBin(process.argv))
   .help()
   .argv;
 
-export class AddNewSetting {
-  constructor() {
-    const { file, section, key, type, values, defaultValue, min, max, dryRun, force } = argv;
-    this.file = file;
-    this.section = section;
-    this.key = key;
-    this.type = type;
-    this.values = values;
-    this.default = defaultValue;
-    this.min = min;
-    this.max = max;
-    this.dryRun = dryRun;
-    this.force = force;
-    this.settings = {};
-  }
-
-  async readAndParseFile(filePath = this.file) {
-    try {
-      const data = await fs.readFile(filePath, "utf-8");
-      return JSON.parse(data);
-    } catch (error) {
-      console.error(`Error reading or parsing file: ${error}`);
-      throw error;
-    }
-  }
-
-  async writeFile(filePath = this.file) {
-    try {
-      const data = JSON.stringify(this.settings, null, 2);
-      await fs.writeFile(filePath, data, "utf-8");
-      console.log(`File written successfully to ${filePath}`);
-    } catch (error) {
-      console.error(`Error writing file: ${error}`);
-      throw error;
-    }
-  }
-
-  async handle() {
-    try {
-      this.settings = await this.readAndParseFile();
-      const section = this.settings[this.section] || {};
-      const setting = section[this.key];
-
-      if (setting && !this.force) {
-        console.log(`Setting ${this.key} already exists in section ${this.section}. Use --force to overwrite.`);
-        return;
-      }
-
-      section[this.key] = {
-        type: this.type,
-        default: this.default,
-        ...(this.type === "menu" && { values: this.values }),
-        ...(this.type === "number" && { min: this.min, max: this.max }),
-      };
-
-      this.settings[this.section] = section;
-
-      if (!this.dryRun) {
-        await this.writeFile();
-        console.log(`The setting ${this.key} has been added to the ${this.section} with these params: ${JSON.stringify(section[this.key], null, 2)}`);
-      } else {
-        console.log("Dry run mode. No changes made., but the following changes would be made:");
-        console.log(`the setting ${this.key} will be added to the ${this.section} with this params: ${JSON.stringify(section[this.key], null, 2)}`);
-      }
-    } catch (error) {
-      console.error(`Error handling settings: ${error}`);
-    }
-  }
-}
-
-new AddNewSetting().handle();
+new AddNewSetting(argv).handle();

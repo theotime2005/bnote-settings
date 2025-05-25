@@ -1,8 +1,8 @@
 import { createTestingPinia } from "@pinia/testing";
 
-import { render } from "@/__tests__/components/helpers.js";
 import SettingComponent from "@/components/SettingComponent.vue";
 import { useSettingsStore } from "@/stores/settingsStore.js";
+import { render } from "@/tests/components/helpers.js";
 
 describe("SettingComponent.vue", () => {
   const pinia = createTestingPinia({ createSpy: vi.fn });
