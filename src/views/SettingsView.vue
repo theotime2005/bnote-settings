@@ -154,7 +154,7 @@ export default {
         </div>
       </header>
 
-      <form v-if="filteredSettings" class="settings-form" @submit.prevent="save">
+      <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
         <!-- Settings Navigation -->
         <nav class="settings-nav" :aria-label="$t('settings.page.navigation-section')">
           <ul class="settings-nav-list">
