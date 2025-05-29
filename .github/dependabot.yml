@@ -11,8 +11,6 @@ updates:
       - dependencies
       - npm
       - Ready to merge
-    reviewers:
-      - theotime2005
     commit-message:
       prefix: bump
       include: scope
@@ -28,8 +26,6 @@ updates:
       - No deployment
       - workflow
       - Ready to merge
-    reviewers:
-      - theotime2005
     commit-message:
       prefix: bump
       include: scope
