@@ -6,17 +6,14 @@ export default {
   props: {
     settingSection: {
       type: String,
-      description: "The setting section",
       required: true,
     },
     settingKey: {
       type: String,
-      description: "The key setting",
       required: true,
     },
     setting: {
       type: Object,
-      description: "The setting informations",
       required: true,
     },
   },
@@ -44,41 +41,55 @@ export default {
 </script>
 
 <template>
-  <div class="setting-container">
-    <!-- Label -->
-    <label :for="label_id" class="setting-label">
-      {{ name }}
-    </label>
+  <div class="setting-container" :class="setting.type">
+    <div class="setting-header">
+      <label :for="label_id" class="setting-label">
+        {{ name }}
+      </label>
+      <button
+        v-if="settingValue !== setting.default"
+        type="button"
+        class="setting-default-button"
+        @click="setDefault"
+      >
+        {{ $t("settings.values.default") }}
+      </button>
+    </div>
 
     <!-- Checkbox -->
-    <input
-      v-if="setting.type === 'checkbox'"
-      :id="label_id"
-      v-model="settingValue"
-      type="checkbox"
-      :name="name"
-      :checked="settingValue"
-      class="setting-checkbox"
-      @change="updateSetting"
-    />
+    <div v-if="setting.type === 'checkbox'" class="setting-control">
+      <input
+        :id="label_id"
+        v-model="settingValue"
+        type="checkbox"
+        :name="name"
+        :checked="settingValue"
+        class="setting-checkbox"
+        @change="updateSetting"
+      />
+    </div>
 
-    <!-- Dropdown menu -->
-    <select
-      v-else-if="setting.type === 'menu'"
-      :id="label_id"
-      v-model="settingValue"
-      :value="settingValue"
-      :name="name"
-      class="setting-select"
-      @change="updateSetting"
-    >
-      <option v-for="option in setting.values" :key="option" :value="option" :name="option">
-        {{ !setting.isTranslate ? $t(`settings.values.${option}`) : option }}
-      </option>
-    </select>
+    <!-- Dropdown -->
+    <div v-else-if="setting.type === 'menu'" class="setting-control">
+      <select
+        :id="label_id"
+        v-model="settingValue"
+        :name="name"
+        class="setting-select"
+        @change="updateSetting"
+      >
+        <option
+          v-for="option in setting.values"
+          :key="option"
+          :value="option"
+        >
+          {{ !setting.isTranslate ? $t(`settings.values.${option}`) : option }}
+        </option>
+      </select>
+    </div>
 
-    <!-- Number input -->
-    <div v-else-if="setting.type === 'number'">
+    <!-- Number Input -->
+    <div v-else-if="setting.type === 'number'" class="setting-control setting-number">
       <input
         :id="label_id"
         v-model="settingValue"
@@ -86,104 +97,154 @@ export default {
         :name="name"
         :min="setting.min"
         :max="setting.max"
-        :value="settingValue"
-        class="setting-input"
-        :list="label_id+'tickmarks'"
+        class="setting-range"
+        :list="label_id + 'tickmarks'"
         @input="updateSetting"
       />
-      <datalist :id="label_id+'tickmarks'">
-        <option :value="setting.min"></option>
-        <option :value="setting.default"></option>
-        <option :value="setting.max"></option>
+      <output class="setting-value">{{ settingValue }}</output>
+      <datalist :id="label_id + 'tickmarks'">
+        <option :value="setting.min" :label="setting.min"></option>
+        <option :value="setting.default" :label="setting.default"></option>
+        <option :value="setting.max" :label="setting.max"></option>
       </datalist>
     </div>
 
-    <!-- Text input -->
-    <input
-      v-else-if="setting.type === 'text'"
-      :id="label_id"
-      v-model="settingValue"
-      type="text"
-      :name="name"
-      :value="settingValue"
-      class="setting-input"
-      @input="updateSetting"
-    />
-
-    <!-- Button to set the default value -->
-    <button
-      v-if="settingValue!==setting.default"
-      class="default-button"
-      @click="setDefault">
-      {{ $t("settings.values.default") }}
-    </button>
+    <!-- Text Input -->
+    <div v-else-if="setting.type === 'text'" class="setting-control">
+      <input
+        :id="label_id"
+        v-model="settingValue"
+        type="text"
+        :name="name"
+        class="setting-input"
+        @input="updateSetting"
+      />
+    </div>
   </div>
-  <br />
 </template>
 
 <style scoped>
 .setting-container {
-  margin-bottom: 1.5rem;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.setting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
 .setting-label {
-  display: block;
-  font-size: 0.875rem;
   font-weight: 500;
-  color: #4b5563;
-  margin-bottom: 0.5rem;
+  color: var(--color-gray-700);
+}
+
+.setting-default-button {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-blue-600);
+  background: var(--color-blue-50);
+  border: 1px solid var(--color-blue-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.setting-default-button:hover {
+  background: var(--color-blue-100);
+  border-color: var(--color-blue-300);
+}
+
+.setting-control {
+  position: relative;
 }
 
 .setting-checkbox {
-  height: 1rem;
-  width: 1rem;
-  color: #2563eb;
-  border-color: #d1d5db;
-  border-radius: 0.125rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: all 0.2s;
 }
 
-.setting-checkbox:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
+.setting-checkbox:checked {
+  background-color: var(--color-blue-500);
+  border-color: var(--color-blue-500);
 }
 
 .setting-select,
 .setting-input {
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  margin-top: 0.25rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  background-color: white;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  font-size: 0.875rem;
+  padding: 0.5rem;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  background-color: var(--color-white);
+  transition: all 0.2s;
 }
 
 .setting-select:focus,
 .setting-input:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #3b82f6;
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
-.default-button {
-  margin-top: 0.5rem;
-  background-color: #3b82f6;
-  color: white;
-  font-weight: 700;
-  padding: 0.5rem 1rem;
-  border-radius: 0.125rem;
-  transition: background-color 0.2s;
+.setting-number {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.setting-range {
+  flex: 1;
+  height: 6px;
+  -webkit-appearance: none;
+  background: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+.setting-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--color-blue-500);
+  border-radius: 50%;
   cursor: pointer;
-  border: none;
+  transition: all 0.2s;
 }
 
-.default-button:hover {
-  background-color: #1d4ed8;
+.setting-range::-webkit-slider-thumb:hover {
+  background: var(--color-blue-600);
+  transform: scale(1.1);
 }
 
-.default-button:focus {
-  outline: 2px solid #93c5fd;
-  outline-offset: 2px;
+.setting-value {
+  min-width: 3rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+@media (max-width: 640px) {
+  .setting-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .setting-number {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .setting-value {
+    align-self: flex-end;
+  }
 }
 </style>
