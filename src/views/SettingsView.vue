@@ -15,39 +15,24 @@ export default {
       file_name: "",
       fileIsImported: false,
       all_settings: all_settings,
-      activeSection: null,
-      searchQuery: "",
-      display_menu: {},
+      // menu variables
+      display_menu: {
+        system: false,
+        bluetooth: false,
+        explorer: false,
+        editor: false,
+        music: false,
+        speech: false,
+        radio: false,
+        agenda: false,
+        braille_learning: false,
+      },
     };
   },
-  computed: {
-    filteredSettings() {
-      if (!this.searchQuery) return this.all_settings;
-      
-      const query = this.searchQuery.toLowerCase();
-      const filtered = {};
-      
-      for (const [section, settings] of Object.entries(this.all_settings)) {
-        const sectionLabel = this.$t(`settings.id.${section}`).toLowerCase();
-        const matchingSettings = {};
-        
-        for (const [key, value] of Object.entries(settings)) {
-          const settingLabel = this.$t(`settings.id.${key}`).toLowerCase();
-          if (settingLabel.includes(query) || sectionLabel.includes(query)) {
-            matchingSettings[key] = value;
-          }
-        }
-        
-        if (Object.keys(matchingSettings).length > 0) {
-          filtered[section] = matchingSettings;
-        }
-      }
-      
-      return filtered;
-    }
-  },
   mounted() {
+    // Add listener to the "Escape" key
     window.addEventListener("keydown", this.handleKeyPress);
+    // Check if store has content
     if (useSettingsStore().getAllSettings) {
       this.file_name = useSettingsStore().getFileName;
       this.fileIsImported = true;
@@ -55,16 +40,33 @@ export default {
     }
   },
   beforeUnmount() {
+    // Remove listener to the "Escape" key
     window.removeEventListener("keydown", this.handleKeyPress);
     window.removeEventListener("beforeunload", this.handleBeforeReload);
   },
   methods: {
     clean_data() {
-      const confirm = window.confirm(this.$t("settings.page.resetQuestion"));
+      const confirm = window.confirm(
+        this.$t("settings.page.resetQuestion"),
+      );
       if (confirm) {
         this.fileIsImported = false;
         useSettingsStore().removeAll();
         window.removeEventListener("beforeunload", this.handleBeforeReload);
+      }
+    },
+    complete_empty_values() {
+      // Check data and complete if there are not all values
+      for (const section in this.all_settings) {
+        for (const setting in this.all_settings[section]) {
+          if (useSettingsStore().getSetting(section, setting) === null) {
+            useSettingsStore().updateSetting(
+              section,
+              setting,
+              this.all_settings[section][setting].default,
+            );
+          }
+        }
       }
     },
     createBasicData() {
@@ -85,8 +87,8 @@ export default {
       this.fileIsImported = true;
       window.addEventListener("beforeunload", this.handleBeforeReload);
     },
-    toggleSection(section) {
-      this.activeSection = this.activeSection === section ? null : section;
+    togle_menu(key) {
+      this.display_menu[key] = !this.display_menu[key];
     },
     save() {
       const question = window.confirm(this.$t("settings.page.question"));
@@ -96,6 +98,7 @@ export default {
       const stringData = JSON.stringify(useSettingsStore().getAllSettings, null, 2);
       const blob_data = new Blob([stringData], { type: "application/json" });
       const url_object = URL.createObjectURL(blob_data);
+      // Create link
       const link = document.createElement("a");
       link.href = url_object;
       const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
@@ -104,17 +107,23 @@ export default {
       link.click();
       URL.revokeObjectURL(url_object);
     },
+    // Method to close all menus
+    closeAllMenus() {
+      for (const key in this.display_menu) {
+        this.display_menu[key] = false;
+      }
+    },
+    // Gestion of the "Escape" key
     handleKeyPress(event) {
       if (event.key === "Escape") {
-        this.activeSection = null;
-        this.searchQuery = "";
+        this.closeAllMenus();
       }
     },
     handleBeforeReload(event) {
       event.preventDefault();
       event.returnValue = "";
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -122,7 +131,6 @@ export default {
   <div class="settings-container">
     <h1 class="settings-title">{{ $t("settings.page.title") }}</h1>
 
-    <!-- Initial Setup View -->
     <div v-if="!fileIsImported" class="settings-intro-card">
       <h2 class="settings-subtitle">{{ $t("settings.page.how") }}</h2>
       <p class="settings-explanation">{{ $t("settings.page.explication") }}</p>
@@ -130,289 +138,200 @@ export default {
       <hr class="settings-divider" />
       <button
         type="button"
-        class="settings-button settings-button-primary"
+        class="settings-button settings-button-blue custom-button"
         @click="createBasicData"
       >
         {{ $t("settings.page.create") }}
       </button>
     </div>
 
-    <!-- Settings Management View -->
-    <div v-if="fileIsImported" class="settings-manager">
-      <header class="settings-header">
-        <h2 class="settings-filename">{{ file_name }}</h2>
-        
-        <!-- Search Bar -->
-        <div class="search-container">
-          <label for="settings-search" class="sr-only">Search settings</label>
-          <input
-            id="settings-search"
-            v-model="searchQuery"
-            type="search"
-            class="settings-search"
-            :placeholder="$t('Search settings...')"
-          />
-        </div>
-      </header>
+    <div
+      v-if="fileIsImported"
+      class="settings-card"
+    >
+      <h2 class="settings-filename">
+        {{ file_name }}
+      </h2>
 
-      <form class="settings-form" @submit.prevent="save">
-        <!-- Settings Navigation -->
-        <nav class="settings-nav" aria-label="Settings sections">
-          <ul class="settings-nav-list">
-            <li v-for="(settings, section) in filteredSettings" :key="section">
-              <button
-                type="button"
-                class="settings-nav-button"
-                :class="{ 'active': activeSection === section }"
-                :aria-expanded="activeSection === section"
-                :aria-controls="`section-${section}`"
-                @click="toggleSection(section)"
-              >
-                {{ $t(`settings.id.${section}`) }}
-              </button>
-            </li>
-          </ul>
-        </nav>
-
-        <!-- Settings Content -->
-        <div class="settings-content">
-          <section
-            v-for="(settings, section) in filteredSettings"
-            :key="section"
-            :id="`section-${section}`"
-            class="settings-section"
-            :class="{ 'active': activeSection === section }"
-            :aria-hidden="activeSection !== section"
-          >
-            <h3 class="settings-section-title">{{ $t(`settings.id.${section}`) }}</h3>
-            <div class="settings-grid">
-              <SettingComponent
-                v-for="(setting, key) in settings"
-                :key="`${section}.${key}`"
-                :setting-section="section"
-                :setting-key="key"
-                :setting="setting"
-              />
-            </div>
-          </section>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="settings-actions">
-          <button type="submit" class="settings-button settings-button-success">
-            {{ $t("settings.page.download") }}
-          </button>
+      <form
+        class="settings-form"
+        :aria-label="$t('settings.page.title2')"
+        @submit.prevent="save"
+      >
+        <section
+          v-for="(settings, section) in all_settings"
+          :key="section"
+          class="settings-section"
+        >
+          <h3 class="settings-section-title">{{ $t(`settings.id.${section}`) }}</h3>
           <button
             type="button"
-            class="settings-button settings-button-danger"
-            @click="clean_data"
+            class="settings-toggle-button custom-button"
+            @click="togle_menu(section)"
           >
-            {{ $t("settings.page.openOther") }}
+            {{ display_menu[section] ? $t('settings.page.hide') : $t('settings.page.show') }}
           </button>
-        </div>
+          <div v-if="display_menu[section]" class="settings-group setting">
+            <SettingComponent
+              v-for="(setting, key) in settings"
+              :key="section+'.'+key"
+              :setting-section="section"
+              :setting-key="key"
+              :setting="setting"
+              class="settings-item"
+            />
+          </div>
+        </section>
+
+        <button
+          type="submit"
+          class="settings-button settings-button-green custom-button"
+        >
+          {{ $t("settings.page.download") }}
+        </button>
       </form>
+
+      <button
+        type="button"
+        class="settings-button settings-button-red custom-button"
+        @click="clean_data"
+      >
+        {{ $t("settings.page.openOther") }}
+      </button>
     </div>
+
   </div>
 </template>
 
 <style scoped>
 .settings-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
+  background-color: #f9fafb;
 }
 
 .settings-title {
-  font-size: 2rem;
+  font-size: 1.875rem;
   font-weight: 700;
-  margin-bottom: 2rem;
-  color: var(--color-gray-900);
+  color: #1f2937;
+  margin-bottom: 1rem;
 }
 
 .settings-intro-card {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  box-shadow: var(--shadow-md);
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .settings-subtitle {
   font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.settings-explanation {
+  color: #4b5563;
   margin-bottom: 1rem;
 }
 
-.settings-manager {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+.settings-divider {
+  margin: 1rem 0;
+  border-color: #d1d5db;
 }
 
-.settings-header {
+.settings-card {
+  background-color: white;
   padding: 1.5rem;
-  border-bottom: 1px solid var(--color-gray-200);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
 }
 
 .settings-filename {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: var(--color-gray-900);
-}
-
-.search-container {
-  flex: 1;
-  max-width: 400px;
-}
-
-.settings-search {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--color-gray-300);
-  border-radius: var(--radius-md);
-  font-size: 1rem;
-}
-
-.settings-search:focus {
-  outline: none;
-  border-color: var(--color-blue-500);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .settings-form {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 2rem;
-  padding: 1.5rem;
-}
-
-.settings-nav {
-  border-right: 1px solid var(--color-gray-200);
-  padding-right: 1.5rem;
-}
-
-.settings-nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.settings-nav-button {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border: none;
-  background: transparent;
-  border-radius: var(--radius-md);
-  color: var(--color-gray-700);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.settings-nav-button:hover {
-  background: var(--color-gray-100);
-}
-
-.settings-nav-button.active {
-  background: var(--color-blue-100);
-  color: var(--color-blue-700);
-  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .settings-section {
-  display: none;
-  padding: 1rem;
-  background: var(--color-gray-50);
-  border-radius: var(--radius-lg);
+  border-bottom: 1px solid #d1d5db;
+  padding-bottom: 1rem;
 }
 
-.settings-section.active {
-  display: block;
+.settings-section-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #374151;
 }
 
-.settings-grid {
-  display: grid;
-  gap: 1.5rem;
+.settings-toggle-button {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #2563eb;
+}
+
+.settings-toggle-button:hover {
+  text-decoration: underline;
+}
+
+.settings-group {
   margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.settings-actions {
-  grid-column: 1 / -1;
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--color-gray-200);
+.settings-item {
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
 }
 
 .settings-button {
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-md);
+  width: 100%;
+  padding: 0.5rem 1rem;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.settings-button-primary {
-  background: var(--color-blue-500);
+  border-radius: 0.375rem;
   color: white;
+  transition: background-color 0.2s ease;
 }
 
-.settings-button-primary:hover {
-  background: var(--color-blue-600);
+.settings-button-blue {
+  background-color: #3b82f6;
 }
 
-.settings-button-success {
-  background: var(--color-green-500);
-  color: white;
+.settings-button-blue:hover {
+  background-color: #2563eb;
 }
 
-.settings-button-success:hover {
-  background: var(--color-green-600);
+.settings-button-green {
+  background-color: #10b981;
 }
 
-.settings-button-danger {
-  background: var(--color-red-500);
-  color: white;
+.settings-button-green:hover {
+  background-color: #059669;
 }
 
-.settings-button-danger:hover {
-  background: var(--color-red-600);
+.settings-button-red {
+  background-color: #ef4444;
+  margin-top: 1rem;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.settings-button-red:hover {
+  background-color: #dc2626;
 }
 
-@media (max-width: 768px) {
-  .settings-form {
-    grid-template-columns: 1fr;
-  }
-
-  .settings-nav {
-    border-right: none;
-    border-bottom: 1px solid var(--color-gray-200);
-    padding-right: 0;
-    padding-bottom: 1.5rem;
-  }
-
-  .settings-actions {
-    flex-direction: column;
-  }
-
-  .settings-button {
-    width: 100%;
-  }
+.settings-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
 }
 </style>
