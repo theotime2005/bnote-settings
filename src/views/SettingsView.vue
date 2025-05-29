@@ -17,7 +17,6 @@ export default {
       all_settings: all_settings,
       activeSection: null,
       searchQuery: "",
-      display_menu: {},
     };
   },
   computed: {
