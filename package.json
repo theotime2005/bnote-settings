@@ -23,7 +23,7 @@
     "@pinia/testing": "^1.0.1",
     "@vue/compiler-sfc": "^3.5.16",
     "js-cookie": "^3.0.5",
-    "pinia": "^3.0.2",
+    "pinia": "^3.0.3",
     "translatte": "^3.0.1",
     "vite-plugin-env-compatible": "^2.0.1",
     "vue": "^3.5.16",
