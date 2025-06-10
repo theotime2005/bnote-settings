@@ -10,7 +10,6 @@ updates:
     labels:
       - dependencies
       - npm
-      - Ready to merge
     commit-message:
       prefix: bump
       include: scope
@@ -25,7 +24,6 @@ updates:
     labels:
       - No deployment
       - workflow
-      - Ready to merge
     commit-message:
       prefix: bump
       include: scope
