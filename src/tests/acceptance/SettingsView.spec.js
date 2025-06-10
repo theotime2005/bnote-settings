@@ -73,30 +73,24 @@ describe("Acceptance | SettingsView", () => {
     });
 
     describe("tests button to open or close sections", () => {
-      it("should open section when clicks on the button", async () => {
+      it("should open a section when click on navigation button", async () => {
         // given
-        const button = wrapper.findAll("button").find((buton) => buton.text() === "settings.page.show");
+        const firstSectionButton = wrapper.find(".settings-nav-button");
+        const sectionId = firstSectionButton.attributes("aria-controls");
+        const section = wrapper.find(`#${sectionId}`);
+        expect(firstSectionButton.classes()).not.toContain("active");
+        expect(section.classes()).not.toContain("active");
+        expect(firstSectionButton.attributes("aria-expanded")).toBe("false");
+        expect(section.attributes("aria-hidden")).toBe("true");
 
         // when
-        await button.trigger("click");
+        await firstSectionButton.trigger("click");
 
         // then
-        const hideButton = wrapper.findAll("button").find((buton) => buton.text() === "settings.page.hide");
-        expect(hideButton.exists()).toBe(true);
-      });
-
-      it("should close section when clicks on the button", async () => {
-        // given
-        const button = wrapper.findAll("button").find((buton) => buton.text() === "settings.page.show");
-        await button.trigger("click");
-
-        // when
-        const hideButton = wrapper.findAll("button").find((buton) => buton.text() === "settings.page.hide");
-        await hideButton.trigger("click");
-
-        // then
-        const showButton = wrapper.findAll("button").find((buton) => buton.text() === "settings.page.show");
-        expect(showButton.exists()).toBe(true);
+        expect(firstSectionButton.classes()).toContain("active");
+        expect(section.classes()).toContain("active");
+        expect(firstSectionButton.attributes("aria-expanded")).toBe("true");
+        expect(section.attributes("aria-hidden")).toBe("false");
       });
     });
   });
