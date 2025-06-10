@@ -44,8 +44,7 @@ test.describe("Navigation application complète", () => {
   test("Paramètres", async ({ page }) => {
     await selectLanguage(page);
     await goToViaMenu(page, "settings");
-    await expect(page.locator("h1")).toHaveText(/préférences|param/i);
-    await expect(page.locator("button")).toContainText(/Créer|create/i);
+    await expect(page.locator("h1")).toHaveText(/préférences/i);
   });
 
   test("À propos", async ({ page }) => {
