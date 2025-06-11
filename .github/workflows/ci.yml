@@ -94,6 +94,8 @@ jobs:
 
       - name: Start Vite server
         run: npm run dev &
+        env:
+          NODE_ENV: test
 
       - name: Wait for server to be ready
         run: npx wait-on http://localhost:5173 &
