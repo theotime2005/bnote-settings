@@ -32,3 +32,5 @@ coverage
 
 # Environment variable
 .env
+# Playwright
+test-results/

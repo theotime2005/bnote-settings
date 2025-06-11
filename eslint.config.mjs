@@ -96,6 +96,7 @@ export default [
       "src/*.json",
       "dist/",
       "public/",
+      "test-results/",
       ".versionrc.json",
       "jsconfig.json",
       "package-lock.json",
