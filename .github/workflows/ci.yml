@@ -98,7 +98,7 @@ jobs:
           NODE_ENV: test
 
       - name: Wait for server to be ready
-        run: npx wait-on http://localhost:5173 &
+        run: npx wait-on http://localhost:5173
 
       - name: Run Playwright tests
         run: npm run test:e2e
