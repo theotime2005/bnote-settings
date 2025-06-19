@@ -70,7 +70,11 @@ export default {
         <a :href="links.theotime.github" target="_blank" class="download-link">{{$t('download.message-3-1')}}</a>
         {{$t('download.message-3-2')}}
       </p>
-      <a class="download-link" :href="last_version['file']">
+      <a
+        v-if="last_version['file']"
+        class="download-link"
+        :href="last_version['file']"
+      >
         {{$t('download.downloadOtherLast', {version: last_version['tag']})}}
       </a>
       <a class="download-link" :href="links.theotime.releases" target="_blank">
