@@ -56,10 +56,9 @@ export default {
 
 <template>
   <div v-if="hasLanguage">
-    <button class="sr-only custom-button" @click="focusMain">{{ $t("skip-content") }}</button>
     <NavBarComponent @move-cursor="focusMain" />
     <div class="container">
-      <main ref="mainRef" tabindex="-1" class="mt-4">
+      <main id="main-content" ref="mainRef" tabindex="-1" class="mt-4">
         <RouterView />
       </main>
     </div>

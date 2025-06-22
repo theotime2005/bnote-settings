@@ -36,9 +36,23 @@
     "version": "Versión: {version}"
   },
   "header": {
+    "accessibilityOptions": "Opciones de accesibilidad",
+    "blueYellow": "Azul y Amarillo",
     "close": "Cierre el menú de navegación",
+    "colorScheme": "Esquema de colores",
+    "contrast": "Contraste",
+    "darkMode": "Modo oscuro",
+    "defaultColors": "Colores predeterminados",
+    "highContrast": "Alto contraste",
+    "large": "Grande",
     "mainMenu": "Menú principal",
-    "open": "Abra el menú de navegación"
+    "menuClosed": "Menú de navegación cerrado",
+    "menuOpened": "Menú de navegación abierto",
+    "normal": "Normal",
+    "normalContrast": "Contraste normal",
+    "open": "Abra el menú de navegación",
+    "small": "Pequeño",
+    "textSize": "Tamaño del texto"
   },
   "home": {
     "goto-settings": "Acceder a la interfaz de administración",
