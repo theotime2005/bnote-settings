@@ -1,15 +1,10 @@
 # This workflow generates a new version and pushes it to the main branch
 # It runs manually
 
-name: "Build version"
+name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      release_type:
-        description: "The type of release to generate"
-        required: true
-        default: "patch"
 
 permissions:
   contents: write
@@ -19,13 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if input is valid
-        run: |
-          if [[ "${{ github.event.inputs.release_type }}" != "major" && "${{ github.event.inputs.release_type }}" != "minor" && "${{ github.event.inputs.release_type }}" != "patch" ]]; then
-            echo "Invalid release type. Please use 'major', 'minor' or 'patch'."
-            exit 1
-          fi
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -51,7 +39,7 @@ jobs:
 
       - name: Build new version
         # Use standard-version to generate a new version
-        run: npm run release -- --release-as ${{ github.event.inputs.release_type }}
+        run: npm run release
 
       - name: Push new version
         run: git push --follow-tags origin main
