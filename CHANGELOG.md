@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.1.0](https://github.com/theotime2005/bnote-settings/compare/v4.0.1...v4.1.0) (2025-06-24)
+
+
+### 🚀 New features
+
+* **component:** update the design of navbar ([#283](https://github.com/theotime2005/bnote-settings/issues/283)) ([0b6d363](https://github.com/theotime2005/bnote-settings/commit/0b6d363a3dedcf957565dc9d190ceb8f6fbf9e62)), closes [/#diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7R39-R55](https://github.com/theotime2005///issues/diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7R39-R55) [/#diff-836ffe87abac5fbef084c940b0afc28aabd04c6450896d83fd4f7b2aca58b84fR39-R55](https://github.com/theotime2005///issues/diff-836ffe87abac5fbef084c940b0afc28aabd04c6450896d83fd4f7b2aca58b84fR39-R55) [/#diff-86d23a5be9d54f3c756b91e0d6412ac8bbbb232600ab2ee5554ca46079b4f1e6R39-R55](https://github.com/theotime2005///issues/diff-86d23a5be9d54f3c756b91e0d6412ac8bbbb232600ab2ee5554ca46079b4f1e6R39-R55) [/#diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cR39-R55](https://github.com/theotime2005///issues/diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cR39-R55) [/#diff-7a7a37b12ee1265d7e27577ec286120d2cbc0940908635e264a2be44ccb9a8a0L59-R61](https://github.com/theotime2005///issues/diff-7a7a37b12ee1265d7e27577ec286120d2cbc0940908635e264a2be44ccb9a8a0L59-R61)
+
+
+### 🔖 Version bump
+
+* **deps:** bump vue from 3.5.16 to 3.5.17 ([#281](https://github.com/theotime2005/bnote-settings/issues/281)) ([7e6b5e9](https://github.com/theotime2005/bnote-settings/commit/7e6b5e96179b44132a94a742ac66f897c951aca0))
+* **deps:** bump vue-i18n from 11.1.6 to 11.1.7 ([#284](https://github.com/theotime2005/bnote-settings/issues/284)) ([9bb0282](https://github.com/theotime2005/bnote-settings/commit/9bb0282c1da590b307228b28b3fdf645bf1f176c))
+
+
+### 🛠️ Tech
+
+* **workflow:** add a workflow to block fixup commits ([#282](https://github.com/theotime2005/bnote-settings/issues/282)) ([f15ac96](https://github.com/theotime2005/bnote-settings/commit/f15ac96caca4cf4d3247cd9185b948fecef0c1f0)), closes [/#diff-f638afde9f4abd99413459359a4a2d2e915346e83c42d4064655e739d0aacdbaR1-R15](https://github.com/theotime2005///issues/diff-f638afde9f4abd99413459359a4a2d2e915346e83c42d4064655e739d0aacdbaR1-R15)
+* **workflow:** remove release_type from release workflow ([#285](https://github.com/theotime2005/bnote-settings/issues/285)) ([9af4614](https://github.com/theotime2005/bnote-settings/commit/9af4614bea6026d973d1ea87ae8fd91f04b358e5)), closes [/#diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L4-L12](https://github.com/theotime2005///issues/diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L4-L12) [/#diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L4-L12](https://github.com/theotime2005///issues/diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L4-L12) [/#diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L22-L28](https://github.com/theotime2005///issues/diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L22-L28) [/#diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L54-R42](https://github.com/theotime2005///issues/diff-87db21a973eed4fef5f32b267aa60fcee5cbdf03c67fafdc2a9b553bb0b15f34L54-R42)
+
 ## [4.0.1](https://github.com/theotime2005/bnote-settings/compare/v4.0.0...v4.0.1) (2025-06-19)
 
 
