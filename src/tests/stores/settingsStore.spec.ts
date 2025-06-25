@@ -1,9 +1,11 @@
+import { describe, it, expect, beforeEach } from "vitest";
 import { createPinia, setActivePinia } from "pinia";
-
 import { useSettingsStore } from "@/stores/settingsStore";
+import type { Settings } from "@/types";
 
 describe("Settings Store", () => {
   const fileName = "settings";
+  
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -11,7 +13,11 @@ describe("Settings Store", () => {
   it("loads settings correctly", () => {
     // given
     const store = useSettingsStore();
-    const settingsObject = { general: { theme: "dark" } };
+    const settingsObject: Settings = { 
+      general: { 
+        theme: { type: "text", default: "dark" }
+      } 
+    };
 
     // when
     store.loadSettings(settingsObject, fileName);
@@ -24,19 +30,29 @@ describe("Settings Store", () => {
   it("updates a setting correctly", () => {
     // given
     const store = useSettingsStore();
-    store.loadSettings({ general: { theme: "dark" } }, fileName);
+    const settingsObject: Settings = { 
+      general: { 
+        theme: { type: "text", default: "dark" }
+      } 
+    };
+    store.loadSettings(settingsObject, fileName);
 
     // when
     store.updateSetting("general", "theme", "light");
 
     // then
-    expect(store.settings.general.theme).toBe("light");
+    expect(store.settings.general.theme.default).toBe("light");
   });
 
   it("gets a setting correctly", () => {
     // given
     const store = useSettingsStore();
-    store.loadSettings({ general: { theme: "dark" } }, fileName);
+    const settingsObject: Settings = { 
+      general: { 
+        theme: { type: "text", default: "dark" }
+      } 
+    };
+    store.loadSettings(settingsObject, fileName);
 
     // when
     const theme = store.getSetting("general", "theme");
@@ -48,7 +64,11 @@ describe("Settings Store", () => {
   it("gets all settings correctly", () => {
     // given
     const store = useSettingsStore();
-    const settingsObject = { general: { theme: "dark" } };
+    const settingsObject: Settings = { 
+      general: { 
+        theme: { type: "text", default: "dark" }
+      } 
+    };
     store.loadSettings(settingsObject, fileName);
 
     // when
@@ -60,7 +80,11 @@ describe("Settings Store", () => {
 
   it("handles updating a non-existent section gracefully", () => {
     // given
-    const settingsObject = { general: { theme: "dark" } };
+    const settingsObject: Settings = { 
+      general: { 
+        theme: { type: "text", default: "dark" }
+      } 
+    };
     const store = useSettingsStore();
     store.loadSettings(settingsObject, fileName);
 
@@ -68,12 +92,16 @@ describe("Settings Store", () => {
     store.updateSetting("nonExistentSection", "key", "value");
 
     // then
-    expect(store.settings.nonExistentSection.key).toBe("value");
+    expect(store.settings.nonExistentSection.key.default).toBe("value");
   });
 
   it("handles getting a setting from a non-existent section gracefully", () => {
     // given
-    const settingsObject = { general: { theme: "dark" } };
+    const settingsObject: Settings = { 
+      general: { 
+        theme: { type: "text", default: "dark" }
+      } 
+    };
     const store = useSettingsStore();
     store.loadSettings(settingsObject, fileName);
 

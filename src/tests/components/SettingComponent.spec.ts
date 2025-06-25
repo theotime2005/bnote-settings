@@ -1,14 +1,16 @@
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { createTestingPinia } from "@pinia/testing";
-
 import SettingComponent from "@/components/SettingComponent.vue";
-import { useSettingsStore } from "@/stores/settingsStore.js";
-import { render } from "@/tests/components/helpers.js";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { render } from "@/tests/components/helpers";
+import type { Setting } from "@/types";
 
 describe("SettingComponent.vue", () => {
   const pinia = createTestingPinia({ createSpy: vi.fn });
-  const settingsStore = useSettingsStore();
+  let settingsStore: ReturnType<typeof useSettingsStore>;
 
   beforeEach(() => {
+    settingsStore = useSettingsStore();
     settingsStore.getSetting = vi.fn().mockImplementation(() => {
       return true;
     });
@@ -16,25 +18,27 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders checkbox and updates store on change", async () => {
+    const setting: Setting = { type: "checkbox", default: false };
     const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
       settingSection: "category",
       settingKey: "checkbox",
-      setting: { type: "checkbox", default: false },
+      setting,
     });
 
     const checkbox = wrapper.find("input[type='checkbox']");
     expect(checkbox.exists()).toBe(true);
-    expect(checkbox.element.checked).toBe(true); // Valeur retournée par getSetting
+    expect((checkbox.element as HTMLInputElement).checked).toBe(true); // Valeur retournée par getSetting
 
     await checkbox.setChecked(false);
     expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "checkbox", false);
   });
 
   it("renders dropdown and updates store on selection", async () => {
+    const setting: Setting = { type: "menu", values: ["option1", "option2"], default: "option1" };
     const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
       settingSection: "category",
       settingKey: "dropdown",
-      setting: { type: "menu", values: ["option1", "option2"], default: "option1" },
+      setting,
     });
 
     const select = wrapper.find("select");
@@ -44,10 +48,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders range input and updates store on change", async () => {
+    const setting: Setting = { type: "number", min: 1, max: 10, default: 5 };
     const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
       settingSection: "category",
       settingKey: "number",
-      setting: { type: "number", min: 1, max: 10, default: 5 },
+      setting,
     });
 
     const numberInput = wrapper.find("input[type='range']");
@@ -57,10 +62,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders text input and updates store on change", async () => {
+    const setting: Setting = { type: "text", default: "Hello" };
     const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
       settingSection: "category",
       settingKey: "text",
-      setting: { type: "text", default: "Hello" },
+      setting,
     });
 
     const textInput = wrapper.find("input[type='text']");
@@ -70,10 +76,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders button and sets default value", async () => {
+    const setting: Setting = { type: "checkbox", default: false };
     const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
       settingSection: "category",
       settingKey: "checkbox",
-      setting: { type: "checkbox", default: false },
+      setting,
     });
 
     const button = wrapper.find("button");

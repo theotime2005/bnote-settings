@@ -1,8 +1,8 @@
+import { describe, it, expect } from "vitest";
 import { createRouter, createWebHistory } from "vue-router";
-
 import NavBarComponent from "@/components/NavBarComponent.vue";
-import routes from "@/router/router-list.js";
-import { render } from "@/tests/components/helpers.js";
+import routes from "@/router/router-list";
+import { render } from "@/tests/components/helpers";
 
 describe("NavBarComponent", () => {
   // Create a router instance with the routes
@@ -37,12 +37,13 @@ describe("NavBarComponent", () => {
       });
     }
   });
+
   it("handles empty routes array", async () => {
     const wrapper = render(NavBarComponent, {
       plugins: [router],
-    }, {}, {
+    }, {}, () => ({
       routes: [],
-    });
+    }));
 
     await router.isReady();
 

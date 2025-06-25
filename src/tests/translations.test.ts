@@ -1,26 +1,32 @@
+import { describe, it, expect } from "vitest";
 import fs from "fs";
 import path from "path";
 
 const localesDir = path.resolve(__dirname, "../../locales");
 const baseLang = "fr";
 
-function loadTranslations(lang) {
-  const filePath = path.join(localesDir, `${lang}.json`);
-  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+interface TranslationObject {
+  [key: string]: string | TranslationObject;
 }
 
-function checkTranslations(baseTranslations, targetTranslations, lang) {
+function loadTranslations(lang: string): TranslationObject {
+  const filePath = path.join(localesDir, `${lang}.json`);
+  return JSON.parse(fs.readFileSync(filePath, "utf-8")) as TranslationObject;
+}
+
+function checkTranslations(baseTranslations: TranslationObject, targetTranslations: TranslationObject, lang: string): boolean {
   for (const key in baseTranslations) {
     if (!Object.prototype.hasOwnProperty.call(targetTranslations, key)) {
       console.log(`Missing key '${key}' in ${lang}`);
       return false;
     }
     if (typeof baseTranslations[key] === "object") {
-      if (!checkTranslations(baseTranslations[key], targetTranslations[key], lang)) {
+      if (!checkTranslations(baseTranslations[key] as TranslationObject, targetTranslations[key] as TranslationObject, lang)) {
         return false;
       }
     } else {
-      if (targetTranslations[key].startsWith("*")) {
+      const targetValue = targetTranslations[key] as string;
+      if (targetValue.startsWith("*")) {
         console.log(`Untranslated key '${key}' in ${lang}`);
         return false;
       }

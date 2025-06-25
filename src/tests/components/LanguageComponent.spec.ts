@@ -1,9 +1,15 @@
+import { describe, it, expect } from "vitest";
 import LanguageComponent from "@/components/LanguageComponent.vue";
-import { render } from "@/tests/components/helpers.js";
+import { render } from "@/tests/components/helpers";
+
+interface MockI18n {
+  locale: string;
+  availableLocales: string[];
+}
 
 describe("LanguageComponent", () => {
   it("devrait définir la langue actuelle au montage", () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
+    const $i18n: MockI18n = { locale: "en", availableLocales: ["en", "fr"] };
     const wrapper = render(LanguageComponent, {
       mocks: {
         $i18n,
@@ -13,7 +19,7 @@ describe("LanguageComponent", () => {
   });
 
   it("devrait changer la langue quand une nouvelle langue est sélectionnée", async () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
+    const $i18n: MockI18n = { locale: "en", availableLocales: ["en", "fr"] };
     const wrapper = render(LanguageComponent, {
       mocks: {
         $i18n,
@@ -29,7 +35,7 @@ describe("LanguageComponent", () => {
   });
 
   it("devrait afficher les options de langues correctement", () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
+    const $i18n: MockI18n = { locale: "en", availableLocales: ["en", "fr"] };
     const wrapper = render(LanguageComponent, {
       mocks: {
         $i18n,
@@ -38,7 +44,7 @@ describe("LanguageComponent", () => {
 
     const options = wrapper.findAll("option");
     expect(options.length).toBe(2);
-    expect(options[0].text()).toBe("languages.en"); // You can use this syntax if you use vue-i
+    expect(options[0].text()).toBe("languages.en");
     expect(options[1].text()).toBe("languages.fr");
   });
 });

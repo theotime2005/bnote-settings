@@ -1,9 +1,11 @@
-import { render } from "@/tests/acceptance/helper.js";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { render } from "@/tests/acceptance/helper";
 
 describe("Acceptance | DownloadPageView", () => {
   beforeEach(() => {
-    global["fetch"] = vi.fn(() => Promise.resolve({}));
+    global.fetch = vi.fn(() => Promise.resolve({} as Response));
   });
+  
   afterEach(() => {
     vi.resetAllMocks();
   });

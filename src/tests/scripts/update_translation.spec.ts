@@ -1,6 +1,6 @@
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import fs from "fs/promises";
 import translatte from "translatte";
-import { describe, expect, it, vi } from "vitest";
 
 import {
   checkAndUpdate,
@@ -8,7 +8,7 @@ import {
   getTranslation,
   loadFile,
   writeFile,
-} from "../../scripts/update_translation.js";
+} from "../../scripts/update_translation";
 
 vi.mock("fs/promises");
 vi.mock("translatte");
@@ -16,18 +16,22 @@ vi.mock("translatte");
 const mockFs = vi.mocked(fs);
 const mockTranslatte = vi.mocked(translatte);
 
-describe("Translation Script", function() {
-  beforeEach(function() {
-    mockTranslatte.mockImplementation(function(text, options) {
+interface TranslationObject {
+  [key: string]: string | TranslationObject;
+}
+
+describe("Translation Script", () => {
+  beforeEach(() => {
+    mockTranslatte.mockImplementation((text: string, options: { to: string }) => {
       return Promise.resolve({ text: `${text}-${options.to}` });
     });
   });
 
-  afterEach(function() {
+  afterEach(() => {
     mockTranslatte.mockRestore();
   });
 
-  it("should load a JSON file", async function() {
+  it("should load a JSON file", async () => {
     const mockData = { key: "value" };
     mockFs.readFile.mockResolvedValue(JSON.stringify(mockData));
 
@@ -36,7 +40,7 @@ describe("Translation Script", function() {
     expect(mockFs.readFile).toHaveBeenCalledWith("test.json", "utf8");
   });
 
-  it("should handle file read errors", async function() {
+  it("should handle file read errors", async () => {
     mockFs.readFile.mockRejectedValue(new Error("File not found"));
 
     const data = await loadFile("test.json");
@@ -60,7 +64,7 @@ describe("Translation Script", function() {
     await expect(
       writeFile("test.json", { key: "value" }),
     ).resolves.toBeUndefined();
-    expect(mockFs.writeFile).toHaveBeenCalled(); // Make sure it was at least called.
+    expect(mockFs.writeFile).toHaveBeenCalled();
   });
 
   it("should translate a text", async () => {
@@ -85,11 +89,11 @@ describe("Translation Script", function() {
   });
 
   it("should check and update translations recursively", async () => {
-    const source = {
+    const source: TranslationObject = {
       nested: { key1: "value1", key2: "value2" },
       key3: "value3",
     };
-    const other = { nested: { key1: "oldValue" } };
+    const other: TranslationObject = { nested: { key1: "oldValue" } };
     const language = "fr";
 
     const updated = await checkAndUpdate(source, other, language);
@@ -101,8 +105,8 @@ describe("Translation Script", function() {
   });
 
   it("should clear old keys", () => {
-    const source = { key1: "value1" };
-    const other = { key1: "value1", key2: "oldValue" };
+    const source: TranslationObject = { key1: "value1" };
+    const other: TranslationObject = { key1: "value1", key2: "oldValue" };
 
     const cleared = clearOldValues(source, other);
 
@@ -110,8 +114,8 @@ describe("Translation Script", function() {
   });
 
   it("should clear old keys recursively", () => {
-    const source = { nested: { key1: "value1" } };
-    const other = {
+    const source: TranslationObject = { nested: { key1: "value1" } };
+    const other: TranslationObject = {
       nested: { key1: "value1", key2: "oldValue" },
       key3: "oldValue",
     };

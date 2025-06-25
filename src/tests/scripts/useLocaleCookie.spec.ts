@@ -1,5 +1,5 @@
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import cookies from "js-cookie";
-
 import { useLocaleCookie } from "@/scripts/useLocaleCookie";
 
 describe("useLocaleCookie", () => {

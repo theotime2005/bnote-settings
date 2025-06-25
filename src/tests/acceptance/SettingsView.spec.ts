@@ -1,17 +1,21 @@
-import { render } from "@/tests/acceptance/helper.js";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { VueWrapper } from "@vue/test-utils";
+import { render } from "@/tests/acceptance/helper";
 
 describe("Acceptance | SettingsView", () => {
-  let wrapper;
+  let wrapper: VueWrapper<any>;
+  
   beforeEach(async () => {
     wrapper = await render("/settings");
   });
 
-  suite("when no file is uploaded", () => {
+  describe("when no file is uploaded", () => {
     it("should display the default page", () => {
       // when
       const mainTitle = wrapper.find("h1").text();
       const howTitle = wrapper.find("h2").text();
       const fileSelector = wrapper.find("input[type='file']");
+      
       // then
       expect(mainTitle).toContain("settings.page.title");
       expect(howTitle).toContain("settings.page.how");
@@ -23,16 +27,16 @@ describe("Acceptance | SettingsView", () => {
       const defaultButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.create");
 
       // then
-      await defaultButton.trigger("click");
+      await defaultButton?.trigger("click");
       const fileTitle = wrapper.find("h2").text();
       expect(fileTitle).toBe("settings.page.defaultName");
     });
   });
 
-  suite("when a file is uploaded", () => {
+  describe("when a file is uploaded", () => {
     beforeEach(async () => {
       const defaultButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.create");
-      await defaultButton.trigger("click");
+      await defaultButton?.trigger("click");
     });
 
     describe("test the dialogs box", () => {
@@ -49,7 +53,7 @@ describe("Acceptance | SettingsView", () => {
         const resetButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.openOther");
 
         // when
-        await resetButton.trigger("click");
+        await resetButton?.trigger("click");
 
         // then
         expect(window.confirm).toHaveBeenCalledWith("settings.page.resetQuestion");
@@ -63,7 +67,7 @@ describe("Acceptance | SettingsView", () => {
         const downloadButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.download");
 
         // when
-        await downloadButton.trigger("submit");
+        await downloadButton?.trigger("submit");
 
         // then
         expect(window.confirm).toHaveBeenCalledWith("settings.page.question");

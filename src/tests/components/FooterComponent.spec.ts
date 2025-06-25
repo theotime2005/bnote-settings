@@ -1,10 +1,7 @@
+import { describe, it, expect } from "vitest";
 import FooterComponent from "@/components/FooterComponent.vue";
-import i18n from "@/i18n.js";
-import { render, t } from "@/tests/components/helpers.js";
-
-
-
-
+import i18n from "@/i18n";
+import { render, t } from "@/tests/components/helpers";
 
 describe("FooterComponent", () => {
   it("renders footer messages correctly", () => {

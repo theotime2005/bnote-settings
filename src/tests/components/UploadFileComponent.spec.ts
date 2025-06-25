@@ -1,11 +1,10 @@
-import { vi } from "vitest";
-
+import { describe, it, expect, vi } from "vitest";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
-import { render, t } from "@/tests/components/helpers.js";
+import { render, t } from "@/tests/components/helpers";
 
 const mockLoadSettings = vi.fn();
 
-vi.mock("@/stores/settingsStore.js", () => ({
+vi.mock("@/stores/settingsStore", () => ({
   useSettingsStore: () => ({
     loadSettings: mockLoadSettings,
   }),
@@ -47,19 +46,26 @@ describe("UploadFileComponent.vue", () => {
     const wrapper = render(UploadFileComponent);
     const fileContent = JSON.stringify({ theme: "dark" });
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
-    const mockFileReader = { readAsText: vi.fn(), onloadend: null };
-    window.FileReader = vi.fn(() => mockFileReader);
+    const mockFileReader = { 
+      readAsText: vi.fn(), 
+      onloadend: null as ((event: ProgressEvent<FileReader>) => void) | null,
+      result: fileContent
+    };
+    window.FileReader = vi.fn(() => mockFileReader as any);
     const input = wrapper.find("input[type='file']");
 
     // when
     Object.defineProperty(input.element, "files", { value: [file] });
     await input.trigger("change");
     wrapper.vm.uploadFile();
-    mockFileReader.onloadend({ target: { result: fileContent } });
+    
+    if (mockFileReader.onloadend) {
+      mockFileReader.onloadend({ target: { result: fileContent } } as any);
+    }
     await new Promise(resolve => setTimeout(resolve, 0));
 
     // then
-    expect(mockLoadSettings).toHaveBeenCalledWith(JSON.parse(fileContent), wrapper.vm.fileInput.name.split(".")[0]);
+    expect(mockLoadSettings).toHaveBeenCalledWith(JSON.parse(fileContent), wrapper.vm.fileInput?.name.split(".")[0]);
     expect(wrapper.emitted("file-uploaded")).toBeTruthy();
   });
 });
