@@ -1,7 +1,5 @@
-<script>
-export default {
-  name: "HomeView",
-};
+<script setup lang="ts">
+// No script needed for this simple component
 </script>
 
 <template>

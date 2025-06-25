@@ -1,144 +1,150 @@
-<script>
+<script setup lang="ts">
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { useI18n } from 'vue-i18n';
 import SettingComponent from "@/components/SettingComponent.vue";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
 import all_settings from "@/settings.json";
-import { useSettingsStore } from "@/stores/settingsStore.js";
+import { useSettingsStore } from "@/stores/settingsStore";
+import type { Settings } from '@/types';
 
-export default {
-  name: "SettingsView",
-  components: {
-    UploadFileComponent,
-    SettingComponent,
-  },
-  data() {
-    return {
-      file_name: "",
-      fileIsImported: false,
-      all_settings: all_settings,
-      activeSection: null,
-      searchQuery: "",
-    };
-  },
-  computed: {
-    filteredSettings() {
-      if (!this.searchQuery) return this.all_settings;
-      const query = this.searchQuery.toLowerCase();
-      const filtered = {};
-      for (const [section, settings] of Object.entries(this.all_settings)) {
-        const sectionLabel = this.$t(`settings.id.${section}`).toLowerCase();
-        const matchingSettings = {};
-        const sectionMatch = sectionLabel.includes(query);
-        for (const [key, value] of Object.entries(settings)) {
-          const settingLabel = this.$t(`settings.id.${key}`).toLowerCase();
-          if (settingLabel.includes(query) || sectionMatch) {
-            matchingSettings[key] = value;
-          }
-        }
-        if (Object.keys(matchingSettings).length > 0) {
-          filtered[section] = matchingSettings;
-        }
+const { t } = useI18n();
+const settingsStore = useSettingsStore();
+
+const file_name = ref<string>("");
+const fileIsImported = ref<boolean>(false);
+const activeSection = ref<string | null>(null);
+const searchQuery = ref<string>("");
+
+const filteredSettings = computed((): Settings => {
+  if (!searchQuery.value) return all_settings as Settings;
+  const query = searchQuery.value.toLowerCase();
+  const filtered: Settings = {};
+  
+  for (const [section, settings] of Object.entries(all_settings)) {
+    const sectionLabel = t(`settings.id.${section}`).toLowerCase();
+    const matchingSettings: any = {};
+    const sectionMatch = sectionLabel.includes(query);
+    
+    for (const [key, value] of Object.entries(settings)) {
+      const settingLabel = t(`settings.id.${key}`).toLowerCase();
+      if (settingLabel.includes(query) || sectionMatch) {
+        matchingSettings[key] = value;
       }
-      return filtered;
-    },
-  },
-  mounted() {
-    window.addEventListener("keydown", this.handleKeyPress);
-    if (useSettingsStore().getAllSettings) {
-      this.file_name = useSettingsStore().getFileName;
-      this.fileIsImported = true;
-      window.addEventListener("beforeunload", this.handleBeforeReload);
     }
-  },
-  beforeUnmount() {
-    window.removeEventListener("keydown", this.handleKeyPress);
-    window.removeEventListener("beforeunload", this.handleBeforeReload);
-  },
-  methods: {
-    clean_data() {
-      const confirm = window.confirm(this.$t("settings.page.resetQuestion"));
-      if (confirm) {
-        this.fileIsImported = false;
-        useSettingsStore().removeAll();
-        window.removeEventListener("beforeunload", this.handleBeforeReload);
-        this.activeSection = null;
-        this.searchQuery = "";
+    
+    if (Object.keys(matchingSettings).length > 0) {
+      filtered[section] = matchingSettings;
+    }
+  }
+  return filtered;
+});
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeyPress);
+  if (settingsStore.getAllSettings) {
+    file_name.value = settingsStore.getFileName || "";
+    fileIsImported.value = true;
+    window.addEventListener("beforeunload", handleBeforeReload);
+  }
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleKeyPress);
+  window.removeEventListener("beforeunload", handleBeforeReload);
+});
+
+function clean_data(): void {
+  const confirm = window.confirm(t("settings.page.resetQuestion"));
+  if (confirm) {
+    fileIsImported.value = false;
+    settingsStore.removeAll();
+    window.removeEventListener("beforeunload", handleBeforeReload);
+    activeSection.value = null;
+    searchQuery.value = "";
+  }
+}
+
+function createBasicData(): void {
+  const data: Settings = {};
+  for (const section in all_settings) {
+    data[section] = {};
+    for (const setting in all_settings[section as keyof typeof all_settings]) {
+      data[section][setting] = (all_settings[section as keyof typeof all_settings] as any)[setting].default;
+    }
+  }
+  file_name.value = t("settings.page.defaultName");
+  settingsStore.loadSettings(data, file_name.value);
+  fileIsImported.value = true;
+  window.addEventListener("beforeunload", handleBeforeReload);
+  activeSection.value = null;
+  searchQuery.value = "";
+}
+
+function showFile(): void {
+  file_name.value = settingsStore.getFileName || "";
+  fileIsImported.value = true;
+  window.addEventListener("beforeunload", handleBeforeReload);
+  activeSection.value = null;
+  searchQuery.value = "";
+}
+
+function toggleSection(section: string): void {
+  activeSection.value = activeSection.value === section ? null : section;
+  // Focus the first input of the opened section for accessibility
+  if (activeSection.value) {
+    setTimeout(() => {
+      const sectionEl = document.getElementById(`section-${section}`);
+      if (sectionEl) {
+        const input = sectionEl.querySelector("input, select, textarea, button") as HTMLElement;
+        if (input) input.focus();
       }
-    },
-    createBasicData() {
-      const data = {};
-      for (const section in this.all_settings) {
-        data[section] = {};
-        for (const setting in this.all_settings[section]) {
-          data[section][setting] = this.all_settings[section][setting].default;
-        }
-      }
-      this.file_name = this.$t("settings.page.defaultName");
-      useSettingsStore().loadSettings(data, this.file_name);
-      this.fileIsImported = true;
-      window.addEventListener("beforeunload", this.handleBeforeReload);
-      this.activeSection = null;
-      this.searchQuery = "";
-    },
-    showFile() {
-      this.file_name = useSettingsStore().getFileName;
-      this.fileIsImported = true;
-      window.addEventListener("beforeunload", this.handleBeforeReload);
-      this.activeSection = null;
-      this.searchQuery = "";
-    },
-    toggleSection(section) {
-      this.activeSection = this.activeSection === section ? null : section;
-      this.$nextTick(() => {
-        // Focus the first input of the opened section for accessibility
-        if (this.activeSection) {
-          const sectionEl = document.getElementById(`section-${section}`);
-          if (sectionEl) {
-            const input = sectionEl.querySelector("input, select, textarea, button");
-            if (input) input.focus();
-          }
-        }
-      });
-    },
-    save() {
-      const question = window.confirm(this.$t("settings.page.question"));
-      return question ? this.download_file() : null;
-    },
-    download_file() {
-      const stringData = JSON.stringify(useSettingsStore().getAllSettings, null, 2);
-      const blob_data = new Blob([stringData], { type: "application/json" });
-      const url_object = URL.createObjectURL(blob_data);
-      const link = document.createElement("a");
-      link.href = url_object;
-      const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
-      const file_name = this.$t("settings.page.downloadName", { date: file_date }) + ".bnote";
-      link.download = file_name;
-      link.click();
-      URL.revokeObjectURL(url_object);
-    },
-    handleKeyPress(event) {
-      if (event.key === "Escape") {
-        this.activeSection = null;
-        this.searchQuery = "";
-      }
-      if ((event.key === "ArrowDown" || event.key === "ArrowUp") && this.fileIsImported) {
-        // Keyboard navigation for nav buttons
-        const navButtons = Array.from(document.querySelectorAll(".settings-nav-button"));
-        const current = navButtons.findIndex(btn => btn === document.activeElement);
-        if (current !== -1) {
-          let next = event.key === "ArrowDown" ? current + 1 : current - 1;
-          if (next < 0) next = navButtons.length - 1;
-          if (next >= navButtons.length) next = 0;
-          navButtons[next].focus();
-          event.preventDefault();
-        }
-      }
-    },
-    handleBeforeReload(event) {
+    });
+  }
+}
+
+function save(): void {
+  const question = window.confirm(t("settings.page.question"));
+  if (question) {
+    download_file();
+  }
+}
+
+function download_file(): void {
+  const stringData = JSON.stringify(settingsStore.getAllSettings, null, 2);
+  const blob_data = new Blob([stringData], { type: "application/json" });
+  const url_object = URL.createObjectURL(blob_data);
+  const link = document.createElement("a");
+  link.href = url_object;
+  const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+  const file_name = t("settings.page.downloadName", { date: file_date }) + ".bnote";
+  link.download = file_name;
+  link.click();
+  URL.revokeObjectURL(url_object);
+}
+
+function handleKeyPress(event: KeyboardEvent): void {
+  if (event.key === "Escape") {
+    activeSection.value = null;
+    searchQuery.value = "";
+  }
+  if ((event.key === "ArrowDown" || event.key === "ArrowUp") && fileIsImported.value) {
+    // Keyboard navigation for nav buttons
+    const navButtons = Array.from(document.querySelectorAll(".settings-nav-button")) as HTMLElement[];
+    const current = navButtons.findIndex(btn => btn === document.activeElement);
+    if (current !== -1) {
+      let next = event.key === "ArrowDown" ? current + 1 : current - 1;
+      if (next < 0) next = navButtons.length - 1;
+      if (next >= navButtons.length) next = 0;
+      navButtons[next].focus();
       event.preventDefault();
-      event.returnValue = "";
-    },
-  },
-};
+    }
+  }
+}
+
+function handleBeforeReload(event: BeforeUnloadEvent): void {
+  event.preventDefault();
+  event.returnValue = "";
+}
 </script>
 
 <template>

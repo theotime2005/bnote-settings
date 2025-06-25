@@ -1,40 +1,56 @@
-<script>
-import { sendLog } from "@/scripts/send-log-message-script.js";
-import { useSettingsStore } from "@/stores/settingsStore.js";
-export default {
-  name: "UploadFileComponent",
-  emits: ["file-uploaded"],
-  data() {
-    return {
-      fileInput: null,
-    };
-  },
-  methods: {
-    handleFileUpload(event) {
-      this.fileInput = event.target.files[0];
-    },
-    uploadFile() {
-      try {
-        const extension = this.fileInput.name.split(".").pop();
-        if (extension !== "bnote") {
-          window.alert(this.$t("uploadFile.incorrectFormatFile"));
-          return;
-        }
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { sendLog } from "@/scripts/send-log-message-script";
+import { useSettingsStore } from "@/stores/settingsStore";
+import type { Settings } from '@/types';
 
-        const file = new FileReader();
-        file.readAsText(this.fileInput);
+const emit = defineEmits<{
+  'file-uploaded': [];
+}>();
 
-        file.onloadend = (e) => {
-          useSettingsStore().loadSettings(JSON.parse(e.target.result), this.fileInput.name.split(".")[0]);
+const { t } = useI18n();
+const settingsStore = useSettingsStore();
 
-          this.$emit("file-uploaded");
-        };
-      } catch (error) {
-        sendLog({ fileName: "UploadFileComponent", functionName: "uploadFile", type: "error", log: error });
+const fileInput = ref<File | null>(null);
+
+function handleFileUpload(event: Event): void {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    fileInput.value = target.files[0];
+  }
+}
+
+function uploadFile(): void {
+  if (!fileInput.value) return;
+
+  try {
+    const extension = fileInput.value.name.split(".").pop();
+    if (extension !== "bnote") {
+      window.alert(t("uploadFile.incorrectFormatFile"));
+      return;
+    }
+
+    const file = new FileReader();
+    file.readAsText(fileInput.value);
+
+    file.onloadend = (e) => {
+      if (e.target?.result && typeof e.target.result === 'string') {
+        const settings: Settings = JSON.parse(e.target.result);
+        const fileName = fileInput.value?.name.split(".")[0] || 'settings';
+        settingsStore.loadSettings(settings, fileName);
+        emit("file-uploaded");
       }
-    },
-  },
-};
+    };
+  } catch (error) {
+    sendLog({ 
+      fileName: "UploadFileComponent", 
+      functionName: "uploadFile", 
+      type: "error", 
+      log: error instanceof Error ? error : String(error)
+    });
+  }
+}
 </script>
 
 <template>

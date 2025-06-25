@@ -1,39 +1,41 @@
-<script>
-import { sendLog } from "@/scripts/send-log-message-script.js";
+<script setup lang="ts">
+import { ref, watch, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { sendLog } from "@/scripts/send-log-message-script";
+import type { FaqItem } from '@/types';
 
-export default {
-  name: "FaqView",
-  data() {
-    return {
-      faq: null,
-    };
+const { locale } = useI18n();
+
+const faq = ref<FaqItem[] | null>(null);
+
+watch(locale, {
+  immediate: true,
+  handler() {
+    loadFaq();
   },
-  watch: {
-    "$i18n.locale": {
-      immediate: true,
-      handler() {
-        this.loadFaq();
-      },
-    },
-  },
-  mounted() {
-    this.loadFaq();
-  },
-  methods: {
-    async loadFaq() {
-      this.faq = null;
-      const file_name = `faq/${this.$i18n.locale}.json`;
-      try {
-        const request = await fetch(file_name);
-        if (request.ok) {
-          this.faq = await request.json();
-        }
-      } catch (e) {
-        sendLog({ fileName: "FaqView", functionName: "loadFaq", type: "error", log: e });
-      }
-    },
-  },
-};
+});
+
+onMounted(() => {
+  loadFaq();
+});
+
+async function loadFaq(): Promise<void> {
+  faq.value = null;
+  const file_name = `faq/${locale.value}.json`;
+  try {
+    const request = await fetch(file_name);
+    if (request.ok) {
+      faq.value = await request.json() as FaqItem[];
+    }
+  } catch (e) {
+    sendLog({ 
+      fileName: "FaqView", 
+      functionName: "loadFaq", 
+      type: "error", 
+      log: e instanceof Error ? e : String(e)
+    });
+  }
+}
 </script>
 
 <template>
@@ -58,9 +60,9 @@ export default {
 
           <ol v-else-if="Array.isArray(element)" class="faq-answer-list">
             <li
-v-for="(subElement, subElemIndex) in element"
-                :key="`faq-subelement-${index}-${subIndex}-${subElemIndex}`"
-                class="faq-answer-list-item">
+              v-for="(subElement, subElemIndex) in element"
+              :key="`faq-subelement-${index}-${subIndex}-${subElemIndex}`"
+              class="faq-answer-list-item">
               {{ subElement }}
             </li>
           </ol>

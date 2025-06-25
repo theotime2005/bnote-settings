@@ -1,57 +1,52 @@
-<script>
+<script setup lang="ts">
+import { ref, onBeforeMount } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import FooterComponent from "@/components/FooterComponent.vue";
 import NavBarComponent from "@/components/NavBarComponent.vue";
-import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
+import { useLocaleCookie } from "@/scripts/useLocaleCookie";
 
-export default {
-  components: {
-    FooterComponent,
-    NavBarComponent,
-  },
-  data() {
-    return {
-      mainRef: null,
-      hasLanguage: false,
-      canReset: false,
-    };
-  },
+const router = useRouter();
+const route = useRoute();
+const { locale } = useI18n();
 
-  beforeMount() {
-    // set locale from cookie
-    const localeCookie = useLocaleCookie.getLocaleCookie();
-    if (localeCookie) {
-      this.$i18n.locale = localeCookie;
-      this.hasLanguage = true;
-    } else if (import.meta.env.MODE === "test") {
-      this.hasLanguage = true;
-    }
-    // Toggle the reset cookies variable
-    if (import.meta.env.MODE === "development") {
-      this.canReset = true;
-    }
-  },
+const mainRef = ref<HTMLElement | null>(null);
+const hasLanguage = ref(false);
+const canReset = ref(false);
 
-  methods: {
-    focusMain() {
-      if (this.$refs.mainRef) {
-        this.$refs.mainRef.focus();
-      }
-    },
+onBeforeMount(() => {
+  // set locale from cookie
+  const localeCookie = useLocaleCookie.getLocaleCookie();
+  if (localeCookie) {
+    locale.value = localeCookie;
+    hasLanguage.value = true;
+  } else if (import.meta.env.MODE === "test") {
+    hasLanguage.value = true;
+  }
+  // Toggle the reset cookies variable
+  if (import.meta.env.MODE === "development") {
+    canReset.value = true;
+  }
+});
 
-    setLocale(locale) {
-      this.$i18n.locale = locale;
-      useLocaleCookie.setLocaleCookie(locale);
-      this.hasLanguage = true;
-      this.$router.push(this.$route.path);
-    },
+function focusMain(): void {
+  if (mainRef.value) {
+    mainRef.value.focus();
+  }
+}
 
-    resetCookies() {
-      useLocaleCookie.removeCookie();
-      this.hasLanguage = false;
-      this.$router.push(this.$route.path);
-    },
-  },
-};
+function setLocale(newLocale: string): void {
+  locale.value = newLocale;
+  useLocaleCookie.setLocaleCookie(newLocale);
+  hasLanguage.value = true;
+  router.push(route.path);
+}
+
+function resetCookies(): void {
+  useLocaleCookie.removeCookie();
+  hasLanguage.value = false;
+  router.push(route.path);
+}
 </script>
 
 <template>

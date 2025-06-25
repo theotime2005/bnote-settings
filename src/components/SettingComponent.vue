@@ -1,43 +1,37 @@
-<script>
-import { useSettingsStore } from "@/stores/settingsStore.js";
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useSettingsStore } from "@/stores/settingsStore";
+import type { Setting } from '@/types';
 
-export default {
-  name: "SettingComponent",
-  props: {
-    settingSection: {
-      type: String,
-      required: true,
-    },
-    settingKey: {
-      type: String,
-      required: true,
-    },
-    setting: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      settingValue: useSettingsStore().getSetting(this.settingSection, this.settingKey),
-      label_id: `${this.settingSection}.${this.settingKey}`,
-      name: this.$t(`settings.id.${this.settingKey}`),
-      settingsStore: useSettingsStore(),
-    };
-  },
-  methods: {
-    updateSetting() {
-      if (this.setting.type === "number") {
-        this.settingValue = parseInt(this.settingValue);
-      }
-      useSettingsStore().updateSetting(this.settingSection, this.settingKey, this.settingValue);
-    },
-    setDefault() {
-      this.settingValue = this.setting.default;
-      this.updateSetting();
-    },
-  },
-};
+interface Props {
+  settingSection: string;
+  settingKey: string;
+  setting: Setting;
+}
+
+const props = defineProps<Props>();
+const { t } = useI18n();
+const settingsStore = useSettingsStore();
+
+const settingValue = ref<string | number | boolean>(
+  settingsStore.getSetting(props.settingSection, props.settingKey) ?? props.setting.default
+);
+
+const label_id = computed(() => `${props.settingSection}.${props.settingKey}`);
+const name = computed(() => t(`settings.id.${props.settingKey}`));
+
+function updateSetting(): void {
+  if (props.setting.type === "number") {
+    settingValue.value = parseInt(settingValue.value as string);
+  }
+  settingsStore.updateSetting(props.settingSection, props.settingKey, settingValue.value);
+}
+
+function setDefault(): void {
+  settingValue.value = props.setting.default;
+  updateSetting();
+}
 </script>
 
 <template>
@@ -63,7 +57,7 @@ export default {
         v-model="settingValue"
         type="checkbox"
         :name="name"
-        :checked="settingValue"
+        :checked="!!settingValue"
         class="setting-checkbox"
         @change="updateSetting"
       />
@@ -103,9 +97,9 @@ export default {
       />
       <output class="setting-value">{{ settingValue }}</output>
       <datalist :id="label_id + 'tickmarks'">
-        <option :value="setting.min" :label="setting.min"></option>
-        <option :value="setting.default" :label="setting.default"></option>
-        <option :value="setting.max" :label="setting.max"></option>
+        <option :value="setting.min" :label="String(setting.min)"></option>
+        <option :value="setting.default" :label="String(setting.default)"></option>
+        <option :value="setting.max" :label="String(setting.max)"></option>
       </datalist>
     </div>
 

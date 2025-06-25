@@ -1,16 +1,8 @@
-<script>
+<script setup lang="ts">
 import packageInfo from "@/../package.json";
 import LanguageComponent from "@/components/LanguageComponent.vue";
 
-export default {
-  name: "FooterComponent",
-  components: { LanguageComponent },
-  data() {
-    return {
-      version: packageInfo.version,
-    };
-  },
-};
+const version = packageInfo.version;
 </script>
 
 <template>

@@ -7,6 +7,8 @@ import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsparser from "@typescript-eslint/parser";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,15 +19,18 @@ const compat = new FlatCompat({
 
 export default [
   js.configs.recommended,
+  ...tseslint.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
   ...compat.extends( // Utiliser FlatCompat pour les configurations basées sur des chaînes
     "@vue/eslint-config-prettier/skip-formatting",
+    "@vue/eslint-config-typescript",
     "plugin:i18n-json/recommended", // Assurez-vous que ce plugin est compatible et installé
   ),
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
       "vitest-globals": vitestGlobals,
+      "@typescript-eslint": tseslint,
     },
 
     languageOptions: {
@@ -33,9 +38,13 @@ export default [
         ...globals.node,
         ...globals.browser,
       },
-
+      parser: tsparser,
       ecmaVersion: "latest",
       sourceType: "module",
+      parserOptions: {
+        parser: tsparser,
+        extraFileExtensions: ['.vue'],
+      },
     },
 
     rules: {
@@ -78,6 +87,13 @@ export default [
       "no-trailing-spaces": ["error"],
       "no-multi-spaces": ["error"],
       "func-style": ["error", "declaration", { "allowArrowFunctions": false }],
+      
+      // TypeScript specific rules
+      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-non-null-assertion": "warn",
     },
   },
   {
@@ -87,6 +103,17 @@ export default [
       globals: {
         ...vitestGlobals.environments.env.globals,
       },
+    },
+  },
+  {
+    files: ["*.vue", "**/*.vue"],
+    languageOptions: {
+      parserOptions: {
+        parser: tsparser,
+      },
+    },
+    rules: {
+      "vue/multi-word-component-names": "off",
     },
   },
   {

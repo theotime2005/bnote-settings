@@ -1,18 +1,21 @@
-<script>
-export default {
-  name: "AboutView",
-  data() {
-    return {
-      links: {
-        github: {
-          issues: {
-            feature: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=",
-            report: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=",
-          },
-          repos: "https://github.com/theotime2005/bnote-settings",
-        },
-      },
+<script setup lang="ts">
+interface Links {
+  github: {
+    issues: {
+      feature: string;
+      report: string;
     };
+    repos: string;
+  };
+}
+
+const links: Links = {
+  github: {
+    issues: {
+      feature: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=",
+      report: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=",
+    },
+    repos: "https://github.com/theotime2005/bnote-settings",
   },
 };
 </script>

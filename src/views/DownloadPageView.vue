@@ -1,47 +1,70 @@
-<script>
-import { sendLog } from "@/scripts/send-log-message-script.js";
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { sendLog } from "@/scripts/send-log-message-script";
+import type { GitHubRelease } from '@/types';
 
-export default {
-  name: "DownloadPageView",
-  data() {
-    return {
-      links: {
-        eurobraille: {
-          download: "https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/",
-          github: "https://github.com/devel-erb/bnote",
-          sdcard: "https://www.eurobraille.fr/download/telecharger-le-fichier-image-de-la-carte-sd-3-3-0-b-note/",
-        },
-        theotime: {
-          github: "https://github.com/theotime2005/bnote",
-          releases: "https://github.com/theotime2005/bnote/releases",
-        },
-      },
-      last_version: {},
-    };
+interface Links {
+  eurobraille: {
+    download: string;
+    github: string;
+    sdcard: string;
+  };
+  theotime: {
+    github: string;
+    releases: string;
+  };
+}
+
+interface LastVersion {
+  tag?: string;
+  file?: string;
+}
+
+const { t } = useI18n();
+
+const links: Links = {
+  eurobraille: {
+    download: "https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/",
+    github: "https://github.com/devel-erb/bnote",
+    sdcard: "https://www.eurobraille.fr/download/telecharger-le-fichier-image-de-la-carte-sd-3-3-0-b-note/",
   },
-  mounted() {
-    this.get_last_version();
-  },
-  methods: {
-    async get_last_version() {
-      try {
-        const request = await fetch("https://api.github.com/repos/theotime2005/bnote/releases");
-        const response = await request.json();
-        let version = null;
-        for (let i = 0; i < response.length; i++) {
-          if (response[i]["prerelease"] === false) {
-            version = response[i];
-            break;
-          }
-        }
-        this.last_version["tag"] = version["tag_name"];
-        this.last_version["file"] = version["assets"][0]["browser_download_url"];
-      } catch (e) {
-        sendLog({ fileName: "DownloadPage", functionName: "get_last_version", type: "error", log: e });
-      }
-    },
+  theotime: {
+    github: "https://github.com/theotime2005/bnote",
+    releases: "https://github.com/theotime2005/bnote/releases",
   },
 };
+
+const last_version = ref<LastVersion>({});
+
+onMounted(() => {
+  get_last_version();
+});
+
+async function get_last_version(): Promise<void> {
+  try {
+    const request = await fetch("https://api.github.com/repos/theotime2005/bnote/releases");
+    const response: GitHubRelease[] = await request.json();
+    let version: GitHubRelease | null = null;
+    for (let i = 0; i < response.length; i++) {
+      if (response[i]["prerelease"] === false) {
+        version = response[i];
+        break;
+      }
+    }
+    if (version) {
+      last_version.value.tag = version.tag_name;
+      last_version.value.file = version.assets[0]?.browser_download_url;
+    }
+  } catch (e) {
+    sendLog({ 
+      fileName: "DownloadPage", 
+      functionName: "get_last_version", 
+      type: "error", 
+      log: e instanceof Error ? e : String(e)
+    });
+  }
+}
 </script>
 
 <template>
@@ -71,11 +94,11 @@ export default {
         {{$t('download.message-3-2')}}
       </p>
       <a
-        v-if="last_version['file']"
+        v-if="last_version.file"
         class="download-link"
-        :href="last_version['file']"
+        :href="last_version.file"
       >
-        {{$t('download.downloadOtherLast', {version: last_version['tag']})}}
+        {{$t('download.downloadOtherLast', {version: last_version.tag})}}
       </a>
       <a class="download-link" :href="links.theotime.releases" target="_blank">
         {{$t("download.releases")}}

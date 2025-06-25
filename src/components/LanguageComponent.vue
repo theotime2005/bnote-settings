@@ -1,23 +1,20 @@
-<script>
-import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
-export default {
-  name: "LanguageComponent",
-  data() {
-    return {
-      current_language: null,
-    };
-  },
-  mounted() {
-    this.current_language = this.$i18n.locale;
-  },
-  methods: {
-    changeLanguage() {
-      this.$i18n.locale = this.current_language;
-      document.documentElement.lang = this.current_language;
-      useLocaleCookie.setLocaleCookie(this.current_language);
-    },
-  },
-};
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useLocaleCookie } from "@/scripts/useLocaleCookie";
+
+const { locale, availableLocales } = useI18n();
+const current_language = ref<string>('');
+
+onMounted(() => {
+  current_language.value = locale.value;
+});
+
+function changeLanguage(): void {
+  locale.value = current_language.value;
+  document.documentElement.lang = current_language.value;
+  useLocaleCookie.setLocaleCookie(current_language.value);
+}
 </script>
 
 <template>
@@ -29,7 +26,7 @@ export default {
       :value="current_language"
       class="language-select"
       @change="changeLanguage">
-      <option v-for="language in $i18n.availableLocales" :key="language" :value="language">
+      <option v-for="language in availableLocales" :key="language" :value="language">
         {{ $t(`languages.${language}`) }}
       </option>
     </select>

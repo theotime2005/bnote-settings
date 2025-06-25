@@ -1,128 +1,129 @@
-<script>
-import routes from "@/router/router-list.js";
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useI18n } from 'vue-i18n';
+import routes from "@/router/router-list";
+import type { AccessibilitySettings } from '@/types';
 
-export default {
-  name: "NavBarComponent",
-  emits: ["move-cursor"],
-  data() {
-    return {
-      routes: routes,
-      buttonIsVisible: false,
-      navBarIsVisible: false,
-      showAccessibilityMenu: false,
-      accessibilitySettings: {
-        textSize: "normal",
-        contrast: "normal",
-        colorScheme: "default",
-      },
-    };
-  },
-  mounted() {
-    window.addEventListener("resize", this.handleResize);
-    this.handleResize(); // Initial check
-    this.loadAccessibilitySettings();
-    this.applyAccessibilitySettings();
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.handleResize);
-  },
-  methods: {
-    toggleNavBar() {
-      this.navBarIsVisible = !this.navBarIsVisible;
+const emit = defineEmits<{
+  'move-cursor': [];
+}>();
 
-      // Announce state change to screen readers
-      const announcement = this.navBarIsVisible
-        ? this.$t("header.menuOpened")
-        : this.$t("header.menuClosed");
-      this.announceToScreenReader(announcement);
-    },
+const { t } = useI18n();
 
-    toggleAccessibilityMenu() {
-      this.showAccessibilityMenu = !this.showAccessibilityMenu;
-    },
+const buttonIsVisible = ref(false);
+const navBarIsVisible = ref(false);
+const showAccessibilityMenu = ref(false);
+const accessibilitySettings = ref<AccessibilitySettings>({
+  textSize: "normal",
+  contrast: "normal",
+  colorScheme: "default",
+});
 
-    handleResize() {
-      if (window.innerWidth > 768) {
-        this.navBarIsVisible = true;
-        this.buttonIsVisible = false;
-      } else {
-        this.navBarIsVisible = false;
-        this.buttonIsVisible = true;
-      }
-    },
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+  handleResize(); // Initial check
+  loadAccessibilitySettings();
+  applyAccessibilitySettings();
+});
 
-    goto() {
-      if (this.buttonIsVisible) {
-        this.toggleNavBar();
-      }
-      this.$emit("move-cursor");
-    },
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", handleResize);
+});
 
-    announceToScreenReader(message) {
-      const announcement = document.createElement("div");
-      announcement.setAttribute("aria-live", "polite");
-      announcement.setAttribute("aria-atomic", "true");
-      announcement.className = "sr-only";
-      announcement.textContent = message;
-      document.body.appendChild(announcement);
+function toggleNavBar(): void {
+  navBarIsVisible.value = !navBarIsVisible.value;
 
-      setTimeout(() => {
-        document.body.removeChild(announcement);
-      }, 1000);
-    },
+  // Announce state change to screen readers
+  const announcement = navBarIsVisible.value
+    ? t("header.menuOpened")
+    : t("header.menuClosed");
+  announceToScreenReader(announcement);
+}
 
-    updateTextSize(size) {
-      this.accessibilitySettings.textSize = size;
-      this.saveAndApplySettings();
-    },
+function toggleAccessibilityMenu(): void {
+  showAccessibilityMenu.value = !showAccessibilityMenu.value;
+}
 
-    updateContrast(contrast) {
-      this.accessibilitySettings.contrast = contrast;
-      this.saveAndApplySettings();
-    },
+function handleResize(): void {
+  if (window.innerWidth > 768) {
+    navBarIsVisible.value = true;
+    buttonIsVisible.value = false;
+  } else {
+    navBarIsVisible.value = false;
+    buttonIsVisible.value = true;
+  }
+}
 
-    updateColorScheme(scheme) {
-      this.accessibilitySettings.colorScheme = scheme;
-      this.saveAndApplySettings();
-    },
+function goto(): void {
+  if (buttonIsVisible.value) {
+    toggleNavBar();
+  }
+  emit("move-cursor");
+}
 
-    saveAndApplySettings() {
-      localStorage.setItem("accessibilitySettings", JSON.stringify(this.accessibilitySettings));
-      this.applyAccessibilitySettings();
-    },
+function announceToScreenReader(message: string): void {
+  const announcement = document.createElement("div");
+  announcement.setAttribute("aria-live", "polite");
+  announcement.setAttribute("aria-atomic", "true");
+  announcement.className = "sr-only";
+  announcement.textContent = message;
+  document.body.appendChild(announcement);
 
-    loadAccessibilitySettings() {
-      const saved = localStorage.getItem("accessibilitySettings");
-      if (saved) {
-        this.accessibilitySettings = { ...this.accessibilitySettings, ...JSON.parse(saved) };
-      }
-    },
+  setTimeout(() => {
+    document.body.removeChild(announcement);
+  }, 1000);
+}
 
-    applyAccessibilitySettings() {
-      const root = document.documentElement;
+function updateTextSize(size: AccessibilitySettings['textSize']): void {
+  accessibilitySettings.value.textSize = size;
+  saveAndApplySettings();
+}
 
-      // Apply text size
-      root.setAttribute("data-text-size", this.accessibilitySettings.textSize);
+function updateContrast(contrast: AccessibilitySettings['contrast']): void {
+  accessibilitySettings.value.contrast = contrast;
+  saveAndApplySettings();
+}
 
-      // Apply contrast
-      root.setAttribute("data-contrast", this.accessibilitySettings.contrast);
+function updateColorScheme(scheme: AccessibilitySettings['colorScheme']): void {
+  accessibilitySettings.value.colorScheme = scheme;
+  saveAndApplySettings();
+}
 
-      // Apply color scheme
-      root.setAttribute("data-color-scheme", this.accessibilitySettings.colorScheme);
-    },
+function saveAndApplySettings(): void {
+  localStorage.setItem("accessibilitySettings", JSON.stringify(accessibilitySettings.value));
+  applyAccessibilitySettings();
+}
 
-    handleKeyDown(event) {
-      // Handle escape key to close menus
-      if (event.key === "Escape") {
-        if (this.showAccessibilityMenu) {
-          this.showAccessibilityMenu = false;
-        } else if (this.navBarIsVisible && this.buttonIsVisible) {
-          this.toggleNavBar();
-        }
-      }
-    },
-  },
-};
+function loadAccessibilitySettings(): void {
+  const saved = localStorage.getItem("accessibilitySettings");
+  if (saved) {
+    accessibilitySettings.value = { ...accessibilitySettings.value, ...JSON.parse(saved) };
+  }
+}
+
+function applyAccessibilitySettings(): void {
+  const root = document.documentElement;
+
+  // Apply text size
+  root.setAttribute("data-text-size", accessibilitySettings.value.textSize);
+
+  // Apply contrast
+  root.setAttribute("data-contrast", accessibilitySettings.value.contrast);
+
+  // Apply color scheme
+  root.setAttribute("data-color-scheme", accessibilitySettings.value.colorScheme);
+}
+
+function handleKeyDown(event: KeyboardEvent): void {
+  // Handle escape key to close menus
+  if (event.key === "Escape") {
+    if (showAccessibilityMenu.value) {
+      showAccessibilityMenu.value = false;
+    } else if (navBarIsVisible.value && buttonIsVisible.value) {
+      toggleNavBar();
+    }
+  }
+}
 </script>
 
 <template>
@@ -136,7 +137,7 @@ export default {
         <button
           class="accessibility-toggle"
           :aria-expanded="showAccessibilityMenu"
-          :aria-controls="showAccessibilityMenu ? 'accessibility-menu' : null"
+          :aria-controls="showAccessibilityMenu ? 'accessibility-menu' : undefined"
           :title="$t('header.accessibilityOptions')"
           @click="toggleAccessibilityMenu"
         >
@@ -257,7 +258,7 @@ export default {
         v-if="buttonIsVisible"
         class="nav-toggle-button"
         :aria-expanded="navBarIsVisible"
-        :aria-controls="navBarIsVisible ? 'main-navigation' : null"
+        :aria-controls="navBarIsVisible ? 'main-navigation' : undefined"
         @click="toggleNavBar"
       >
         <span class="nav-toggle-icon" :class="{ 'open': navBarIsVisible }">
@@ -285,7 +286,7 @@ export default {
             class="nav-link"
             :to="route.path"
             role="menuitem"
-            :aria-current="$route.path === route.path ? 'page' : null"
+            :aria-current="$route.path === route.path ? 'page' : undefined"
             @click="goto"
             @keydown.enter="goto"
           >
