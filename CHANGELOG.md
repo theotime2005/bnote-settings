@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.1.1](https://github.com/theotime2005/bnote-settings/compare/v4.1.0...v4.1.1) (2025-06-29)
+
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @eslint/compat from 1.3.0 to 1.3.1 ([#288](https://github.com/theotime2005/bnote-settings/issues/288)) ([bd07691](https://github.com/theotime2005/bnote-settings/commit/bd07691c799696181beb869eac7f298b2920b167))
+* **deps-dev:** bump @vitejs/plugin-vue from 5.2.4 to 6.0.0 ([#286](https://github.com/theotime2005/bnote-settings/issues/286)) ([4a2ce8f](https://github.com/theotime2005/bnote-settings/commit/4a2ce8fc3a1e273933060ad984d3d925b5ffaf97))
+* **deps-dev:** bump vite from 6.3.5 to 7.0.0 ([#287](https://github.com/theotime2005/bnote-settings/issues/287)) ([f52b375](https://github.com/theotime2005/bnote-settings/commit/f52b37532ed4eac1be6dae822fb688f0b48a1bb7))
+
 ## [4.1.0](https://github.com/theotime2005/bnote-settings/compare/v4.0.1...v4.1.0) (2025-06-24)
 
 
