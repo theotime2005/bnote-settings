@@ -1,16 +1,8 @@
-<script>
-import packageInfo from "@/../package.json";
+<script setup>
 import LanguageComponent from "@/components/LanguageComponent.vue";
 
-export default {
-  name: "FooterComponent",
-  components: { LanguageComponent },
-  data() {
-    return {
-      version: packageInfo.version,
-    };
-  },
-};
+import packageInfo from "../../package.json";
+
 </script>
 
 <template>
@@ -23,7 +15,7 @@ export default {
     </div>
     <LanguageComponent />
     <a class="footer-link" href="https://github.com/theotime2005/bnote-settings">{{ $t('footer.code') }}</a>
-    <p>{{ $t('footer.version', {version: version}) }}</p>
+    <p>{{ $t('footer.version', {version: packageInfo.version}) }}</p>
   </footer>
 </template>
 
