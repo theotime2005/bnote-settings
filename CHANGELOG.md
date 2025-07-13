@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.1.2](https://github.com/theotime2005/bnote-settings/compare/v4.1.1...v4.1.2) (2025-07-13)
+
+
+### 📚 Documentation
+
+* fix the readme link for goto contribution guide ([#291](https://github.com/theotime2005/bnote-settings/issues/291)) ([f4d8e68](https://github.com/theotime2005/bnote-settings/commit/f4d8e68f407b064989e32b0ae7444297dbbee2b5))
+
+
+### 🔨 Refactor
+
+* use composition api in footer component ([#296](https://github.com/theotime2005/bnote-settings/issues/296)) ([2185bd1](https://github.com/theotime2005/bnote-settings/commit/2185bd1bde813f842c5be23a60e28a8e2dd38427))
+
+
+### 🔖 Version bump
+
+* **deps-dev:** bump eslint from 9.29.0 to 9.30.0 ([#289](https://github.com/theotime2005/bnote-settings/issues/289)) ([9358f6c](https://github.com/theotime2005/bnote-settings/commit/9358f6c84d5939dad8a18bd8a15abf20c8cc2ac4))
+* **deps-dev:** bump eslint-plugin-vue from 10.2.0 to 10.3.0 ([#292](https://github.com/theotime2005/bnote-settings/issues/292)) ([91d762c](https://github.com/theotime2005/bnote-settings/commit/91d762c140121820fa103b6f2da0513981463de1))
+* **deps-dev:** bump vite from 7.0.0 to 7.0.1 ([#294](https://github.com/theotime2005/bnote-settings/issues/294)) ([8a58417](https://github.com/theotime2005/bnote-settings/commit/8a58417d20453da031fcef6052f701069a745a1b))
+* **deps-dev:** bump vite from 7.0.2 to 7.0.3 ([#297](https://github.com/theotime2005/bnote-settings/issues/297)) ([cf03c92](https://github.com/theotime2005/bnote-settings/commit/cf03c926d03df4fb260b66cd4e55072945f04437))
+* **deps-dev:** bump vite from 7.0.3 to 7.0.4 ([#298](https://github.com/theotime2005/bnote-settings/issues/298)) ([0013847](https://github.com/theotime2005/bnote-settings/commit/0013847ce43ef3b8005dc77041022f089f9ef383))
+* **deps:** bump vue-i18n from 11.1.7 to 11.1.9 ([#295](https://github.com/theotime2005/bnote-settings/issues/295)) ([335d21d](https://github.com/theotime2005/bnote-settings/commit/335d21de6ed6a6ec96f2a7c8636bbed09272f30e))
+
+
+### 🛠️ Tech
+
+* open website when start project ([#290](https://github.com/theotime2005/bnote-settings/issues/290)) ([dbe5508](https://github.com/theotime2005/bnote-settings/commit/dbe55087c52d2bb9d9bc86aed9373aced9f61aaa))
+
 ## [4.1.1](https://github.com/theotime2005/bnote-settings/compare/v4.1.0...v4.1.1) (2025-06-29)
 
 
