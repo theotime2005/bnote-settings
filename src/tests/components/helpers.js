@@ -1,4 +1,16 @@
 import { mount } from "@vue/test-utils";
+import { vi } from "vitest";
+
+// Mock global pour les composables
+vi.mock("@/composables/useNotifications.js", () => ({
+  useNotifications: () => ({
+    notifications: { value: [] },
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    warning: vi.fn(),
+  }),
+}));
 
 function t(msg) {
   return msg;
@@ -31,6 +43,6 @@ function render(component, global = {}, properties = {}, data = null) {
   }
 
   return mount(component, mountOptions);
-};
+}
 
 export { render, t };
