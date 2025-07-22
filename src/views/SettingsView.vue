@@ -1,6 +1,8 @@
 <script>
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import SettingComponent from "@/components/SettingComponent.vue";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
+import { useNotifications } from "@/composables/useNotifications.js";
 import all_settings from "@/settings.json";
 import { useSettingsStore } from "@/stores/settingsStore.js";
 
@@ -9,6 +11,7 @@ export default {
   components: {
     UploadFileComponent,
     SettingComponent,
+    LoadingSpinner,
   },
   data() {
     return {
@@ -17,6 +20,8 @@ export default {
       all_settings: all_settings,
       activeSection: null,
       searchQuery: "",
+      isLoading: false,
+      notifications: useNotifications(),
     };
   },
   computed: {
@@ -57,14 +62,20 @@ export default {
     clean_data() {
       const confirm = window.confirm(this.$t("settings.page.resetQuestion"));
       if (confirm) {
+        this.isLoading = true;
         this.fileIsImported = false;
         useSettingsStore().removeAll();
         window.removeEventListener("beforeunload", this.handleBeforeReload);
         this.activeSection = null;
         this.searchQuery = "";
+        this.notifications.info(this.$t("settings.notifications.configurationReset"));
+        Promise.resolve().then(() => {
+          this.isLoading = false;
+        });
       }
     },
     createBasicData() {
+      this.isLoading = true;
       const data = {};
       for (const section in this.all_settings) {
         data[section] = {};
@@ -78,6 +89,10 @@ export default {
       window.addEventListener("beforeunload", this.handleBeforeReload);
       this.activeSection = null;
       this.searchQuery = "";
+      this.notifications.success(this.$t("settings.notifications.defaultConfigurationLoaded"));
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 500);
     },
     showFile() {
       this.file_name = useSettingsStore().getFileName;
@@ -85,6 +100,7 @@ export default {
       window.addEventListener("beforeunload", this.handleBeforeReload);
       this.activeSection = null;
       this.searchQuery = "";
+      this.notifications.success(this.$t("settings.notifications.fileLoaded"));
     },
     toggleSection(section) {
       this.activeSection = this.activeSection === section ? null : section;
@@ -104,16 +120,27 @@ export default {
       return question ? this.download_file() : null;
     },
     download_file() {
-      const stringData = JSON.stringify(useSettingsStore().getAllSettings, null, 2);
-      const blob_data = new Blob([stringData], { type: "application/json" });
-      const url_object = URL.createObjectURL(blob_data);
-      const link = document.createElement("a");
-      link.href = url_object;
-      const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
-      const file_name = this.$t("settings.page.downloadName", { date: file_date }) + ".bnote";
-      link.download = file_name;
-      link.click();
-      URL.revokeObjectURL(url_object);
+      try {
+        this.isLoading = true;
+        const stringData = JSON.stringify(useSettingsStore().getAllSettings, null, 2);
+        const blob_data = new Blob([stringData], { type: "application/json" });
+        const url_object = URL.createObjectURL(blob_data);
+        const link = document.createElement("a");
+        link.href = url_object;
+        const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+        const file_name = this.$t("settings.page.downloadName", { date: file_date }) + ".bnote";
+        link.download = file_name;
+        link.click();
+        URL.revokeObjectURL(url_object);
+        this.notifications.success(this.$t("settings.notifications.fileDownloaded"));
+      } catch (error) {
+        this.notifications.error(this.$t("settings.notifications.downloadError"));
+        console.error("Download error:", error);
+      } finally {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
+      }
     },
     handleKeyPress(event) {
       if (event.key === "Escape") {
@@ -145,15 +172,20 @@ export default {
   <div class="settings-container">
     <h1 class="settings-title">{{ $t("settings.page.title") }}</h1>
 
+    <!-- Loading Overlay -->
+    <div v-if="isLoading" class="loading-overlay">
+      <LoadingSpinner size="large" :text="$t('common.loading')" />
+    </div>
+
     <!-- Initial Setup View -->
-    <div v-if="!fileIsImported" class="settings-intro-card">
+    <div v-if="!fileIsImported" class="settings-intro-card fade-in">
       <h2 class="settings-subtitle">{{ $t("settings.page.how") }}</h2>
       <p class="settings-explanation">{{ $t("settings.page.explication") }}</p>
       <UploadFileComponent ref="upload" @file-uploaded="showFile" />
       <hr class="settings-divider" />
       <button
         type="button"
-        class="settings-button settings-button-primary"
+        class="settings-button settings-button-primary focus-ring"
         @click="createBasicData"
       >
         {{ $t("settings.page.create") }}
@@ -161,7 +193,7 @@ export default {
     </div>
 
     <!-- Settings Management View -->
-    <div v-if="fileIsImported" class="settings-manager">
+    <div v-if="fileIsImported" class="settings-manager fade-in">
       <header class="settings-header">
         <h2 class="settings-filename">{{ file_name }}</h2>
 
@@ -172,7 +204,7 @@ export default {
             id="settings-search"
             v-model="searchQuery"
             type="search"
-            class="settings-search"
+            class="settings-search focus-ring"
             :placeholder="$t('settings.page.search')"
             @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
           />
@@ -186,7 +218,7 @@ export default {
             <li v-for="(settings, section) in filteredSettings" :key="section">
               <button
                 type="button"
-                class="settings-nav-button"
+                class="settings-nav-button focus-ring"
                 :class="{ 'active': activeSection === section }"
                 :aria-expanded="activeSection === section"
                 :aria-controls="`section-${section}`"
@@ -206,7 +238,7 @@ export default {
             v-for="(settings, section) in filteredSettings"
             :id="`section-${section}`"
             :key="section"
-            class="settings-section"
+            class="settings-section slide-in"
             :class="{ 'active': activeSection === section }"
             :aria-hidden="activeSection !== section"
           >
@@ -225,12 +257,12 @@ export default {
 
         <!-- Action Buttons -->
         <div class="settings-actions">
-          <button type="submit" class="settings-button settings-button-success">
+          <button type="submit" class="settings-button settings-button-success focus-ring">
             {{ $t("settings.page.download") }}
           </button>
           <button
             type="button"
-            class="settings-button settings-button-danger"
+            class="settings-button settings-button-danger focus-ring"
             @click="clean_data"
           >
             {{ $t("settings.page.openOther") }}
@@ -241,6 +273,18 @@ export default {
         {{ $t("settings.page.no-result") }}
       </p>
     </div>
+
+    <!-- Notifications -->
+    <div v-for="notification in notifications.notifications.value" :key="notification.id">
+      <NotificationToast
+        :visible="notification.visible"
+        :type="notification.type"
+        :title="notification.title"
+        :message="notification.message"
+        :dismissible="notification.dismissible"
+        @close="notifications.removeNotification(notification.id)"
+      />
+    </div>
   </div>
 </template>
 
@@ -249,6 +293,21 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(2px);
 }
 
 .settings-title {
@@ -303,6 +362,7 @@ export default {
   border: 1px solid var(--color-gray-300);
   border-radius: var(--radius-md);
   font-size: 1rem;
+  transition: var(--transition-base);
 }
 
 .settings-search:focus {
@@ -343,12 +403,14 @@ export default {
 
 .settings-nav-button:hover {
   background: var(--color-gray-100);
+  transform: translateX(2px);
 }
 
 .settings-nav-button.active {
   background: var(--color-blue-100);
   color: var(--color-blue-700);
   font-weight: 500;
+  transform: translateX(4px);
 }
 
 .settings-section {
@@ -383,6 +445,7 @@ export default {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  border: none;
 }
 
 .settings-button-primary {
@@ -392,6 +455,8 @@ export default {
 
 .settings-button-primary:hover {
   background: var(--color-blue-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .settings-button-success {
@@ -401,6 +466,8 @@ export default {
 
 .settings-button-success:hover {
   background: var(--color-green-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .settings-button-danger {
@@ -410,6 +477,8 @@ export default {
 
 .settings-button-danger:hover {
   background: var(--color-red-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .sr-only {
@@ -422,6 +491,13 @@ export default {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.settings-no-results {
+  text-align: center;
+  color: var(--color-gray-500);
+  font-style: italic;
+  padding: 2rem;
 }
 
 @media (max-width: 768px) {
