@@ -22,9 +22,9 @@ describe("SettingComponent.vue", () => {
       setting: { type: "checkbox", default: false },
     });
 
-    const checkbox = wrapper.find("input[type='checkbox']");
+    const checkbox = wrapper.find(".setting-checkbox");
     expect(checkbox.exists()).toBe(true);
-    expect(checkbox.element.checked).toBe(true); // Valeur retournée par getSetting
+    expect(checkbox.element.checked).toBe(true);
 
     await checkbox.setChecked(false);
     expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "checkbox", false);
@@ -37,7 +37,7 @@ describe("SettingComponent.vue", () => {
       setting: { type: "menu", values: ["option1", "option2"], default: "option1" },
     });
 
-    const select = wrapper.find("select");
+    const select = wrapper.find(".setting-select");
     expect(select.exists()).toBe(true);
     await select.setValue("option2");
     expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "dropdown", "option2");
@@ -50,7 +50,7 @@ describe("SettingComponent.vue", () => {
       setting: { type: "number", min: 1, max: 10, default: 5 },
     });
 
-    const numberInput = wrapper.find("input[type='range']");
+    const numberInput = wrapper.find(".setting-range");
     expect(numberInput.exists()).toBe(true);
     await numberInput.setValue(7);
     expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "number", 7);
@@ -63,7 +63,7 @@ describe("SettingComponent.vue", () => {
       setting: { type: "text", default: "Hello" },
     });
 
-    const textInput = wrapper.find("input[type='text']");
+    const textInput = wrapper.find(".setting-input");
     expect(textInput.exists()).toBe(true);
     await textInput.setValue("New Value");
     expect(settingsStore.updateSetting).toHaveBeenCalledWith("category", "text", "New Value");
@@ -76,7 +76,7 @@ describe("SettingComponent.vue", () => {
       setting: { type: "checkbox", default: false },
     });
 
-    const button = wrapper.find("button");
+    const button = wrapper.find(".setting-default-button");
     expect(button.exists()).toBe(true);
 
     await button.trigger("click");

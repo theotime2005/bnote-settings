@@ -4,6 +4,12 @@ import UploadFileComponent from "@/components/UploadFileComponent.vue";
 import { render, t } from "@/tests/components/helpers.js";
 
 const mockLoadSettings = vi.fn();
+const mockNotifications = {
+  error: vi.fn(),
+  success: vi.fn(),
+  info: vi.fn(),
+  warning: vi.fn(),
+};
 
 vi.mock("@/stores/settingsStore.js", () => ({
   useSettingsStore: () => ({
@@ -11,7 +17,15 @@ vi.mock("@/stores/settingsStore.js", () => ({
   }),
 }));
 
+vi.mock("@/composables/useNotifications.js", () => ({
+  useNotifications: () => mockNotifications,
+}));
+
 describe("UploadFileComponent.vue", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("should handle file selection correctly", async () => {
     // given
     const wrapper = render(UploadFileComponent);
@@ -26,20 +40,84 @@ describe("UploadFileComponent.vue", () => {
     expect(wrapper.vm.fileInput).toBe(file);
   });
 
+  it("should handle drag and drop correctly", async () => {
+    // given
+    const wrapper = render(UploadFileComponent);
+    const file = new File(["test content"], "test.bnote", { type: "text/plain" });
+    const dropZone = wrapper.find(".file-input-wrapper");
+
+    // when
+    await dropZone.trigger("dragenter");
+    expect(wrapper.vm.isDragOver).toBe(true);
+
+    // Simulate drop event with files
+    await dropZone.trigger("drop", {
+      dataTransfer: {
+        files: [file],
+      },
+    });
+
+    // then
+    expect(wrapper.vm.isDragOver).toBe(false);
+    expect(wrapper.vm.fileInput).toBe(file);
+  });
+
+  it("should remove file correctly", async () => {
+    // given
+    const wrapper = render(UploadFileComponent);
+    const file = new File(["test content"], "test.bnote", { type: "text/plain" });
+    wrapper.vm.fileInput = file;
+    await wrapper.vm.$nextTick();
+
+    // when
+    const removeButton = wrapper.find(".file-remove");
+    await removeButton.trigger("click");
+
+    // then
+    expect(wrapper.vm.fileInput).toBe(null);
+  });
+
+  it("should format file size correctly", () => {
+    // given
+    const wrapper = render(UploadFileComponent);
+
+    // then
+    expect(wrapper.vm.formatFileSize(0)).toBe("0 B");
+    expect(wrapper.vm.formatFileSize(1024)).toBe("1 KB");
+    expect(wrapper.vm.formatFileSize(1048576)).toBe("1 MB");
+  });
+
   it("should display an alert if the file format is incorrect", async () => {
     // given
     const wrapper = render(UploadFileComponent);
     window.alert = vi.fn();
     const file = new File(["test content"], "test.txt", { type: "text/plain" });
-    const input = wrapper.find("input[type='file']");
+    wrapper.vm.fileInput = file;
 
     // when
-    Object.defineProperty(input.element, "files", { value: [file] });
-    await input.trigger("change");
     wrapper.vm.uploadFile();
 
     // then
     expect(window.alert).toHaveBeenCalledWith(t("uploadFile.incorrectFormatFile"));
+  });
+
+  it("should display notification for invalid JSON content", async () => {
+    // given
+    const wrapper = render(UploadFileComponent);
+    window.alert = vi.fn();
+    const fileContent = "invalid json content";
+    const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
+    const mockFileReader = { readAsText: vi.fn(), onloadend: null };
+    window.FileReader = vi.fn(() => mockFileReader);
+    wrapper.vm.fileInput = file;
+
+    // when
+    wrapper.vm.uploadFile();
+    mockFileReader.onloadend({ target: { result: fileContent } });
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // then
+    expect(window.alert).toHaveBeenCalledWith(t("uploadFile.invalidFileContent"));
   });
 
   it("should read file content and emit 'file-uploaded'", async () => {
@@ -49,17 +127,15 @@ describe("UploadFileComponent.vue", () => {
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
     const mockFileReader = { readAsText: vi.fn(), onloadend: null };
     window.FileReader = vi.fn(() => mockFileReader);
-    const input = wrapper.find("input[type='file']");
+    wrapper.vm.fileInput = file;
 
     // when
-    Object.defineProperty(input.element, "files", { value: [file] });
-    await input.trigger("change");
     wrapper.vm.uploadFile();
     mockFileReader.onloadend({ target: { result: fileContent } });
     await new Promise(resolve => setTimeout(resolve, 0));
 
     // then
-    expect(mockLoadSettings).toHaveBeenCalledWith(JSON.parse(fileContent), wrapper.vm.fileInput.name.split(".")[0]);
+    expect(mockLoadSettings).toHaveBeenCalledWith(JSON.parse(fileContent), "settings");
     expect(wrapper.emitted("file-uploaded")).toBeTruthy();
   });
 });
