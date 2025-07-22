@@ -10,6 +10,17 @@
     "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
     "title": "About website"
   },
+  "common": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "error": "Error",
+    "info": "Information",
+    "loading": "Loading...",
+    "save": "Save",
+    "success": "Success",
+    "warning": "Warning"
+  },
   "download": {
     "downloadEurobraille": "Download the version of Eurobraille",
     "downloadOtherLast": "Download {version}",
@@ -141,6 +152,13 @@
       "words": "Words",
       "write_all": "Write everything"
     },
+    "notifications": {
+      "configurationReset": "Configuration reset successfully",
+      "defaultConfigurationLoaded": "Default configuration loaded",
+      "downloadError": "Error downloading file",
+      "fileDownloaded": "File downloaded successfully",
+      "fileLoaded": "File loaded successfully"
+    },
     "page": {
       "create": "Show the default model",
       "defaultName": "Default configuration",
@@ -207,7 +225,10 @@
   "skip-content": "Skip to content",
   "title": "B.note management",
   "uploadFile": {
+    "dragDrop": "Drag and drop your file here",
     "incorrectFormatFile": "Incorrect file format",
+    "invalidFileContent": "The file content is not valid",
+    "orClick": "or click to select",
     "select": "Select a file",
     "show": "Show",
     "title": "Import file"

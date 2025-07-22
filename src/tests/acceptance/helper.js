@@ -6,6 +6,16 @@ import App from "@/App.vue";
 import i18n from "@/i18n.js";
 import router from "@/router/index.js";
 
+// Mock global pour les composables
+vi.mock("@/composables/useNotifications.js", () => ({
+  useNotifications: () => ({
+    notifications: { value: [] },
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    warning: vi.fn(),
+  }),
+}));
 
 /**
  * Helper pour monter un composant Vue avec une configuration par défaut.

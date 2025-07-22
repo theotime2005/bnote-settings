@@ -49,7 +49,8 @@ export default {
       <button
         v-if="settingValue !== setting.default"
         type="button"
-        class="setting-default-button"
+        class="setting-default-button focus-ring"
+        :title="$t('settings.values.default')"
         @click="setDefault"
       >
         {{ $t("settings.values.default") }}
@@ -64,9 +65,12 @@ export default {
         type="checkbox"
         :name="name"
         :checked="settingValue"
-        class="setting-checkbox"
+        class="setting-checkbox focus-ring"
         @change="updateSetting"
       />
+      <label :for="label_id" class="setting-checkbox-label">
+        <span class="setting-checkbox-indicator"></span>
+      </label>
     </div>
 
     <!-- Dropdown -->
@@ -75,7 +79,7 @@ export default {
         :id="label_id"
         v-model="settingValue"
         :name="name"
-        class="setting-select"
+        class="setting-select focus-ring"
         @change="updateSetting"
       >
         <option
@@ -97,7 +101,7 @@ export default {
         :name="name"
         :min="setting.min"
         :max="setting.max"
-        class="setting-range"
+        class="setting-range focus-ring"
         :list="label_id + 'tickmarks'"
         @input="updateSetting"
       />
@@ -116,7 +120,8 @@ export default {
         v-model="settingValue"
         type="text"
         :name="name"
-        class="setting-input"
+        class="setting-input focus-ring"
+        :placeholder="$t('settings.values.default')"
         @input="updateSetting"
       />
     </div>
@@ -129,6 +134,13 @@ export default {
   border-radius: var(--radius-md);
   padding: 1rem;
   box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  border: 1px solid var(--color-gray-200);
+}
+
+.setting-container:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 .setting-header {
@@ -141,6 +153,7 @@ export default {
 .setting-label {
   font-weight: 500;
   color: var(--color-gray-700);
+  cursor: pointer;
 }
 
 .setting-default-button {
@@ -157,6 +170,7 @@ export default {
 .setting-default-button:hover {
   background: var(--color-blue-100);
   border-color: var(--color-blue-300);
+  transform: scale(1.05);
 }
 
 .setting-control {
@@ -164,17 +178,41 @@ export default {
 }
 
 .setting-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.setting-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.setting-checkbox-indicator {
   width: 1.25rem;
   height: 1.25rem;
   border: 2px solid var(--color-gray-300);
   border-radius: var(--radius-sm);
-  cursor: pointer;
   transition: all 0.2s;
+  position: relative;
+  background: var(--color-white);
 }
 
-.setting-checkbox:checked {
+.setting-checkbox:checked + .setting-checkbox-label .setting-checkbox-indicator {
   background-color: var(--color-blue-500);
   border-color: var(--color-blue-500);
+}
+
+.setting-checkbox:checked + .setting-checkbox-label .setting-checkbox-indicator::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: bold;
 }
 
 .setting-select,
@@ -194,6 +232,11 @@ export default {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
+.setting-select:hover,
+.setting-input:hover {
+  border-color: var(--color-gray-400);
+}
+
 .setting-number {
   display: flex;
   align-items: center;
@@ -207,6 +250,7 @@ export default {
   background: var(--color-gray-200);
   border-radius: var(--radius-full);
   outline: none;
+  transition: all 0.2s;
 }
 
 .setting-range::-webkit-slider-thumb {
@@ -217,11 +261,30 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
 }
 
 .setting-range::-webkit-slider-thumb:hover {
   background: var(--color-blue-600);
   transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+.setting-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--color-blue-500);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.setting-range::-moz-range-thumb:hover {
+  background: var(--color-blue-600);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
 }
 
 .setting-value {
@@ -229,6 +292,10 @@ export default {
   text-align: center;
   font-weight: 500;
   color: var(--color-gray-700);
+  background: var(--color-gray-100);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-family: monospace;
 }
 
 @media (max-width: 640px) {

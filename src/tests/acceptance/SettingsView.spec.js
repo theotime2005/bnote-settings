@@ -1,5 +1,16 @@
 import { render } from "@/tests/acceptance/helper.js";
 
+// Mock des composables et utilitaires
+vi.mock("@/composables/useNotifications.js", () => ({
+  useNotifications: () => ({
+    notifications: { value: [] },
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    warning: vi.fn(),
+  }),
+}));
+
 describe("Acceptance | SettingsView", () => {
   let wrapper;
   beforeEach(async () => {
@@ -24,6 +35,9 @@ describe("Acceptance | SettingsView", () => {
 
       // then
       await defaultButton.trigger("click");
+      await wrapper.vm.$nextTick();
+      // Attendre que le loading soit terminé
+      await new Promise(resolve => setTimeout(resolve, 600));
       const fileTitle = wrapper.find("h2").text();
       expect(fileTitle).toBe("settings.page.defaultName");
     });
@@ -33,6 +47,9 @@ describe("Acceptance | SettingsView", () => {
     beforeEach(async () => {
       const defaultButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.create");
       await defaultButton.trigger("click");
+      await wrapper.vm.$nextTick();
+      // Attendre que le loading soit terminé
+      await new Promise(resolve => setTimeout(resolve, 600));
     });
 
     describe("test the dialogs box", () => {
@@ -50,6 +67,9 @@ describe("Acceptance | SettingsView", () => {
 
         // when
         await resetButton.trigger("click");
+        await wrapper.vm.$nextTick();
+        // Attendre que le loading soit terminé
+        await new Promise(resolve => setTimeout(resolve, 600));
 
         // then
         expect(window.confirm).toHaveBeenCalledWith("settings.page.resetQuestion");
@@ -64,6 +84,7 @@ describe("Acceptance | SettingsView", () => {
 
         // when
         await downloadButton.trigger("submit");
+        await wrapper.vm.$nextTick();
 
         // then
         expect(window.confirm).toHaveBeenCalledWith("settings.page.question");
@@ -85,6 +106,7 @@ describe("Acceptance | SettingsView", () => {
 
         // when
         await firstSectionButton.trigger("click");
+        await wrapper.vm.$nextTick();
 
         // then
         expect(firstSectionButton.classes()).toContain("active");
