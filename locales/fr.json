@@ -10,6 +10,17 @@
     "message3": "N'hésitez pas à nous faire remonter toutes suggestions ou problème via GitHub.",
     "title": "A propos du site"
   },
+  "common": {
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "error": "Erreur",
+    "info": "Information",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "success": "Succès",
+    "warning": "Attention"
+  },
   "download": {
     "downloadEurobraille": "Télécharger la version d'Eurobraille",
     "downloadOtherLast": "Télécharger {version}",
@@ -141,6 +152,13 @@
       "words": "Annotations",
       "write_all": "Tout écrire"
     },
+    "notifications": {
+      "configurationReset": "Configuration réinitialisée avec succès",
+      "defaultConfigurationLoaded": "Configuration par défaut chargée",
+      "downloadError": "Erreur lors du téléchargement du fichier",
+      "fileDownloaded": "Fichier téléchargé avec succès",
+      "fileLoaded": "Fichier chargé avec succès"
+    },
     "page": {
       "create": "Afficher le modèle par défaut",
       "defaultName": "Configuration par défaut",
@@ -207,7 +225,10 @@
   "skip-content": "Passer au contenu",
   "title": "Gestion du B.note",
   "uploadFile": {
+    "dragDrop": "Glissez-déposez votre fichier ici",
     "incorrectFormatFile": "Format de fichier incorrect",
+    "invalidFileContent": "Le contenu du fichier n'est pas valide",
+    "orClick": "ou cliquez pour sélectionner",
     "select": "Sélectionnez un fichier",
     "show": "Afficher",
     "title": "Importer un fichier"

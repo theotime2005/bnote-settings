@@ -10,6 +10,17 @@
     "message3": "Non esitate a segnalarci qualsiasi suggerimento o problema tramite GitHub.",
     "title": "A proposito del sito"
   },
+  "common": {
+    "cancel": "Cancellare",
+    "close": "Chiudi",
+    "confirm": "Confermare",
+    "error": "Errore",
+    "info": "Informazioni",
+    "loading": "Caricamento...",
+    "save": "Salva",
+    "success": "Successo",
+    "warning": "Attenzione"
+  },
   "download": {
     "downloadEurobraille": "Scarica la versione di Eurobraille",
     "downloadOtherLast": "Scarica {version}",
@@ -141,6 +152,13 @@
       "words": "Annotazioni",
       "write_all": "Scrivere tutto"
     },
+    "notifications": {
+      "configurationReset": "Configurazione ripristina correttamente",
+      "defaultConfigurationLoaded": "Carica la configurazione predefinita",
+      "downloadError": "Errore durante il download del file",
+      "fileDownloaded": "File scaricato con successo",
+      "fileLoaded": "File riuscito"
+    },
     "page": {
       "create": "Visualizzare il modello predefinito",
       "defaultName": "Configurazione di default",
@@ -207,7 +225,10 @@
   "skip-content": "Passare al contenuto",
   "title": "Gestione del B.note",
   "uploadFile": {
+    "dragDrop": "Fai scorrere il tuo file qui",
     "incorrectFormatFile": "Formato file non corretto",
+    "invalidFileContent": "Il contenuto del file non è valido",
+    "orClick": "o fare clic per selezionare",
     "select": "Seleziona un file",
     "show": "Mostra",
     "title": "Carica un file"
