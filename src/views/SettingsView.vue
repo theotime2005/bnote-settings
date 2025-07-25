@@ -1,5 +1,6 @@
 <script>
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import NotificationToast from "@/components/NotificationToast.vue";
 import SettingComponent from "@/components/SettingComponent.vue";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
 import { useNotifications } from "@/composables/useNotifications.js";
@@ -9,6 +10,7 @@ import { useSettingsStore } from "@/stores/settingsStore.js";
 export default {
   name: "SettingsView",
   components: {
+    NotificationToast,
     UploadFileComponent,
     SettingComponent,
     LoadingSpinner,
@@ -275,7 +277,7 @@ export default {
     </div>
 
     <!-- Notifications -->
-    <div v-for="notification in notifications.notifications.value" :key="notification.id">
+    <div v-for="notification in notifications.notifications" :key="notification.id">
       <NotificationToast
         :visible="notification.visible"
         :type="notification.type"
