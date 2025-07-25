@@ -1,10 +1,3 @@
-<template>
-  <div class="loading-spinner" :class="{ 'loading-spinner--small': size === 'small', 'loading-spinner--large': size === 'large' }">
-    <div class="loading-spinner__circle"></div>
-    <span v-if="text" class="loading-spinner__text">{{ text }}</span>
-  </div>
-</template>
-
 <script>
 export default {
   name: "LoadingSpinner",
@@ -21,6 +14,13 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="loading-spinner" :class="{ 'loading-spinner--small': size === 'small', 'loading-spinner--large': size === 'large' }">
+    <div class="loading-spinner__circle"></div>
+    <span v-if="text" class="loading-spinner__text">{{ text }}</span>
+  </div>
+</template>
 
 <style scoped>
 .loading-spinner {

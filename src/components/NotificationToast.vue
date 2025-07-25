@@ -1,33 +1,3 @@
-<template>
-  <Teleport to="body">
-    <Transition name="toast" appear>
-      <div
-        v-if="visible"
-        class="toast"
-        :class="[`toast--${type}`, { 'toast--dismissible': dismissible }]"
-        role="alert"
-        :aria-live="type === 'error' ? 'assertive' : 'polite'"
-      >
-        <div class="toast__icon">
-          <component :is="iconComponent" />
-        </div>
-        <div class="toast__content">
-          <h4 v-if="title" class="toast__title">{{ title }}</h4>
-          <p class="toast__message">{{ message }}</p>
-        </div>
-        <button
-          v-if="dismissible"
-          class="toast__close"
-          :aria-label="$t('common.close')"
-          @click="$emit('close')"
-        >
-          ×
-        </button>
-      </div>
-    </Transition>
-  </Teleport>
-</template>
-
 <script>
 export default {
   name: "NotificationToast",
@@ -79,6 +49,36 @@ export default {
   },
 };
 </script>
+
+<template>
+  <Teleport to="body">
+    <Transition name="toast" appear>
+      <div
+        v-if="visible"
+        class="toast"
+        :class="[`toast--${type}`, { 'toast--dismissible': dismissible }]"
+        role="alert"
+        :aria-live="type === 'error' ? 'assertive' : 'polite'"
+      >
+        <div class="toast__icon">
+          <component :is="iconComponent" />
+        </div>
+        <div class="toast__content">
+          <h4 v-if="title" class="toast__title">{{ title }}</h4>
+          <p class="toast__message">{{ message }}</p>
+        </div>
+        <button
+          v-if="dismissible"
+          class="toast__close"
+          :aria-label="$t('common.close')"
+          @click="$emit('close')"
+        >
+          ×
+        </button>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
 
 <style scoped>
 .toast {

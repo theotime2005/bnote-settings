@@ -78,6 +78,12 @@ export default [
       "no-trailing-spaces": ["error"],
       "no-multi-spaces": ["error"],
       "func-style": ["error", "declaration", { "allowArrowFunctions": false }],
+      "vue/block-order": [
+        "error",
+        {
+          order: ["script", "template", "style"],
+        },
+      ],
     },
   },
   {
