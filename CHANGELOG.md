@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.2.1](https://github.com/theotime2005/bnote-settings/compare/v4.2.0...v4.2.1) (2025-07-25)
+
+
+### 🐛 Bug fixes
+
+* **translations:** fix the translations ([#310](https://github.com/theotime2005/bnote-settings/issues/310)) ([768b2cb](https://github.com/theotime2005/bnote-settings/commit/768b2cb7850df1e39f3eebb531c1405921bcd1c9)), closes [/#diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L69-R71](https://github.com/theotime2005///issues/diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L69-R71) [/#diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L89-R98](https://github.com/theotime2005///issues/diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L89-R98) [/#diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L152-R152](https://github.com/theotime2005///issues/diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L152-R152) [/#diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L199-R207](https://github.com/theotime2005///issues/diff-c9218bed23f0aeb93d7e1a7d5f6e1345fae20f4b8692b27fb97fd0f37b3d26d7L199-R207) [/#diff-836ffe87abac5fbef084c940b0afc28aabd04c6450896d83fd4f7b2aca58b84fL20-R35](https://github.com/theotime2005///issues/diff-836ffe87abac5fbef084c940b0afc28aabd04c6450896d83fd4f7b2aca58b84fL20-R35) [/#diff-836ffe87abac5fbef084c940b0afc28aabd04c6450896d83fd4f7b2aca58b84fL64-R73](https://github.com/theotime2005///issues/diff-836ffe87abac5fbef084c940b0afc28aabd04c6450896d83fd4f7b2aca58b84fL64-R73) [/#diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cL4-R4](https://github.com/theotime2005///issues/diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cL4-R4) [/#diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cL14-R16](https://github.com/theotime2005///issues/diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cL14-R16) [/#diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cL77-R77](https://github.com/theotime2005///issues/diff-857654eba54a2149d43ab51b00c1daf863edc718308286e32a96cad8dc79342cL77-R77)
+* **views:** use correctly the notification toster ([#311](https://github.com/theotime2005/bnote-settings/issues/311)) ([2324784](https://github.com/theotime2005/bnote-settings/commit/23247844e6e912013ad68eb28aefac0c128bddd8)), closes [/#diff-5e0b544f4313686d1db89dd68b558c482d800208982757006c2700ae33437fb6R3](https://github.com/theotime2005///issues/diff-5e0b544f4313686d1db89dd68b558c482d800208982757006c2700ae33437fb6R3) [/#diff-5e0b544f4313686d1db89dd68b558c482d800208982757006c2700ae33437fb6R13](https://github.com/theotime2005///issues/diff-5e0b544f4313686d1db89dd68b558c482d800208982757006c2700ae33437fb6R13)
+
+
+### 🔖 Version bump
+
+* **deps-dev:** bump vite from 7.0.5 to 7.0.6 ([#309](https://github.com/theotime2005/bnote-settings/issues/309)) ([a481be2](https://github.com/theotime2005/bnote-settings/commit/a481be29a1c641cdc90940591d8e7d6e2937b919))
+* **deps:** bump @vue/compiler-sfc from 3.5.17 to 3.5.18 ([#306](https://github.com/theotime2005/bnote-settings/issues/306)) ([65c114a](https://github.com/theotime2005/bnote-settings/commit/65c114a4b6e19f05a57943e661568fd0e292bafa))
+* **deps:** bump vue from 3.5.17 to 3.5.18 ([#308](https://github.com/theotime2005/bnote-settings/issues/308)) ([9025dd8](https://github.com/theotime2005/bnote-settings/commit/9025dd899b48e6846dfc27b8eacb533cdfe21509))
+* **deps:** bump vue-i18n from 11.1.10 to 11.1.11 ([#307](https://github.com/theotime2005/bnote-settings/issues/307)) ([8f783fe](https://github.com/theotime2005/bnote-settings/commit/8f783fef4401ae491d7dfbff202f55bdc406efe7))
+
+
+### 🛠️ Tech
+
+* **linter:** Add linter rule for vue components ([#312](https://github.com/theotime2005/bnote-settings/issues/312)) ([e1f2a35](https://github.com/theotime2005/bnote-settings/commit/e1f2a350d49a3d740bba09a7d8aa208e63f49ab0)), closes [/#diff-0addca6bd97c644599546dc23f2f1b8dff03a96d23d1c582056a58de102cfa67L1-L7](https://github.com/theotime2005///issues/diff-0addca6bd97c644599546dc23f2f1b8dff03a96d23d1c582056a58de102cfa67L1-L7) [/#diff-0addca6bd97c644599546dc23f2f1b8dff03a96d23d1c582056a58de102cfa67R18-R24](https://github.com/theotime2005///issues/diff-0addca6bd97c644599546dc23f2f1b8dff03a96d23d1c582056a58de102cfa67R18-R24) [/#diff-7765761dab6c238a3d7b6b5db79875a212956ecf6689f5b76293f5f772b74e70L1-L30](https://github.com/theotime2005///issues/diff-7765761dab6c238a3d7b6b5db79875a212956ecf6689f5b76293f5f772b74e70L1-L30) [/#diff-7765761dab6c238a3d7b6b5db79875a212956ecf6689f5b76293f5f772b74e70R53-R82](https://github.com/theotime2005///issues/diff-7765761dab6c238a3d7b6b5db79875a212956ecf6689f5b76293f5f772b74e70R53-R82)
+
 ## [4.2.0](https://github.com/theotime2005/bnote-settings/compare/v4.1.2...v4.2.0) (2025-07-22)
 
 
