@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.2.2](https://github.com/theotime2005/bnote-settings/compare/v4.2.1...v4.2.2) (2025-08-03)
+
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.0 to 6.0.1 ([#315](https://github.com/theotime2005/bnote-settings/issues/315)) ([cad756b](https://github.com/theotime2005/bnote-settings/commit/cad756b4b18382fd49b7d5162a4e309a7e37ce9b))
+* **deps-dev:** bump commit-and-tag-version from 12.5.1 to 12.5.2 ([#316](https://github.com/theotime2005/bnote-settings/issues/316)) ([ecba257](https://github.com/theotime2005/bnote-settings/commit/ecba2572f2471637d6dedaaa64ab99b7fe82d0e2))
+* **deps-dev:** bump eslint from 9.31.0 to 9.32.0 ([#314](https://github.com/theotime2005/bnote-settings/issues/314)) ([37a86c5](https://github.com/theotime2005/bnote-settings/commit/37a86c5fa9c171a232770e503233f761efd51d83))
+* **deps-dev:** bump eslint-plugin-vue from 10.3.0 to 10.4.0 ([#317](https://github.com/theotime2005/bnote-settings/issues/317)) ([eda1b3e](https://github.com/theotime2005/bnote-settings/commit/eda1b3eee4ac876205fff33e68c2659fa12482f7))
+
+
+### 🛠️ Tech
+
+* add the auto merge for dependabot pull requests ([#318](https://github.com/theotime2005/bnote-settings/issues/318)) ([6328081](https://github.com/theotime2005/bnote-settings/commit/63280818c5249630d22b5a663be5ffa884688d0b)), closes [/#diff-dd4fbda47e51f1e35defb9275a9cd9c212ecde0b870cba89ddaaae65c5f3cd28R13](https://github.com/theotime2005///issues/diff-dd4fbda47e51f1e35defb9275a9cd9c212ecde0b870cba89ddaaae65c5f3cd28R13) [/#diff-dd4fbda47e51f1e35defb9275a9cd9c212ecde0b870cba89ddaaae65c5f3cd28L25-R27](https://github.com/theotime2005///issues/diff-dd4fbda47e51f1e35defb9275a9cd9c212ecde0b870cba89ddaaae65c5f3cd28L25-R27)
+
 ## [4.2.1](https://github.com/theotime2005/bnote-settings/compare/v4.2.0...v4.2.1) (2025-07-25)
 
 
