@@ -23,14 +23,24 @@ permissions:
 
 jobs:
   auto_merge:
+    if: |
+      github.event_name == 'pull_request' &&
+      contains(join(github.event.pull_request.labels.*.name, ','), 'Ready to merge') &&
+      github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    if: contains(join(github.event.pull_request.labels.*.name, ','), 'Ready to merge') && github.event.pull_request.draft == false
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
+
+      - name: Cancel if label is removed
+        if: |
+          github.event.action == 'unlabeled' &&
+          github.event.label.name == 'Ready to merge'
+        run: |
+          echo "Label 'Ready to merge' removed, cancelling job."
+          exit 1
 
       - name: Rebase branch before merge
         run: |
@@ -45,6 +55,12 @@ jobs:
           git push origin ${{ github.event.pull_request.head.ref }} --force-with-lease
 
       - name: Enable auto-merge or merge pull request
-        run: gh pr merge ${{ github.event.pull_request.number }} --auto -s -d
         env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           GH_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
+        run: |
+          if [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
+            gh pr comment $PR_NUMBER --body "@dependabot squash and merge"
+          else
+            gh pr merge $PR_NUMBER --auto -s -d
+          fi
