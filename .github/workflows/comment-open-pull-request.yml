@@ -13,7 +13,7 @@ jobs:
     if: github.actor != 'dependabot[bot]' && github.actor != 'theotime2005'
     steps:
       - name: checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Comment pull request
         run: |
           gh pr comment ${{ github.event.pull_request.number }} --body "Hello,
