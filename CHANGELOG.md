@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [4.2.3](https://github.com/theotime2005/bnote-settings/compare/v4.2.2...v4.2.3) (2025-08-18)
+
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @eslint/compat from 1.3.1 to 1.3.2 ([#321](https://github.com/theotime2005/bnote-settings/issues/321)) ([3fdc454](https://github.com/theotime2005/bnote-settings/commit/3fdc454c6aaa8291b96c94765856b2f7b607913c))
+* **deps-dev:** bump eslint from 9.32.0 to 9.33.0 ([#322](https://github.com/theotime2005/bnote-settings/issues/322)) ([2d6e909](https://github.com/theotime2005/bnote-settings/commit/2d6e90985368bf53a9fde75c1b262b17756c6e69))
+* **deps-dev:** bump vite from 7.0.6 to 7.1.0 ([#319](https://github.com/theotime2005/bnote-settings/issues/319)) ([bb038b0](https://github.com/theotime2005/bnote-settings/commit/bb038b08b98c79e42ffca233c70ac83f2fe32d04))
+* **deps-dev:** bump vite from 7.1.0 to 7.1.1 ([#320](https://github.com/theotime2005/bnote-settings/issues/320)) ([7dd7dc7](https://github.com/theotime2005/bnote-settings/commit/7dd7dc7f4dc4082aca049346e414a270dc7b6d36))
+* **deps-dev:** bump vite from 7.1.1 to 7.1.2 ([#324](https://github.com/theotime2005/bnote-settings/issues/324)) ([d29bcdc](https://github.com/theotime2005/bnote-settings/commit/d29bcdc0ac770ba6fb7a5b70db12fc7cbe9f4d42))
+* **deps:** bump actions/checkout from 4 to 5 ([#323](https://github.com/theotime2005/bnote-settings/issues/323)) ([9aa4610](https://github.com/theotime2005/bnote-settings/commit/9aa461064141b85ec981b4dab22cf3504b73fd3e))
+* Update .nvmrc to Node.js 24.6.0 ([#326](https://github.com/theotime2005/bnote-settings/issues/326)) ([3ccdaef](https://github.com/theotime2005/bnote-settings/commit/3ccdaef84a2dbe4b2ad9bf72e6abbe8a6e9bb55d))
+
+
+### 🛠️ Tech
+
+* fix code owner and create action to update node version ([#325](https://github.com/theotime2005/bnote-settings/issues/325)) ([5bc48fb](https://github.com/theotime2005/bnote-settings/commit/5bc48fba4e20dfadf1bc5a36a8616afb1df59f0e))
+
 ## [4.2.2](https://github.com/theotime2005/bnote-settings/compare/v4.2.1...v4.2.2) (2025-08-03)
 
 
