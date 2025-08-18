@@ -1,0 +1,53 @@
+name: Update .nvmrc to latest Node.js
+
+on:
+  schedule:
+    - cron: '0 3 * * 1' # Tous les lundis à 3h UTC
+  workflow_dispatch:
+
+jobs:
+  update-nvmrc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: node
+
+      - name: Create new branch with node-version
+        run: |
+          git config --local user.name "github-actions-updater"
+          git config --local user.email "github-actions-updater@github.com"
+            git checkout -b update-nvmrc-${{ env.latest_node_version }}
+
+      - name: Update .nvmrc file
+        run: |
+      - name: Get latest Node.js version
+        id: get_node_version
+        run: echo "latest_node_version=$(node -v | sed 's/^v//')" >> $GITHUB_ENV
+
+      - name: Create new branch with node-version
+        run: |
+          git config --local user.name "github-actions-updater"
+          git config --local user.email "github-actions-updater@github.com"
+          git checkout -b update-nvmrc-${{ env.latest_node_version }}
+
+      - name: Update .nvmrc file
+        run: |
+          echo "${{ env.latest_node_version }}" > .nvmrc
+
+      - name: Commit and push file
+        run: |
+          git add .nvmrc
+          git commit -m "Update .nvmrc to Node.js ${{ env.latest_node_version }}"
+          git push --set-upstream origin update-nvmrc-${{ env.latest_node_version }}
+
+      
+      - name: Create pull request with gh
+        run: |
+          gh pr create --title "bump: Update .nvmrc to Node.js ${{ env.latest_node_version }}" --body "This PR updates the .nvmrc file to the latest Node.js version ${{ env.latest_node_version }}." --base main --head update-nvmrc-${{ env.latest_node_version }}
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
