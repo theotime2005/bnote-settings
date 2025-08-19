@@ -10,6 +10,9 @@ import router from "@/router/index.js";
 vi.mock("@/composables/useNotifications.js", () => ({
   useNotifications: () => ({
     notifications: { value: [] },
+    addNotification: vi.fn(),
+    removeNotification: vi.fn(),
+    clearAll: vi.fn(),
     success: vi.fn(),
     error: vi.fn(),
     info: vi.fn(),
