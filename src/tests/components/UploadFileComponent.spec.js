@@ -5,6 +5,10 @@ import { render, t } from "@/tests/components/helpers.js";
 
 const mockLoadSettings = vi.fn();
 const mockNotifications = {
+  notifications: { value: [] },
+  addNotification: vi.fn(),
+  removeNotification: vi.fn(),
+  clearAll: vi.fn(),
   error: vi.fn(),
   success: vi.fn(),
   info: vi.fn(),
