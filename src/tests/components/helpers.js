@@ -1,6 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
+import i18n from "@/i18n.js";
+
 // Mock global pour les composables
 vi.mock("@/composables/useNotifications.js", () => ({
   useNotifications: () => ({
@@ -23,6 +25,7 @@ function render(component, global = {}, properties = {}, data = null) {
   // Initialize mocks with the default $t mock
   const defaultMocks = {
     $t: (msg) => msg,
+    $i18n: i18n,
   };
 
   // Fusion of the global options with the default mocks
