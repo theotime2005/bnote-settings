@@ -28,7 +28,6 @@ export default {
   },
   computed: {
     filteredSettings() {
-      // Ensure we have valid settings data
       if (!this.all_settings || typeof this.all_settings !== "object") {
         return {};
       }
@@ -37,7 +36,6 @@ export default {
       const query = this.searchQuery.toLowerCase();
       const filtered = {};
       for (const [section, settings] of Object.entries(this.all_settings)) {
-        // Skip invalid sections
         if (!settings || typeof settings !== "object") {
           continue;
         }
@@ -115,12 +113,10 @@ export default {
       this.notifications.success(this.$t("settings.notifications.fileLoaded"));
     },
     toggleSection(section) {
-      // Ensure we have a valid section name
       if (!section || typeof section !== "string") {
         return;
       }
 
-      // Toggle the active section
       this.activeSection = this.activeSection === section ? null : section;
 
       this.$nextTick(() => {
