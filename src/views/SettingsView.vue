@@ -28,10 +28,20 @@ export default {
   },
   computed: {
     filteredSettings() {
+      // Ensure we have valid settings data
+      if (!this.all_settings || typeof this.all_settings !== "object") {
+        return {};
+      }
+
       if (!this.searchQuery) return this.all_settings;
       const query = this.searchQuery.toLowerCase();
       const filtered = {};
       for (const [section, settings] of Object.entries(this.all_settings)) {
+        // Skip invalid sections
+        if (!settings || typeof settings !== "object") {
+          continue;
+        }
+
         const sectionLabel = this.$t(`settings.id.${section}`).toLowerCase();
         const matchingSettings = {};
         const sectionMatch = sectionLabel.includes(query);
@@ -105,11 +115,18 @@ export default {
       this.notifications.success(this.$t("settings.notifications.fileLoaded"));
     },
     toggleSection(section) {
+      // Ensure we have a valid section name
+      if (!section || typeof section !== "string") {
+        return;
+      }
+
+      // Toggle the active section
       this.activeSection = this.activeSection === section ? null : section;
+
       this.$nextTick(() => {
         // Focus the first input of the opened section for accessibility
         if (this.activeSection) {
-          const sectionEl = document.getElementById(`section-${section}`);
+          const sectionEl = document.getElementById(`section-${this.activeSection}`);
           if (sectionEl) {
             const input = sectionEl.querySelector("input, select, textarea, button");
             if (input) input.focus();
