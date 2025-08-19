@@ -22,18 +22,12 @@ function t(msg) {
 }
 
 function render(component, global = {}, properties = {}, data = null) {
-  // Initialize mocks with the default $t mock
-  const defaultMocks = {
-    $t: (msg) => msg,
-    $i18n: i18n,
-  };
-
-  // Fusion of the global options with the default mocks
+  // Fusion of the global options with no default mocks to avoid conflicts with i18n plugin
   const global_component = {
     ...global,
+    plugins: [i18n, ...(global.plugins || [])], // Add i18n plugin for Composition API support
     mocks: {
-      ...defaultMocks,
-      ...(global.mocks || {}), // Add the mocks from the global options
+      ...(global.mocks || {}), // Only add mocks from the global options
     },
   };
 

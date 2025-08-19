@@ -2,43 +2,45 @@ import LanguageComponent from "@/components/LanguageComponent.vue";
 import { render } from "@/tests/components/helpers.js";
 
 describe("LanguageComponent", () => {
-  it("devrait définir la langue actuelle au montage", () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
-    const wrapper = render(LanguageComponent, {
-      mocks: {
-        $i18n,
-      },
-    });
-    expect(wrapper.vm.current_language).toBe($i18n.locale);
+  it("should defined language when mounted", () => {
+    // when
+    const wrapper = render(LanguageComponent);
+    // then
+    expect(wrapper.vm.current_language).toBe(wrapper.vm.$i18n.locale);
   });
 
-  it("devrait changer la langue quand une nouvelle langue est sélectionnée", async () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
-    const wrapper = render(LanguageComponent, {
-      mocks: {
-        $i18n,
-      },
-    });
+  it("should change language when another language is selected", async () => {
+    // given
+    const wrapper = render(LanguageComponent);
 
+    // when
     const select = wrapper.find("select");
-    await select.setValue("fr");
+    await select.setValue("en");
 
-    expect(wrapper.vm.current_language).toBe("fr");
-    expect($i18n.locale).toBe("fr");
-    expect(document.documentElement.lang).toBe("fr");
+    // then
+    expect(wrapper.vm.current_language).toBe("en");
+    expect(document.documentElement.lang).toBe("en");
   });
 
-  it("devrait afficher les options de langues correctement", () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
-    const wrapper = render(LanguageComponent, {
-      mocks: {
-        $i18n,
-      },
-    });
+  it("should display correctly language options", () => {
+    // wiven
+    const wrapper = render(LanguageComponent);
 
+    // then
     const options = wrapper.findAll("option");
-    expect(options.length).toBe(2);
-    expect(options[0].text()).toBe("languages.en"); // You can use this syntax if you use vue-i
-    expect(options[1].text()).toBe("languages.fr");
+    expect(options.length).toBe(4); // fr, en, it, es from i18n.js
+
+    // availableLocales returns languages in alphabetical order
+    expect(options[0].attributes("value")).toBe("en");
+    expect(options[0].text()).toBeTruthy(); // Language name in current locale
+
+    expect(options[1].attributes("value")).toBe("es");
+    expect(options[1].text()).toBeTruthy();
+
+    expect(options[2].attributes("value")).toBe("fr");
+    expect(options[2].text()).toBeTruthy();
+
+    expect(options[3].attributes("value")).toBe("it");
+    expect(options[3].text()).toBeTruthy();
   });
 });
