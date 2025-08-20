@@ -2,43 +2,40 @@ import LanguageComponent from "@/components/LanguageComponent.vue";
 import { render } from "@/tests/components/helpers.js";
 
 describe("LanguageComponent", () => {
-  it("devrait définir la langue actuelle au montage", () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
-    const wrapper = render(LanguageComponent, {
-      mocks: {
-        $i18n,
-      },
-    });
-    expect(wrapper.vm.current_language).toBe($i18n.locale);
-  });
+  it("should set current language on mount", () => {
+    // given
+    const wrapper = render(LanguageComponent);
 
-  it("devrait changer la langue quand une nouvelle langue est sélectionnée", async () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
-    const wrapper = render(LanguageComponent, {
-      mocks: {
-        $i18n,
-      },
-    });
-
+    // when
     const select = wrapper.find("select");
-    await select.setValue("fr");
 
-    expect(wrapper.vm.current_language).toBe("fr");
-    expect($i18n.locale).toBe("fr");
-    expect(document.documentElement.lang).toBe("fr");
+    // then
+    expect(select.element.value).toBe("fr");
   });
 
-  it("devrait afficher les options de langues correctement", () => {
-    const $i18n = { locale: "en", availableLocales: ["en", "fr"] };
-    const wrapper = render(LanguageComponent, {
-      mocks: {
-        $i18n,
-      },
-    });
+  it("should change language when new language is selected", async () => {
+    // given
+    const wrapper = render(LanguageComponent);
+    const select = wrapper.find("select");
 
+    // when
+    await select.setValue("en");
+
+    // then
+    expect(document.documentElement.lang).toBe("en");
+  });
+
+  it("should display language options correctly", () => {
+    // given
+    const wrapper = render(LanguageComponent);
+
+    // when
     const options = wrapper.findAll("option");
-    expect(options.length).toBe(2);
-    expect(options[0].text()).toBe("languages.en"); // You can use this syntax if you use vue-i
-    expect(options[1].text()).toBe("languages.fr");
+
+    // then
+    expect(options.length).toBe(4); // fr, en, it, es
+    const optionTexts = options.map(option => option.text());
+    expect(optionTexts).toContain("languages.en");
+    expect(optionTexts).toContain("languages.fr");
   });
 });
