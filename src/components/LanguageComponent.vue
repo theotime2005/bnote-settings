@@ -1,29 +1,18 @@
 <script setup>
-import { getCurrentInstance, onMounted, ref } from "vue";
+import { ref } from "vue";
 
+import i18n from "@/i18n.js";
 import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
 
-const instance = getCurrentInstance();
-
-// Initialize with default values immediately
-const current_language = ref("fr");
-const availableLocales = ref(["fr", "en", "it", "es"]);
-
-// Try to get real i18n values when component mounts
-onMounted(() => {
-  if (instance?.proxy?.$i18n) {
-    current_language.value = instance.proxy.$i18n.locale;
-    availableLocales.value = instance.proxy.$i18n.availableLocales;
-  }
-});
+const current_language = ref(i18n.global.locale.value || i18n.global.locale || "fr");
+const availableLocales = ref(i18n.global.availableLocales || Object.keys(i18n.global.messages));
 
 function changeLanguage() {
-  // Update the i18n locale if available (real environment)
-  if (instance?.proxy?.$i18n) {
-    instance.proxy.$i18n.locale = current_language.value;
+  if (typeof i18n.global.locale === "object" && "value" in i18n.global.locale) {
+    i18n.global.locale.value = current_language.value;
+  } else {
+    i18n.global.locale = current_language.value;
   }
-
-  // Always update document language and cookie (works in both environments)
   document.documentElement.lang = current_language.value;
   useLocaleCookie.setLocaleCookie(current_language.value);
 }
