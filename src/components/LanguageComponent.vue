@@ -4,15 +4,11 @@ import { ref } from "vue";
 import i18n from "@/i18n.js";
 import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
 
-const current_language = ref(i18n.global.locale.value || i18n.global.locale || "fr");
-const availableLocales = ref(i18n.global.availableLocales || Object.keys(i18n.global.messages));
+const current_language = ref(i18n.global.locale);
+const availableLocales = ref(i18n.global.availableLocales);
 
 function changeLanguage() {
-  if (typeof i18n.global.locale === "object" && "value" in i18n.global.locale) {
-    i18n.global.locale.value = current_language.value;
-  } else {
-    i18n.global.locale = current_language.value;
-  }
+  i18n.global.locale = current_language.value;
   document.documentElement.lang = current_language.value;
   useLocaleCookie.setLocaleCookie(current_language.value);
 }

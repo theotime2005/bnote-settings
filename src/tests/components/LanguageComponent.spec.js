@@ -2,31 +2,38 @@ import LanguageComponent from "@/components/LanguageComponent.vue";
 import { render } from "@/tests/components/helpers.js";
 
 describe("LanguageComponent", () => {
-  it("devrait définir la langue actuelle au montage", () => {
+  it("should set current language on mount", () => {
+    // given
     const wrapper = render(LanguageComponent);
 
-    // Instead of checking internal state, check that the select has the default value
+    // when
     const select = wrapper.find("select");
+
+    // then
     expect(select.element.value).toBe("fr");
   });
 
-  it("devrait changer la langue quand une nouvelle langue est sélectionnée", async () => {
+  it("should change language when new language is selected", async () => {
+    // given
     const wrapper = render(LanguageComponent);
-
     const select = wrapper.find("select");
+
+    // when
     await select.setValue("en");
 
-    // The change event should be triggered - just check that document lang was set
+    // then
     expect(document.documentElement.lang).toBe("en");
   });
 
-  it("devrait afficher les options de langues correctement", () => {
+  it("should display language options correctly", () => {
+    // given
     const wrapper = render(LanguageComponent);
 
+    // when
     const options = wrapper.findAll("option");
-    expect(options.length).toBe(4); // fr, en, it, es
 
-    // Check that options contain the expected languages (using mocked $t which returns keys)
+    // then
+    expect(options.length).toBe(4); // fr, en, it, es
     const optionTexts = options.map(option => option.text());
     expect(optionTexts).toContain("languages.en");
     expect(optionTexts).toContain("languages.fr");
