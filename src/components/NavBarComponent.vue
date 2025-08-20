@@ -1,134 +1,130 @@
-<script>
+<script setup>
+import { onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { RouterLink } from "vue-router";
+
 import routes from "@/router/router-list.js";
 
-export default {
-  name: "NavBarComponent",
-  emits: ["move-cursor"],
-  data() {
-    return {
-      routes: routes,
-      buttonIsVisible: false,
-      navBarIsVisible: false,
-      showAccessibilityMenu: false,
-      accessibilitySettings: {
-        textSize: "normal",
-        contrast: "normal",
-        colorScheme: "default",
-      },
-    };
-  },
-  mounted() {
-    window.addEventListener("resize", this.handleResize);
-    this.handleResize(); // Initial check
-    this.loadAccessibilitySettings();
-    this.applyAccessibilitySettings();
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.handleResize);
-  },
-  methods: {
-    toggleNavBar() {
-      this.navBarIsVisible = !this.navBarIsVisible;
+const { t } = useI18n();
+const buttonIsVisible = ref(false);
+const navBarIsVisible = ref(false);
+const showAccessibilityMenu = ref(false);
+const emit = defineEmits(["move-cursor"]);
+const accessibilitySettings = ref({
+  textSize: "normal",
+  contrast: "normal",
+  colorScheme: "default",
+});
 
-      // Announce state change to screen readers
-      const announcement = this.navBarIsVisible
-        ? this.$t("header.menuOpened")
-        : this.$t("header.menuClosed");
-      this.announceToScreenReader(announcement);
-    },
+function toggleNavBar() {
+  navBarIsVisible.value = !navBarIsVisible.value;
+  const announcement = navBarIsVisible.value
+    ? t("header.menuOpened")
+    : t("header.menuClosed");
+  announceToScreenReader(announcement);
+}
 
-    toggleAccessibilityMenu() {
-      this.showAccessibilityMenu = !this.showAccessibilityMenu;
-    },
+function toggleAccessibilityMenu() {
+  showAccessibilityMenu.value = !showAccessibilityMenu.value;
+}
 
-    handleResize() {
-      if (window.innerWidth > 768) {
-        this.navBarIsVisible = true;
-        this.buttonIsVisible = false;
-      } else {
-        this.navBarIsVisible = false;
-        this.buttonIsVisible = true;
-      }
-    },
+function handleResize() {
+  if (window.innerWidth > 768) {
+    navBarIsVisible.value = true;
+    buttonIsVisible.value = false;
+  } else {
+    navBarIsVisible.value = false;
+    buttonIsVisible.value = true;
+  }
+}
 
-    goto() {
-      if (this.buttonIsVisible) {
-        this.toggleNavBar();
-      }
-      this.$emit("move-cursor");
-    },
+function goto() {
+  if (buttonIsVisible.value) {
+    toggleNavBar();
+  }
+  emit("move-cursor");
+}
 
-    announceToScreenReader(message) {
-      const announcement = document.createElement("div");
-      announcement.setAttribute("aria-live", "polite");
-      announcement.setAttribute("aria-atomic", "true");
-      announcement.className = "sr-only";
-      announcement.textContent = message;
-      document.body.appendChild(announcement);
+function announceToScreenReader(message) {
+  const announcement = document.createElement("div");
+  announcement.setAttribute("aria-live", "polite");
+  announcement.setAttribute("aria-atomic", "true");
+  announcement.className = "sr-only";
+  announcement.textContent = message;
+  document.body.appendChild(announcement);
 
-      setTimeout(() => {
-        document.body.removeChild(announcement);
-      }, 1000);
-    },
+  setTimeout(() => {
+    document.body.removeChild(announcement);
+  }, 1000);
+}
 
-    updateTextSize(size) {
-      this.accessibilitySettings.textSize = size;
-      this.saveAndApplySettings();
-    },
+function updateTextSize(size) {
+  accessibilitySettings.value.textSize = size;
+  saveAndApplySettings();
+}
 
-    updateContrast(contrast) {
-      this.accessibilitySettings.contrast = contrast;
-      this.saveAndApplySettings();
-    },
+function updateContrast(contrast) {
+  accessibilitySettings.value.contrast = contrast;
+  saveAndApplySettings();
+}
 
-    updateColorScheme(scheme) {
-      this.accessibilitySettings.colorScheme = scheme;
-      this.saveAndApplySettings();
-    },
+function updateColorScheme(scheme) {
+  accessibilitySettings.value.colorScheme = scheme;
+  saveAndApplySettings();
+}
 
-    saveAndApplySettings() {
-      localStorage.setItem("accessibilitySettings", JSON.stringify(this.accessibilitySettings));
-      this.applyAccessibilitySettings();
-    },
+function saveAndApplySettings() {
+  localStorage.setItem("accessibilitySettings", JSON.stringify(accessibilitySettings.value));
+  applyAccessibilitySettings();
+}
 
-    loadAccessibilitySettings() {
-      const saved = localStorage.getItem("accessibilitySettings");
-      if (saved) {
-        this.accessibilitySettings = { ...this.accessibilitySettings, ...JSON.parse(saved) };
-      }
-    },
+function loadAccessibilitySettings() {
+  const saved = localStorage.getItem("accessibilitySettings");
+  if (saved) {
+    accessibilitySettings.value = { ...accessibilitySettings.value, ...JSON.parse(saved) };
+  }
+}
 
-    applyAccessibilitySettings() {
-      const root = document.documentElement;
+function applyAccessibilitySettings() {
+  const root = document.documentElement;
 
-      // Apply text size
-      root.setAttribute("data-text-size", this.accessibilitySettings.textSize);
+  // Apply text size
+  root.setAttribute("data-text-size", accessibilitySettings.value.textSize);
 
-      // Apply contrast
-      root.setAttribute("data-contrast", this.accessibilitySettings.contrast);
+  // Apply contrast
+  root.setAttribute("data-contrast", accessibilitySettings.value.contrast);
 
-      // Apply color scheme
-      root.setAttribute("data-color-scheme", this.accessibilitySettings.colorScheme);
-    },
+  // Apply color scheme
+  root.setAttribute("data-color-scheme", accessibilitySettings.value.colorScheme);
+}
 
-    handleKeyDown(event) {
-      // Handle escape key to close menus
-      if (event.key === "Escape") {
-        if (this.showAccessibilityMenu) {
-          this.showAccessibilityMenu = false;
-        } else if (this.navBarIsVisible && this.buttonIsVisible) {
-          this.toggleNavBar();
-        }
-      }
-    },
-  },
-};
+function handleKeyDown(event) {
+  // Handle escape key to close menus
+  if (event.key === "Escape") {
+    if (showAccessibilityMenu.value) {
+      showAccessibilityMenu.value = false;
+    } else if (navBarIsVisible.value && buttonIsVisible.value) {
+      toggleNavBar();
+    }
+  }
+}
+
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+  handleResize();
+  loadAccessibilitySettings();
+  applyAccessibilitySettings();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", handleResize);
+});
 </script>
 
 <template>
   <header class="nav-header" @keydown="handleKeyDown">
     <!-- Skip to main content link for screen readers -->
-    <a href="#main-content" class="skip-link">{{ $t('skip-content') }}</a>
+    <a href="#main-content" class="skip-link">{{ t('skip-content') }}</a>
 
     <div class="nav-container">
       <!-- Accessibility controls -->
@@ -137,11 +133,11 @@ export default {
           class="accessibility-toggle"
           :aria-expanded="showAccessibilityMenu"
           :aria-controls="showAccessibilityMenu ? 'accessibility-menu' : null"
-          :title="$t('header.accessibilityOptions')"
+          :title="t('header.accessibilityOptions')"
           @click="toggleAccessibilityMenu"
         >
           <span class="accessibility-icon" aria-hidden="true">⚙️</span>
-          <span class="sr-only">{{ $t('header.accessibilityOptions') }}</span>
+          <span class="sr-only">{{ t('header.accessibilityOptions') }}</span>
         </button>
 
         <!-- Accessibility menu -->
@@ -150,11 +146,11 @@ export default {
           id="accessibility-menu"
           class="accessibility-menu"
           role="dialog"
-          :aria-label="$t('header.accessibilityOptions')"
+          :aria-label="t('header.accessibilityOptions')"
         >
           <div class="accessibility-section">
-            <h3 class="accessibility-title">{{ $t('header.textSize') }}</h3>
-            <div class="accessibility-options" role="radiogroup" :aria-label="$t('header.textSize')">
+            <h3 class="accessibility-title">{{ t('header.textSize') }}</h3>
+            <div class="accessibility-options" role="radiogroup" :aria-label="t('header.textSize')">
               <label class="accessibility-option">
                 <input
                   type="radio"
@@ -163,7 +159,7 @@ export default {
                   :checked="accessibilitySettings.textSize === 'small'"
                   @change="updateTextSize('small')"
                 />
-                <span>{{ $t('header.small') }}</span>
+                <span>{{ t('header.small') }}</span>
               </label>
               <label class="accessibility-option">
                 <input
@@ -173,7 +169,7 @@ export default {
                   :checked="accessibilitySettings.textSize === 'normal'"
                   @change="updateTextSize('normal')"
                 />
-                <span>{{ $t('header.normal') }}</span>
+                <span>{{ t('header.normal') }}</span>
               </label>
               <label class="accessibility-option">
                 <input
@@ -183,14 +179,14 @@ export default {
                   :checked="accessibilitySettings.textSize === 'large'"
                   @change="updateTextSize('large')"
                 />
-                <span>{{ $t('header.large') }}</span>
+                <span>{{ t('header.large') }}</span>
               </label>
             </div>
           </div>
 
           <div class="accessibility-section">
-            <h3 class="accessibility-title">{{ $t('header.contrast') }}</h3>
-            <div class="accessibility-options" role="radiogroup" :aria-label="$t('header.contrast')">
+            <h3 class="accessibility-title">{{ t('header.contrast') }}</h3>
+            <div class="accessibility-options" role="radiogroup" :aria-label="t('header.contrast')">
               <label class="accessibility-option">
                 <input
                   type="radio"
@@ -199,7 +195,7 @@ export default {
                   :checked="accessibilitySettings.contrast === 'normal'"
                   @change="updateContrast('normal')"
                 />
-                <span>{{ $t('header.normalContrast') }}</span>
+                <span>{{ t('header.normalContrast') }}</span>
               </label>
               <label class="accessibility-option">
                 <input
@@ -209,14 +205,14 @@ export default {
                   :checked="accessibilitySettings.contrast === 'high'"
                   @change="updateContrast('high')"
                 />
-                <span>{{ $t('header.highContrast') }}</span>
+                <span>{{ t('header.highContrast') }}</span>
               </label>
             </div>
           </div>
 
           <div class="accessibility-section">
-            <h3 class="accessibility-title">{{ $t('header.colorScheme') }}</h3>
-            <div class="accessibility-options" role="radiogroup" :aria-label="$t('header.colorScheme')">
+            <h3 class="accessibility-title">{{ t('header.colorScheme') }}</h3>
+            <div class="accessibility-options" role="radiogroup" :aria-label="t('header.colorScheme')">
               <label class="accessibility-option">
                 <input
                   type="radio"
@@ -225,7 +221,7 @@ export default {
                   :checked="accessibilitySettings.colorScheme === 'default'"
                   @change="updateColorScheme('default')"
                 />
-                <span>{{ $t('header.defaultColors') }}</span>
+                <span>{{ t('header.defaultColors') }}</span>
               </label>
               <label class="accessibility-option">
                 <input
@@ -235,7 +231,7 @@ export default {
                   :checked="accessibilitySettings.colorScheme === 'dark'"
                   @change="updateColorScheme('dark')"
                 />
-                <span>{{ $t('header.darkMode') }}</span>
+                <span>{{ t('header.darkMode') }}</span>
               </label>
               <label class="accessibility-option">
                 <input
@@ -245,7 +241,7 @@ export default {
                   :checked="accessibilitySettings.colorScheme === 'blue-yellow'"
                   @change="updateColorScheme('blue-yellow')"
                 />
-                <span>{{ $t('header.blueYellow') }}</span>
+                <span>{{ t('header.blueYellow') }}</span>
               </label>
             </div>
           </div>
@@ -266,7 +262,7 @@ export default {
           <span></span>
         </span>
         <span class="nav-toggle-text">
-          {{ navBarIsVisible ? $t('header.close') : $t('header.open') }}
+          {{ navBarIsVisible ? t('header.close') : t('header.open') }}
         </span>
       </button>
     </div>
@@ -276,7 +272,7 @@ export default {
       v-if="navBarIsVisible"
       id="main-navigation"
       class="main-nav"
-      :aria-label="$t('header.mainMenu')"
+      :aria-label="t('header.mainMenu')"
       role="navigation"
     >
       <ul class="nav-menu" role="menubar">
@@ -289,7 +285,7 @@ export default {
             @click="goto"
             @keydown.enter="goto"
           >
-            {{ $t(`${route.name}.title`) }}
+            {{ t(`${route.name}.title`) }}
           </RouterLink>
         </li>
       </ul>
