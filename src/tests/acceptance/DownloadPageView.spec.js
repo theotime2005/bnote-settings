@@ -1,4 +1,7 @@
+import i18n from "@/i18n.js";
 import { render } from "@/tests/acceptance/helper.js";
+
+const { t } = i18n.global;
 
 describe("Acceptance | DownloadPageView", () => {
   beforeEach(() => {
@@ -13,7 +16,7 @@ describe("Acceptance | DownloadPageView", () => {
     const wrapper = await render("/download");
 
     // then
-    expect(wrapper.html()).toContain("download.title");
+    expect(wrapper.html()).toContain(t("download.title"));
   });
 
   it("Displays eurobraille links", async () => {
@@ -25,7 +28,7 @@ describe("Acceptance | DownloadPageView", () => {
       "a[href=\"https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/\"]",
     );
     expect(eurobrailleLink.exists()).toBe(true);
-    expect(eurobrailleLink.text()).toBe("download.downloadEurobraille");
+    expect(eurobrailleLink.text()).toBe(t("download.downloadEurobraille"));
   });
 
   it("displays Theotime links", async () => {
@@ -41,9 +44,9 @@ describe("Acceptance | DownloadPageView", () => {
     );
 
     expect(theotimeGitHubLink.exists()).toBe(true);
-    expect(theotimeGitHubLink.text()).toContain("download.message-3-1");
+    expect(theotimeGitHubLink.text()).toContain(t("download.message-3-1"));
     expect(theotimeReleasesLink.exists()).toBe(true);
-    expect(theotimeReleasesLink.text()).toBe("download.releases");
+    expect(theotimeReleasesLink.text()).toBe(t("download.releases"));
   });
 
   it("Manage errors when loading last version", async () => {
@@ -65,8 +68,8 @@ describe("Acceptance | DownloadPageView", () => {
     const wrapper = await render("/download");
 
     // then
-    expect(wrapper.html()).toContain("download.message-1");
-    expect(wrapper.html()).toContain("download.message2");
-    expect(wrapper.html()).toContain("download.message3");
+    expect(wrapper.html()).toContain(t("download.message-1"));
+    expect(wrapper.html()).toContain(t("download.message2"));
+    expect(wrapper.html()).toContain(t("download.message3"));
   });
 });

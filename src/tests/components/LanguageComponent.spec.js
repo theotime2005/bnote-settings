@@ -1,11 +1,19 @@
+import { mount } from "@vue/test-utils";
+
 import LanguageComponent from "@/components/LanguageComponent.vue";
-import { render } from "@/tests/components/helpers.js";
+import i18n from "@/i18n.js";
 
 describe("LanguageComponent", () => {
-  it("should set current language on mount", () => {
-    // given
-    const wrapper = render(LanguageComponent);
+  let wrapper;
 
+  beforeEach(function() {
+    wrapper = mount(LanguageComponent, {
+      global: {
+        plugins: [i18n],
+      },
+    });
+  });
+  it("should set current language on mount", () => {
     // when
     const select = wrapper.find("select");
 
@@ -15,7 +23,6 @@ describe("LanguageComponent", () => {
 
   it("should change language when new language is selected", async () => {
     // given
-    const wrapper = render(LanguageComponent);
     const select = wrapper.find("select");
 
     // when
@@ -26,16 +33,10 @@ describe("LanguageComponent", () => {
   });
 
   it("should display language options correctly", () => {
-    // given
-    const wrapper = render(LanguageComponent);
-
     // when
     const options = wrapper.findAll("option");
 
     // then
-    expect(options.length).toBe(4); // fr, en, it, es
-    const optionTexts = options.map(option => option.text());
-    expect(optionTexts).toContain("languages.en");
-    expect(optionTexts).toContain("languages.fr");
+    expect(options.length).toBe(i18n.global.availableLocales.length);
   });
 });

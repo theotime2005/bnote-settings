@@ -1,4 +1,4 @@
-import { render } from "@/tests/acceptance/helper.js";
+import { render, t } from "@/tests/acceptance/helper.js";
 
 // Mock des composables et utilitaires
 vi.mock("@/composables/useNotifications.js", () => ({
@@ -27,31 +27,29 @@ describe("Acceptance | SettingsView", () => {
       const howTitle = wrapper.find("h2").text();
       const fileSelector = wrapper.find("input[type='file']");
       // then
-      expect(mainTitle).toContain("settings.page.title");
-      expect(howTitle).toContain("settings.page.how");
+      expect(mainTitle).toContain(t("settings.page.title"));
+      expect(howTitle).toContain(t("settings.page.how"));
       expect(fileSelector.exists()).toBe(true);
     });
 
     it("should display the default model when clicking the default button", async () => {
       // when
-      const defaultButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.create");
+      const defaultButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.create"));
 
       // then
       await defaultButton.trigger("click");
       await wrapper.vm.$nextTick();
-      // Attendre que le loading soit terminé
       await new Promise(resolve => setTimeout(resolve, 600));
       const fileTitle = wrapper.find("h2").text();
-      expect(fileTitle).toBe("settings.page.defaultName");
+      expect(fileTitle).toBe(t("settings.page.defaultName"));
     });
   });
 
-  suite("when a file is uploaded", () => {
+  describe("when a file is uploaded", () => {
     beforeEach(async () => {
-      const defaultButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.create");
+      const defaultButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.create"));
       await defaultButton.trigger("click");
       await wrapper.vm.$nextTick();
-      // Attendre que le loading soit terminé
       await new Promise(resolve => setTimeout(resolve, 600));
     });
 
@@ -66,31 +64,30 @@ describe("Acceptance | SettingsView", () => {
 
       it("should displays dialog when you want open another file", async () => {
         // given
-        const resetButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.openOther");
+        const resetButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther"));
 
         // when
         await resetButton.trigger("click");
         await wrapper.vm.$nextTick();
-        // Attendre que le loading soit terminé
         await new Promise(resolve => setTimeout(resolve, 600));
 
         // then
-        expect(window.confirm).toHaveBeenCalledWith("settings.page.resetQuestion");
-        expect(wrapper.find("h2").text()).toBe("settings.page.how");
+        expect(window.confirm).toHaveBeenCalledWith(t("settings.page.resetQuestion"));
+        expect(wrapper.find("h2").text()).toBe(t("settings.page.how"));
       });
 
       it("should displays confirmation when click to download button", async () => {
         // given
         global.URL.createObjectURL = vi.fn(() => "blob:url");
         global.URL.revokeObjectURL = vi.fn();
-        const downloadButton = wrapper.findAll("button").find((button) => button.text() === "settings.page.download");
+        const downloadButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.download"));
 
         // when
         await downloadButton.trigger("submit");
         await wrapper.vm.$nextTick();
 
         // then
-        expect(window.confirm).toHaveBeenCalledWith("settings.page.question");
+        expect(window.confirm).toHaveBeenCalledWith(t("settings.page.question"));
         expect(global.URL.createObjectURL).toHaveBeenCalled();
         expect(global.URL.revokeObjectURL).toHaveBeenCalled();
       });
