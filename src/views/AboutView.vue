@@ -1,39 +1,36 @@
-<script>
-export default {
-  name: "AboutView",
-  data() {
-    return {
-      links: {
-        github: {
-          issues: {
-            feature: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=",
-            report: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=",
-          },
-          repos: "https://github.com/theotime2005/bnote-settings",
-        },
-      },
-    };
+<script setup>
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+const links = ref({
+  github: {
+    issues: {
+      feature: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=",
+      report: "https://github.com/theotime2005/bnote-settings/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=",
+    },
+    repos: "https://github.com/theotime2005/bnote-settings",
   },
-};
+});
 </script>
 
 <template>
   <div class="about-container">
-    <h1 class="about-title">{{$t('about.title')}}</h1>
-    <p class="about-text">{{$t('about.message1')}}</p>
+    <h1 class="about-title">{{t('about.title')}}</h1>
+    <p class="about-text">{{t('about.message1')}}</p>
 
     <section class="about-section">
-      <h2 class="section-title">{{$t('about.contribution')}}</h2>
-      <p class="about-text">{{$t('about.message2')}}</p>
-      <a :href="links.github.repos" class="about-link">{{$t('about.github')}}</a>
+      <h2 class="section-title">{{t('about.contribution')}}</h2>
+      <p class="about-text">{{t('about.message2')}}</p>
+      <a :href="links.github.repos" class="about-link">{{t('about.github')}}</a>
     </section>
 
     <section class="about-section">
-      <h2 class="section-title">{{$t('about.feature-bug')}}</h2>
-      <p class="about-text">{{$t('about.message3')}}</p>
+      <h2 class="section-title">{{t('about.feature-bug')}}</h2>
+      <p class="about-text">{{t('about.message3')}}</p>
       <div class="link-container">
-        <a :href="links.github.issues.feature" target="_blank" class="about-link">{{$t('about.feature')}}</a>
-        <a :href="links.github.issues.report" target="_blank" class="about-link">{{$t('about.bug_report')}}</a>
+        <a :href="links.github.issues.feature" target="_blank" class="about-link">{{t('about.feature')}}</a>
+        <a :href="links.github.issues.report" target="_blank" class="about-link">{{t('about.bug_report')}}</a>
       </div>
     </section>
   </div>

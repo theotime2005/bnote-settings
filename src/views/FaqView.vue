@@ -1,45 +1,36 @@
-<script>
+<script setup>
+import { onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+
 import { sendLog } from "@/scripts/send-log-message-script.js";
 
-export default {
-  name: "FaqView",
-  data() {
-    return {
-      faq: null,
-    };
-  },
-  watch: {
-    "$i18n.locale": {
-      immediate: true,
-      handler() {
-        this.loadFaq();
-      },
-    },
-  },
-  mounted() {
-    this.loadFaq();
-  },
-  methods: {
-    async loadFaq() {
-      this.faq = null;
-      const file_name = `faq/${this.$i18n.locale}.json`;
-      try {
-        const request = await fetch(file_name);
-        if (request.ok) {
-          this.faq = await request.json();
-        }
-      } catch (e) {
-        sendLog({ fileName: "FaqView", functionName: "loadFaq", type: "error", log: e });
-      }
-    },
-  },
-};
+const { t, locale } = useI18n();
+const faq = ref(null);
+
+async function loadFaq() {
+  faq.value = null;
+  const fileName = `faq/${locale.value}.json`;
+  try {
+    const request = await fetch(fileName);
+    if (request.ok) {
+      faq.value = await request.json();
+    }
+  } catch (e) {
+    sendLog({ fileName: "FaqView", functionName: "loadFaq", type: "error", log: e });
+  }
+}
+
+watch(locale, loadFaq, { immediate: true });
+
+onMounted(() => {
+  loadFaq();
+});
 </script>
 
 <template>
   <div class="faq-container">
-    <h1 class="faq-title">{{ $t('faq.title') }}</h1>
-    <p class="faq-presentation">{{ $t('faq.presentation') }}</p>
+    <h1 class="faq-title">{{ t('faq.title') }}</h1>
+    <p class="faq-presentation">{{ t('faq.presentation') }}</p>
 
     <div v-if="faq && faq.length">
       <article
@@ -68,7 +59,7 @@ v-for="(subElement, subElemIndex) in element"
       </article>
     </div>
 
-    <p v-else class="faq-empty">{{ $t('faq.nofaq') }}</p>
+    <p v-else class="faq-empty">{{ t('faq.nofaq') }}</p>
   </div>
 </template>
 
