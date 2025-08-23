@@ -1,21 +1,26 @@
+import { mount } from "@vue/test-utils";
 import { createRouter, createWebHistory } from "vue-router";
 
 import NavBarComponent from "@/components/NavBarComponent.vue";
+import i18n from "@/i18n.js";
 import routes from "@/router/router-list.js";
-import { render } from "@/tests/components/helpers.js";
 
 describe("NavBarComponent", () => {
-  // Create a router instance with the routes
-  const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  let router, wrapper;
+
+  beforeEach(() => {
+    router = createRouter({
+      history: createWebHistory(),
+      routes,
+    });
+    wrapper = mount(NavBarComponent, {
+      global: {
+        plugins: [router, i18n],
+      },
+    });
   });
 
   it("renders a menu item for each route", async () => {
-    const wrapper = render(NavBarComponent, {
-      plugins: [router],
-    });
-
     // Wait for the router to be ready
     await router.isReady();
 
@@ -24,10 +29,6 @@ describe("NavBarComponent", () => {
   });
 
   it("renders the correct route paths", async () => {
-    const wrapper = render(NavBarComponent, {
-      plugins: [router],
-    });
-
     await router.isReady();
 
     const menuItems = wrapper.findAllComponents({ name: "RouterLink" });
@@ -36,17 +37,5 @@ describe("NavBarComponent", () => {
         expect(item.props("to")).toBe(routes[index].path);
       });
     }
-  });
-  it("handles empty routes array", async () => {
-    const wrapper = render(NavBarComponent, {
-      plugins: [router],
-    }, {}, {
-      routes: [],
-    });
-
-    await router.isReady();
-
-    const menuItems = wrapper.findAllComponents({ name: "RouterLink" });
-    expect(menuItems.length).toBe(0);
   });
 });

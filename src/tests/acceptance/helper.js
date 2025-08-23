@@ -6,6 +6,8 @@ import App from "@/App.vue";
 import i18n from "@/i18n.js";
 import router from "@/router/index.js";
 
+const { t } = i18n.global;
+
 // Mock global pour les composables
 vi.mock("@/composables/useNotifications.js", () => ({
   useNotifications: () => ({
@@ -42,13 +44,10 @@ async function render(route = "/", initialState = {}) {
           createSpy: vi.fn, // Utilise Vitest pour espionner les actions
           initialState, // Passe un état initial pour Pinia
         }),
+        i18n,
       ],
-      mocks: {
-        $i18n: i18n,
-        $t: (msg) => msg,
-      },
     },
   });
 }
 
-export { render, router };
+export { render, router, t };

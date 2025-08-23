@@ -1,5 +1,7 @@
+import i18n from "@/i18n.js";
 import { render } from "@/tests/acceptance/helper.js";
 
+const { t } = i18n.global;
 describe("Acceptance | HomeView", async () => {
   let wrapper;
   beforeEach(async () => {
@@ -16,7 +18,7 @@ describe("Acceptance | HomeView", async () => {
     // when
     const nav = wrapper.find("header nav");
     const links = nav.findAll("a");
-    const homeLink = links.find((link) => link.text() === "home.title");
+    const homeLink = links.find((link) => link.text() === t("home.title"));
     // then
     expect(homeLink).toBeTruthy();
     expect(homeLink.attributes("aria-current")).toBe("page");
@@ -26,7 +28,7 @@ describe("Acceptance | HomeView", async () => {
     // when
     const nav = wrapper.find("header nav");
     const links = nav.findAll("a");
-    const aboutLink = links.find((link) => link.text() === "about.title");
+    const aboutLink = links.find((link) => link.text() === t("about.title"));
     // then
     expect(aboutLink).toBeTruthy();
     expect(aboutLink.attributes("aria-current")).toBe(undefined);

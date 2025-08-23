@@ -1,8 +1,9 @@
 import { createTestingPinia } from "@pinia/testing";
+import { mount } from "@vue/test-utils";
 
 import SettingComponent from "@/components/SettingComponent.vue";
+import i18n from "@/i18n.js";
 import { useSettingsStore } from "@/stores/settingsStore.js";
-import { render } from "@/tests/components/helpers.js";
 
 describe("SettingComponent.vue", () => {
   const pinia = createTestingPinia({ createSpy: vi.fn });
@@ -16,11 +17,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders checkbox and updates store on change", async () => {
-    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+    const wrapper = mount(SettingComponent, { global: { plugins: [pinia, i18n] }, props: {
       settingSection: "category",
       settingKey: "checkbox",
       setting: { type: "checkbox", default: false },
-    });
+    } });
 
     const checkbox = wrapper.find(".setting-checkbox");
     expect(checkbox.exists()).toBe(true);
@@ -31,11 +32,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders dropdown and updates store on selection", async () => {
-    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+    const wrapper = mount(SettingComponent, { global: { plugins: [pinia, i18n] }, props: {
       settingSection: "category",
       settingKey: "dropdown",
       setting: { type: "menu", values: ["option1", "option2"], default: "option1" },
-    });
+    } });
 
     const select = wrapper.find(".setting-select");
     expect(select.exists()).toBe(true);
@@ -44,11 +45,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders range input and updates store on change", async () => {
-    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+    const wrapper = mount(SettingComponent, { global: { plugins: [pinia, i18n] }, props: {
       settingSection: "category",
       settingKey: "number",
       setting: { type: "number", min: 1, max: 10, default: 5 },
-    });
+    } });
 
     const numberInput = wrapper.find(".setting-range");
     expect(numberInput.exists()).toBe(true);
@@ -57,11 +58,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders text input and updates store on change", async () => {
-    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+    const wrapper = mount(SettingComponent, { global: { plugins: [pinia, i18n] }, props: {
       settingSection: "category",
       settingKey: "text",
       setting: { type: "text", default: "Hello" },
-    });
+    } });
 
     const textInput = wrapper.find(".setting-input");
     expect(textInput.exists()).toBe(true);
@@ -70,11 +71,11 @@ describe("SettingComponent.vue", () => {
   });
 
   it("renders button and sets default value", async () => {
-    const wrapper = render(SettingComponent, { global: { plugins: [pinia] } }, {
+    const wrapper = mount(SettingComponent, { global: { plugins: [pinia, i18n] }, props: {
       settingSection: "category",
       settingKey: "checkbox",
       setting: { type: "checkbox", default: false },
-    });
+    } });
 
     const button = wrapper.find(".setting-default-button");
     expect(button.exists()).toBe(true);

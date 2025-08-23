@@ -1,84 +1,81 @@
-<script>
+<script setup>
+import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
 import { sendLog } from "@/scripts/send-log-message-script.js";
 
-export default {
-  name: "DownloadPageView",
-  data() {
-    return {
-      links: {
-        eurobraille: {
-          download: "https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/",
-          github: "https://github.com/devel-erb/bnote",
-          sdcard: "https://www.eurobraille.fr/download/telecharger-le-fichier-image-de-la-carte-sd-3-3-0-b-note/",
-        },
-        theotime: {
-          github: "https://github.com/theotime2005/bnote",
-          releases: "https://github.com/theotime2005/bnote/releases",
-        },
-      },
-      last_version: {},
-    };
+const { t } = useI18n();
+const links = ref({
+  eurobraille: {
+    download: "https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/",
+    github: "https://github.com/devel-erb/bnote",
+    sdcard: "https://www.eurobraille.fr/download/telecharger-le-fichier-image-de-la-carte-sd-3-3-0-b-note/",
   },
-  mounted() {
-    this.get_last_version();
+  theotime: {
+    github: "https://github.com/theotime2005/bnote",
+    releases: "https://github.com/theotime2005/bnote/releases",
   },
-  methods: {
-    async get_last_version() {
-      try {
-        const request = await fetch("https://api.github.com/repos/theotime2005/bnote/releases");
-        const response = await request.json();
-        let version = null;
-        for (let i = 0; i < response.length; i++) {
-          if (response[i]["prerelease"] === false) {
-            version = response[i];
-            break;
-          }
-        }
-        this.last_version["tag"] = version["tag_name"];
-        this.last_version["file"] = version["assets"][0]["browser_download_url"];
-      } catch (e) {
-        sendLog({ fileName: "DownloadPage", functionName: "get_last_version", type: "error", log: e });
+});
+const lastVersion = ref({});
+
+async function getLastVersion() {
+  try {
+    const request = await fetch("https://api.github.com/repos/theotime2005/bnote/releases");
+    const response = await request.json();
+    let version = null;
+    for (let i = 0; i < response.length; i++) {
+      if (response[i]["prerelease"] === false) {
+        version = response[i];
+        break;
       }
-    },
-  },
-};
+    }
+    lastVersion.value["tag"] = version["tag_name"];
+    lastVersion.value["file"] = version["assets"][0]["browser_download_url"];
+  } catch (e) {
+    sendLog({ fileName: "DownloadPage", functionName: "get_last_version", type: "error", log: e });
+  }
+}
+
+onMounted(function() {
+  getLastVersion();
+});
 </script>
 
 <template>
   <div class="download-container">
     <div class="download-section">
-      <h1 class="download-title">{{ $t("download.title") }}</h1>
-      <p>{{$t('download.message-1')}}
+      <h1 class="download-title">{{ t("download.title") }}</h1>
+      <p>{{t('download.message-1')}}
         <a :href="links.eurobraille.github" target="_blank" class="download-link">GitHub</a>.
       </p>
     </div>
 
     <div class="download-section">
-      <h2 class="download-title">{{ $t("download.eurobrailleTitle") }}</h2>
-      <p>{{ $t("download.message2") }}</p>
+      <h2 class="download-title">{{ t("download.eurobrailleTitle") }}</h2>
+      <p>{{ t("download.message2") }}</p>
       <a
         class="download-link"
         :href="links.eurobraille.download"
         target="_blank"
-      >{{ $t("download.downloadEurobraille") }}</a
+      >{{ t("download.downloadEurobraille") }}</a
       >
     </div>
 
     <div class="download-section">
-      <h2 class="download-title">{{$t('download.otherTitle')}}</h2>
-      <p class="download-description">{{$t('download.message3')}}
-        <a :href="links.theotime.github" target="_blank" class="download-link">{{$t('download.message-3-1')}}</a>
-        {{$t('download.message-3-2')}}
+      <h2 class="download-title">{{t('download.otherTitle')}}</h2>
+      <p class="download-description">{{t('download.message3')}}
+        <a :href="links.theotime.github" target="_blank" class="download-link">{{t('download.message-3-1')}}</a>
+        {{t('download.message-3-2')}}
       </p>
       <a
-        v-if="last_version['file']"
+        v-if="lastVersion['file']"
         class="download-link"
-        :href="last_version['file']"
+        :href="lastVersion['file']"
       >
-        {{$t('download.downloadOtherLast', {version: last_version['tag']})}}
+        {{t('download.downloadOtherLast', {version: lastVersion['tag']})}}
       </a>
       <a class="download-link" :href="links.theotime.releases" target="_blank">
-        {{$t("download.releases")}}
+        {{t("download.releases")}}
       </a>
     </div>
   </div>

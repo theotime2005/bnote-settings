@@ -1,4 +1,7 @@
-<script>
+<script setup>
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import NotificationToast from "@/components/NotificationToast.vue";
 import SettingComponent from "@/components/SettingComponent.vue";
@@ -7,195 +10,191 @@ import { useNotifications } from "@/composables/useNotifications.js";
 import all_settings from "@/settings.json";
 import { useSettingsStore } from "@/stores/settingsStore.js";
 
-export default {
-  name: "SettingsView",
-  components: {
-    NotificationToast,
-    UploadFileComponent,
-    SettingComponent,
-    LoadingSpinner,
-  },
-  data() {
-    return {
-      file_name: "",
-      fileIsImported: false,
-      all_settings: all_settings,
-      activeSection: null,
-      searchQuery: "",
-      isLoading: false,
-      notifications: useNotifications(),
-    };
-  },
-  computed: {
-    filteredSettings() {
-      if (!this.all_settings || typeof this.all_settings !== "object") {
-        return {};
-      }
+const { t } = useI18n();
 
-      if (!this.searchQuery) return this.all_settings;
-      const query = this.searchQuery.toLowerCase();
-      const filtered = {};
-      for (const [section, settings] of Object.entries(this.all_settings)) {
-        if (!settings || typeof settings !== "object") {
-          continue;
-        }
+const fileName = ref("");
+const fileIsImported = ref(false);
+const activeSection = ref(null);
+const searchQuery = ref("");
+const isLoading = ref(false);
+const notifications = useNotifications();
+const settingsStore = useSettingsStore();
 
-        const sectionLabel = this.$t(`settings.id.${section}`).toLowerCase();
-        const matchingSettings = {};
-        const sectionMatch = sectionLabel.includes(query);
-        for (const [key, value] of Object.entries(settings)) {
-          const settingLabel = this.$t(`settings.id.${key}`).toLowerCase();
-          if (settingLabel.includes(query) || sectionMatch) {
-            matchingSettings[key] = value;
-          }
-        }
-        if (Object.keys(matchingSettings).length > 0) {
-          filtered[section] = matchingSettings;
-        }
-      }
-      return filtered;
-    },
-  },
-  mounted() {
-    window.addEventListener("keydown", this.handleKeyPress);
-    if (useSettingsStore().getAllSettings) {
-      this.file_name = useSettingsStore().getFileName;
-      this.fileIsImported = true;
-      window.addEventListener("beforeunload", this.handleBeforeReload);
+const filteredSettings = computed(() => {
+  if (!all_settings || typeof all_settings !== "object") {
+    return {};
+  }
+
+  if (!searchQuery.value) return all_settings;
+  const query = searchQuery.value.toLowerCase();
+  const filtered = {};
+  for (const [section, settings] of Object.entries(all_settings)) {
+    if (!settings || typeof settings !== "object") {
+      continue;
     }
-  },
-  beforeUnmount() {
-    window.removeEventListener("keydown", this.handleKeyPress);
-    window.removeEventListener("beforeunload", this.handleBeforeReload);
-  },
-  methods: {
-    clean_data() {
-      const confirm = window.confirm(this.$t("settings.page.resetQuestion"));
-      if (confirm) {
-        this.isLoading = true;
-        this.fileIsImported = false;
-        useSettingsStore().removeAll();
-        window.removeEventListener("beforeunload", this.handleBeforeReload);
-        this.activeSection = null;
-        this.searchQuery = "";
-        this.notifications.info(this.$t("settings.notifications.configurationReset"));
-        Promise.resolve().then(() => {
-          this.isLoading = false;
-        });
-      }
-    },
-    createBasicData() {
-      this.isLoading = true;
-      const data = {};
-      for (const section in this.all_settings) {
-        data[section] = {};
-        for (const setting in this.all_settings[section]) {
-          data[section][setting] = this.all_settings[section][setting].default;
-        }
-      }
-      this.file_name = this.$t("settings.page.defaultName");
-      useSettingsStore().loadSettings(data, this.file_name);
-      this.fileIsImported = true;
-      window.addEventListener("beforeunload", this.handleBeforeReload);
-      this.activeSection = null;
-      this.searchQuery = "";
-      this.notifications.success(this.$t("settings.notifications.defaultConfigurationLoaded"));
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 500);
-    },
-    showFile() {
-      this.file_name = useSettingsStore().getFileName;
-      this.fileIsImported = true;
-      window.addEventListener("beforeunload", this.handleBeforeReload);
-      this.activeSection = null;
-      this.searchQuery = "";
-      this.notifications.success(this.$t("settings.notifications.fileLoaded"));
-    },
-    toggleSection(section) {
-      if (!section || typeof section !== "string") {
-        return;
-      }
 
-      this.activeSection = this.activeSection === section ? null : section;
+    const sectionLabel = t(`settings.id.${section}`).toLowerCase();
+    const matchingSettings = {};
+    const sectionMatch = sectionLabel.includes(query);
+    for (const [key, value] of Object.entries(settings)) {
+      const settingLabel = t(`settings.id.${key}`).toLowerCase();
+      if (settingLabel.includes(query) || sectionMatch) {
+        matchingSettings[key] = value;
+      }
+    }
+    if (Object.keys(matchingSettings).length > 0) {
+      filtered[section] = matchingSettings;
+    }
+  }
+  return filtered;
+});
 
-      this.$nextTick(() => {
-        // Focus the first input of the opened section for accessibility
-        if (this.activeSection) {
-          const sectionEl = document.getElementById(`section-${this.activeSection}`);
-          if (sectionEl) {
-            const input = sectionEl.querySelector("input, select, textarea, button");
-            if (input) input.focus();
-          }
-        }
-      });
-    },
-    save() {
-      const question = window.confirm(this.$t("settings.page.question"));
-      return question ? this.download_file() : null;
-    },
-    download_file() {
-      try {
-        this.isLoading = true;
-        const stringData = JSON.stringify(useSettingsStore().getAllSettings, null, 2);
-        const blob_data = new Blob([stringData], { type: "application/json" });
-        const url_object = URL.createObjectURL(blob_data);
-        const link = document.createElement("a");
-        link.href = url_object;
-        const file_date = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
-        const file_name = this.$t("settings.page.downloadName", { date: file_date }) + ".bnote";
-        link.download = file_name;
-        link.click();
-        URL.revokeObjectURL(url_object);
-        this.notifications.success(this.$t("settings.notifications.fileDownloaded"));
-      } catch (error) {
-        this.notifications.error(this.$t("settings.notifications.downloadError"));
-        console.error("Download error:", error);
-      } finally {
-        setTimeout(() => {
-          this.isLoading = false;
-        }, 1000);
-      }
-    },
-    handleKeyPress(event) {
-      if (event.key === "Escape") {
-        this.activeSection = null;
-        this.searchQuery = "";
-      }
-      if ((event.key === "ArrowDown" || event.key === "ArrowUp") && this.fileIsImported) {
-        // Keyboard navigation for nav buttons
-        const navButtons = Array.from(document.querySelectorAll(".settings-nav-button"));
-        const current = navButtons.findIndex(btn => btn === document.activeElement);
-        if (current !== -1) {
-          let next = event.key === "ArrowDown" ? current + 1 : current - 1;
-          if (next < 0) next = navButtons.length - 1;
-          if (next >= navButtons.length) next = 0;
-          navButtons[next].focus();
-          event.preventDefault();
-        }
-      }
-    },
-    handleBeforeReload(event) {
-      event.preventDefault();
-      event.returnValue = "";
-    },
-  },
+function cleanData() {
+  const confirm = window.confirm(t("settings.page.resetQuestion"));
+  if (confirm) {
+    isLoading.value = true;
+    fileIsImported.value = false;
+    settingsStore.removeAll();
+    window.removeEventListener("beforeunload", handleBeforeReload);
+    activeSection.value = null;
+    searchQuery.value = "";
+    notifications.info(t("settings.notifications.configurationReset"));
+    Promise.resolve().then(() => {
+      isLoading.value = false;
+    });
+  }
 };
+
+function createBasicData() {
+  isLoading.value = true;
+  const data = {};
+  for (const section in all_settings) {
+    data[section] = {};
+    for (const setting in all_settings[section]) {
+      data[section][setting] = all_settings[section][setting].default;
+    }
+  }
+  fileName.value = t("settings.page.defaultName");
+  settingsStore.loadSettings(data, fileName.value);
+  fileIsImported.value = true;
+  window.addEventListener("beforeunload", handleBeforeReload);
+  activeSection.value = null;
+  searchQuery.value = "";
+  notifications.success(t("settings.notifications.defaultConfigurationLoaded"));
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 500);
+}
+
+function showFile() {
+  fileName.value = settingsStore.getFileName;
+  fileIsImported.value = true;
+  window.addEventListener("beforeunload", handleBeforeReload);
+  activeSection.value = null;
+  searchQuery.value = "";
+  notifications.success(t("settings.notifications.fileLoaded"));
+}
+
+function toggleSection(section) {
+  if (!section || typeof section !== "string") {
+    return;
+  }
+
+  activeSection.value = activeSection.value === section ? null : section;
+
+  nextTick(() => {
+    if (activeSection.value) {
+      const sectionEl = document.getElementById(`section-${activeSection.value}`);
+      if (sectionEl) {
+        const input = sectionEl.querySelector("input, select, textarea, button");
+        if (input) input.focus();
+      }
+    }
+  });
+}
+
+function save() {
+  const question = window.confirm(t("settings.page.question"));
+  return question ? downloadFile() : null;
+}
+
+function downloadFile() {
+  try {
+    isLoading.value = true;
+    const stringData = JSON.stringify(settingsStore.getAllSettings, null, 2);
+    const blobData = new Blob([stringData], { type: "application/json" });
+    const urlObject = URL.createObjectURL(blobData);
+    const link = document.createElement("a");
+    link.href = urlObject;
+    const fileDate = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+    const fileNameValue = t("settings.page.downloadName", { date: fileDate }) + ".bnote";
+    link.download = fileNameValue;
+    link.click();
+    URL.revokeObjectURL(urlObject);
+    notifications.success(t("settings.notifications.fileDownloaded"));
+  } catch (error) {
+    notifications.error(t("settings.notifications.downloadError"));
+    console.error("Download error:", error);
+  } finally {
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 1000);
+  }
+}
+
+function handleKeyPress(event) {
+  if (event.key === "Escape") {
+    activeSection.value = null;
+    searchQuery.value = "";
+  }
+  if ((event.key === "ArrowDown" || event.key === "ArrowUp") && fileIsImported.value) {
+    const navButtons = Array.from(document.querySelectorAll(".settings-nav-button"));
+    const current = navButtons.findIndex((btn) => btn === document.activeElement);
+    if (current !== -1) {
+      let next = event.key === "ArrowDown" ? current + 1 : current - 1;
+      if (next < 0) next = navButtons.length - 1;
+      if (next >= navButtons.length) next = 0;
+      navButtons[next].focus();
+      event.preventDefault();
+    }
+  }
+}
+
+function handleBeforeReload(event) {
+  event.preventDefault();
+  event.returnValue = "";
+}
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeyPress);
+  if (settingsStore.getAllSettings) {
+    fileName.value = settingsStore.getFileName;
+    fileIsImported.value = true;
+    window.addEventListener("beforeunload", handleBeforeReload);
+  }
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleKeyPress);
+  window.removeEventListener("beforeunload", handleBeforeReload);
+});
+
+
 </script>
 
 <template>
   <div class="settings-container">
-    <h1 class="settings-title">{{ $t("settings.page.title") }}</h1>
+    <h1 class="settings-title">{{ t("settings.page.title") }}</h1>
 
     <!-- Loading Overlay -->
     <div v-if="isLoading" class="loading-overlay">
-      <LoadingSpinner size="large" :text="$t('common.loading')" />
+      <LoadingSpinner size="large" :text="t('common.loading')" />
     </div>
 
     <!-- Initial Setup View -->
     <div v-if="!fileIsImported" class="settings-intro-card fade-in">
-      <h2 class="settings-subtitle">{{ $t("settings.page.how") }}</h2>
-      <p class="settings-explanation">{{ $t("settings.page.explication") }}</p>
+      <h2 class="settings-subtitle">{{ t("settings.page.how") }}</h2>
+      <p class="settings-explanation">{{ t("settings.page.explication") }}</p>
       <UploadFileComponent ref="upload" @file-uploaded="showFile" />
       <hr class="settings-divider" />
       <button
@@ -203,24 +202,24 @@ export default {
         class="settings-button settings-button-primary focus-ring"
         @click="createBasicData"
       >
-        {{ $t("settings.page.create") }}
+        {{ t("settings.page.create") }}
       </button>
     </div>
 
     <!-- Settings Management View -->
     <div v-if="fileIsImported" class="settings-manager fade-in">
       <header class="settings-header">
-        <h2 class="settings-filename">{{ file_name }}</h2>
+        <h2 class="settings-filename">{{ fileName }}</h2>
 
         <!-- Search Bar -->
         <div class="search-container">
-          <label for="settings-search" class="sr-only">{{$t('settings.page.search')}}</label>
+          <label for="settings-search" class="sr-only">{{t('settings.page.search')}}</label>
           <input
             id="settings-search"
             v-model="searchQuery"
             type="search"
             class="settings-search focus-ring"
-            :placeholder="$t('settings.page.search')"
+            :placeholder="t('settings.page.search')"
             @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
           />
         </div>
@@ -228,7 +227,7 @@ export default {
 
       <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
         <!-- Settings Navigation -->
-        <nav class="settings-nav" :aria-label="$t('settings.page.navigation-section')">
+        <nav class="settings-nav" :aria-label="t('settings.page.navigation-section')">
           <ul class="settings-nav-list">
             <li v-for="(settings, section) in filteredSettings" :key="section">
               <button
@@ -241,7 +240,7 @@ export default {
                 @keydown.enter.prevent="toggleSection(section)"
                 @keydown.space.prevent="toggleSection(section)"
               >
-                {{ $t(`settings.id.${section}`) }}
+                {{ t(`settings.id.${section}`) }}
               </button>
             </li>
           </ul>
@@ -257,7 +256,7 @@ export default {
             :class="{ 'active': activeSection === section }"
             :aria-hidden="activeSection !== section"
           >
-            <h3 class="settings-section-title">{{ $t(`settings.id.${section}`) }}</h3>
+            <h3 class="settings-section-title">{{ t(`settings.id.${section}`) }}</h3>
             <div class="settings-grid">
               <SettingComponent
                 v-for="(setting, key) in settings"
@@ -273,19 +272,19 @@ export default {
         <!-- Action Buttons -->
         <div class="settings-actions">
           <button type="submit" class="settings-button settings-button-success focus-ring">
-            {{ $t("settings.page.download") }}
+            {{ t("settings.page.download") }}
           </button>
           <button
             type="button"
             class="settings-button settings-button-danger focus-ring"
-            @click="clean_data"
+            @click="cleanData"
           >
-            {{ $t("settings.page.openOther") }}
+            {{ t("settings.page.openOther") }}
           </button>
         </div>
       </form>
       <p v-else class="settings-no-results">
-        {{ $t("settings.page.no-result") }}
+        {{ t("settings.page.no-result") }}
       </p>
     </div>
 

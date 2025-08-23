@@ -1,8 +1,10 @@
+import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
-import { render, t } from "@/tests/components/helpers.js";
+import i18n from "@/i18n.js";
 
+const { t } = i18n.global;
 const mockLoadSettings = vi.fn();
 const mockNotifications = {
   notifications: { value: [] },
@@ -26,13 +28,18 @@ vi.mock("@/composables/useNotifications.js", () => ({
 }));
 
 describe("UploadFileComponent.vue", () => {
+  let wrapper;
   beforeEach(() => {
     vi.clearAllMocks();
+    wrapper = mount(UploadFileComponent, {
+      global: {
+        plugins: [i18n],
+      },
+    });
   });
 
   it("should handle file selection correctly", async () => {
     // given
-    const wrapper = render(UploadFileComponent);
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
     const input = wrapper.find("input[type='file']");
 
@@ -46,7 +53,6 @@ describe("UploadFileComponent.vue", () => {
 
   it("should handle drag and drop correctly", async () => {
     // given
-    const wrapper = render(UploadFileComponent);
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
     const dropZone = wrapper.find(".file-input-wrapper");
 
@@ -68,7 +74,6 @@ describe("UploadFileComponent.vue", () => {
 
   it("should remove file correctly", async () => {
     // given
-    const wrapper = render(UploadFileComponent);
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
     wrapper.vm.fileInput = file;
     await wrapper.vm.$nextTick();
@@ -83,7 +88,6 @@ describe("UploadFileComponent.vue", () => {
 
   it("should format file size correctly", () => {
     // given
-    const wrapper = render(UploadFileComponent);
 
     // then
     expect(wrapper.vm.formatFileSize(0)).toBe("0 B");
@@ -93,7 +97,6 @@ describe("UploadFileComponent.vue", () => {
 
   it("should display an alert if the file format is incorrect", async () => {
     // given
-    const wrapper = render(UploadFileComponent);
     window.alert = vi.fn();
     const file = new File(["test content"], "test.txt", { type: "text/plain" });
     wrapper.vm.fileInput = file;
@@ -107,7 +110,6 @@ describe("UploadFileComponent.vue", () => {
 
   it("should display notification for invalid JSON content", async () => {
     // given
-    const wrapper = render(UploadFileComponent);
     window.alert = vi.fn();
     const fileContent = "invalid json content";
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
@@ -126,7 +128,6 @@ describe("UploadFileComponent.vue", () => {
 
   it("should read file content and emit 'file-uploaded'", async () => {
     // given
-    const wrapper = render(UploadFileComponent);
     const fileContent = JSON.stringify({ theme: "dark" });
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
     const mockFileReader = { readAsText: vi.fn(), onloadend: null };

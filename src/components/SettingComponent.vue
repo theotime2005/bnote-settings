@@ -1,43 +1,41 @@
-<script>
+<script setup>
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+
 import { useSettingsStore } from "@/stores/settingsStore.js";
 
-export default {
-  name: "SettingComponent",
-  props: {
-    settingSection: {
-      type: String,
-      required: true,
-    },
-    settingKey: {
-      type: String,
-      required: true,
-    },
-    setting: {
-      type: Object,
-      required: true,
-    },
+const { t } = useI18n();
+const settingsStore = useSettingsStore();
+const props = defineProps({
+  settingSection: {
+    type: String,
+    required: true,
   },
-  data() {
-    return {
-      settingValue: useSettingsStore().getSetting(this.settingSection, this.settingKey),
-      label_id: `${this.settingSection}.${this.settingKey}`,
-      name: this.$t(`settings.id.${this.settingKey}`),
-      settingsStore: useSettingsStore(),
-    };
+  settingKey: {
+    type: String,
+    required: true,
   },
-  methods: {
-    updateSetting() {
-      if (this.setting.type === "number") {
-        this.settingValue = parseInt(this.settingValue);
-      }
-      useSettingsStore().updateSetting(this.settingSection, this.settingKey, this.settingValue);
-    },
-    setDefault() {
-      this.settingValue = this.setting.default;
-      this.updateSetting();
-    },
+  setting: {
+    type: Object,
+    required: true,
   },
-};
+});
+const settingValue = ref(settingsStore.getSetting(props.settingSection, props.settingKey));
+const label_id = `${props.settingSection}.${props.settingKey}`;
+const name = t(`settings.id.${props.settingKey}`);
+
+function updateSetting() {
+  if (props.setting.type === "number") {
+    settingValue.value = parseInt(settingValue.value);
+  }
+  settingsStore.updateSetting(props.settingSection, props.settingKey, settingValue.value);
+}
+
+function setDefault() {
+  settingValue.value = props.setting.default;
+  updateSetting();
+}
+
 </script>
 
 <template>
@@ -50,15 +48,15 @@ export default {
         v-if="settingValue !== setting.default"
         type="button"
         class="setting-default-button focus-ring"
-        :title="$t('settings.values.default')"
+        :title="t('settings.values.default')"
         @click="setDefault"
       >
-        {{ $t("settings.values.default") }}
+        {{ t("settings.values.default") }}
       </button>
     </div>
 
     <!-- Checkbox -->
-    <div v-if="setting.type === 'checkbox'" class="setting-control">
+    <div v-if="props.setting.type === 'checkbox'" class="setting-control">
       <input
         :id="label_id"
         v-model="settingValue"
@@ -74,7 +72,7 @@ export default {
     </div>
 
     <!-- Dropdown -->
-    <div v-else-if="setting.type === 'menu'" class="setting-control">
+    <div v-else-if="props.setting.type === 'menu'" class="setting-control">
       <select
         :id="label_id"
         v-model="settingValue"
@@ -83,45 +81,45 @@ export default {
         @change="updateSetting"
       >
         <option
-          v-for="option in setting.values"
+          v-for="option in props.setting.values"
           :key="option"
           :value="option"
         >
-          {{ !setting.isTranslate ? $t(`settings.values.${option}`) : option }}
+          {{ !props.setting.isTranslate ? t(`settings.values.${option}`) : option }}
         </option>
       </select>
     </div>
 
     <!-- Number Input -->
-    <div v-else-if="setting.type === 'number'" class="setting-control setting-number">
+    <div v-else-if="props.setting.type === 'number'" class="setting-control setting-number">
       <input
         :id="label_id"
         v-model="settingValue"
         type="range"
         :name="name"
-        :min="setting.min"
-        :max="setting.max"
+        :min="props.setting.min"
+        :max="props.setting.max"
         class="setting-range focus-ring"
         :list="label_id + 'tickmarks'"
         @input="updateSetting"
       />
       <output class="setting-value">{{ settingValue }}</output>
       <datalist :id="label_id + 'tickmarks'">
-        <option :value="setting.min" :label="setting.min"></option>
-        <option :value="setting.default" :label="setting.default"></option>
-        <option :value="setting.max" :label="setting.max"></option>
+        <option :value="props.setting.min" :label="props.setting.min"></option>
+        <option :value="props.setting.default" :label="props.setting.default"></option>
+        <option :value="props.setting.max" :label="props.setting.max"></option>
       </datalist>
     </div>
 
     <!-- Text Input -->
-    <div v-else-if="setting.type === 'text'" class="setting-control">
+    <div v-else-if="props.setting.type === 'text'" class="setting-control">
       <input
         :id="label_id"
         v-model="settingValue"
         type="text"
         :name="name"
         class="setting-input focus-ring"
-        :placeholder="$t('settings.values.default')"
+        :placeholder="t('settings.values.default')"
         @input="updateSetting"
       />
     </div>
