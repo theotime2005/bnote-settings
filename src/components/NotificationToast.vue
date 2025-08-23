@@ -1,60 +1,62 @@
-<script>
-export default {
-  name: "NotificationToast",
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-    type: {
-      type: String,
-      default: "info",
-      validator: (value) => ["success", "error", "warning", "info"].includes(value),
-    },
-    title: {
-      type: String,
-      default: "",
-    },
-    message: {
-      type: String,
-      required: true,
-    },
-    dismissible: {
-      type: Boolean,
-      default: true,
-    },
-    duration: {
-      type: Number,
-      default: 5000,
-    },
+<script setup>
+import { computed, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false,
   },
-  emits: ["close"],
-  computed: {
-    iconComponent() {
-      const icons = {
-        success: "CheckIcon",
-        error: "XIcon",
-        warning: "ExclamationIcon",
-        info: "InfoIcon",
-      };
-      return icons[this.type] || "InfoIcon";
-    },
+  type: {
+    type: String,
+    default: "info",
+    validator: (value) => ["success", "error", "warning", "info"].includes(value),
   },
-  mounted() {
-    if (this.duration > 0) {
-      setTimeout(() => {
-        this.$emit("close");
-      }, this.duration);
-    }
+  title: {
+    type: String,
+    default: "",
   },
-};
+  message: {
+    type: String,
+    required: true,
+  },
+  dismissible: {
+    type: Boolean,
+    default: true,
+  },
+  duration: {
+    type: Number,
+    default: 5000,
+  },
+});
+
+const emit = defineEmits(["close"]);
+
+const iconComponent = computed(() => {
+  const icons = {
+    success: "CheckIcon",
+    error: "XIcon",
+    warning: "ExclamationIcon",
+    info: "InfoIcon",
+  };
+  return icons[props.type] || "InfoIcon";
+});
+
+onMounted(() => {
+  if (props.duration > 0) {
+    setTimeout(() => {
+      emit("close");
+    }, props.duration);
+  }
+});
 </script>
 
 <template>
   <Teleport to="body">
     <Transition name="toast" appear>
       <div
-        v-if="visible"
+        v-if="props.visible"
         class="toast"
         :class="[`toast--${type}`, { 'toast--dismissible': dismissible }]"
         role="alert"
@@ -64,13 +66,13 @@ export default {
           <component :is="iconComponent" />
         </div>
         <div class="toast__content">
-          <h4 v-if="title" class="toast__title">{{ title }}</h4>
-          <p class="toast__message">{{ message }}</p>
+          <h4 v-if="title" class="toast__title">{{ props.title }}</h4>
+          <p class="toast__message">{{ props.message }}</p>
         </div>
         <button
-          v-if="dismissible"
+          v-if="props.dismissible"
           class="toast__close"
-          :aria-label="$t('common.close')"
+          :aria-label="t('common.close')"
           @click="$emit('close')"
         >
           ×

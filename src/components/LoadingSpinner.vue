@@ -1,24 +1,21 @@
-<script>
-export default {
-  name: "LoadingSpinner",
-  props: {
-    size: {
-      type: String,
-      default: "medium",
-      validator: (value) => ["small", "medium", "large"].includes(value),
-    },
-    text: {
-      type: String,
-      default: "",
-    },
+<script setup>
+const props = defineProps({
+  size: {
+    type: String,
+    default: "medium",
+    validator: (value) => ["small", "medium", "large"].includes(value),
   },
-};
+  text: {
+    type: String,
+    default: "",
+  },
+});
 </script>
 
 <template>
   <div class="loading-spinner" :class="{ 'loading-spinner--small': size === 'small', 'loading-spinner--large': size === 'large' }">
     <div class="loading-spinner__circle"></div>
-    <span v-if="text" class="loading-spinner__text">{{ text }}</span>
+    <span v-if="props.text" class="loading-spinner__text">{{ props.text }}</span>
   </div>
 </template>
 

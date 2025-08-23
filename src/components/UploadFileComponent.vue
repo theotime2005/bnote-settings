@@ -1,77 +1,80 @@
-<script>
+<script setup>
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+
 import { sendLog } from "@/scripts/send-log-message-script.js";
 import { useSettingsStore } from "@/stores/settingsStore.js";
-export default {
-  name: "UploadFileComponent",
-  emits: ["file-uploaded"],
-  data() {
-    return {
-      fileInput: null,
-      isDragOver: false,
-    };
-  },
-  methods: {
-    handleFileUpload(event) {
-      this.fileInput = event.target.files[0];
-    },
-    handleDrop(event) {
-      this.isDragOver = false;
-      const files = event.dataTransfer.files;
-      if (files.length > 0) {
-        this.fileInput = files[0];
-        // Note: Setting HTMLInputElement.files directly is not supported in all environments
-        // The component state (this.fileInput) already holds the file information
-      }
-    },
-    removeFile() {
-      this.fileInput = null;
-      this.$refs.fileInput.value = "";
-    },
-    formatFileSize(bytes) {
-      if (bytes === 0) return "0 B";
-      const k = 1024;
-      const sizes = ["B", "KB", "MB"];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
-    },
-    uploadFile() {
+
+const emit = defineEmits(["file-uploaded"]);
+const fileInput = ref(null);
+const isDragOver = ref(false);
+const { t } = useI18n();
+
+function handleFileUpload(event) {
+  fileInput.value = event.target.files[0];
+}
+
+function handleDrop(event) {
+  isDragOver.value = false;
+  const files = event.dataTransfer.files;
+  if (files.length > 0) {
+    fileInput.value = files[0];
+  }
+}
+
+function removeFile() {
+  fileInput.value = null;
+  const fileInputElement = document.getElementById("select");
+  if (fileInputElement) {
+    const clone = fileInputElement.cloneNode(true);
+    fileInputElement.parentNode.replaceChild(clone, fileInputElement);
+  }
+}
+
+function formatFileSize(bytes) {
+  if (bytes === 0) return "0 B";
+  const k = 1024;
+  const sizes = ["B", "KB", "MB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+}
+
+function uploadFile() {
+  try {
+    const extension = fileInput.value.name.split(".").pop();
+    if (extension !== "bnote") {
+      window.alert(t("uploadFile.incorrectFormatFile"));
+      return;
+    }
+
+    const file = new FileReader();
+    file.readAsText(fileInput.value);
+
+    file.onloadend = (e) => {
       try {
-        const extension = this.fileInput.name.split(".").pop();
-        if (extension !== "bnote") {
-          window.alert(this.$t("uploadFile.incorrectFormatFile"));
-          return;
-        }
-
-        const file = new FileReader();
-        file.readAsText(this.fileInput);
-
-        file.onloadend = (e) => {
-          try {
-            const config = JSON.parse(e.target.result);
-            useSettingsStore().loadSettings(config, this.fileInput.name.split(".")[0]);
-            this.$emit("file-uploaded");
-          } catch (parseError) {
-            window.alert(this.$t("uploadFile.invalidFileContent"));
-            sendLog({ fileName: "UploadFileComponent", functionName: "uploadFile", type: "error", log: parseError });
-          }
-        };
-      } catch (error) {
-        sendLog({ fileName: "UploadFileComponent", functionName: "uploadFile", type: "error", log: error });
+        const config = JSON.parse(e.target.result);
+        useSettingsStore().loadSettings(config, fileInput.value.name.split(".")[0]);
+        emit("file-uploaded");
+      } catch (parseError) {
+        window.alert(t("uploadFile.invalidFileContent"));
+        sendLog({ fileName: "UploadFileComponent", functionName: "uploadFile", type: "error", log: parseError });
       }
-    },
-  },
-};
+    };
+  } catch (error) {
+    sendLog({ fileName: "UploadFileComponent", functionName: "uploadFile", type: "error", log: error });
+  }
+}
 </script>
 
 <template>
   <div class="upload-container">
-    <h2 class="upload-title">{{ $t('uploadFile.title') }}</h2>
+    <h2 class="upload-title">{{ t('uploadFile.title') }}</h2>
     <form class="upload-form" @submit.prevent="uploadFile" @dragover.prevent @drop.prevent="handleDrop">
-      <label for="select" class="file-label">{{ $t('uploadFile.select') }}</label>
+      <label for="select" class="file-label">{{ t('uploadFile.select') }}</label>
       <div class="file-input-wrapper" :class="{ 'drag-over': isDragOver }" @dragenter="isDragOver = true" @dragleave="isDragOver = false">
         <input
           id="select"
-          ref="fileInput"
+          :ref="fileInput"
           type="file"
           accept=".bnote"
           required
@@ -80,8 +83,8 @@ export default {
         />
         <div class="file-drop-zone">
           <div class="file-drop-icon">📁</div>
-          <p class="file-drop-text">{{ $t('uploadFile.dragDrop') }}</p>
-          <p class="file-drop-subtext">{{ $t('uploadFile.orClick') }}</p>
+          <p class="file-drop-text">{{ t('uploadFile.dragDrop') }}</p>
+          <p class="file-drop-subtext">{{ t('uploadFile.orClick') }}</p>
         </div>
       </div>
       <div v-if="fileInput" class="file-preview">
@@ -89,10 +92,10 @@ export default {
           <span class="file-name">{{ fileInput.name }}</span>
           <span class="file-size">{{ formatFileSize(fileInput.size) }}</span>
         </div>
-        <button type="button" class="file-remove" :title="$t('common.remove')" @click="removeFile">×</button>
+        <button type="button" class="file-remove" :title="t('common.remove')" @click="removeFile">×</button>
       </div>
       <button type="submit" class="upload-button focus-ring" :disabled="!fileInput">
-        {{ $t('uploadFile.show') }}
+        {{ t('uploadFile.show') }}
       </button>
     </form>
   </div>
