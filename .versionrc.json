@@ -1,6 +1,10 @@
 {
   "types": [
     {
+      "type": "breaking",
+      "section": "💥 Breaking changes"
+    },
+    {
       "type": "feat",
       "section": "🚀 New features"
     },
