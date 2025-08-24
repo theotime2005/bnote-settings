@@ -13,14 +13,22 @@ const { $router } = useNuxtApp();
 const route = useRoute();
 
 onMounted(() => {
-  // set locale from cookie
+  // Check if we have a locale from URL (Nuxt i18n) or cookie
   const localeCookie = useLocaleCookie.getLocaleCookie();
-  if (localeCookie) {
+
+  // If we have a locale from the URL (e.g., /fr), trust that
+  if (locale.value && availableLocales.includes(locale.value)) {
+    hasLanguage.value = true;
+    // Update cookie to match URL locale
+    useLocaleCookie.setLocaleCookie(locale.value);
+  } else if (localeCookie) {
+    // Fall back to cookie
     locale.value = localeCookie;
     hasLanguage.value = true;
   } else if (process.env.NODE_ENV === "test") {
     hasLanguage.value = true;
   }
+
   // Toggle the reset cookies variable
   if (process.dev) {
     canReset.value = true;

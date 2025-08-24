@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     ['@nuxtjs/i18n', {
-      strategy: 'prefix_except_default',
+      strategy: 'prefix',
       defaultLocale: 'fr',
       locales: [
         { code: 'en', iso: 'en-US', file: 'en.json' },
@@ -17,7 +17,9 @@ export default defineNuxtConfig({
         { code: 'es', iso: 'es-ES', file: 'es.json' },
         { code: 'it', iso: 'it-IT', file: 'it.json' }
       ],
-      langDir: 'locales'
+      langDir: 'locales/',
+      lazy: false,
+      vueI18n: './i18n.config.ts'
     }],
     '@nuxt/eslint'
   ],

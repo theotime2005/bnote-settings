@@ -42,7 +42,7 @@ describe("NotificationToast.vue", () => {
     vi.useFakeTimers();
     const wrapper = mount(NotificationToast, {
       global: {
-        
+
       },
       props: {
         visible: true,
@@ -64,7 +64,7 @@ describe("NotificationToast.vue", () => {
     vi.useFakeTimers();
     const wrapper = mount(NotificationToast, {
       global: {
-        
+
       },
       props: {
         visible: true,
@@ -85,7 +85,7 @@ describe("NotificationToast.vue", () => {
     // given
     const wrapper = mount(NotificationToast, {
       global: {
-        
+
       },
       props: {
         visible: true,
@@ -103,7 +103,7 @@ describe("NotificationToast.vue", () => {
     // given
     const wrapper = mount(NotificationToast, {
       global: {
-        
+
       },
       props: {
         visible: true,
@@ -120,7 +120,7 @@ describe("NotificationToast.vue", () => {
     // given
     const wrapper = mount(NotificationToast, {
       global: {
-        
+
       },
       props: {
         visible: true,
@@ -138,7 +138,7 @@ describe("NotificationToast.vue", () => {
     // given
     const wrapper = mount(NotificationToast, {
       global: {
-        
+
       },
       props: {
         visible: true,
@@ -156,7 +156,7 @@ describe("NotificationToast.vue", () => {
     // given
     const wrapper = mount(NotificationToast, {
       global: {
-        
+
       },
       props: {
         visible: true,
