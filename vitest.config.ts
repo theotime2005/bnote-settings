@@ -1,11 +1,19 @@
-import { defineVitestConfig } from '@nuxt/test-utils/config'
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
+import { fileURLToPath } from 'node:url'
+import path from 'node:path'
 
-export default defineVitestConfig({
+export default defineConfig({
+  plugins: [vue()],
   test: {
     globals: true,
     environment: 'jsdom',
-    // We can exclude utils and other Nuxt-specific directories if needed
     exclude: ['**/e2e/**', '**/node_modules/**', '**/.nuxt/**'],
     reporters: process.env.GITHUB_ACTIONS ? ['dot', 'github-actions'] : ['dot'],
   },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './')
+    }
+  }
 })
