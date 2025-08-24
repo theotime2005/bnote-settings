@@ -1,6 +1,6 @@
 /// <reference types="@pinia/nuxt" />
-/// <reference types="@nuxtjs/i18n" />
 /// <reference types="@nuxt/eslint" />
+/// <reference types="@nuxtjs/i18n" />
 /// <reference types="@nuxt/telemetry" />
 /// <reference types="@nuxt/devtools" />
 /// <reference path="types/builder-env.d.ts" />
