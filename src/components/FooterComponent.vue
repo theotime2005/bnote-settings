@@ -1,24 +1,21 @@
 <script setup>
-import { useI18n } from "vue-i18n";
-
 import LanguageComponent from "@/components/LanguageComponent.vue";
 
 import packageInfo from "../../package.json";
 
-const { t } = useI18n();
 </script>
 
 <template>
-  <footer class="footer-container" :aria-label="t('footer.label')">
+  <footer class="footer-container" :aria-label="$t('footer.label')">
     <div class="footer-content">
       <div class="footer-messages">
-        <p>{{ t('footer.message1') }}</p>
-        <p>{{ t('footer.message2') }}</p>
+        <p>{{ $t('footer.message1') }}</p>
+        <p>{{ $t('footer.message2') }}</p>
       </div>
     </div>
     <LanguageComponent />
-    <a class="footer-link" href="https://github.com/theotime2005/bnote-settings">{{ t('footer.code') }}</a>
-    <p>{{ t('footer.version', {version: packageInfo.version}) }}</p>
+    <a class="footer-link" href="https://github.com/theotime2005/bnote-settings">{{ $t('footer.code') }}</a>
+    <p>{{ $t('footer.version', {version: packageInfo.version}) }}</p>
   </footer>
 </template>
 
