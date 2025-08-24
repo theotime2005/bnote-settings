@@ -66,7 +66,7 @@ onMounted(() => {
           <component :is="iconComponent" />
         </div>
         <div class="toast__content">
-          <h4 v-if="title" class="toast__title">{{ props.title }}</h4>
+          <h4 v-if="props.title" class="toast__title">{{ props.title }}</h4>
           <p class="toast__message">{{ props.message }}</p>
         </div>
         <button

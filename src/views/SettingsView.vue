@@ -289,7 +289,7 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- Notifications -->
-    <div v-for="notification in notifications.notifications" :key="notification.id">
+    <div v-for="notification in notifications.notifications.value" :key="notification.id">
       <NotificationToast
         :visible="notification.visible"
         :type="notification.type"
