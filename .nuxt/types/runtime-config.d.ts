@@ -26,7 +26,9 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
 
       skipSettingLocaleOnNavigate: boolean,
 
-      locales: Array<any>,
+      locales: Array<{
+
+      }>,
 
       detectBrowserLanguage: {
          alwaysRedirect: boolean,
@@ -68,7 +70,23 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
          nitroContextDetection: boolean,
       },
 
-      domainLocales: any,
+      domainLocales: {
+         en: {
+            domain: string,
+         },
+
+         fr: {
+            domain: string,
+         },
+
+         es: {
+            domain: string,
+         },
+
+         it: {
+            domain: string,
+         },
+      },
    },
   }
 declare module '@nuxt/schema' {

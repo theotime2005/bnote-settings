@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
+import { useLocaleCookie } from "~/utils/useLocaleCookie.js";
+
 const { locale, availableLocales } = useI18n();
 const mainRef = ref(null);
 const hasLanguage = ref(false);
@@ -9,9 +11,6 @@ const canReset = ref(false);
 // Nuxt composables
 const { $router } = useNuxtApp();
 const route = useRoute();
-
-// Import the locale cookie utility
-const { useLocaleCookie } = await import("~/utils/useLocaleCookie.js");
 
 onMounted(() => {
   // set locale from cookie
