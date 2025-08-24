@@ -85,7 +85,7 @@ function setDefault() {
           :key="option"
           :value="option"
         >
-          {{ !props.setting.isTranslate ? t(`settings.values.${option}`) : option }}
+          {{ !props.setting.isTranslate ? $t(`settings.values.${option}`) : option }}
         </option>
       </select>
     </div>
