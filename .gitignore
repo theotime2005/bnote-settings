@@ -30,5 +30,11 @@ coverage
 *.tsbuildinfo
 .vercel
 
+# Nuxt dev/build outputs
+.output
+.nuxt
+.nitro
+.cache
+
 # Environment variable
 .env

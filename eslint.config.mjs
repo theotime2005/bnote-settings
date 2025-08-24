@@ -32,6 +32,23 @@ export default [
       globals: {
         ...globals.node,
         ...globals.browser,
+        // Nuxt auto-imports
+        useI18n: "readonly",
+        useRoute: "readonly",
+        useRouter: "readonly",
+        useNuxtApp: "readonly",
+        useRuntimeConfig: "readonly",
+        useCookie: "readonly",
+        useState: "readonly",
+        useFetch: "readonly",
+        $fetch: "readonly",
+        // Auto-imported composables
+        useNotifications: "readonly",
+        useSettingsStore: "readonly",
+        // Nuxt components
+        NuxtPage: "readonly",
+        NuxtLayout: "readonly",
+        NuxtLink: "readonly",
       },
 
       ecmaVersion: "latest",
@@ -84,6 +101,7 @@ export default [
           order: ["script", "template", "style"],
         },
       ],
+      "vue/multi-word-component-names": "off", // Allow single-word component names for Nuxt pages
     },
   },
   {
@@ -100,8 +118,13 @@ export default [
       ".idea/",
       ".vscode/",
       "src/*.json",
+      "settings.json",
       "dist/",
       "public/",
+      ".nuxt/",
+      ".output/",
+      ".vercel/",
+      "node_modules/.cache/",
       ".versionrc.json",
       "jsconfig.json",
       "package-lock.json",

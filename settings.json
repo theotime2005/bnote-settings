@@ -1,0 +1,536 @@
+{
+  "agenda": {
+    "default_presentation": {
+      "default": "standard",
+      "type": "menu",
+      "values": [
+        "standard",
+        "not_done",
+        "today",
+        "calendar"
+      ]
+    },
+    "remember": {
+      "default": "no",
+      "type": "menu",
+      "values": [
+        "no",
+        "same",
+        "tomorrow",
+        "same_tomorrow"
+      ]
+    }
+  },
+  "bluetooth": {
+    "bnote_name": {
+      "default": "",
+      "type": "text"
+    },
+    "bnote_visible": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "bt_simul_esys": {
+      "default": false,
+      "type": "checkbox"
+    }
+  },
+  "braille_learning": {
+    "keep_spaces": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "use_vocal": {
+      "default": "auto",
+      "type": "menu",
+      "values": [
+        "auto",
+        "ask",
+        "no"
+      ]
+    },
+    "write_all": {
+      "default": false,
+      "type": "checkbox"
+    }
+  },
+  "editor": {
+    "autoscroll": {
+      "default": 5,
+      "max": 120,
+      "min": 2,
+      "type": "number"
+    },
+    "braille_type": {
+      "default": "dot-8",
+      "type": "menu",
+      "values": [
+        "dot-8",
+        "grade1",
+        "grade2"
+      ]
+    },
+    "cursor_visible": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "dot78_visible": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "forward_display_mode": {
+      "default": "normal",
+      "type": "menu",
+      "values": [
+        "normal",
+        "significative"
+      ]
+    },
+    "line_length": {
+      "default": 80,
+      "max": 160,
+      "min": 1,
+      "type": "number"
+    }
+  },
+  "explorer": {
+    "empty_bluetooth_shutdown": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "empty_trash_shutdown": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "number_recent_files": {
+      "default": 10,
+      "max": 30,
+      "min": 1,
+      "type": "number"
+    }
+  },
+  "math": {
+    "angle": {
+      "default": "radian",
+      "type": "menu",
+      "values": [
+        "degree",
+        "radian"
+      ]
+    },
+    "format": {
+      "default": "scientific",
+      "type": "menu",
+      "values": [
+        "scientific",
+        "normal"
+      ]
+    },
+    "fraction": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "precision": {
+      "default": 2,
+      "max": 8,
+      "min": 0,
+      "type": "number"
+    }
+  },
+  "music_bxml": {
+    "ascending_chords": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "braille_type": {
+      "default": "dot-8",
+      "type": "menu",
+      "values": [
+        "dot-8",
+        "grade1"
+      ]
+    },
+    "clef": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "credit_words": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "edit_mode": {
+      "default": "read",
+      "type": "menu",
+      "values": [
+        "expert",
+        "read",
+        "edit",
+        "listen"
+      ]
+    },
+    "fingering": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "karaoke": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "lyrics": {
+      "default": "no",
+      "type": "menu",
+      "values": [
+        "no",
+        "after_each_note",
+        "before_each_section",
+        "after_each_section"
+      ]
+    },
+    "measure_b123": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "measure_every": {
+      "default": 1,
+      "max": 100,
+      "min": 1,
+      "type": "number"
+    },
+    "measure_number": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "measures_per_section": {
+      "default": 8,
+      "max": 100,
+      "min": 1,
+      "type": "number"
+    },
+    "notes_dots": {
+      "default": "6_dots_with_group",
+      "type": "menu",
+      "values": [
+        "8_dots",
+        "6_dots",
+        "6_dots_with_group"
+      ]
+    },
+    "parts": {
+      "default": "name",
+      "type": "menu",
+      "values": [
+        "name",
+        "abbreviation"
+      ]
+    },
+    "section": {
+      "default": "total_part",
+      "type": "menu",
+      "values": [
+        "total_part",
+        "system",
+        "number"
+      ]
+    },
+    "view": {
+      "default": "by_section",
+      "type": "menu",
+      "values": [
+        "by_section",
+        "by_part"
+      ]
+    },
+    "words": {
+      "default": true,
+      "type": "checkbox"
+    }
+  },
+  "music_xml": {
+    "ascending_chords": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "braille_type": {
+      "default": "dot-8",
+      "type": "menu",
+      "values": [
+        "dot-8",
+        "grade1"
+      ]
+    },
+    "clef": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "credit_words": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "edit_mode": {
+      "default": "read",
+      "type": "menu",
+      "values": [
+        "expert",
+        "read",
+        "edit",
+        "listen"
+      ]
+    },
+    "fingering": {
+      "default": true,
+      "type": "checkbox"
+    },
+    "lyrics": {
+      "default": "no",
+      "type": "menu",
+      "values": [
+        "no",
+        "after_each_note",
+        "before_each_section",
+        "after_each_section"
+      ]
+    },
+    "measure_b123": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "measure_every": {
+      "default": 1,
+      "max": 100,
+      "min": 1,
+      "type": "number"
+    },
+    "measure_number": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "measures_per_section": {
+      "default": 8,
+      "max": 100,
+      "min": 1,
+      "type": "number"
+    },
+    "notes_dots": {
+      "default": "6_dots_with_group",
+      "type": "menu",
+      "values": [
+        "8_dots",
+        "6_dots",
+        "6_dots_with_group"
+      ]
+    },
+    "parts": {
+      "default": "name",
+      "type": "menu",
+      "values": [
+        "name",
+        "abbreviation"
+      ]
+    },
+    "section": {
+      "default": "total_part",
+      "type": "menu",
+      "values": [
+        "total_part",
+        "system",
+        "number"
+      ]
+    },
+    "view": {
+      "default": "by_section",
+      "type": "menu",
+      "values": [
+        "by_section",
+        "by_part"
+      ]
+    },
+    "words": {
+      "default": true,
+      "type": "checkbox"
+    }
+  },
+  "radio": {
+    "volume_headphone": {
+      "default": 50,
+      "max": 100,
+      "min": 0,
+      "type": "number"
+    },
+    "volume_hp": {
+      "default": 50,
+      "max": 100,
+      "min": 0,
+      "type": "number"
+    }
+  },
+  "speech": {
+    "speed": {
+      "default": 100,
+      "max": 240,
+      "min": 40,
+      "type": "number"
+    },
+    "synthesis": {
+      "default": "cerence",
+      "type": "menu",
+      "values": [
+        "picotts",
+        "mbrola",
+        "espeak",
+        "cerence"
+      ]
+    },
+    "volume_headphone": {
+      "default": 50,
+      "max": 100,
+      "min": 0,
+      "type": "number"
+    },
+    "volume_hp": {
+      "default": 50,
+      "max": 100,
+      "min": 0,
+      "type": "number"
+    }
+  },
+  "system": {
+    "app_agenda": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_explorer": {
+      "default": "main_apps_menu",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_mastermind": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_mines": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_mp3": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_operation": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_radio": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_settings": {
+      "default": "main_apps_menu",
+      "type": "menu",
+      "values": [
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_timer": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_translator": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_wikipedia": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "app_write_word": {
+      "default": "invisible",
+      "type": "menu",
+      "values": [
+        "invisible",
+        "main_apps_menu",
+        "more_apps_menu"
+      ]
+    },
+    "auto_sync_date": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "braille_type": {
+      "default": "dot-8",
+      "type": "menu",
+      "values": [
+        "dot-8",
+        "grade1",
+        "grade2"
+      ]
+    },
+    "developer": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "shortcuts_visible": {
+      "default": false,
+      "type": "checkbox"
+    },
+    "spaces_in_label": {
+      "default": false,
+      "type": "checkbox"
+    }
+  },
+  "update": {
+    "auto_check": {
+      "default": false,
+      "type": "checkbox"
+    }
+  }
+}
