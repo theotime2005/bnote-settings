@@ -102,8 +102,8 @@ function resetCookies() {
             <li v-for="language in availableLocales" :key="language">
               <input
                 :id="`lang-${language}`"
-                class="sr-only"
                 v-model="selectedLanguage"
+                class="sr-only"
                 type="radio"
                 name="language"
                 :value="language"
