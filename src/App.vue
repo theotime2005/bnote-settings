@@ -95,18 +95,18 @@ function resetCookies() {
       <h1 id="language-title">Select your language</h1>
       <p id="language-desc">Choose your preferred language for the interface.</p>
       <div class="divider"></div>
-      <form @submit.prevent="confirmLanguage" class="mt-4" aria-labelledby="language-title" aria-describedby="language-desc">
+      <form class="mt-4" aria-labelledby="language-title" aria-describedby="language-desc" @submit.prevent="confirmLanguage">
         <fieldset>
           <legend class="form-label">Available languages</legend>
           <ul class="language-grid mt-4 mb-4" role="radiogroup" aria-label="Languages">
             <li v-for="language in availableLocales" :key="language">
               <input
                 class="sr-only"
-                type="radio"
                 :id="`lang-${language}`"
+                type="radio"
                 name="language"
-                :value="language"
                 v-model="selectedLanguage"
+                :value="language"
               />
               <label class="radio-card" :for="`lang-${language}`">
                 <span class="radio-title">{{ languageLabels[language] || language }}</span>
