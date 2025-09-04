@@ -609,6 +609,15 @@ input[type="radio"]:checked + .radio-card {
     --color-red-700: #b91c1c;
 }
 
+/* Force background colors for default theme */
+:root[data-color-scheme="default"] body,
+:root[data-color-scheme="default"] .nav-container,
+:root[data-color-scheme="default"] .footer-container,
+:root[data-color-scheme="default"] .main-nav {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+}
+
 /* Dark theme: White/Green on Dark */
 :root[data-color-scheme="dark"] {
     --color-white: #1f2937;
@@ -633,6 +642,15 @@ input[type="radio"]:checked + .radio-card {
     --color-red-700: #fecaca;
 }
 
+/* Force background colors for dark theme */
+:root[data-color-scheme="dark"] body,
+:root[data-color-scheme="dark"] .nav-container,
+:root[data-color-scheme="dark"] .footer-container,
+:root[data-color-scheme="dark"] .main-nav {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+}
+
 /* Blue-Yellow theme: Blue on Yellow */
 :root[data-color-scheme="blue-yellow"] {
     --color-white: #ffcc00;
@@ -655,6 +673,15 @@ input[type="radio"]:checked + .radio-card {
     --color-red-500: #cc0000;
     --color-red-600: #aa0000;
     --color-red-700: #880000;
+}
+
+/* Force background colors for blue-yellow theme */
+:root[data-color-scheme="blue-yellow"] body,
+:root[data-color-scheme="blue-yellow"] .nav-container,
+:root[data-color-scheme="blue-yellow"] .footer-container,
+:root[data-color-scheme="blue-yellow"] .main-nav {
+    background-color: #ffcc00 !important;
+    color: #0066cc !important;
 }
 
 /* Réduction des animations pour les utilisateurs qui préfèrent */
