@@ -424,7 +424,7 @@ onBeforeUnmount(() => {
   top: 100%;
   right: 0;
   margin-top: 0.5rem;
-  background: var(--color-white);
+  background: var(--color-white) !important;
   border: 2px solid var(--color-gray-300);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
@@ -432,6 +432,7 @@ onBeforeUnmount(() => {
   width: 300px;
   z-index: 9999;
   transform: translateX(calc(100% - 44px));
+  color: var(--color-gray-900) !important;
 }
 
 .accessibility-section {
@@ -445,7 +446,7 @@ onBeforeUnmount(() => {
 .accessibility-title {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: var(--color-gray-900) !important;
   margin-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-gray-200);
   padding-bottom: var(--space-2);
@@ -486,7 +487,7 @@ onBeforeUnmount(() => {
 
 .accessibility-option span {
   font-weight: 500;
-  color: var(--color-gray-800);
+  color: var(--color-gray-900) !important;
 }
 
 .main-nav {
