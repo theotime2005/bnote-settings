@@ -101,11 +101,11 @@ function resetCookies() {
           <ul class="language-grid mt-4 mb-4" role="radiogroup" aria-label="Languages">
             <li v-for="language in availableLocales" :key="language">
               <input
-                class="sr-only"
                 :id="`lang-${language}`"
+                class="sr-only"
                 type="radio"
-                name="language"
                 v-model="selectedLanguage"
+                name="language"
                 :value="language"
               />
               <label class="radio-card" :for="`lang-${language}`">
