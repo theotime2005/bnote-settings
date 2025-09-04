@@ -431,6 +431,79 @@ a:focus-visible {
     }
 }
 
+/* Accessibility settings - Text size for entire site */
+:root[data-text-size="small"] {
+    font-size: 14px;
+}
+
+:root[data-text-size="small"] * {
+    font-size: inherit;
+}
+
+:root[data-text-size="large"] {
+    font-size: 18px;
+}
+
+:root[data-text-size="large"] * {
+    font-size: inherit;
+}
+
+/* High contrast mode for entire site */
+:root[data-contrast="high"] {
+    --color-gray-900: #000000;
+    --color-gray-800: #1a1a1a;
+    --color-gray-700: #333333;
+    --color-gray-600: #4a4a4a;
+    --color-gray-500: #666666;
+    --color-gray-400: #808080;
+    --color-gray-300: #999999;
+    --color-gray-200: #b3b3b3;
+    --color-gray-100: #cccccc;
+    --color-gray-50: #e6e6e6;
+    --color-blue-500: #0066cc;
+    --color-blue-600: #004499;
+    --color-blue-700: #003366;
+    --color-green-500: #00aa00;
+    --color-green-600: #008800;
+    --color-green-700: #006600;
+    --color-red-500: #cc0000;
+    --color-red-600: #aa0000;
+    --color-red-700: #880000;
+}
+
+/* Color schemes for entire site */
+:root[data-color-scheme="dark"] {
+    --color-gray-50: #1f2937;
+    --color-gray-100: #374151;
+    --color-gray-200: #4b5563;
+    --color-gray-300: #6b7280;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #d1d5db;
+    --color-gray-600: #e5e7eb;
+    --color-gray-700: #f3f4f6;
+    --color-gray-800: #f9fafb;
+    --color-gray-900: #ffffff;
+}
+
+:root[data-color-scheme="blue-yellow"] {
+    --color-blue-500: #0066cc;
+    --color-blue-600: #0052a3;
+    --color-blue-700: #003d7a;
+    --color-green-500: #ffcc00;
+    --color-green-600: #e6b800;
+    --color-green-700: #cca300;
+    --color-gray-900: #000066;
+    --color-gray-800: #000080;
+    --color-gray-700: #0000aa;
+    --color-gray-600: #0000cc;
+    --color-gray-500: #0000ff;
+    --color-gray-400: #3333ff;
+    --color-gray-300: #6666ff;
+    --color-gray-200: #9999ff;
+    --color-gray-100: #ccccff;
+    --color-gray-50: #e6e6ff;
+}
+
 /* Réduction des animations pour les utilisateurs qui préfèrent */
 @media (prefers-reduced-motion: reduce) {
     *,
