@@ -109,8 +109,16 @@ function handleKeyDown(event) {
   }
 }
 
+function handleClickOutside(event) {
+  const accessibilityControls = event.target.closest(".accessibility-controls");
+  if (!accessibilityControls && showAccessibilityMenu.value) {
+    showAccessibilityMenu.value = false;
+  }
+}
+
 onMounted(() => {
   window.addEventListener("resize", handleResize);
+  document.addEventListener("click", handleClickOutside);
   handleResize();
   loadAccessibilitySettings();
   applyAccessibilitySettings();
@@ -118,6 +126,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener("resize", handleResize);
+  document.removeEventListener("click", handleClickOutside);
 });
 </script>
 
@@ -382,21 +391,32 @@ onBeforeUnmount(() => {
 }
 
 .accessibility-toggle {
-  padding: 0.5rem;
+  padding: var(--space-3);
   background: transparent;
-  border: 2px solid rgb(74, 222, 128);
-  border-radius: 0.375rem;
-  color: rgb(74, 222, 128);
+  border: 2px solid var(--color-blue-500);
+  border-radius: var(--radius-md);
+  color: var(--color-blue-600);
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1.2rem;
+  transition: var(--transition-base);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .accessibility-toggle:hover,
 .accessibility-toggle:focus {
-  background-color: rgb(74, 222, 128);
-  color: rgb(15, 23, 42);
+  background-color: var(--color-blue-500);
+  color: var(--color-white);
   outline: none;
+  transform: scale(1.05);
+}
+
+.accessibility-toggle:focus-visible {
+  outline: 3px solid var(--color-blue-300);
+  outline-offset: 2px;
 }
 
 .accessibility-menu {
@@ -404,13 +424,15 @@ onBeforeUnmount(() => {
   top: 100%;
   right: 0;
   margin-top: 0.5rem;
-  background: white;
-  border: 1px solid var(--color-gray-300);
-  border-radius: 0.5rem;
-  box-shadow: var(--shadow-lg);
-  padding: 1rem;
-  min-width: 250px;
-  z-index: 1000;
+  background: var(--color-white);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-4);
+  min-width: 280px;
+  max-width: 320px;
+  z-index: 9999;
+  transform: translateX(0);
 }
 
 .accessibility-section {
@@ -422,34 +444,50 @@ onBeforeUnmount(() => {
 }
 
 .accessibility-title {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--color-gray-900);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: var(--space-2);
 }
 
 .accessibility-options {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--space-2);
 }
 
 .accessibility-option {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem;
+  gap: var(--space-3);
+  padding: var(--space-3);
   cursor: pointer;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s;
+  border-radius: var(--radius-md);
+  transition: var(--transition-base);
+  border: 1px solid transparent;
 }
 
 .accessibility-option:hover {
   background-color: var(--color-gray-100);
+  border-color: var(--color-gray-300);
+}
+
+.accessibility-option:focus-within {
+  background-color: var(--color-blue-100);
+  border-color: var(--color-blue-500);
 }
 
 .accessibility-option input[type="radio"] {
   margin: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.accessibility-option span {
+  font-weight: 500;
+  color: var(--color-gray-800);
 }
 
 .main-nav {
@@ -573,9 +611,28 @@ onBeforeUnmount(() => {
 }
 
 :root[data-color-scheme="dark"] .accessibility-menu {
-  background-color: #2d2d2d;
-  color: white;
-  border-color: #444;
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-900);
+  border-color: var(--color-gray-400);
+}
+
+:root[data-color-scheme="dark"] .accessibility-title {
+  color: var(--color-gray-900);
+  border-bottom-color: var(--color-gray-400);
+}
+
+:root[data-color-scheme="dark"] .accessibility-option span {
+  color: var(--color-gray-800);
+}
+
+:root[data-color-scheme="dark"] .accessibility-option:hover {
+  background-color: var(--color-gray-200);
+  border-color: var(--color-gray-500);
+}
+
+:root[data-color-scheme="dark"] .accessibility-option:focus-within {
+  background-color: var(--color-blue-200);
+  border-color: var(--color-blue-600);
 }
 
 :root[data-color-scheme="blue-yellow"] .nav-toggle-button,
