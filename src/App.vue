@@ -103,8 +103,8 @@ function resetCookies() {
               <input
                 :id="`lang-${language}`"
                 class="sr-only"
-                type="radio"
                 v-model="selectedLanguage"
+                type="radio"
                 name="language"
                 :value="language"
               />
