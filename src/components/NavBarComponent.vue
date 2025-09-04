@@ -422,7 +422,7 @@ onBeforeUnmount(() => {
 .accessibility-menu {
   position: absolute;
   top: 100%;
-  right: 0;
+  right: -10px;
   margin-top: 0.5rem;
   background: var(--color-white);
   border: 2px solid var(--color-gray-300);
