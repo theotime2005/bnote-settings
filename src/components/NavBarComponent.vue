@@ -424,15 +424,19 @@ onBeforeUnmount(() => {
   top: 100%;
   right: 0;
   margin-top: 0.5rem;
-  background: var(--color-white) !important;
-  border: 2px solid var(--color-gray-300);
+  background: #ffffff !important;
+  border: 2px solid #d1d5db;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
   padding: var(--space-4);
   width: 300px;
   z-index: 9999;
   transform: translateX(calc(100% - 44px));
-  color: var(--color-gray-900) !important;
+  color: #111827 !important;
+}
+
+.accessibility-menu * {
+  color: #111827 !important;
 }
 
 .accessibility-section {
@@ -446,9 +450,9 @@ onBeforeUnmount(() => {
 .accessibility-title {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-gray-900) !important;
+  color: #111827 !important;
   margin-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid #e5e7eb;
   padding-bottom: var(--space-2);
 }
 
@@ -488,15 +492,23 @@ onBeforeUnmount(() => {
 
 .accessibility-option span {
   font-weight: 500;
-  color: var(--color-gray-900) !important;
+  color: #111827 !important;
 }
 
 .accessibility-option:hover span {
-  color: var(--color-gray-900) !important;
+  color: #111827 !important;
 }
 
 .accessibility-option:focus-within span {
-  color: var(--color-gray-900) !important;
+  color: #111827 !important;
+}
+
+.accessibility-option label {
+  color: #111827 !important;
+}
+
+.accessibility-option label span {
+  color: #111827 !important;
 }
 
 .main-nav {
