@@ -42,19 +42,7 @@ jobs:
           echo "Label 'Ready to merge' removed, cancelling job."
           exit 1
 
-      - name: Rebase branch before merge
-        run: |
-          git config user.name "auto merge service"
-          git config user.email "auto-merge-service@users.noreply.github.com"
-          git fetch origin
-          git checkout ${{ github.event.pull_request.base.ref }}
-          git pull
-          git checkout ${{ github.event.pull_request.head.ref }}
-          git pull
-          git rebase ${{ github.event.pull_request.base.ref }}
-          git push origin ${{ github.event.pull_request.head.ref }} --force-with-lease
-
-      - name: Enable auto-merge or merge pull request
+      - name: Rebase, enable auto-merge or merge pull request
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GH_TOKEN: ${{ github.actor == 'dependabot[bot]' && secrets.DEPENDABOT_TOKEN || secrets.GH_TOKEN }}
@@ -62,5 +50,6 @@ jobs:
           if [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
             gh pr comment $PR_NUMBER --body "@dependabot squash and merge"
           else
+            gh pr update-branch $PR_NUMBER --rebase
             gh pr merge $PR_NUMBER --auto -s -d
           fi
