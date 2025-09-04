@@ -115,7 +115,7 @@ function resetCookies() {
             </li>
           </ul>
         </fieldset>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center language-actions">
           <button type="submit" class="custom-button button-blue" :disabled="!selectedLanguage">Continue</button>
         </div>
       </form>
