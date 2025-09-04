@@ -422,17 +422,16 @@ onBeforeUnmount(() => {
 .accessibility-menu {
   position: absolute;
   top: 100%;
-  right: -10px;
+  right: 0;
   margin-top: 0.5rem;
   background: var(--color-white);
   border: 2px solid var(--color-gray-300);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
   padding: var(--space-4);
-  min-width: 280px;
-  max-width: 320px;
+  width: 300px;
   z-index: 9999;
-  transform: translateX(0);
+  transform: translateX(calc(100% - 44px));
 }
 
 .accessibility-section {
