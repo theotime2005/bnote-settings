@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeMount, onMounted, ref, watch } from "vue";
+import { computed, onBeforeMount, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 
@@ -36,21 +36,10 @@ onBeforeMount(() => {
   }
 });
 
-onMounted(() => {
-  // Sync html lang with current locale
-  if (locale.value) {
-    document.documentElement.setAttribute("lang", locale.value);
-  }
-});
-
-// Update html lang and announcement when locale changes
-watch(() => locale.value, (newLocale) => {
-  if (newLocale) {
-    document.documentElement.setAttribute("lang", newLocale);
-    // Re-announce current page title in new language
-    const route = useRoute();
-    routeAnnouncement.value = t(`${route.name}.title`);
-  }
+// Re-announce current page title when locale changes (html lang is handled elsewhere)
+watch(() => locale.value, () => {
+  const route = useRoute();
+  routeAnnouncement.value = t(`${route.name}.title`);
 });
 
 // Announce route changes for screen readers
@@ -91,6 +80,7 @@ function resetCookies() {
 
 <template>
   <div v-if="hasLanguage">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <NavBarComponent @move-cursor="focusMain" />
     <div aria-live="polite" aria-atomic="true" class="sr-only">{{ routeAnnouncement }}</div>
     <div class="container">
