@@ -77,6 +77,24 @@
         --color-gray-800: #f9fafb;
         --color-gray-900: #ffffff;
     }
+    /* Harmonisation des surfaces en mode sombre */
+    .card {
+        background-color: var(--color-gray-100);
+        border-color: var(--color-gray-300);
+    }
+    .radio-card {
+        background-color: var(--color-gray-100);
+        border-color: var(--color-gray-300);
+        color: var(--color-gray-900);
+    }
+    .radio-title { color: var(--color-gray-900); }
+    .radio-code { color: var(--color-gray-500); }
+    .card h1, .card p { color: var(--color-gray-900); }
+    .custom-button:not(.button-blue):not(.button-green):not(.button-red):not(.button-yellow) {
+        background-color: var(--color-gray-100);
+        border-color: var(--color-gray-300);
+        color: var(--color-gray-800);
+    }
 }
 
 * {
@@ -98,6 +116,23 @@ html, body {
     background-color: var(--color-gray-50);
     min-height: 100vh;
     scroll-behavior: smooth;
+}
+
+/* Skip link visible au focus uniquement, placé en haut de page */
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    background: var(--color-blue-600);
+    color: var(--color-white);
+    padding: var(--space-2) var(--space-4);
+    border-radius: 0 0 var(--radius-md) 0;
+    z-index: 1000;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -153,7 +188,7 @@ a:focus-visible {
     cursor: pointer;
     transition: var(--transition-base);
     background-color: var(--color-white);
-    color: var(--color-gray-800);
+    color: var(--color-gray-900);
     border: 1px solid var(--color-gray-300);
     position: relative;
     overflow: hidden;
@@ -351,6 +386,62 @@ a:focus-visible {
     margin: var(--space-4) 0;
 }
 
+/* Grille de sélection de langue */
+.language-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-4);
+    list-style: none;
+}
+
+.radio-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-4);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    background: var(--color-white);
+    color: var(--color-gray-900);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.radio-card:hover {
+    border-color: var(--color-blue-500);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.radio-card:focus-visible {
+    outline: 3px solid var(--color-blue-500);
+    outline-offset: 2px;
+}
+
+.radio-title {
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.radio-code {
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+}
+
+/* État sélectionné (via input:checked + label) */
+input[type="radio"]:checked + .radio-card {
+    border-color: var(--color-blue-600);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* Contraste texte dans les cartes et contenus de la page de langue */
+.card h1, .card p {
+    color: var(--color-gray-900);
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -441,4 +532,27 @@ a:focus-visible {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* Dark mode overrides (placed at end to win cascade) */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: var(--color-gray-100);
+        border-color: var(--color-gray-300);
+    }
+    .card h1,
+    .card p,
+    legend {
+        color: var(--color-gray-900);
+    }
+    fieldset {
+        border-color: var(--color-gray-400);
+    }
+    .radio-card {
+        background-color: var(--color-gray-100);
+        border-color: var(--color-gray-400);
+        color: var(--color-gray-900);
+    }
+    .radio-title { color: var(--color-gray-900); }
+    .radio-code { color: var(--color-gray-500); }
 }
