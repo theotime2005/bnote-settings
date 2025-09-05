@@ -77,24 +77,6 @@
         --color-gray-800: #f9fafb;
         --color-gray-900: #ffffff;
     }
-    /* Harmonisation des surfaces en mode sombre */
-    .card {
-        background-color: var(--color-gray-100);
-        border-color: var(--color-gray-300);
-    }
-    .radio-card {
-        background-color: var(--color-gray-100);
-        border-color: var(--color-gray-300);
-        color: var(--color-gray-900);
-    }
-    .radio-title { color: var(--color-gray-900); }
-    .radio-code { color: var(--color-gray-500); }
-    .card h1, .card p { color: var(--color-gray-900); }
-    .custom-button:not(.button-blue):not(.button-green):not(.button-red):not(.button-yellow) {
-        background-color: var(--color-gray-100);
-        border-color: var(--color-gray-300);
-        color: var(--color-gray-800);
-    }
 }
 
 * {
@@ -116,23 +98,6 @@ html, body {
     background-color: var(--color-gray-50);
     min-height: 100vh;
     scroll-behavior: smooth;
-}
-
-/* Skip link visible au focus uniquement, placé en haut de page */
-.skip-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-100%);
-    background: var(--color-blue-600);
-    color: var(--color-white);
-    padding: var(--space-2) var(--space-4);
-    border-radius: 0 0 var(--radius-md) 0;
-    z-index: 1000;
-}
-
-.skip-link:focus {
-    transform: translateY(0);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -188,7 +153,7 @@ a:focus-visible {
     cursor: pointer;
     transition: var(--transition-base);
     background-color: var(--color-white);
-    color: var(--color-gray-900);
+    color: var(--color-gray-800);
     border: 1px solid var(--color-gray-300);
     position: relative;
     overflow: hidden;
@@ -386,83 +351,6 @@ a:focus-visible {
     margin: var(--space-4) 0;
 }
 
-/* Améliorer lisibilité fieldset/legend */
-fieldset {
-    border: 1px solid var(--color-gray-300);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
-    margin-top: var(--space-4);
-}
-
-legend {
-    padding: 0 var(--space-2);
-    font-weight: 600;
-    color: var(--color-gray-900);
-    margin-bottom: var(--space-2);
-}
-
-/* Grille de sélection de langue */
-.language-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-6);
-    list-style: none;
-    margin-top: var(--space-2);
-}
-
-.radio-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-    width: 100%;
-    padding: var(--space-6);
-    border: 2px solid var(--color-gray-200);
-    border-radius: var(--radius-lg);
-    background: var(--color-white);
-    color: var(--color-gray-900);
-    box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    transition: var(--transition-base);
-}
-
-/* Espace au-dessus de la zone d'actions (bouton Continue) */
-.language-actions {
-    margin-top: var(--space-6);
-}
-
-.radio-card:hover {
-    border-color: var(--color-blue-500);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-}
-
-.radio-card:focus-visible {
-    outline: 3px solid var(--color-blue-500);
-    outline-offset: 2px;
-}
-
-.radio-title {
-    font-weight: 600;
-    color: var(--color-gray-900);
-}
-
-.radio-code {
-    font-size: 0.75rem;
-    color: var(--color-gray-600);
-}
-
-/* État sélectionné (via input:checked + label) */
-input[type="radio"]:checked + .radio-card {
-    border-color: var(--color-blue-600);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
-}
-
-/* Contraste texte dans les cartes et contenus de la page de langue */
-.card h1, .card p {
-    color: var(--color-gray-900);
-}
-
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -543,147 +431,6 @@ input[type="radio"]:checked + .radio-card {
     }
 }
 
-/* Accessibility settings - Text size for entire site */
-:root[data-text-size="small"] {
-    font-size: 14px;
-}
-
-:root[data-text-size="small"] * {
-    font-size: inherit;
-}
-
-:root[data-text-size="large"] {
-    font-size: 18px;
-}
-
-:root[data-text-size="large"] * {
-    font-size: inherit;
-}
-
-/* High contrast mode for entire site */
-:root[data-contrast="high"] {
-    --color-gray-900: #000000;
-    --color-gray-800: #1a1a1a;
-    --color-gray-700: #333333;
-    --color-gray-600: #4a4a4a;
-    --color-gray-500: #666666;
-    --color-gray-400: #808080;
-    --color-gray-300: #999999;
-    --color-gray-200: #b3b3b3;
-    --color-gray-100: #cccccc;
-    --color-gray-50: #e6e6e6;
-    --color-blue-500: #0066cc;
-    --color-blue-600: #004499;
-    --color-blue-700: #003366;
-    --color-green-500: #00aa00;
-    --color-green-600: #008800;
-    --color-green-700: #006600;
-    --color-red-500: #cc0000;
-    --color-red-600: #aa0000;
-    --color-red-700: #880000;
-}
-
-/* Color schemes for entire site */
-
-/* Default theme: Green/Black/Gray on White */
-:root[data-color-scheme="default"] {
-    --color-white: #ffffff;
-    --color-gray-50: #f9fafb;
-    --color-gray-100: #f3f4f6;
-    --color-gray-200: #e5e7eb;
-    --color-gray-300: #d1d5db;
-    --color-gray-400: #9ca3af;
-    --color-gray-500: #6b7280;
-    --color-gray-600: #4b5563;
-    --color-gray-700: #374151;
-    --color-gray-800: #1f2937;
-    --color-gray-900: #111827;
-    --color-blue-500: #10b981;
-    --color-blue-600: #059669;
-    --color-blue-700: #047857;
-    --color-green-500: #10b981;
-    --color-green-600: #059669;
-    --color-green-700: #047857;
-    --color-red-500: #ef4444;
-    --color-red-600: #dc2626;
-    --color-red-700: #b91c1c;
-}
-
-/* Force background colors for default theme */
-:root[data-color-scheme="default"] body,
-:root[data-color-scheme="default"] .nav-container,
-:root[data-color-scheme="default"] .footer-container,
-:root[data-color-scheme="default"] .main-nav {
-    background-color: #ffffff !important;
-    color: #111827 !important;
-}
-
-/* Dark theme: White/Green on Dark */
-:root[data-color-scheme="dark"] {
-    --color-white: #1f2937;
-    --color-gray-50: #111827;
-    --color-gray-100: #1f2937;
-    --color-gray-200: #374151;
-    --color-gray-300: #4b5563;
-    --color-gray-400: #6b7280;
-    --color-gray-500: #9ca3af;
-    --color-gray-600: #d1d5db;
-    --color-gray-700: #e5e7eb;
-    --color-gray-800: #f3f4f6;
-    --color-gray-900: #ffffff;
-    --color-blue-500: #10b981;
-    --color-blue-600: #34d399;
-    --color-blue-700: #6ee7b7;
-    --color-green-500: #10b981;
-    --color-green-600: #34d399;
-    --color-green-700: #6ee7b7;
-    --color-red-500: #f87171;
-    --color-red-600: #fca5a5;
-    --color-red-700: #fecaca;
-}
-
-/* Force background colors for dark theme */
-:root[data-color-scheme="dark"] body,
-:root[data-color-scheme="dark"] .nav-container,
-:root[data-color-scheme="dark"] .footer-container,
-:root[data-color-scheme="dark"] .main-nav {
-    background-color: #1f2937 !important;
-    color: #ffffff !important;
-}
-
-/* Blue-Yellow theme: Blue on Yellow */
-:root[data-color-scheme="blue-yellow"] {
-    --color-white: #ffcc00;
-    --color-gray-50: #fff7cc;
-    --color-gray-100: #ffed99;
-    --color-gray-200: #ffe366;
-    --color-gray-300: #ffd933;
-    --color-gray-400: #ffcc00;
-    --color-gray-500: #e6b800;
-    --color-gray-600: #cca300;
-    --color-gray-700: #b38f00;
-    --color-gray-800: #997a00;
-    --color-gray-900: #0066cc;
-    --color-blue-500: #0066cc;
-    --color-blue-600: #0052a3;
-    --color-blue-700: #003d7a;
-    --color-green-500: #0066cc;
-    --color-green-600: #0052a3;
-    --color-green-700: #003d7a;
-    --color-red-500: #cc0000;
-    --color-red-600: #aa0000;
-    --color-red-700: #880000;
-}
-
-/* Force background colors for blue-yellow theme */
-:root[data-color-scheme="blue-yellow"] body,
-:root[data-color-scheme="blue-yellow"] .nav-container,
-:root[data-color-scheme="blue-yellow"] .footer-container,
-:root[data-color-scheme="blue-yellow"] .main-nav {
-    background-color: #ffcc00 !important;
-    color: #0066cc !important;
-}
-
 /* Réduction des animations pour les utilisateurs qui préfèrent */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -694,27 +441,4 @@ input[type="radio"]:checked + .radio-card {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-}
-
-/* Dark mode overrides (placed at end to win cascade) */
-@media (prefers-color-scheme: dark) {
-    .card {
-        background-color: var(--color-gray-100);
-        border-color: var(--color-gray-300);
-    }
-    .card h1,
-    .card p,
-    legend {
-        color: var(--color-gray-900);
-    }
-    fieldset {
-        border-color: var(--color-gray-400);
-    }
-    .radio-card {
-        background-color: var(--color-gray-100);
-        border-color: var(--color-gray-400);
-        color: var(--color-gray-900);
-    }
-    .radio-title { color: var(--color-gray-900); }
-    .radio-code { color: var(--color-gray-500); }
 }
