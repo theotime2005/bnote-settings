@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [5.2.0](https://github.com/theotime2005/bnote-settings/compare/v5.1.0...v5.2.0) (2025-09-05)
+
+
+### 🚀 New features
+
+* use the navigator to chose locale ([#361](https://github.com/theotime2005/bnote-settings/issues/361)) ([849cad4](https://github.com/theotime2005/bnote-settings/commit/849cad4d752a1db1f0cdbbc04e20b6b9763457f4)), closes [/#diff-7a7a37b12ee1265d7e27577ec286120d2cbc0940908635e264a2be44ccb9a8a0L4-R23](https://github.com/theotime2005///issues/diff-7a7a37b12ee1265d7e27577ec286120d2cbc0940908635e264a2be44ccb9a8a0L4-R23) [/#diff-7a7a37b12ee1265d7e27577ec286120d2cbc0940908635e264a2be44ccb9a8a0L64-L76](https://github.com/theotime2005///issues/diff-7a7a37b12ee1265d7e27577ec286120d2cbc0940908635e264a2be44ccb9a8a0L64-L76)
+
+
+### 🐛 Bug fixes
+
+* **a11y:** accessibility ([#360](https://github.com/theotime2005/bnote-settings/issues/360)) ([babee95](https://github.com/theotime2005/bnote-settings/commit/babee95a79d808aa14bd05d23b6e9c07ec6b35ae))
+* **a11y:** accessibility button fix ([#362](https://github.com/theotime2005/bnote-settings/issues/362)) ([dd5ea81](https://github.com/theotime2005/bnote-settings/commit/dd5ea81a0d28ef369ad3871271aae909c808c6d4)), closes [/#diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL385-R439](https://github.com/theotime2005///issues/diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL385-R439) [/#diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL425-R511](https://github.com/theotime2005///issues/diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL425-R511) [/#diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL576-R664](https://github.com/theotime2005///issues/diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL576-R664) [/#diff-1104bdfdc4d3b01a85d7af489598121125db6bc016db2a48a083ef654c97b0f5R434-R574](https://github.com/theotime2005///issues/diff-1104bdfdc4d3b01a85d7af489598121125db6bc016db2a48a083ef654c97b0f5R434-R574) [/#diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebR693-R736](https://github.com/theotime2005///issues/diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebR693-R736) [/#diff-1104bdfdc4d3b01a85d7af489598121125db6bc016db2a48a083ef654c97b0f5R434-R574](https://github.com/theotime2005///issues/diff-1104bdfdc4d3b01a85d7af489598121125db6bc016db2a48a083ef654c97b0f5R434-R574) [/#diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebR693-R736](https://github.com/theotime2005///issues/diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebR693-R736) [/#diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL425-R511](https://github.com/theotime2005///issues/diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL425-R511) [/#diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL576-R664](https://github.com/theotime2005///issues/diff-a7a38de5ec74651b5cfb7131c9e7be7823db58565d6f459a9dd7ea2903c022ebL576-R664)
+
 ## [5.1.0](https://github.com/theotime2005/bnote-settings/compare/v5.0.0...v5.1.0) (2025-09-05)
 
 
