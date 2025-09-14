@@ -13,6 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: check if release is not preversion
+        id: check_preversion
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          if [[ "$TAG_NAME" == *"-"* ]]; then
+            echo "This is a pre-release version. Exiting."
+            exit 0
+          fi
+          echo "This is a stable release version. Continuing."
+          echo "is_preversion=false" >> $GITHUB_OUTPUT
+
       - name: Checkout code
         uses: actions/checkout@v5
         with:
