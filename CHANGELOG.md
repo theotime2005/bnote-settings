@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [5.2.1](https://github.com/theotime2005/bnote-settings/compare/v5.2.0...v5.2.1) (2025-09-14)
+
+
+### 🐛 Bug fixes
+
+* **workflow:** start pr title check when edited pull request ([#365](https://github.com/theotime2005/bnote-settings/issues/365)) ([6323c2b](https://github.com/theotime2005/bnote-settings/commit/6323c2b86a466bf8042b4757740b9487364b66b4)), closes [/#diff-e6d2be8389bd688a7879afcde237f873c599b6d1fe794a6a4352e4a428192e93L5-R5](https://github.com/theotime2005///issues/diff-e6d2be8389bd688a7879afcde237f873c599b6d1fe794a6a4352e4a428192e93L5-R5)
+
+
+### 🔖 Version bump
+
+* **deps-dev:** bump eslint from 9.34.0 to 9.35.0 ([#364](https://github.com/theotime2005/bnote-settings/issues/364)) ([7601a10](https://github.com/theotime2005/bnote-settings/commit/7601a10ea0d5512e2c214e89b6b071a4c75b57c1))
+* **deps-dev:** bump vite from 7.1.4 to 7.1.5 ([#366](https://github.com/theotime2005/bnote-settings/issues/366)) ([00a3f51](https://github.com/theotime2005/bnote-settings/commit/00a3f51622d3c825692fb19622346d7eae1bf201))
+* **deps:** bump vue-i18n from 11.1.11 to 11.1.12 ([#363](https://github.com/theotime2005/bnote-settings/issues/363)) ([7485d01](https://github.com/theotime2005/bnote-settings/commit/7485d01e4126a53644919fb18906d482531c2489))
+
 ## [5.2.0](https://github.com/theotime2005/bnote-settings/compare/v5.1.0...v5.2.0) (2025-09-05)
 
 
