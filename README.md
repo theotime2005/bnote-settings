@@ -48,6 +48,44 @@ To make a build, enter the following command:
 Npm run build
 ```
 
+## Desktop Application
+
+The B.note Settings application is also available as a desktop app using Electron, allowing you to use it without a web browser.
+
+### Development with Electron
+
+To run the application in development mode with Electron:
+
+```shell
+npm run electron:dev
+```
+
+This will start both the Vite development server and open the Electron app window.
+
+### Building Desktop Applications
+
+To build the desktop application for different platforms:
+
+```shell
+# Build for current platform
+npm run electron:build
+
+# Build for macOS only
+npm run electron:build:mac
+
+# Build for Windows only  
+npm run electron:build:win
+
+# Build for both macOS and Windows
+npm run electron:build:all
+```
+
+The built applications will be available in the `dist_electron` directory.
+
+### Downloading Pre-built Desktop Apps
+
+Pre-built desktop applications for macOS and Windows are automatically generated and published with each release on the [GitHub Releases page](https://github.com/theotime2005/bnote-settings/releases).
+
 ### CSS
 
 In the past, this project used tailwindcss. However, its use has been removed. A main style sheet is available, and you can enrich it from the components directly.
