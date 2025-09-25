@@ -101,6 +101,7 @@ export default [
       ".vscode/",
       "src/*.json",
       "dist/",
+      "dist_electron",
       "public/",
       ".versionrc.json",
       "jsconfig.json",

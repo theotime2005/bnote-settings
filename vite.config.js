@@ -19,6 +19,8 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
     },
+    // Use relative paths for Electron builds
+    base: "./",
   };
   if (mode === "production") {
     sendLog({
