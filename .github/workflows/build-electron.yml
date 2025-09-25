@@ -1,8 +1,9 @@
 name: Build Electron Apps
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - copilot/fix-367
   workflow_dispatch:
 
 permissions:
@@ -64,23 +65,23 @@ jobs:
           path: |
             dist_electron/*.exe
 
-      - name: Release macOS
-        if: matrix.os == 'macos-latest' && github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist_electron/*.dmg
-            dist_electron/*.zip
-          tag_name: ${{ github.event.release.tag_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Release Windows
-        if: matrix.os == 'windows-latest' && github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist_electron/*.exe
-          tag_name: ${{ github.event.release.tag_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Release macOS
+#        if: matrix.os == 'macos-latest' && github.event_name == 'release'
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          files: |
+#            dist_electron/*.dmg
+#            dist_electron/*.zip
+#          tag_name: ${{ github.event.release.tag_name }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#      - name: Release Windows
+#        if: matrix.os == 'windows-latest' && github.event_name == 'release'
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          files: |
+#            dist_electron/*.exe
+#          tag_name: ${{ github.event.release.tag_name }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
