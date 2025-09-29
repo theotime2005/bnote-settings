@@ -131,6 +131,10 @@
     "developer": {
       "type": "checkbox",
       "default": false
+    },
+    "diagnostic_mode": {
+      "type": "checkbox",
+      "default": false
     }
   },
   "bluetooth": {
