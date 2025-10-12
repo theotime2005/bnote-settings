@@ -17,6 +17,20 @@ jobs:
         with:
           node-version: node
 
+      - name: Check if node version is up to date
+        id: check_version
+        run: |
+          current_version=$(cat .nvmrc)
+          latest_version=$(node -v | sed 's/^v//')
+          echo "current_version=$current_version" >> $GITHUB_ENV
+          echo "latest_node_version=$latest_version" >> $GITHUB_ENV
+          if [ "$current_version" = "$latest_version" ]; then
+            echo "Node.js version is up to date."
+            exit 0
+          else
+            echo "Node.js version is outdated. Current: $current_version, Latest: $latest_version"
+          fi
+
       - name: Create new branch with node-version
         run: |
           git config --local user.name "github-actions-updater"
@@ -45,7 +59,7 @@ jobs:
           git commit -m "Update .nvmrc to Node.js ${{ env.latest_node_version }}"
           git push --set-upstream origin update-nvmrc-${{ env.latest_node_version }}
 
-      
+
       - name: Create pull request with gh
         run: |
           gh pr create --title "bump: Update .nvmrc to Node.js ${{ env.latest_node_version }}" --body "This PR updates the .nvmrc file to the latest Node.js version ${{ env.latest_node_version }}." --base main --head update-nvmrc-${{ env.latest_node_version }}
