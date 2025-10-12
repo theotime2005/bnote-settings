@@ -20,31 +20,41 @@ describe("Acceptance | FaqView", () => {
   });
 
   it("should display the FAQ page title", () => {
+    // when
     const title = wrapper.find(".faq-title");
+
+    // then
     expect(title.exists()).toBe(true);
     expect(title.text()).toBe(t("faq.title"));
   });
 
   it("should display the FAQ presentation text", () => {
+    // when
     const presentation = wrapper.find(".faq-presentation");
+
+    // then
     expect(presentation.exists()).toBe(true);
     expect(presentation.text()).toBe(t("faq.presentation"));
   });
 
   it("should display empty message when no FAQ is loaded", async () => {
+    // given
     fetchSpy.mockResolvedValue({
       ok: false,
     });
 
+    // when
     wrapper = await render("/faq");
     await wrapper.vm.$nextTick();
 
+    // then
     const emptyMessage = wrapper.find(".faq-empty");
     expect(emptyMessage.exists()).toBe(true);
     expect(emptyMessage.text()).toBe(t("faq.nofaq"));
   });
 
   it("should load and display FAQ items", async () => {
+    // given
     const mockFaq = [
       {
         question: "What is BNote?",
@@ -61,15 +71,18 @@ describe("Acceptance | FaqView", () => {
       json: async () => mockFaq,
     });
 
+    // when
     wrapper = await render("/faq");
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
+    // then
     const faqItems = wrapper.findAll(".faq-item");
     expect(faqItems.length).toBeGreaterThan(0);
   });
 
   it("should display FAQ question", async () => {
+    // given
     const mockFaq = [
       {
         question: "Test Question?",
@@ -82,15 +95,18 @@ describe("Acceptance | FaqView", () => {
       json: async () => mockFaq,
     });
 
+    // when
     wrapper = await render("/faq");
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
+    // then
     const question = wrapper.find(".faq-question");
     expect(question.exists()).toBe(true);
   });
 
   it("should display string answers as text", async () => {
+    // given
     const mockFaq = [
       {
         question: "Question",
@@ -103,15 +119,18 @@ describe("Acceptance | FaqView", () => {
       json: async () => mockFaq,
     });
 
+    // when
     wrapper = await render("/faq");
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
+    // then
     const answerText = wrapper.find(".faq-answer-text");
     expect(answerText.exists()).toBe(true);
   });
 
   it("should display array answers as ordered list", async () => {
+    // given
     const mockFaq = [
       {
         question: "Question",
@@ -124,10 +143,12 @@ describe("Acceptance | FaqView", () => {
       json: async () => mockFaq,
     });
 
+    // when
     wrapper = await render("/faq");
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
+    // then
     const answerList = wrapper.find(".faq-answer-list");
     expect(answerList.exists()).toBe(true);
 
@@ -136,6 +157,7 @@ describe("Acceptance | FaqView", () => {
   });
 
   it("should reload FAQ when locale changes", async () => {
+    // given
     fetchSpy.mockResolvedValue({
       ok: true,
       json: async () => [],
@@ -144,20 +166,25 @@ describe("Acceptance | FaqView", () => {
     wrapper = await render("/faq");
     await wrapper.vm.$nextTick();
 
+    // when
     wrapper.vm.$i18n.locale = "en";
     await wrapper.vm.$nextTick();
 
+    // then
     expect(fetchSpy).toHaveBeenCalled();
   });
 
   it("should handle fetch errors gracefully", async () => {
+    // given
     const { sendLog } = await import("@/scripts/send-log-message-script.js");
 
     fetchSpy.mockRejectedValue(new Error("Network error"));
 
+    // when
     wrapper = await render("/faq");
     await wrapper.vm.$nextTick();
 
+    // then
     expect(sendLog).toHaveBeenCalled();
   });
 });
