@@ -7,19 +7,17 @@ vi.mock("@/scripts/send-log-message-script.js", () => ({
 }));
 
 describe("Acceptance | FaqView", () => {
-  let wrapper;
-  let fetchSpy;
+  let wrapper, fetchSpy;
 
   beforeEach(async () => {
     fetchSpy = vi.spyOn(global, "fetch");
     wrapper = await render("/faq");
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it("should display the FAQ page title", () => {
+    // given
+    // wrapper is set up in beforeEach
+
     // when
     const title = wrapper.find(".faq-title");
 
@@ -29,6 +27,9 @@ describe("Acceptance | FaqView", () => {
   });
 
   it("should display the FAQ presentation text", () => {
+    // given
+    // wrapper is set up in beforeEach
+
     // when
     const presentation = wrapper.find(".faq-presentation");
 
