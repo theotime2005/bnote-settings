@@ -35,18 +35,6 @@ jobs:
         run: |
           git config --local user.name "github-actions-updater"
           git config --local user.email "github-actions-updater@github.com"
-            git checkout -b update-nvmrc-${{ env.latest_node_version }}
-
-      - name: Update .nvmrc file
-        run: |
-      - name: Get latest Node.js version
-        id: get_node_version
-        run: echo "latest_node_version=$(node -v | sed 's/^v//')" >> $GITHUB_ENV
-
-      - name: Create new branch with node-version
-        run: |
-          git config --local user.name "github-actions-updater"
-          git config --local user.email "github-actions-updater@github.com"
           git checkout -b update-nvmrc-${{ env.latest_node_version }}
 
       - name: Update .nvmrc file
