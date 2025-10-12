@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [5.2.2](https://github.com/theotime2005/bnote-settings/compare/v5.2.1...v5.2.2) (2025-10-12)
+
+
+### 🧪 Tests
+
+* Add tests where there are none ([#385](https://github.com/theotime2005/bnote-settings/issues/385)) ([837983a](https://github.com/theotime2005/bnote-settings/commit/837983a18b756323688b800241bc7e0ff5d6fa9d)), closes [theotime2005/bnote-settings#384](https://github.com/theotime2005/bnote-settings/issues/384)
+
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @eslint/compat from 1.3.2 to 1.4.0 ([#374](https://github.com/theotime2005/bnote-settings/issues/374)) ([c1f6848](https://github.com/theotime2005/bnote-settings/commit/c1f6848bac3b1aab359a2a084bfcd7be3d564a8c))
+* **deps-dev:** bump eslint from 9.35.0 to 9.36.0 ([#372](https://github.com/theotime2005/bnote-settings/issues/372)) ([d009c7f](https://github.com/theotime2005/bnote-settings/commit/d009c7f54788a0959208bc5d71e265d7c306e952))
+* **deps-dev:** bump eslint from 9.36.0 to 9.37.0 ([#382](https://github.com/theotime2005/bnote-settings/issues/382)) ([585fb9b](https://github.com/theotime2005/bnote-settings/commit/585fb9b0d60832d3163e017df66b32570d93bee8)), closes [#20163](https://github.com/theotime2005/bnote-settings/issues/20163) [#19562](https://github.com/theotime2005/bnote-settings/issues/19562) [#20164](https://github.com/theotime2005/bnote-settings/issues/20164) [#20172](https://github.com/theotime2005/bnote-settings/issues/20172) [#20122](https://github.com/theotime2005/bnote-settings/issues/20122) [#20182](https://github.com/theotime2005/bnote-settings/issues/20182) [#20181](https://github.com/theotime2005/bnote-settings/issues/20181) [#20170](https://github.com/theotime2005/bnote-settings/issues/20170) [#20115](https://github.com/theotime2005/bnote-settings/issues/20115) [#20153](https://github.com/theotime2005/bnote-settings/issues/20153) [#20183](https://github.com/theotime2005/bnote-settings/issues/20183) [#20175](https://github.com/theotime2005/bnote-settings/issues/20175) [#20173](https://github.com/theotime2005/bnote-settings/issues/20173) [#20157](https://github.com/theotime2005/bnote-settings/issues/20157) [#20149](https://github.com/theotime2005/bnote-settings/issues/20149) [#20146](https://github.com/theotime2005/bnote-settings/issues/20146) [#20151](https://github.com/theotime2005/bnote-settings/issues/20151) [#20067](https://github.com/theotime2005/bnote-settings/issues/20067) [#20144](https://github.com/theotime2005/bnote-settings/issues/20144) [#20183](https://github.com/theotime2005/bnote-settings/issues/20183) [#20182](https://github.com/theotime2005/bnote-settings/issues/20182) [#20181](https://github.com/theotime2005/bnote-settings/issues/20181) [#20175](https://github.com/theotime2005/bnote-settings/issues/20175) [#20173](https://github.com/theotime2005/bnote-settings/issues/20173) [#20164](https://github.com/theotime2005/bnote-settings/issues/20164)
+* **deps-dev:** bump eslint-plugin-vue from 10.4.0 to 10.5.0 ([#375](https://github.com/theotime2005/bnote-settings/issues/375)) ([cf6bee5](https://github.com/theotime2005/bnote-settings/commit/cf6bee560c846218bd35bed48c688e3b34e800e9))
+* **deps-dev:** bump jsdom from 26.1.0 to 27.0.0 ([#369](https://github.com/theotime2005/bnote-settings/issues/369)) ([524f84a](https://github.com/theotime2005/bnote-settings/commit/524f84a29467d8a2f45f7be1e22ffbbbdb520b8a))
+* **deps-dev:** bump vite from 7.1.5 to 7.1.6 ([#371](https://github.com/theotime2005/bnote-settings/issues/371)) ([8e6846c](https://github.com/theotime2005/bnote-settings/commit/8e6846c0c37eb57e1efa8371cd1ddba8257786dd))
+* **deps-dev:** bump vite from 7.1.6 to 7.1.7 ([#373](https://github.com/theotime2005/bnote-settings/issues/373)) ([e902604](https://github.com/theotime2005/bnote-settings/commit/e902604531463af451f0b13afd12b7baefc5ead6))
+* **deps-dev:** bump vite from 7.1.7 to 7.1.8 ([#379](https://github.com/theotime2005/bnote-settings/issues/379)) ([1a4304d](https://github.com/theotime2005/bnote-settings/commit/1a4304de3943cd7779e818fdf9c02cc12a762e41))
+* **deps-dev:** bump vite from 7.1.8 to 7.1.9 ([#380](https://github.com/theotime2005/bnote-settings/issues/380)) ([0b76231](https://github.com/theotime2005/bnote-settings/commit/0b7623135fea37bbfd70a3eb8f0db4e3757d1d6d))
+* **deps:** bump github/codeql-action from 3 to 4 ([#381](https://github.com/theotime2005/bnote-settings/issues/381)) ([bde9ab4](https://github.com/theotime2005/bnote-settings/commit/bde9ab447d438c5e00d59dca36d22aaef294c594))
+* **deps:** bump vue from 3.5.21 to 3.5.22 ([#376](https://github.com/theotime2005/bnote-settings/issues/376)) ([99001db](https://github.com/theotime2005/bnote-settings/commit/99001db2e12c89d4c81daf0c7917f80c08453370))
+* Update .nvmrc to Node.js 24.8.0 ([#370](https://github.com/theotime2005/bnote-settings/issues/370)) ([5e20ee0](https://github.com/theotime2005/bnote-settings/commit/5e20ee02554f89d27e0dc0884f3729a1415004ff))
+* Update .nvmrc to Node.js 24.9.0 ([#377](https://github.com/theotime2005/bnote-settings/issues/377)) ([774753e](https://github.com/theotime2005/bnote-settings/commit/774753e191e7e30a91d9d9a7278c3b57567fed49))
+
+
+### 🛠️ Tech
+
+* remove not necessary workflows and fix update node script ([#383](https://github.com/theotime2005/bnote-settings/issues/383)) ([e79e201](https://github.com/theotime2005/bnote-settings/commit/e79e201bd5f1e9aaedd4853ceff6ae7cf948bc3d))
+
 ## [5.2.1](https://github.com/theotime2005/bnote-settings/compare/v5.2.0...v5.2.1) (2025-09-14)
 
 
