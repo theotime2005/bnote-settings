@@ -103,6 +103,7 @@ export default [
       "dist/",
       "public/",
       ".versionrc.json",
+      ".releaserc.json",
       "jsconfig.json",
       "package-lock.json",
       "package.json",
