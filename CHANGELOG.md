@@ -1,3 +1,25 @@
+## [5.2.3](https://github.com/theotime2005/bnote-settings/compare/v5.2.2...v5.2.3) (2025-10-22)
+
+### 🐛 Bug fixes
+
+* add forgotten dependencies ([#400](https://github.com/theotime2005/bnote-settings/issues/400)) ([0d5b2b0](https://github.com/theotime2005/bnote-settings/commit/0d5b2b01ad854da72085ebf8d28134b2b1e9142f))
+* **workflow:** fix the workflow to update node version ([#386](https://github.com/theotime2005/bnote-settings/issues/386)) ([507edf6](https://github.com/theotime2005/bnote-settings/commit/507edf62a3b13471ae815ac4d6e48e46c952d131))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump eslint from 9.37.0 to 9.38.0 ([#395](https://github.com/theotime2005/bnote-settings/issues/395)) ([d404bcb](https://github.com/theotime2005/bnote-settings/commit/d404bcb48360fc98eec42195e418ae53e3a0afb0))
+* **deps-dev:** bump eslint-plugin-vue from 10.5.0 to 10.5.1 ([#393](https://github.com/theotime2005/bnote-settings/issues/393)) ([810897f](https://github.com/theotime2005/bnote-settings/commit/810897fb447a7ef4b87584c710a670a45af7b6d9))
+* **deps-dev:** bump jsdom from 27.0.0 to 27.0.1 ([#394](https://github.com/theotime2005/bnote-settings/issues/394)) ([cd1ebda](https://github.com/theotime2005/bnote-settings/commit/cd1ebda7f86d87ec5ef48f319f7bd2a93201663a))
+* **deps-dev:** bump vite from 7.1.10 to 7.1.11 ([#397](https://github.com/theotime2005/bnote-settings/issues/397)) ([696f761](https://github.com/theotime2005/bnote-settings/commit/696f76184178b2f66ad578872534ed0151e2a76a))
+* **deps-dev:** bump vite from 7.1.9 to 7.1.10 ([#390](https://github.com/theotime2005/bnote-settings/issues/390)) ([8fff7e4](https://github.com/theotime2005/bnote-settings/commit/8fff7e40a51d0a0a68ca71643ff0df34bbcab2b3))
+* **deps:** bump actions/setup-node from 5 to 6 ([#389](https://github.com/theotime2005/bnote-settings/issues/389)) ([7e76aef](https://github.com/theotime2005/bnote-settings/commit/7e76aef24c380a26a2ff3844a7c557af973d1203))
+* **deps:** bump vue-router from 4.5.1 to 4.6.3 ([#392](https://github.com/theotime2005/bnote-settings/issues/392)) ([9e67c51](https://github.com/theotime2005/bnote-settings/commit/9e67c519adf0534a26bb9786803f63546c08be47))
+* Update .nvmrc to Node.js 24.10.0 ([#387](https://github.com/theotime2005/bnote-settings/issues/387)) ([69c453e](https://github.com/theotime2005/bnote-settings/commit/69c453e1525c61593c63eca81f49ccad939f27b8))
+
+### 🛠️ Tech
+
+* switch commit-and-tag-version to semantic-release ([#399](https://github.com/theotime2005/bnote-settings/issues/399)) ([3aa90a7](https://github.com/theotime2005/bnote-settings/commit/3aa90a768f0214e06dcd5364bd1b309d5528c752)), closes [theotime2005/bnote-settings#398](https://github.com/theotime2005/bnote-settings/issues/398)
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [semantic-release](https://github.com/semantic-release/semantic-release) for commit guidelines.
