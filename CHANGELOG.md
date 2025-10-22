@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [semantic-release](https://github.com/semantic-release/semantic-release) for commit guidelines.
 
 ## [5.2.2](https://github.com/theotime2005/bnote-settings/compare/v5.2.1...v5.2.2) (2025-10-12)
 

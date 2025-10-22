@@ -25,10 +25,6 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - name: Setup git
-        # The name of this bot is bnote-settings-deployer
-        run: git config --global user.name "bnote-settings-deployer" && git config --global user.email "bnote-settings-deployer@github.com"
-
       - name: Install dependencies
         run: npm install
 
@@ -37,11 +33,11 @@ jobs:
           npm test
           npm run lint
 
-      - name: Build new version
-        # Use standard-version to generate a new version
+      - name: Release with semantic-release
         run: npm run release
-
-      - name: Push new version
-        run: git push --follow-tags origin main
         env:
-            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIT_AUTHOR_NAME: bnote-settings-deployer
+          GIT_AUTHOR_EMAIL: bnote-settings-deployer@github.com
+          GIT_COMMITTER_NAME: bnote-settings-deployer
+          GIT_COMMITTER_EMAIL: bnote-settings-deployer@github.com
