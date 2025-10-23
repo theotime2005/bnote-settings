@@ -1,3 +1,9 @@
+## [5.3.1](https://github.com/theotime2005/bnote-settings/compare/v5.3.0...v5.3.1) (2025-10-23)
+
+### 🐛 Bug fixes
+
+* merge main in production when a new stable release is published ([#405](https://github.com/theotime2005/bnote-settings/issues/405)) ([94b5d75](https://github.com/theotime2005/bnote-settings/commit/94b5d75d57031ed379bfa602d184b43cf532f266)), closes [/#diff-feb6c932862b240e3d403ca1f283ee039e8ed7e026c832947bf431f4bc37d178L4-R6](https://github.com/theotime2005///issues/diff-feb6c932862b240e3d403ca1f283ee039e8ed7e026c832947bf431f4bc37d178L4-R6)
+
 ## [5.3.0](https://github.com/theotime2005/bnote-settings/compare/v5.2.3...v5.3.0) (2025-10-23)
 
 ### 🚀 New features
