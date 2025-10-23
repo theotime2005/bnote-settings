@@ -1,9 +1,9 @@
-name: "Merge main into production on tag push"
+name: merge into production
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'  # Déclenche le workflow pour les tags correspondant au schéma v*.*.*
+  release:
+    types:
+      - released
 
 permissions:
   contents: write
