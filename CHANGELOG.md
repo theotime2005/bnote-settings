@@ -1,3 +1,14 @@
+## [5.3.0](https://github.com/theotime2005/bnote-settings/compare/v5.2.3...v5.3.0) (2025-10-23)
+
+### 🚀 New features
+
+* Migrate semantic-release to GitHub Action mode ([#404](https://github.com/theotime2005/bnote-settings/issues/404)) ([bf5191a](https://github.com/theotime2005/bnote-settings/commit/bf5191a8df4c40c2a1438eea2ebb2752ae911427))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @semantic-release/github from 11.0.6 to 12.0.0 ([#401](https://github.com/theotime2005/bnote-settings/issues/401)) ([a9a5357](https://github.com/theotime2005/bnote-settings/commit/a9a53572c222eaca86c9060e487e16e352af39b1)), closes [#1037](https://github.com/theotime2005/bnote-settings/issues/1037) [#1022](https://github.com/theotime2005/bnote-settings/issues/1022) [#1026](https://github.com/theotime2005/bnote-settings/issues/1026) [#1041](https://github.com/theotime2005/bnote-settings/issues/1041) [#1086](https://github.com/theotime2005/bnote-settings/issues/1086) [#1037](https://github.com/theotime2005/bnote-settings/issues/1037) [#1022](https://github.com/theotime2005/bnote-settings/issues/1022) [#1100](https://github.com/theotime2005/bnote-settings/issues/1100) [#1101](https://github.com/theotime2005/bnote-settings/issues/1101) [#1099](https://github.com/theotime2005/bnote-settings/issues/1099) [#1098](https://github.com/theotime2005/bnote-settings/issues/1098) [#1097](https://github.com/theotime2005/bnote-settings/issues/1097) [#1096](https://github.com/theotime2005/bnote-settings/issues/1096)
+* **deps-dev:** bump semantic-release from 24.2.9 to 25.0.1 ([#403](https://github.com/theotime2005/bnote-settings/issues/403)) ([7167bca](https://github.com/theotime2005/bnote-settings/commit/7167bcabfb02d7eca4445264d72497bf2ee6f4b5))
+
 ## [5.2.3](https://github.com/theotime2005/bnote-settings/compare/v5.2.2...v5.2.3) (2025-10-22)
 
 ### 🐛 Bug fixes
