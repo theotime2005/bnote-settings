@@ -14,7 +14,6 @@
     "test:wait": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "semantic-release",
     "prepare": "husky",
     "add-new-setting": "node ./src/scripts/add-new-setting.js"
   },
@@ -32,16 +31,9 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^12.0.0",
-    "@semantic-release/npm": "^12.0.2",
-    "@semantic-release/release-notes-generator": "^14.1.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.6",
-    "conventional-changelog-conventionalcommits": "^9.1.0",
     "eslint": "^9.38.0",
     "eslint-plugin-i18n-json": "^4.0.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
@@ -49,7 +41,6 @@
     "eslint-plugin-vue": "^10.5.1",
     "husky": "^9.1.7",
     "jsdom": "^27.0.1",
-    "semantic-release": "^25.0.1",
     "vite": "^7.1.11",
     "vitest": "^3.2.4"
   }
