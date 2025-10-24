@@ -34,7 +34,7 @@ jobs:
           npm run lint
 
       - name: Release with semantic-release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GIT_AUTHOR_NAME: bnote-settings-deployer
