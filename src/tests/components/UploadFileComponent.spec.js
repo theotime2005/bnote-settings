@@ -114,7 +114,9 @@ describe("UploadFileComponent.vue", () => {
     const fileContent = "invalid json content";
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
     const mockFileReader = { readAsText: vi.fn(), onloadend: null };
-    window.FileReader = vi.fn(() => mockFileReader);
+    window.FileReader = function() {
+      return mockFileReader;
+    };
     wrapper.vm.fileInput = file;
 
     // when
@@ -131,7 +133,9 @@ describe("UploadFileComponent.vue", () => {
     const fileContent = JSON.stringify({ theme: "dark" });
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
     const mockFileReader = { readAsText: vi.fn(), onloadend: null };
-    window.FileReader = vi.fn(() => mockFileReader);
+    window.FileReader = function() {
+      return mockFileReader;
+    };
     wrapper.vm.fileInput = file;
 
     // when
