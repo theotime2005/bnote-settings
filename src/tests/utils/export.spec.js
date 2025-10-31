@@ -13,19 +13,23 @@ describe("Export utilities", () => {
       download: "",
       click: vi.fn(),
     };
-    document.createElement = vi.fn(() => mockLink);
+    document.createElement = vi.fn(function() {
+      return mockLink;
+    });
     document.body.appendChild = vi.fn();
     document.body.removeChild = vi.fn();
 
     mockBlob = {};
-    global.Blob = vi.fn((content, options) => {
+    global.Blob = vi.fn(function(content, options) {
       mockBlob.content = content;
       mockBlob.options = options;
       return mockBlob;
     });
 
     mockURL = {
-      createObjectURL: vi.fn(() => "blob:mock-url"),
+      createObjectURL: vi.fn(function() {
+        return "blob:mock-url";
+      }),
       revokeObjectURL: vi.fn(),
     };
     global.URL = mockURL;

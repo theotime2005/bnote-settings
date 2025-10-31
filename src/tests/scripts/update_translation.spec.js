@@ -10,14 +10,24 @@ import {
   writeFile,
 } from "../../scripts/update_translation.js";
 
-vi.mock("fs/promises");
-vi.mock("translatte");
+vi.mock("fs/promises", () => ({
+  default: {
+    readFile: vi.fn(),
+    writeFile: vi.fn(),
+  },
+  readFile: vi.fn(),
+  writeFile: vi.fn(),
+}));
+vi.mock("translatte", () => ({
+  default: vi.fn(),
+}));
 
-const mockFs = vi.mocked(fs);
-const mockTranslatte = vi.mocked(translatte);
+const mockFs = fs;
+const mockTranslatte = translatte;
 
 describe("Translation Script", function() {
   beforeEach(function() {
+    vi.clearAllMocks();
     mockTranslatte.mockImplementation(function(text, options) {
       return Promise.resolve({ text: `${text}-${options.to}` });
     });

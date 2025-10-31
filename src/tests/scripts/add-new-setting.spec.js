@@ -1,7 +1,14 @@
 import fs from "fs/promises";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("fs/promises");
+vi.mock("fs/promises", () => ({
+  default: {
+    readFile: vi.fn(),
+    writeFile: vi.fn(),
+  },
+  readFile: vi.fn(),
+  writeFile: vi.fn(),
+}));
 vi.mock("yargs/helpers", () => ({
   hideBin: vi.fn(() => []),
 }));
@@ -22,7 +29,8 @@ describe("AddNewSetting", () => {
   let consoleErrorSpy;
 
   beforeEach(() => {
-    mockFs = vi.mocked(fs);
+    mockFs = fs;
+    vi.clearAllMocks();
     consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
     consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   });
