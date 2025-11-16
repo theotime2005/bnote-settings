@@ -18,7 +18,7 @@
     "add-new-setting": "node ./src/scripts/add-new-setting.js"
   },
   "dependencies": {
-    "@pinia/testing": "^1.0.2",
+    "@pinia/testing": "^1.0.3",
     "@vue/compiler-sfc": "^3.5.21",
     "js-cookie": "^3.0.5",
     "pinia": "^3.0.3",
