@@ -110,6 +110,7 @@
             "cursor_visible": "Cursor visible",
             "default_presentation": "Default presentation",
             "developer": "Developer mode",
+            "diagnostic_mode": "Diagnostic mode",
             "dot78_visible": "Dots 7 and 8 visible",
             "edit_mode": "Edit mode",
             "editor": "Editor",
