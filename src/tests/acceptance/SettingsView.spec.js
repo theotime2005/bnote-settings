@@ -1,6 +1,5 @@
 import { render, t } from "@/tests/acceptance/helper.js";
 
-// Mock des composables et utilitaires
 vi.mock("@/composables/useNotifications.js", () => ({
   useNotifications: () => ({
     notifications: { value: [] },
@@ -83,7 +82,7 @@ describe("Acceptance | SettingsView", () => {
         const downloadButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.download"));
 
         // when
-        await downloadButton.trigger("submit");
+        await downloadButton.trigger("click");
         await wrapper.vm.$nextTick();
 
         // then
@@ -118,7 +117,7 @@ describe("Acceptance | SettingsView", () => {
       it("should switch between sections correctly and keep action buttons visible", async () => {
         // given
         const sectionButtons = wrapper.findAll(".settings-nav-button");
-        expect(sectionButtons.length).toBeGreaterThan(1); // Need at least 2 sections to test switching
+        expect(sectionButtons.length).toBeGreaterThan(1);
 
         const firstSectionButton = sectionButtons[0];
         const secondSectionButton = sectionButtons[1];
@@ -129,47 +128,29 @@ describe("Acceptance | SettingsView", () => {
         const firstSection = wrapper.find(`#${firstSectionId}`);
         const secondSection = wrapper.find(`#${secondSectionId}`);
 
-        // Verify action buttons are initially visible
-        const downloadButton = wrapper.find("button[type='submit']");
-        const resetButton = wrapper.find("button[type='button']");
-        expect(downloadButton.exists()).toBe(true);
-        expect(resetButton.exists()).toBe(true);
-
-        // when - open first section
+        // when
         await firstSectionButton.trigger("click");
         await wrapper.vm.$nextTick();
 
-        // then - first section should be open
+        // then
         expect(firstSectionButton.classes()).toContain("active");
         expect(firstSection.classes()).toContain("active");
         expect(firstSection.attributes("aria-hidden")).toBe("false");
         expect(secondSection.attributes("aria-hidden")).toBe("true");
-
-        // Action buttons should still be visible
-        expect(wrapper.find("button[type='submit']").exists()).toBe(true);
-        expect(wrapper.find("button[type='button']").exists()).toBe(true);
-
-        // The first section should have content (settings)
+        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.download")).exists()).toBe(true);
+        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther")).exists()).toBe(true);
         const firstSectionSettings = firstSection.findAll(".settings-grid > *");
         expect(firstSectionSettings.length).toBeGreaterThan(0);
-
-        // when - switch to second section
         await secondSectionButton.trigger("click");
         await wrapper.vm.$nextTick();
-
-        // then - second section should be open and first should be closed
         expect(firstSectionButton.classes()).not.toContain("active");
         expect(secondSectionButton.classes()).toContain("active");
         expect(firstSection.classes()).not.toContain("active");
         expect(secondSection.classes()).toContain("active");
         expect(firstSection.attributes("aria-hidden")).toBe("true");
         expect(secondSection.attributes("aria-hidden")).toBe("false");
-
-        // CRITICAL: Action buttons should STILL be visible after switching sections
-        expect(wrapper.find("button[type='submit']").exists()).toBe(true);
-        expect(wrapper.find("button[type='button']").exists()).toBe(true);
-
-        // CRITICAL: The second section should have content (not be empty)
+        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.download")).exists()).toBe(true);
+        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther")).exists()).toBe(true);
         const secondSectionSettings = secondSection.findAll(".settings-grid > *");
         expect(secondSectionSettings.length).toBeGreaterThan(0);
       });
@@ -177,24 +158,20 @@ describe("Acceptance | SettingsView", () => {
       it("should handle rapid section switching without losing content or buttons", async () => {
         // given
         const sectionButtons = wrapper.findAll(".settings-nav-button");
-        expect(sectionButtons.length).toBeGreaterThan(2); // Need at least 3 sections for rapid switching
+        expect(sectionButtons.length).toBeGreaterThan(2);
 
-        // when - rapidly switch between multiple sections
+        // when
         for (let i = 0; i < 3; i++) {
           await sectionButtons[i].trigger("click");
           await wrapper.vm.$nextTick();
 
-          // then - verify each section works correctly
+          // then
           const activeSection = wrapper.find(".settings-section.active");
           expect(activeSection.exists()).toBe(true);
-
-          // Verify the section has content
           const sectionSettings = activeSection.findAll(".settings-grid > *");
           expect(sectionSettings.length).toBeGreaterThan(0);
-
-          // Verify action buttons are still visible
-          expect(wrapper.find("button[type='submit']").exists()).toBe(true);
-          expect(wrapper.find("button[type='button']").exists()).toBe(true);
+          expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.download")).exists()).toBe(true);
+          expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther")).exists()).toBe(true);
         }
       });
 
@@ -202,19 +179,19 @@ describe("Acceptance | SettingsView", () => {
         // given
         const sectionButtons = wrapper.findAll(".settings-nav-button");
 
-        // when - switch to first section
+        // when
         await sectionButtons[0].trigger("click");
         await wrapper.vm.$nextTick();
 
-        // then - verify only first section is active
+        // then
         expect(sectionButtons[0].classes()).toContain("active");
         expect(sectionButtons[1].classes()).not.toContain("active");
 
-        // when - switch to second section
+        // when
         await sectionButtons[1].trigger("click");
         await wrapper.vm.$nextTick();
 
-        // then - verify only second section is active
+        // then
         expect(sectionButtons[0].classes()).not.toContain("active");
         expect(sectionButtons[1].classes()).toContain("active");
 
@@ -222,7 +199,7 @@ describe("Acceptance | SettingsView", () => {
         await sectionButtons[0].trigger("click");
         await wrapper.vm.$nextTick();
 
-        // then - verify only first section is active again
+        // then
         expect(sectionButtons[0].classes()).toContain("active");
         expect(sectionButtons[1].classes()).not.toContain("active");
       });

@@ -5,12 +5,24 @@ import { useI18n } from "vue-i18n";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import NotificationToast from "@/components/NotificationToast.vue";
 import SettingComponent from "@/components/SettingComponent.vue";
+import ToolBar from "@/components/ToolBar.vue";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
 import { useNotifications } from "@/composables/useNotifications.js";
 import all_settings from "@/settings.json";
 import { useSettingsStore } from "@/stores/settingsStore.js";
 
 const { t } = useI18n();
+
+const TOOLBAR_ACTION = [
+  {
+    label: t("settings.page.download"),
+    onClick: save,
+  },
+  {
+    label: t("settings.page.openOther"),
+    onClick: cleanData,
+  },
+];
 
 const fileName = ref("");
 const fileIsImported = ref(false);
@@ -223,6 +235,8 @@ onBeforeUnmount(() => {
             @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
           />
         </div>
+        <ToolBar
+:actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')"/>
       </header>
 
       <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
@@ -267,20 +281,6 @@ onBeforeUnmount(() => {
               />
             </div>
           </section>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="settings-actions">
-          <button type="submit" class="settings-button settings-button-success focus-ring">
-            {{ t("settings.page.download") }}
-          </button>
-          <button
-            type="button"
-            class="settings-button settings-button-danger focus-ring"
-            @click="cleanData"
-          >
-            {{ t("settings.page.openOther") }}
-          </button>
         </div>
       </form>
       <p v-else class="settings-no-results">
