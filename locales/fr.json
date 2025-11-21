@@ -174,7 +174,8 @@
       "resetQuestion": "Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier.",
       "search": "Rechercher une préférence",
       "title": "Gestion des préférences du B.note",
-      "title2": "Fichier de préférences"
+      "title2": "Fichier de préférences",
+      "toolbar": "Action sur le fichier"
     },
     "values": {
       "6_dots": "6 points",
