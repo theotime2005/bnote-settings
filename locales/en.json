@@ -174,7 +174,8 @@
             "resetQuestion": "Do you really want to erase the current configuration? You will need to import another file.",
             "search": "Search for a setting",
             "title": "Settings B.note management",
-            "title2": "Settings file"
+            "title2": "Settings file",
+            "toolbar": "File actions"
         },
         "values": {
             "6_dots": "6 dots",

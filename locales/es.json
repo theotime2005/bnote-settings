@@ -174,7 +174,8 @@
             "resetQuestion": "¿Realmente quieres borrar la configuración actual? Deberá importar otro archivo.",
             "search": "Buscar una preferencia",
             "title": "Gestión de las preferencias de la b.note",
-            "title2": "Archivo de preferencias"
+            "title2": "Archivo de preferencias",
+            "toolbar": "Acción sobre el archivo"
         },
         "values": {
             "6_dots": "6 puntos",
