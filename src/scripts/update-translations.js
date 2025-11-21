@@ -12,25 +12,25 @@ export class UpdateTranslations {
     const { source = "", targets = [] } = options;
     this.source = source;
     this.targets = targets;
-    this.translationsSource = {};
-    this.targetTranslations = {};
+    this.sourceData = {};
+    this.updateData = {};
   }
 
   async handle() {
-    this.translationsSource = await this.loadFile(this.source);
+    this.sourceData = await this.loadFile(this.source);
     for (const file of this.targets) {
       console.log("Reading file :", file);
-      this.targetTranslations = await this.loadFile(file);
+      this.updateData = await this.loadFile(file);
       console.log("Translating file:", file);
-      this.targetTranslations = await this.checkAndUpdate(
-        this.translationsSource,
-        this.targetTranslations,
-        file.split(".").slice(-2, -1)[0],
+      this.updateData = await this.checkAndUpdate(
+        this.sourceData,
+        this.updateData,
+        this.#_getLanguageFromFileName(file),
       );
       console.log("Clearing old values in file:", file);
-      this.targetTranslations = this.clearOldValues(this.translationsSource, this.targetTranslations);
+      this.updateData = this.clearOldValues(this.sourceData, this.updateData);
       console.log("Writing file:", file);
-      await this.writeFile(file, this.targetTranslations);
+      await this.writeFile(file, this.updateData);
     }
     console.log("Finished writing files");
   }
@@ -105,6 +105,10 @@ export class UpdateTranslations {
       }
     }
     return result;
+  }
+
+  #_getLanguageFromFileName(fileName) {
+    return fileName.split("/").pop().split(".")[0];
   }
 }
 

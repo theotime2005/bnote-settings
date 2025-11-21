@@ -46,8 +46,8 @@ describe("Script | Update translations", () => {
       // then
       expect(updater.source).toBe("source.json");
       expect(updater.targets).toEqual(["target1.json", "target2.json"]);
-      expect(updater.translationsSource).toEqual({});
-      expect(updater.targetTranslations).toEqual({});
+      expect(updater.sourceData).toEqual({});
+      expect(updater.updateData).toEqual({});
     });
   });
 
