@@ -15,7 +15,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "add-new-setting": "node ./src/scripts/add-new-setting.js"
+    "add-new-setting": "node ./src/scripts/add-new-setting.js",
+    "translate": "node src/scripts/update-translations.js"
   },
   "dependencies": {
     "@pinia/testing": "^1.0.3",
