@@ -15,19 +15,18 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "add-new-setting": "node ./src/scripts/add-new-setting.js"
+    "add-new-setting": "node ./src/scripts/add-new-setting.js",
+    "translate": "node src/scripts/update-translations.js"
   },
   "dependencies": {
     "@pinia/testing": "^1.0.3",
     "@vue/compiler-sfc": "^3.5.24",
     "js-cookie": "^3.0.5",
     "pinia": "^3.0.3",
-    "translatte": "^3.0.1",
     "vite-plugin-env-compatible": "^2.0.1",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",
-    "vue-router": "^4.6.3",
-    "yargs": "^18.0.0"
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
@@ -41,7 +40,9 @@
     "eslint-plugin-vue": "^10.5.1",
     "husky": "^9.1.7",
     "jsdom": "^27.2.0",
+    "translatte": "^3.0.1",
     "vite": "^7.2.2",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "yargs": "^18.0.0"
   }
 }

@@ -34,8 +34,8 @@ After opening pull request, some tests will be executed to check the linting,
 # Translation
 To add any new content like sentences, you must fill the translation files. Once done for one language, you can update the other languages using the script in the "locales" file, by indicating the source and target languages. For instance:
 ```shell
-cd locale
-node ../src/scripts/update_translation.js <base_language> <target_language1> <target_language2> ...
+npm run translate --source <the_source_file_path> --targets <List_of_file_to_translate
 ```
+Important: Files must named with language, en, fr, es.
 New translations will be translated and  marked with a "*".
 NOTE: tests include a translation checking, based on french language.
