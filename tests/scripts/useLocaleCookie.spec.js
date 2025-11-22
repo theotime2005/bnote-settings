@@ -1,6 +1,6 @@
 import cookies from "js-cookie";
 
-import { useLocaleCookie } from "@/scripts/useLocaleCookie";
+import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
 
 describe("useLocaleCookie", () => {
   beforeEach(() => {

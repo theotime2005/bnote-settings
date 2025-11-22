@@ -1,4 +1,4 @@
-import { render, t } from "@/tests/acceptance/helper.js";
+import { render, t } from "./helper.js";
 
 describe("Acceptance | AboutView", () => {
   let wrapper;

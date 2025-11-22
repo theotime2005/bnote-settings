@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const localesDir = path.resolve(__dirname, "../../locales");
+const localesDir = path.resolve(__dirname, "../locales");
 const baseLang = "fr";
 
 function loadTranslations(lang) {
