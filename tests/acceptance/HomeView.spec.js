@@ -1,5 +1,6 @@
 import i18n from "@/i18n.js";
-import { render } from "@/tests/acceptance/helper.js";
+
+import { render } from "./helper.js";
 
 const { t } = i18n.global;
 describe("Acceptance | HomeView", async () => {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { render, t } from "@/tests/acceptance/helper.js";
+import { render, t } from "./helper.js";
 
 vi.mock("@/scripts/send-log-message-script.js", () => ({
   sendLog: vi.fn(),
