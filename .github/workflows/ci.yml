@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  eslint:
+  lint:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.labels.*.name, 'No deployment') && github.event.pull_request.draft == false"
 
@@ -29,7 +29,13 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-  vitest:
+      - name: 'notify vercel'
+        uses: 'vercel/repository-dispatch/actions/status@v1'
+        with:
+          name:
+            Vercel - bnote: lint
+
+  test:
     runs-on: ubuntu-latest
 
     if: "github.event_name == 'push' || !contains(github.event.pull_request.labels.*.name, 'No deployment') && github.event.pull_request.draft == false"
@@ -47,6 +53,12 @@ jobs:
 
       - name: Run all tests
         run: npm test
+
+      - name: 'notify vercel'
+        uses: 'vercel/repository-dispatch/actions/status@v1'
+        with:
+          name:
+            Vercel - bnote: test
 
   build-test:
     runs-on: ubuntu-latest
