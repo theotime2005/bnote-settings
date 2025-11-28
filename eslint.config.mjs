@@ -1,8 +1,9 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
+import prettierConfig from "@vue/eslint-config-prettier/skip-formatting";
+import i18nJson from "eslint-plugin-i18n-json";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
@@ -11,17 +12,10 @@ import globals from "globals";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
 export default [
   js.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
-  ...compat.extends( // Utiliser FlatCompat pour les configurations basées sur des chaînes
-    "@vue/eslint-config-prettier/skip-formatting",
-    "plugin:i18n-json/recommended", // Assurez-vous que ce plugin est compatible et installé
-  ),
+  prettierConfig,
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
@@ -96,17 +90,32 @@ export default [
     },
   },
   {
+    files: ["locales/*.json"],
+    plugins: {
+      "i18n-json": i18nJson,
+    },
+    processor: i18nJson.processors[".json"],
+    rules: {
+      "i18n-json/valid-json": "error",
+      "i18n-json/sorted-keys": [
+        "error",
+        {
+          order: "asc",
+          indentSpaces: 4,
+        },
+      ],
+      "i18n-json/identical-keys": [
+        "error",
+        {
+          filePath: path.resolve(__dirname, "locales/fr.json"),
+        },
+      ],
+    },
+  },
+  {
     ignores: [
-      ".idea/",
-      ".vscode/",
-      "src/*.json",
       "dist/",
       "public/",
-      ".versionrc.json",
-      ".releaserc.json",
-      "jsconfig.json",
-      "package-lock.json",
-      "package.json",
     ],
   },
 ];
