@@ -1,3 +1,24 @@
+## [5.4.1](https://github.com/theotime2005/bnote-settings/compare/v5.4.0...v5.4.1) (2025-11-28)
+
+### 🐛 Bug fixes
+
+* Remove FlatCompat usage and add i18n translation key checking ([#444](https://github.com/theotime2005/bnote-settings/issues/444)) ([3a42bcb](https://github.com/theotime2005/bnote-settings/commit/3a42bcb2e4337c081c963c25ec8fac8984dd1415))
+* Start ci when pull request is ready or reopened ([#445](https://github.com/theotime2005/bnote-settings/issues/445)) ([3b7fc09](https://github.com/theotime2005/bnote-settings/commit/3b7fc09613f12ef37a0062012f9b07431cdfe503))
+
+### 🔨 Refactor
+
+* Move tests to project root ([#431](https://github.com/theotime2005/bnote-settings/issues/431)) ([61baf79](https://github.com/theotime2005/bnote-settings/commit/61baf791b4b19dbdfdd5ae4cd2d5096686d9dc13)), closes [/#diff-6300cd78ca51c9447babe2a899bb055094b1610ce338e0e40a35d37027a8b543L1-R1](https://github.com/theotime2005///issues/diff-6300cd78ca51c9447babe2a899bb055094b1610ce338e0e40a35d37027a8b543L1-R1) [/#diff-9419b5efe7b357c8a1857c1ae1ca1b108716fe7795a3680486b8c929911eb979L2-R3](https://github.com/theotime2005///issues/diff-9419b5efe7b357c8a1857c1ae1ca1b108716fe7795a3680486b8c929911eb979L2-R3) [/#diff-1ff6d6d9e25928ff843613a6c5836b0d65c56925d5c79b00a78ea3e74d1565caL3-R3](https://github.com/theotime2005///issues/diff-1ff6d6d9e25928ff843613a6c5836b0d65c56925d5c79b00a78ea3e74d1565caL3-R3) [/#diff-7a45449d6623dbeb2cb664e948a40826fc266b581ee2760e8e0ae42acfbaa83aL2-R3](https://github.com/theotime2005///issues/diff-7a45449d6623dbeb2cb664e948a40826fc266b581ee2760e8e0ae42acfbaa83aL2-R3) [/#diff-63f2706a92c2b16af875d88719a29ad83ab0263051e908a1ccae55eadd49d677L1-R1](https://github.com/theotime2005///issues/diff-63f2706a92c2b16af875d88719a29ad83ab0263051e908a1ccae55eadd49d677L1-R1)
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.1 to 6.0.2 ([#434](https://github.com/theotime2005/bnote-settings/issues/434)) ([2c8a4c3](https://github.com/theotime2005/bnote-settings/commit/2c8a4c333aa19cc8ab8cd1695674c8f395343aab))
+* **deps-dev:** bump eslint-plugin-vue from 10.5.1 to 10.6.0 ([#435](https://github.com/theotime2005/bnote-settings/issues/435)) ([fb022fb](https://github.com/theotime2005/bnote-settings/commit/fb022fb4f7874b4b38ec53929b4b207af00a7c95))
+* **deps-dev:** bump eslint-plugin-vue from 10.6.0 to 10.6.2 ([#443](https://github.com/theotime2005/bnote-settings/issues/443)) ([eda870a](https://github.com/theotime2005/bnote-settings/commit/eda870aaf558dd2e5520af445e265e9525efab94))
+* **deps-dev:** bump vite from 7.2.2 to 7.2.4 ([#433](https://github.com/theotime2005/bnote-settings/issues/433)) ([3392e0e](https://github.com/theotime2005/bnote-settings/commit/3392e0ea2f9609556ba589c1cd398959658ce95d))
+* **deps:** bump vue from 3.5.22 to 3.5.25 ([#437](https://github.com/theotime2005/bnote-settings/issues/437)) ([8716286](https://github.com/theotime2005/bnote-settings/commit/871628692100c563b77baf6a97371c53b08e57ed))
+* **deps:** bump vue-i18n from 11.1.12 to 11.2.1 ([#439](https://github.com/theotime2005/bnote-settings/issues/439)) ([8dd0cce](https://github.com/theotime2005/bnote-settings/commit/8dd0ccedff17875648405048ac35b0677950c9ae))
+* **deps:** bump vue-i18n from 11.2.1 to 11.2.2 ([#440](https://github.com/theotime2005/bnote-settings/issues/440)) ([077da6c](https://github.com/theotime2005/bnote-settings/commit/077da6cc988056d6dfb1aba1e2366f83a58c554c))
+
 ## [5.4.0](https://github.com/theotime2005/bnote-settings/compare/v5.3.1...v5.4.0) (2025-11-22)
 
 ### 🚀 New features
