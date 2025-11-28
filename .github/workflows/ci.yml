@@ -5,6 +5,8 @@ on:
     types:
       - synchronize
       - opened
+      - ready_for_review
+      - reopened
   push:
     branches:
       - main
