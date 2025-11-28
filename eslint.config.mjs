@@ -114,16 +114,8 @@ export default [
   },
   {
     ignores: [
-      ".idea/",
-      ".vscode/",
-      "src/*.json",
       "dist/",
       "public/",
-      ".versionrc.json",
-      ".releaserc.json",
-      "jsconfig.json",
-      "package-lock.json",
-      "package.json",
     ],
   },
 ];
