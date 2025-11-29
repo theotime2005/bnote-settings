@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
-import UploadFileComponent from "@/components/UploadFileComponent.vue";
-import i18n from "@/i18n.js";
+import UploadFileComponent from "~/components/UploadFileComponent.vue";
+import i18n from "~/tests/i18n.js";
 
 const { t } = i18n.global;
 const mockLoadSettings = vi.fn();
@@ -17,13 +17,13 @@ const mockNotifications = {
   warning: vi.fn(),
 };
 
-vi.mock("@/stores/settingsStore.js", () => ({
+vi.mock("~/stores/settingsStore.js", () => ({
   useSettingsStore: () => ({
     loadSettings: mockLoadSettings,
   }),
 }));
 
-vi.mock("@/composables/useNotifications.js", () => ({
+vi.mock("~/composables/useNotifications.js", () => ({
   useNotifications: () => mockNotifications,
 }));
 
@@ -48,7 +48,7 @@ describe("UploadFileComponent.vue", () => {
     await input.trigger("change");
 
     // then
-    expect(wrapper.vm.fileInput).toBe(file);
+    expect(wrapper.vm.fileInput.name).toBe(file.name);
   });
 
   it("should handle drag and drop correctly", async () => {
@@ -69,7 +69,7 @@ describe("UploadFileComponent.vue", () => {
 
     // then
     expect(wrapper.vm.isDragOver).toBe(false);
-    expect(wrapper.vm.fileInput).toBe(file);
+    expect(wrapper.vm.fileInput.name).toBe(file.name);
   });
 
   it("should remove file correctly", async () => {

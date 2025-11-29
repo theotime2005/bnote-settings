@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { render, t } from "./helper.js";
 
-vi.mock("@/scripts/send-log-message-script.js", () => ({
+vi.mock("~/utils/send-log-message-script.js", () => ({
   sendLog: vi.fn(),
 }));
 
@@ -177,7 +177,7 @@ describe("Acceptance | FaqView", () => {
 
   it("should handle fetch errors gracefully", async () => {
     // given
-    const { sendLog } = await import("@/scripts/send-log-message-script.js");
+    const { sendLog } = await import("~/utils/send-log-message-script.js");
 
     fetchSpy.mockRejectedValue(new Error("Network error"));
 

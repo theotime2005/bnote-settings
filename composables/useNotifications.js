@@ -16,7 +16,6 @@ export function useNotifications() {
 
     notifications.value.push(newNotification);
 
-    // Auto-remove after duration
     if (newNotification.duration > 0) {
       setTimeout(() => {
         removeNotification(id);
@@ -32,7 +31,7 @@ export function useNotifications() {
       notifications.value[index].visible = false;
       setTimeout(() => {
         notifications.value.splice(index, 1);
-      }, 300); // Wait for animation
+      }, 300);
     }
   }
 
@@ -43,7 +42,6 @@ export function useNotifications() {
     }, 300);
   }
 
-  // Convenience methods
   function success(message, options = {}) {
     return addNotification({ type: "success", message, ...options });
   }

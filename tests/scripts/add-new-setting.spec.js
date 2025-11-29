@@ -14,7 +14,7 @@ vi.mock("yargs/yargs", () => ({
   })),
 }));
 
-const { AddNewSetting } = await import("@/scripts/add-new-setting.js");
+const { AddNewSetting } = await import("~/scripts/add-new-setting.js");
 
 describe("AddNewSetting", () => {
   let mockFs;
