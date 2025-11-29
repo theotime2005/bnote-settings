@@ -108,7 +108,7 @@ export default [
       "i18n-json/identical-keys": [
         "error",
         {
-          filePath: path.resolve(__dirname, "locales/fr.json"),
+          filePath: path.resolve(__dirname, "i18n/locales/fr.json"),
         },
       ],
     },
