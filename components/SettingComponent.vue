@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { useSettingsStore } from "@/stores/settingsStore.js";
+import { useSettingsStore } from "~/stores/settingsStore.js";
 
 const { t } = useI18n();
 const settingsStore = useSettingsStore();
@@ -21,7 +21,7 @@ const props = defineProps({
   },
 });
 const settingValue = ref(settingsStore.getSetting(props.settingSection, props.settingKey));
-const label_id = `${props.settingSection}.${props.settingKey}`;
+const labelId = `${props.settingSection}.${props.settingKey}`;
 const name = t(`settings.id.${props.settingKey}`);
 
 function updateSetting() {
@@ -35,13 +35,12 @@ function setDefault() {
   settingValue.value = props.setting.default;
   updateSetting();
 }
-
 </script>
 
 <template>
   <div class="setting-container" :class="setting.type">
     <div class="setting-header">
-      <label :for="label_id" class="setting-label">
+      <label :for="labelId" class="setting-label">
         {{ name }}
       </label>
       <button
@@ -58,7 +57,7 @@ function setDefault() {
     <!-- Checkbox -->
     <div v-if="props.setting.type === 'checkbox'" class="setting-control">
       <input
-        :id="label_id"
+        :id="labelId"
         v-model="settingValue"
         type="checkbox"
         :name="name"
@@ -66,7 +65,7 @@ function setDefault() {
         class="setting-checkbox focus-ring"
         @change="updateSetting"
       />
-      <label :for="label_id" class="setting-checkbox-label">
+      <label :for="labelId" class="setting-checkbox-label">
         <span class="setting-checkbox-indicator"></span>
       </label>
     </div>
@@ -74,7 +73,7 @@ function setDefault() {
     <!-- Dropdown -->
     <div v-else-if="props.setting.type === 'menu'" class="setting-control">
       <select
-        :id="label_id"
+        :id="labelId"
         v-model="settingValue"
         :name="name"
         class="setting-select focus-ring"
@@ -85,7 +84,7 @@ function setDefault() {
           :key="option"
           :value="option"
         >
-          {{ !props.setting.isTranslate ? $t(`settings.values.${option}`) : option }}
+          {{ !props.setting.isTranslate ? t(`settings.values.${option}`) : option }}
         </option>
       </select>
     </div>
@@ -93,18 +92,18 @@ function setDefault() {
     <!-- Number Input -->
     <div v-else-if="props.setting.type === 'number'" class="setting-control setting-number">
       <input
-        :id="label_id"
+        :id="labelId"
         v-model="settingValue"
         type="range"
         :name="name"
         :min="props.setting.min"
         :max="props.setting.max"
         class="setting-range focus-ring"
-        :list="label_id + 'tickmarks'"
+        :list="labelId + 'tickmarks'"
         @input="updateSetting"
       />
       <output class="setting-value">{{ settingValue }}</output>
-      <datalist :id="label_id + 'tickmarks'">
+      <datalist :id="labelId + 'tickmarks'">
         <option :value="props.setting.min" :label="props.setting.min"></option>
         <option :value="props.setting.default" :label="props.setting.default"></option>
         <option :value="props.setting.max" :label="props.setting.max"></option>
@@ -114,7 +113,7 @@ function setDefault() {
     <!-- Text Input -->
     <div v-else-if="props.setting.type === 'text'" class="setting-control">
       <input
-        :id="label_id"
+        :id="labelId"
         v-model="settingValue"
         type="text"
         :name="name"

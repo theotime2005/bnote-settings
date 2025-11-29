@@ -32,3 +32,9 @@ coverage
 
 # Environment variable
 .env
+
+# Nuxt dev/build outputs
+.output
+.nuxt
+.nitro
+.cache

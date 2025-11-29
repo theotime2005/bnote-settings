@@ -1,6 +1,6 @@
 import { render, t } from "./helper.js";
 
-vi.mock("@/composables/useNotifications.js", () => ({
+vi.mock("~/composables/useNotifications.js", () => ({
   useNotifications: () => ({
     notifications: { value: [] },
     addNotification: vi.fn(),
@@ -12,6 +12,16 @@ vi.mock("@/composables/useNotifications.js", () => ({
     warning: vi.fn(),
   }),
 }));
+
+function findButtonByText(wrapper, text) {
+  const buttons = wrapper.findAll("button");
+  for (const btn of buttons) {
+    if (btn.text().trim() === text) {
+      return btn;
+    }
+  }
+  return null;
+}
 
 describe("Acceptance | SettingsView", () => {
   let wrapper;
@@ -33,9 +43,10 @@ describe("Acceptance | SettingsView", () => {
 
     it("should display the default model when clicking the default button", async () => {
       // when
-      const defaultButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.create"));
+      const defaultButton = findButtonByText(wrapper, t("settings.page.create"));
 
       // then
+      expect(defaultButton).not.toBe(null);
       await defaultButton.trigger("click");
       await wrapper.vm.$nextTick();
       await new Promise(resolve => setTimeout(resolve, 600));
@@ -46,7 +57,7 @@ describe("Acceptance | SettingsView", () => {
 
   describe("when a file is uploaded", () => {
     beforeEach(async () => {
-      const defaultButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.create"));
+      const defaultButton = findButtonByText(wrapper, t("settings.page.create"));
       await defaultButton.trigger("click");
       await wrapper.vm.$nextTick();
       await new Promise(resolve => setTimeout(resolve, 600));
@@ -63,7 +74,8 @@ describe("Acceptance | SettingsView", () => {
 
       it("should displays dialog when you want open another file", async () => {
         // given
-        const resetButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther"));
+        const resetButton = findButtonByText(wrapper, t("settings.page.openOther"));
+        expect(resetButton).not.toBe(null);
 
         // when
         await resetButton.trigger("click");
@@ -79,7 +91,8 @@ describe("Acceptance | SettingsView", () => {
         // given
         global.URL.createObjectURL = vi.fn(() => "blob:url");
         global.URL.revokeObjectURL = vi.fn();
-        const downloadButton = wrapper.findAll("button").find((button) => button.text() === t("settings.page.download"));
+        const downloadButton = findButtonByText(wrapper, t("settings.page.download"));
+        expect(downloadButton).not.toBe(null);
 
         // when
         await downloadButton.trigger("click");
@@ -137,8 +150,8 @@ describe("Acceptance | SettingsView", () => {
         expect(firstSection.classes()).toContain("active");
         expect(firstSection.attributes("aria-hidden")).toBe("false");
         expect(secondSection.attributes("aria-hidden")).toBe("true");
-        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.download")).exists()).toBe(true);
-        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther")).exists()).toBe(true);
+        expect(findButtonByText(wrapper, t("settings.page.download"))).not.toBe(null);
+        expect(findButtonByText(wrapper, t("settings.page.openOther"))).not.toBe(null);
         const firstSectionSettings = firstSection.findAll(".settings-grid > *");
         expect(firstSectionSettings.length).toBeGreaterThan(0);
         await secondSectionButton.trigger("click");
@@ -149,8 +162,8 @@ describe("Acceptance | SettingsView", () => {
         expect(secondSection.classes()).toContain("active");
         expect(firstSection.attributes("aria-hidden")).toBe("true");
         expect(secondSection.attributes("aria-hidden")).toBe("false");
-        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.download")).exists()).toBe(true);
-        expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther")).exists()).toBe(true);
+        expect(findButtonByText(wrapper, t("settings.page.download"))).not.toBe(null);
+        expect(findButtonByText(wrapper, t("settings.page.openOther"))).not.toBe(null);
         const secondSectionSettings = secondSection.findAll(".settings-grid > *");
         expect(secondSectionSettings.length).toBeGreaterThan(0);
       });
@@ -170,8 +183,8 @@ describe("Acceptance | SettingsView", () => {
           expect(activeSection.exists()).toBe(true);
           const sectionSettings = activeSection.findAll(".settings-grid > *");
           expect(sectionSettings.length).toBeGreaterThan(0);
-          expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.download")).exists()).toBe(true);
-          expect(wrapper.findAll("button").find((button) => button.text() === t("settings.page.openOther")).exists()).toBe(true);
+          expect(findButtonByText(wrapper, t("settings.page.download"))).not.toBe(null);
+          expect(findButtonByText(wrapper, t("settings.page.openOther"))).not.toBe(null);
         }
       });
 

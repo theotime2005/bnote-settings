@@ -1,18 +1,23 @@
-/*
-This file is used to send a notification on the discord server when an error occurs.
- */
-
 async function sendLog({ fileName, functionName, type, log, environment = true }) {
   const redColor = 16711680;
-  // Create a message visible and readable
   const message = {
     type,
     where: `${fileName} > ${functionName}`,
     log,
   };
-  // Log the message in the console for Vercel deployment
   console.log(message);
-  const apiUrl = environment ? import.meta.env.VUE_APP_LOG_API_URL : process.env.VUE_APP_LOG_API_URL;
+  let apiUrl = "";
+  if (environment) {
+    try {
+      if (typeof window !== "undefined" && window.__NUXT__) {
+        apiUrl = window.__NUXT__.config?.public?.logApiUrl || "";
+      }
+    } catch {
+      apiUrl = "";
+    }
+  } else {
+    apiUrl = process.env.VUE_APP_LOG_API_URL || "";
+  }
   if (!apiUrl) {
     console.log("Message not sent, no API URL");
     return;

@@ -1,10 +1,13 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import { useI18n } from "vue-i18n";
+import { useHead } from "#imports";
 
-import { sendLog } from "@/scripts/send-log-message-script.js";
 
 const { t } = useI18n();
+
+useHead({
+  title: () => `${t("download.title")} | ${t("title")}`,
+});
+
 const links = ref({
   eurobraille: {
     download: "https://www.eurobraille.fr/supports-et-telechargements/produits-braille/b-note/",
@@ -45,7 +48,7 @@ onMounted(function() {
   <div class="download-container">
     <div class="download-section">
       <h1 class="download-title">{{ t("download.title") }}</h1>
-      <p>{{t('download.message-1')}}
+      <p>{{ t('download.message-1') }}
         <a :href="links.eurobraille.github" target="_blank" class="download-link">GitHub</a>.
       </p>
     </div>
@@ -57,25 +60,24 @@ onMounted(function() {
         class="download-link"
         :href="links.eurobraille.download"
         target="_blank"
-      >{{ t("download.downloadEurobraille") }}</a
-      >
+      >{{ t("download.downloadEurobraille") }}</a>
     </div>
 
     <div class="download-section">
-      <h2 class="download-title">{{t('download.otherTitle')}}</h2>
-      <p class="download-description">{{t('download.message3')}}
-        <a :href="links.theotime.github" target="_blank" class="download-link">{{t('download.message-3-1')}}</a>
-        {{t('download.message-3-2')}}
+      <h2 class="download-title">{{ t('download.otherTitle') }}</h2>
+      <p class="download-description">{{ t('download.message3') }}
+        <a :href="links.theotime.github" target="_blank" class="download-link">{{ t('download.message-3-1') }}</a>
+        {{ t('download.message-3-2') }}
       </p>
       <a
         v-if="lastVersion['file']"
         class="download-link"
         :href="lastVersion['file']"
       >
-        {{t('download.downloadOtherLast', {version: lastVersion['tag']})}}
+        {{ t('download.downloadOtherLast', { version: lastVersion['tag'] }) }}
       </a>
       <a class="download-link" :href="links.theotime.releases" target="_blank">
-        {{t("download.releases")}}
+        {{ t("download.releases") }}
       </a>
     </div>
   </div>

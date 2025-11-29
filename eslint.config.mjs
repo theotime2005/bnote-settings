@@ -78,6 +78,7 @@ export default [
           order: ["script", "template", "style"],
         },
       ],
+      "vue/multi-word-component-names": "off",
     },
   },
   {
@@ -90,7 +91,7 @@ export default [
     },
   },
   {
-    files: ["locales/*.json"],
+    files: ["locales/*.json", "i18n/locales/*.json"],
     plugins: {
       "i18n-json": i18nJson,
     },
@@ -116,6 +117,9 @@ export default [
     ignores: [
       "dist/",
       "public/",
+      ".nuxt/",
+      ".output/",
+      "node_modules/",
     ],
   },
 ];

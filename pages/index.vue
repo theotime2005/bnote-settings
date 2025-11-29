@@ -1,20 +1,27 @@
 <script setup>
-import { useI18n } from "vue-i18n";
+import { useHead } from "#imports";
+
+
+import { useHead } from "#imports";
 
 const { t } = useI18n();
+
+useHead({
+  title: () => `${t("home.title")} | ${t("title")}`,
+});
 </script>
 
 <template>
   <div class="home-container">
-    <h1 class="home-title">{{t('home.title')}}</h1>
+    <h1 class="home-title">{{ t('home.title') }}</h1>
 
     <div class="home-section">
-      <p>{{t('home.message-1')}}</p>
-      <RouterLink class="home-link" to="/settings">{{t('home.goto-settings')}}</RouterLink>
+      <p>{{ t('home.message-1') }}</p>
+      <NuxtLink class="home-link" to="/settings">{{ t('home.goto-settings') }}</NuxtLink>
     </div>
     <div class="home-section">
-      <h2 class="home-subtitle">{{t('home.title2')}}</h2>
-      <p>{{t('home.message2')}}</p>
+      <h2 class="home-subtitle">{{ t('home.title2') }}</h2>
+      <p>{{ t('home.message2') }}</p>
     </div>
   </div>
 </template>

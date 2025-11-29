@@ -2,15 +2,15 @@
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { useLocaleCookie } from "@/scripts/useLocaleCookie.js";
+import { useLocaleCookie } from "~/composables/useLocaleCookie.js";
 
 const { t, locale, availableLocales } = useI18n();
-const current_language = ref(locale.value);
+const currentLanguage = ref(locale.value);
 
 function changeLanguage() {
-  locale.value = current_language.value;
-  document.documentElement.lang = current_language.value;
-  useLocaleCookie.setLocaleCookie(current_language.value);
+  locale.value = currentLanguage.value;
+  document.documentElement.lang = currentLanguage.value;
+  useLocaleCookie.setLocaleCookie(currentLanguage.value);
 }
 </script>
 
@@ -19,10 +19,11 @@ function changeLanguage() {
     <label for="language" class="language-label">{{ t('languages.select') }}</label>
     <select
       id="language"
-      v-model="current_language"
-      :value="current_language"
+      v-model="currentLanguage"
+      :value="currentLanguage"
       class="language-select"
-      @change="changeLanguage">
+      @change="changeLanguage"
+    >
       <option v-for="language in availableLocales" :key="language" :value="language">
         {{ t(`languages.${language}`) }}
       </option>

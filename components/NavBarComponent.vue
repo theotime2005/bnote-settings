@@ -1,11 +1,18 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { RouterLink } from "vue-router";
+import { useRoute } from "vue-router";
 
-import routes from "@/router/router-list.js";
+const routes = [
+  { path: "/", name: "home" },
+  { path: "/download", name: "download" },
+  { path: "/settings", name: "settings.page" },
+  { path: "/faq", name: "faq" },
+  { path: "/about", name: "about" },
+];
 
 const { t } = useI18n();
+const route = useRoute();
 const buttonIsVisible = ref(false);
 const navBarIsVisible = ref(false);
 const showAccessibilityMenu = ref(false);
@@ -87,19 +94,12 @@ function loadAccessibilitySettings() {
 
 function applyAccessibilitySettings() {
   const root = document.documentElement;
-
-  // Apply text size
   root.setAttribute("data-text-size", accessibilitySettings.value.textSize);
-
-  // Apply contrast
   root.setAttribute("data-contrast", accessibilitySettings.value.contrast);
-
-  // Apply color scheme
   root.setAttribute("data-color-scheme", accessibilitySettings.value.colorScheme);
 }
 
 function handleKeyDown(event) {
-  // Handle escape key to close menus
   if (event.key === "Escape") {
     if (showAccessibilityMenu.value) {
       showAccessibilityMenu.value = false;
@@ -285,17 +285,17 @@ onBeforeUnmount(() => {
       role="navigation"
     >
       <ul class="nav-menu" role="menubar">
-        <li v-for="route in routes" :key="route.name" role="none">
-          <RouterLink
+        <li v-for="routeItem in routes" :key="routeItem.name" role="none">
+          <NuxtLink
             class="nav-link"
-            :to="route.path"
+            :to="routeItem.path"
             role="menuitem"
-            :aria-current="$route.path === route.path ? 'page' : null"
+            :aria-current="route.path === routeItem.path ? 'page' : undefined"
             @click="goto"
             @keydown.enter="goto"
           >
-            {{ t(`${route.name}.title`) }}
-          </RouterLink>
+            {{ t(`${routeItem.name}.title`) }}
+          </NuxtLink>
         </li>
       </ul>
     </nav>

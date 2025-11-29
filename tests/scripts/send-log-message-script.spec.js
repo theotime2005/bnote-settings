@@ -1,4 +1,4 @@
-import { sendLog } from "@/scripts/send-log-message-script.js";
+import { sendLog } from "~/utils/send-log-message-script.js";
 
 describe("scripts | sendLog", () => {
   let fetch;
@@ -17,6 +17,7 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "info",
         log: "Hello World",
+        environment: false,
       });
 
       // then
@@ -36,6 +37,7 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "error",
         log: "Error occurred",
+        environment: false,
       });
 
       // then
@@ -54,6 +56,7 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "warning",
         log: "Warning issued",
+        environment: false,
       });
 
       // then
@@ -71,6 +74,7 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "info",
         log: "Information",
+        environment: false,
       });
 
       // then
@@ -94,6 +98,7 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "error",
         log: "Error occurred",
+        environment: false,
       });
 
       // then
@@ -110,6 +115,7 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "error",
         log: "Error occurred",
+        environment: false,
       });
 
       // then

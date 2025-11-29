@@ -2,16 +2,16 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import LoadingSpinner from "@/components/LoadingSpinner.vue";
-import NotificationToast from "@/components/NotificationToast.vue";
-import SettingComponent from "@/components/SettingComponent.vue";
-import ToolBar from "@/components/ToolBar.vue";
-import UploadFileComponent from "@/components/UploadFileComponent.vue";
-import { useNotifications } from "@/composables/useNotifications.js";
-import all_settings from "@/settings.json";
-import { useSettingsStore } from "@/stores/settingsStore.js";
+import { useHead } from "#imports";
+import { useNotifications } from "~/composables/useNotifications.js";
+import all_settings from "~/settings.json";
+import { useSettingsStore } from "~/stores/settingsStore.js";
 
 const { t } = useI18n();
+
+useHead({
+  title: () => `${t("settings.page.title")} | ${t("title")}`,
+});
 
 const TOOLBAR_ACTION = [
   {
@@ -75,7 +75,7 @@ function cleanData() {
       isLoading.value = false;
     });
   }
-};
+}
 
 function createBasicData() {
   isLoading.value = true;
@@ -190,8 +190,6 @@ onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeyPress);
   window.removeEventListener("beforeunload", handleBeforeReload);
 });
-
-
 </script>
 
 <template>
@@ -225,7 +223,7 @@ onBeforeUnmount(() => {
 
         <!-- Search Bar -->
         <div class="search-container">
-          <label for="settings-search" class="sr-only">{{t('settings.page.search')}}</label>
+          <label for="settings-search" class="sr-only">{{ t('settings.page.search') }}</label>
           <input
             id="settings-search"
             v-model="searchQuery"
@@ -236,7 +234,7 @@ onBeforeUnmount(() => {
           />
         </div>
         <ToolBar
-:actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')"/>
+          :actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')" />
       </header>
 
       <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
