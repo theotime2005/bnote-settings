@@ -1,6 +1,5 @@
 <script setup>
-import { useHead } from "#imports";
-
+import { useI18n } from "vue-i18n";
 
 import { useHead } from "#imports";
 
