@@ -12,9 +12,6 @@ export default defineConfig({
     exclude: [...configDefaults.exclude, "e2e/**", ".nuxt/**", ".output/**"],
     root: fileURLToPath(new URL("./", import.meta.url)),
     reporters: process.env.GITHUB_ACTIONS ? ["dot", "github-actions"] : ["dot"],
-    deps: {
-      inline: [/@nuxt\/test-utils/],
-    },
   },
   resolve: {
     alias: {
