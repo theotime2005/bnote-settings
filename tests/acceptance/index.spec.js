@@ -64,7 +64,7 @@ describe("Acceptance | HomeView", async () => {
           FooterComponent,
           LanguageComponent,
           NavBarComponent,
-          NuxtLink: { template: "<a :href='to' :to='to'><slot /></a>", props: ["to"] },
+          NuxtLink: { template: "<a :href='to'><slot /></a>", props: ["to"] },
         },
       },
     });
