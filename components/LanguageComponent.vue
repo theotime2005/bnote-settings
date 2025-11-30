@@ -4,11 +4,11 @@ import { useI18n } from "vue-i18n";
 
 import { useLocaleCookie } from "@/composables/useLocaleCookie.js";
 
-const { t, locale, availableLocales } = useI18n();
+const { t, locale, availableLocales, setLocale } = useI18n();
 const currentLanguage = ref(locale.value);
 
-function changeLanguage() {
-  locale.value = currentLanguage.value;
+async function changeLanguage() {
+  await setLocale(currentLanguage.value);
   document.documentElement.lang = currentLanguage.value;
   useLocaleCookie.setLocaleCookie(currentLanguage.value);
 }
