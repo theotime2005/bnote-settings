@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { useNotifications } from "~/composables/useNotifications.js";
+import { useNotifications } from "@/composables/useNotifications.js";
 
 describe("useNotifications", () => {
   let notificationInstance;

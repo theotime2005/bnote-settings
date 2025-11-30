@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { useSettingsStore } from "~/stores/settingsStore.js";
-import { sendLog } from "~/utils/send-log-message-script.js";
+import { useSettingsStore } from "@/stores/settingsStore.js";
+import { sendLog } from "@/utils/send-log-message-script.js";
 
 const emit = defineEmits(["file-uploaded"]);
 const fileInput = ref(null);

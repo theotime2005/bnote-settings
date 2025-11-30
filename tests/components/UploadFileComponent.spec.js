@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
-import UploadFileComponent from "~/components/UploadFileComponent.vue";
-import i18n from "~/tests/i18n.js";
+import UploadFileComponent from "@/components/UploadFileComponent.vue";
+import i18n from "@/tests/i18n.js";
 
 const { t } = i18n.global;
 const mockLoadSettings = vi.fn();
@@ -17,13 +17,13 @@ const mockNotifications = {
   warning: vi.fn(),
 };
 
-vi.mock("~/stores/settingsStore.js", () => ({
+vi.mock("@/stores/settingsStore.js", () => ({
   useSettingsStore: () => ({
     loadSettings: mockLoadSettings,
   }),
 }));
 
-vi.mock("~/composables/useNotifications.js", () => ({
+vi.mock("@/composables/useNotifications.js", () => ({
   useNotifications: () => mockNotifications,
 }));
 

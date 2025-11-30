@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { createRouter, createWebHistory } from "vue-router";
 
-import NavBarComponent from "~/components/NavBarComponent.vue";
-import i18n from "~/tests/i18n.js";
+import NavBarComponent from "@/components/NavBarComponent.vue";
+import i18n from "@/tests/i18n.js";
 
 const routes = [
   { path: "/", name: "home", component: { template: "<div>Home</div>" } },

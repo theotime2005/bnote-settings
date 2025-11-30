@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
-import DownloadView from "~/pages/download.vue";
-import i18n from "~/tests/i18n.js";
+import DownloadView from "@/pages/download.vue";
+import i18n from "@/tests/i18n.js";
 
 const { t } = i18n.global;
 
@@ -14,7 +14,7 @@ vi.mock("@unhead/vue", async (importOriginal) => {
   };
 });
 
-vi.mock("~/utils/send-log-message-script.js", () => ({
+vi.mock("@/utils/send-log-message-script.js", () => ({
   sendLog: vi.fn(),
 }));
 

@@ -2,8 +2,8 @@
 import { onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
+import { sendLog } from "@/utils/send-log-message-script.js";
 import { useHead } from "#imports";
-import { sendLog } from "~/utils/send-log-message-script.js";
 
 const { t, locale } = useI18n();
 

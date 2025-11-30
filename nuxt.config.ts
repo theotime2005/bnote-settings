@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
   ],
 
-  css: ["~/assets/css/style.css"],
+  css: ["@/assets/css/style.css"],
 
   i18n: {
     locales: [

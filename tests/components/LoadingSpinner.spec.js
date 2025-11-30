@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 
-import LoadingSpinner from "~/components/LoadingSpinner.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 describe("LoadingSpinner.vue", () => {
   it("renders with default props", () => {

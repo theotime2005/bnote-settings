@@ -15,7 +15,6 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "~": fileURLToPath(new URL("./", import.meta.url)),
       "@": fileURLToPath(new URL("./", import.meta.url)),
       "#imports": fileURLToPath(new URL("./tests/stubs/imports.js", import.meta.url)),
     },

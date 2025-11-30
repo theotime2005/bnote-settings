@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import ToolBar from "~/components/ToolBar.vue";
+import ToolBar from "@/components/ToolBar.vue";
 
 describe("ToolBar", () => {
   let wrapper;

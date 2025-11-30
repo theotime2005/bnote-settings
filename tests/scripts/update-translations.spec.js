@@ -21,7 +21,7 @@ vi.mock("yargs/yargs", () => ({
 const mockFs = vi.mocked(fs);
 const mockTranslatte = vi.mocked(translatte);
 
-const { UpdateTranslations } = await import("~/scripts/update-translations.js");
+const { UpdateTranslations } = await import("@/scripts/update-translations.js");
 
 describe("Script | Update translations", () => {
   beforeEach(function() {
