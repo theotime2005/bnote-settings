@@ -1,8 +1,22 @@
+import { mount } from "@vue/test-utils";
+import { vi } from "vitest";
+
+import DownloadView from "~/pages/download.vue";
 import i18n from "~/tests/i18n.js";
 
-import { render } from "./helper.js";
-
 const { t } = i18n.global;
+
+vi.mock("@unhead/vue", async (importOriginal) => {
+  const original = await importOriginal();
+  return {
+    ...original,
+    useHead: vi.fn(),
+  };
+});
+
+vi.mock("~/utils/send-log-message-script.js", () => ({
+  sendLog: vi.fn(),
+}));
 
 describe("Acceptance | DownloadPageView", () => {
   beforeEach(() => {
@@ -14,7 +28,11 @@ describe("Acceptance | DownloadPageView", () => {
 
   it("Displays the main title", async () => {
     // when
-    const wrapper = await render("/download");
+    const wrapper = mount(DownloadView, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     expect(wrapper.html()).toContain(t("download.title"));
@@ -22,7 +40,11 @@ describe("Acceptance | DownloadPageView", () => {
 
   it("Displays eurobraille links", async () => {
     // when
-    const wrapper = await render("/download");
+    const wrapper = mount(DownloadView, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     const eurobrailleLink = wrapper.find(
@@ -34,7 +56,11 @@ describe("Acceptance | DownloadPageView", () => {
 
   it("displays Theotime links", async () => {
     // when
-    const wrapper = await render("/download");
+    const wrapper = mount(DownloadView, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     const theotimeGitHubLink = wrapper.find(
@@ -55,7 +81,11 @@ describe("Acceptance | DownloadPageView", () => {
     global.fetch = vi.fn(() => Promise.reject("Network error"));
 
     // when
-    const wrapper = await render("/download");
+    const wrapper = mount(DownloadView, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     await wrapper.vm.$nextTick();
@@ -66,7 +96,11 @@ describe("Acceptance | DownloadPageView", () => {
 
   it("should display correctly translations", async () => {
     // when
-    const wrapper = await render("/download");
+    const wrapper = mount(DownloadView, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     expect(wrapper.html()).toContain(t("download.message-1"));

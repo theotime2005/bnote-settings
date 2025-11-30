@@ -9,8 +9,7 @@ export default defineConfig({
     setupFiles: "tests/vite.config.setup.test.js",
     globals: true,
     environment: "happy-dom",
-    // TODO: Rewrite acceptance tests without helper.
-    exclude: [...configDefaults.exclude, "e2e/**", ".nuxt/**", ".output/**","tests/acceptance"],
+    exclude: [...configDefaults.exclude, "e2e/**", ".nuxt/**", ".output/**"],
     root: fileURLToPath(new URL("./", import.meta.url)),
     reporters: process.env.GITHUB_ACTIONS ? ["dot", "github-actions"] : ["dot"],
   },
@@ -18,6 +17,7 @@ export default defineConfig({
     alias: {
       "~": fileURLToPath(new URL("./", import.meta.url)),
       "@": fileURLToPath(new URL("./", import.meta.url)),
+      "#imports": fileURLToPath(new URL("./tests/stubs/imports.js", import.meta.url)),
     },
   },
 });
