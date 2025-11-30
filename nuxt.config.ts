@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   css: ["@/assets/css/style.css"],
 
   i18n: {
+    legacy: false,
     locales: [
       { code: "fr", name: "Français", file: "fr.json" },
       { code: "en", name: "English", file: "en.json" },

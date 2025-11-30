@@ -17,4 +17,17 @@ const i18n = createI18n({
   },
 });
 
+if (!i18n.global.setLocale) {
+  Object.defineProperty(i18n.global, "setLocale", {
+    value: (locale) => {
+      if (i18n.global.locale && typeof i18n.global.locale === "object" && "value" in i18n.global.locale) {
+        i18n.global.locale.value = locale;
+      } else {
+        i18n.global.locale = locale;
+      }
+    },
+    configurable: true,
+  });
+}
+
 export default i18n;
