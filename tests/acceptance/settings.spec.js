@@ -2,13 +2,13 @@ import { createTestingPinia } from "@pinia/testing";
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
-import LoadingSpinner from "~/components/LoadingSpinner.vue";
-import NotificationToast from "~/components/NotificationToast.vue";
-import SettingComponent from "~/components/SettingComponent.vue";
-import ToolBar from "~/components/ToolBar.vue";
-import UploadFileComponent from "~/components/UploadFileComponent.vue";
-import SettingsView from "~/pages/settings.vue";
-import i18n from "~/tests/i18n.js";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import NotificationToast from "@/components/NotificationToast.vue";
+import SettingComponent from "@/components/SettingComponent.vue";
+import ToolBar from "@/components/ToolBar.vue";
+import UploadFileComponent from "@/components/UploadFileComponent.vue";
+import SettingsView from "@/pages/settings.vue";
+import i18n from "@/tests/i18n.js";
 
 const { t } = i18n.global;
 
@@ -20,7 +20,7 @@ vi.mock("@unhead/vue", async (importOriginal) => {
   };
 });
 
-vi.mock("~/composables/useNotifications.js", () => ({
+vi.mock("@/composables/useNotifications.js", () => ({
   useNotifications: () => ({
     notifications: { value: [] },
     addNotification: vi.fn(),

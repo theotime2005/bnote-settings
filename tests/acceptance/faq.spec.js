@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import FaqView from "~/pages/faq.vue";
-import i18n from "~/tests/i18n.js";
+import FaqView from "@/pages/faq.vue";
+import i18n from "@/tests/i18n.js";
 
 const { t } = i18n.global;
 
@@ -14,7 +14,7 @@ vi.mock("@unhead/vue", async (importOriginal) => {
   };
 });
 
-vi.mock("~/utils/send-log-message-script.js", () => ({
+vi.mock("@/utils/send-log-message-script.js", () => ({
   sendLog: vi.fn(),
 }));
 
@@ -191,7 +191,7 @@ describe("Acceptance | FaqView", () => {
 
   it("should handle fetch errors gracefully", async () => {
     // given
-    const { sendLog } = await import("~/utils/send-log-message-script.js");
+    const { sendLog } = await import("@/utils/send-log-message-script.js");
 
     fetchSpy.mockRejectedValue(new Error("Network error"));
 

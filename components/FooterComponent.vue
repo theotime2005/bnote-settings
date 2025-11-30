@@ -1,7 +1,7 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 
-import packageInfo from "~/package.json";
+import packageInfo from "@/package.json";
 
 const { t } = useI18n();
 </script>

@@ -2,15 +2,15 @@ import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 import { createRouter, createWebHistory } from "vue-router";
 
-import FooterComponent from "~/components/FooterComponent.vue";
-import LanguageComponent from "~/components/LanguageComponent.vue";
-import NavBarComponent from "~/components/NavBarComponent.vue";
-import AboutView from "~/pages/about.vue";
-import DownloadView from "~/pages/download.vue";
-import FaqView from "~/pages/faq.vue";
-import HomeView from "~/pages/index.vue";
-import SettingsView from "~/pages/settings.vue";
-import i18n from "~/tests/i18n.js";
+import FooterComponent from "@/components/FooterComponent.vue";
+import LanguageComponent from "@/components/LanguageComponent.vue";
+import NavBarComponent from "@/components/NavBarComponent.vue";
+import AboutView from "@/pages/about.vue";
+import DownloadView from "@/pages/download.vue";
+import FaqView from "@/pages/faq.vue";
+import HomeView from "@/pages/index.vue";
+import SettingsView from "@/pages/settings.vue";
+import i18n from "@/tests/i18n.js";
 
 const { t } = i18n.global;
 

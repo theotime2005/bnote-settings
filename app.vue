@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
-import { useLocaleCookie } from "~/composables/useLocaleCookie.js";
+import { useLocaleCookie } from "@/composables/useLocaleCookie.js";
 
 const mainRef = ref(null);
 const canReset = ref(false);

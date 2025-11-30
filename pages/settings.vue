@@ -2,10 +2,10 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
+import { useNotifications } from "@/composables/useNotifications.js";
+import all_settings from "@/settings.json";
+import { useSettingsStore } from "@/stores/settingsStore.js";
 import { useHead } from "#imports";
-import { useNotifications } from "~/composables/useNotifications.js";
-import all_settings from "~/settings.json";
-import { useSettingsStore } from "~/stores/settingsStore.js";
 
 const { t } = useI18n();
 

@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
-import AboutView from "~/pages/about.vue";
-import i18n from "~/tests/i18n.js";
+import AboutView from "@/pages/about.vue";
+import i18n from "@/tests/i18n.js";
 
 const { t } = i18n.global;
 

@@ -1,6 +1,6 @@
 import { createPinia, setActivePinia } from "pinia";
 
-import { useSettingsStore } from "~/stores/settingsStore.js";
+import { useSettingsStore } from "@/stores/settingsStore.js";
 
 describe("Settings Store", () => {
   const fileName = "settings";
