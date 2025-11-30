@@ -1,23 +1,40 @@
+import { mount } from "@vue/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { render, t } from "./helper.js";
+import FaqView from "~/pages/faq.vue";
+import i18n from "~/tests/i18n.js";
+
+const { t } = i18n.global;
+
+vi.mock("@unhead/vue", async (importOriginal) => {
+  const original = await importOriginal();
+  return {
+    ...original,
+    useHead: vi.fn(),
+  };
+});
 
 vi.mock("~/utils/send-log-message-script.js", () => ({
   sendLog: vi.fn(),
 }));
+
+function mountFaqView() {
+  return mount(FaqView, {
+    global: {
+      plugins: [i18n],
+    },
+  });
+}
 
 describe("Acceptance | FaqView", () => {
   let wrapper, fetchSpy;
 
   beforeEach(async () => {
     fetchSpy = vi.spyOn(global, "fetch");
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
   });
 
   it("should display the FAQ page title", () => {
-    // given
-    // wrapper is set up in beforeEach
-
     // when
     const title = wrapper.find(".faq-title");
 
@@ -27,9 +44,6 @@ describe("Acceptance | FaqView", () => {
   });
 
   it("should display the FAQ presentation text", () => {
-    // given
-    // wrapper is set up in beforeEach
-
     // when
     const presentation = wrapper.find(".faq-presentation");
 
@@ -45,7 +59,7 @@ describe("Acceptance | FaqView", () => {
     });
 
     // when
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
     await wrapper.vm.$nextTick();
 
     // then
@@ -73,7 +87,7 @@ describe("Acceptance | FaqView", () => {
     });
 
     // when
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
@@ -97,7 +111,7 @@ describe("Acceptance | FaqView", () => {
     });
 
     // when
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
@@ -121,7 +135,7 @@ describe("Acceptance | FaqView", () => {
     });
 
     // when
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
@@ -145,7 +159,7 @@ describe("Acceptance | FaqView", () => {
     });
 
     // when
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
@@ -164,7 +178,7 @@ describe("Acceptance | FaqView", () => {
       json: async () => [],
     });
 
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
     await wrapper.vm.$nextTick();
 
     // when
@@ -182,7 +196,7 @@ describe("Acceptance | FaqView", () => {
     fetchSpy.mockRejectedValue(new Error("Network error"));
 
     // when
-    wrapper = await render("/faq");
+    wrapper = mountFaqView();
     await wrapper.vm.$nextTick();
 
     // then

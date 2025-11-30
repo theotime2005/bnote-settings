@@ -1,10 +1,28 @@
-import { render, t } from "./helper.js";
+import { mount } from "@vue/test-utils";
+import { vi } from "vitest";
+
+import AboutView from "~/pages/about.vue";
+import i18n from "~/tests/i18n.js";
+
+const { t } = i18n.global;
+
+vi.mock("@unhead/vue", async (importOriginal) => {
+  const original = await importOriginal();
+  return {
+    ...original,
+    useHead: vi.fn(),
+  };
+});
 
 describe("Acceptance | AboutView", () => {
   let wrapper;
 
   beforeEach(async () => {
-    wrapper = await render("/about");
+    wrapper = mount(AboutView, {
+      global: {
+        plugins: [i18n],
+      },
+    });
   });
 
   it("should display the about page title", () => {
