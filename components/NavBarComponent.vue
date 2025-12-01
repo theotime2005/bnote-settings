@@ -3,6 +3,8 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
+import { useLocalePath } from "#i18n";
+
 const routes = [
   { path: "/", name: "home" },
   { path: "/download", name: "download" },
@@ -11,6 +13,7 @@ const routes = [
   { path: "/about", name: "about" },
 ];
 
+const localePath = useLocalePath();
 const { t } = useI18n();
 const route = useRoute();
 const buttonIsVisible = ref(false);
@@ -288,9 +291,9 @@ onBeforeUnmount(() => {
         <li v-for="routeItem in routes" :key="routeItem.name" role="none">
           <NuxtLink
             class="nav-link"
-            :to="routeItem.path"
+            :to="localePath(routeItem.path)"
             role="menuitem"
-            :aria-current="route.path === routeItem.path ? 'page' : undefined"
+            :aria-current="route.path === localePath(routeItem.path) ? 'page' : undefined"
             @click="goto"
             @keydown.enter="goto"
           >

@@ -22,12 +22,12 @@ export default defineNuxtConfig({
     bundle: {
       optimizeTranslationDirective: false,
     },
-    strategy: "no_prefix",
+    strategy: "prefix",
     langDir: "locales/",
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: "locale",
-      redirectOn: "no prefix",
+      redirectOn: "all",
     },
   },
 

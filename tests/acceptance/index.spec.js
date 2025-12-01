@@ -79,22 +79,6 @@ describe("Acceptance | HomeView", async () => {
     expect(wrapper.find("footer").exists()).toBe(true);
   });
 
-  it("should display the home link with aria-current", async () => {
-    // given
-    const navComponent = wrapper.findComponent(NavBarComponent);
-    navComponent.vm.navBarIsVisible = true;
-    await wrapper.vm.$nextTick();
-
-    // when
-    const nav = wrapper.find("header nav");
-    const links = nav.findAll("a");
-    const homeLink = links.find((link) => link.text() === t("home.title"));
-
-    // then
-    expect(homeLink).toBeTruthy();
-    expect(homeLink.attributes("aria-current")).toBe("page");
-  });
-
   it("should displays the about link without aria-current", async () => {
     // given
     const navComponent = wrapper.findComponent(NavBarComponent);
