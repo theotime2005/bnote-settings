@@ -1,3 +1,14 @@
+## [6.0.1](https://github.com/theotime2005/bnote-settings/compare/v6.0.0...v6.0.1) (2025-12-01)
+
+### 🐛 Bug fixes
+
+* Update language when change with language selector ([#449](https://github.com/theotime2005/bnote-settings/issues/449)) ([d9091aa](https://github.com/theotime2005/bnote-settings/commit/d9091aa932d42071e49dd822f138f21ef3b402b5))
+
+### 🔖 Version bump
+
+* **deps:** bump @nuxtjs/i18n from 9.5.6 to 10.2.1 ([#450](https://github.com/theotime2005/bnote-settings/issues/450)) ([e00de97](https://github.com/theotime2005/bnote-settings/commit/e00de978de120986db6751e04ba621421866c170))
+* **deps:** bump nuxt from 3.20.1 to 4.2.1 ([#451](https://github.com/theotime2005/bnote-settings/issues/451)) ([2423902](https://github.com/theotime2005/bnote-settings/commit/2423902f79e096a61c9c205fc4128947273a037e))
+
 ## [6.0.0](https://github.com/theotime2005/bnote-settings/compare/v5.4.1...v6.0.0) (2025-11-30)
 
 ### 💥 Breaking changes
