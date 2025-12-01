@@ -12,6 +12,10 @@ const routes = [
   { path: "/about", name: "about", component: { template: "<div>About</div>" } },
 ];
 
+function withLocalePrefix(path, locale = "fr") {
+  return `/${locale}${path}`;
+}
+
 describe("NavBarComponent", () => {
   let router, wrapper;
 
@@ -49,7 +53,7 @@ describe("NavBarComponent", () => {
     const menuItems = wrapper.findAll(".nav-link");
     expect(menuItems.length).toBe(routes.length);
     menuItems.forEach((item, index) => {
-      expect(item.attributes("to")).toBe(routes[index].path);
+      expect(item.attributes("to")).toBe(withLocalePrefix(routes[index].path));
     });
   });
 });
