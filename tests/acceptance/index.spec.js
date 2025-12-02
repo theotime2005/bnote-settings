@@ -10,7 +10,7 @@ import DownloadView from "@/pages/download.vue";
 import FaqView from "@/pages/faq.vue";
 import HomeView from "@/pages/index.vue";
 import SettingsView from "@/pages/settings.vue";
-import i18n from "@/tests/i18n.js";
+import i18n from "@/tests/helpers/i18n.js";
 
 const { t } = i18n.global;
 

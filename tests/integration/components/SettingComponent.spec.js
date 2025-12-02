@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 
 import SettingComponent from "@/components/SettingComponent.vue";
 import { useSettingsStore } from "@/stores/settingsStore.js";
-import i18n from "@/tests/i18n.js";
+import i18n from "@/tests/helpers/i18n.js";
 
 describe("SettingComponent.vue", () => {
   const pinia = createTestingPinia({ createSpy: vi.fn });
