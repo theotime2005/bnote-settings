@@ -8,7 +8,7 @@ import SettingComponent from "@/components/SettingComponent.vue";
 import ToolBar from "@/components/ToolBar.vue";
 import UploadFileComponent from "@/components/UploadFileComponent.vue";
 import SettingsView from "@/pages/settings.vue";
-import i18n from "@/tests/i18n.js";
+import i18n from "@/tests/helpers/i18n.js";
 
 const { t } = i18n.global;
 

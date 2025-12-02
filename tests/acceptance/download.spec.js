@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
 import DownloadView from "@/pages/download.vue";
-import i18n from "@/tests/i18n.js";
+import i18n from "@/tests/helpers/i18n.js";
 
 const { t } = i18n.global;
 

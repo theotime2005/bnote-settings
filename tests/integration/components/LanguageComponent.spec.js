@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 
 import LanguageComponent from "@/components/LanguageComponent.vue";
-import i18n from "@/tests/i18n.js";
+import i18n from "@/tests/helpers/i18n.js";
 
 describe("LanguageComponent", () => {
   let wrapper;

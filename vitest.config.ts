@@ -6,7 +6,7 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [vue()],
   test: {
-    setupFiles: "tests/vite.config.setup.test.js",
+    setupFiles: "tests/helpers/vite.config.setup.test.js",
     globals: true,
     environment: "happy-dom",
     exclude: [...configDefaults.exclude, "e2e/**", ".nuxt/**", ".output/**"],
@@ -16,8 +16,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./", import.meta.url)),
-      "#imports": fileURLToPath(new URL("./tests/stubs/imports.js", import.meta.url)),
-      "#i18n": fileURLToPath(new URL("./tests/stubs/i18n.js", import.meta.url)),
+      "#imports": fileURLToPath(new URL("./tests/helpers/stubs/imports.js", import.meta.url)),
+      "#i18n": fileURLToPath(new URL("./tests/helpers/stubs/i18n.js", import.meta.url)),
     },
   },
 });
