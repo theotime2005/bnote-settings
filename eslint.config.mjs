@@ -82,7 +82,7 @@ export default [
     },
   },
   {
-    files: ["**/tests/*.{j,t}s?(x)", "**/*.spec.{j,t}s?(x)"],
+    files: ["**/tests/**/*.{j,t}s?(x)", "**/*.spec.{j,t}s?(x)"],
 
     languageOptions: {
       globals: {
