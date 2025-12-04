@@ -48,7 +48,7 @@ describe("UploadFileComponent.vue", () => {
     await input.trigger("change");
 
     // then
-    expect(wrapper.vm.fileInput.name).toBe(file.name);
+    expect(wrapper.vm.selectedFile.name).toBe(file.name);
   });
 
   it("should handle drag and drop correctly", async () => {
@@ -69,13 +69,13 @@ describe("UploadFileComponent.vue", () => {
 
     // then
     expect(wrapper.vm.isDragOver).toBe(false);
-    expect(wrapper.vm.fileInput.name).toBe(file.name);
+    expect(wrapper.vm.selectedFile.name).toBe(file.name);
   });
 
   it("should remove file correctly", async () => {
     // given
     const file = new File(["test content"], "test.bnote", { type: "text/plain" });
-    wrapper.vm.fileInput = file;
+    wrapper.vm.selectedFile = file;
     await wrapper.vm.$nextTick();
 
     // when
@@ -83,7 +83,7 @@ describe("UploadFileComponent.vue", () => {
     await removeButton.trigger("click");
 
     // then
-    expect(wrapper.vm.fileInput).toBe(null);
+    expect(wrapper.vm.selectedFile).toBe(null);
   });
 
   it("should format file size correctly", () => {
@@ -99,7 +99,7 @@ describe("UploadFileComponent.vue", () => {
     // given
     window.alert = vi.fn();
     const file = new File(["test content"], "test.txt", { type: "text/plain" });
-    wrapper.vm.fileInput = file;
+    wrapper.vm.selectedFile = file;
 
     // when
     wrapper.vm.uploadFile();
@@ -115,7 +115,7 @@ describe("UploadFileComponent.vue", () => {
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
     const mockFileReader = { readAsText: vi.fn(), onloadend: null };
     window.FileReader = vi.fn(() => mockFileReader);
-    wrapper.vm.fileInput = file;
+    wrapper.vm.selectedFile = file;
 
     // when
     wrapper.vm.uploadFile();
@@ -132,7 +132,7 @@ describe("UploadFileComponent.vue", () => {
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
     const mockFileReader = { readAsText: vi.fn(), onloadend: null };
     window.FileReader = vi.fn(() => mockFileReader);
-    wrapper.vm.fileInput = file;
+    wrapper.vm.selectedFile = file;
 
     // when
     wrapper.vm.uploadFile();

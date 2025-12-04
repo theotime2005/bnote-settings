@@ -231,6 +231,7 @@
         "incorrectFormatFile": "Formato file non corretto",
         "invalidFileContent": "Il contenuto del file non è valido",
         "orClick": "o fare clic per selezionare",
+        "remove": "Eliminare",
         "select": "Seleziona un file",
         "show": "Mostra",
         "title": "Carica un file"
