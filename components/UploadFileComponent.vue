@@ -6,33 +6,40 @@ import { useSettingsStore } from "@/stores/settingsStore.js";
 import { sendLog } from "@/utils/send-log-message-script.js";
 
 const emit = defineEmits(["file-uploaded"]);
-const fileInput = ref(null);
+const inputRef = ref(null);
+const selectedFile = ref(null);
 const isDragOver = ref(false);
 const { t } = useI18n();
 
 function handleFileUpload(event) {
-  fileInput.value = event.target.files[0];
+  const files = event.target.files;
+  selectedFile.value = files && files.length ? files[0] : null;
 }
 
 function handleDrop(event) {
   isDragOver.value = false;
   const files = event.dataTransfer.files;
   if (files.length > 0) {
-    fileInput.value = files[0];
+    selectedFile.value = files[0];
   }
 }
 
 function removeFile() {
-  fileInput.value = null;
-  const fileInputElement = document.getElementById("select");
-  if (fileInputElement) {
-    const clone = fileInputElement.cloneNode(true);
-    fileInputElement.parentNode.replaceChild(clone, fileInputElement);
+  selectedFile.value = null;
+  if (inputRef.value) {
+    try {
+      inputRef.value.value = "";
+    } catch {
+      if (inputRef.value && inputRef.value.parentNode) {
+        const clone = inputRef.value.cloneNode(true);
+        inputRef.value.parentNode.replaceChild(clone, inputRef.value);
+      }
+    }
   }
 }
 
 function formatFileSize(bytes) {
-  if (bytes === 0) return "0 B";
+  if (!bytes) return "0 B";
   const k = 1024;
   const sizes = ["B", "KB", "MB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -41,19 +48,20 @@ function formatFileSize(bytes) {
 
 function uploadFile() {
   try {
-    const extension = fileInput.value.name.split(".").pop();
+    if (!selectedFile.value) return;
+    const extension = selectedFile.value.name.split(".").pop();
     if (extension !== "bnote") {
       window.alert(t("uploadFile.incorrectFormatFile"));
       return;
     }
 
-    const file = new FileReader();
-    file.readAsText(fileInput.value);
+    const reader = new FileReader();
+    reader.readAsText(selectedFile.value);
 
-    file.onloadend = (e) => {
+    reader.onloadend = (e) => {
       try {
         const config = JSON.parse(e.target.result);
-        useSettingsStore().loadSettings(config, fileInput.value.name.split(".")[0]);
+        useSettingsStore().loadSettings(config, selectedFile.value.name.split(".")[0]);
         emit("file-uploaded");
       } catch (parseError) {
         window.alert(t("uploadFile.invalidFileContent"));
@@ -74,7 +82,7 @@ function uploadFile() {
       <div class="file-input-wrapper" :class="{ 'drag-over': isDragOver }" @dragenter="isDragOver = true" @dragleave="isDragOver = false">
         <input
           id="select"
-          :ref="fileInput"
+          ref="inputRef"
           type="file"
           accept=".bnote"
           required
@@ -87,14 +95,14 @@ function uploadFile() {
           <p class="file-drop-subtext">{{ t('uploadFile.orClick') }}</p>
         </div>
       </div>
-      <div v-if="fileInput" class="file-preview">
+      <div v-if="selectedFile" class="file-preview">
         <div class="file-info">
-          <span class="file-name">{{ fileInput.name }}</span>
-          <span class="file-size">{{ formatFileSize(fileInput.size) }}</span>
+          <span class="file-name">{{ selectedFile.name }}</span>
+          <span class="file-size">{{ formatFileSize(selectedFile.size) }}</span>
         </div>
-        <button type="button" class="file-remove" :title="t('common.remove')" @click="removeFile">×</button>
+        <button type="button" class="file-remove" :aria-label="t('uploadFile.remove')" @click="removeFile">×</button>
       </div>
-      <button type="submit" class="upload-button focus-ring" :disabled="!fileInput">
+      <button type="submit" class="upload-button focus-ring" :disabled="!selectedFile">
         {{ t('uploadFile.show') }}
       </button>
     </form>
@@ -153,7 +161,7 @@ function uploadFile() {
 
 .file-input-wrapper.drag-over {
   border-color: var(--color-blue-500);
-  background: var(--color-blue-50);
+  background: rgba(59,130,246,0.05);
 }
 
 .file-input {

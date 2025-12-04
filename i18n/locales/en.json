@@ -231,6 +231,7 @@
         "incorrectFormatFile": "Incorrect file format",
         "invalidFileContent": "The file content is not valid",
         "orClick": "or click to select",
+        "remove": "Delete",
         "select": "Select a file",
         "show": "Show",
         "title": "Import file"
