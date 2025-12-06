@@ -1,23 +1,25 @@
 import { fileURLToPath } from "node:url";
+import { defineVitestConfig } from "@nuxt/test-utils/config";
+import { configDefaults } from "vitest/config";
 
-import { configDefaults, defineConfig } from "vitest/config";
-import vue from "@vitejs/plugin-vue";
-
-export default defineConfig({
-  plugins: [vue()],
+export default defineVitestConfig({
   test: {
-    setupFiles: "tests/helpers/vite.config.setup.test.js",
+    setupFiles: ["tests/helpers/vite.config.setup.test.js"],
     globals: true,
-    environment: "happy-dom",
-    exclude: [...configDefaults.exclude, "e2e/**", ".nuxt/**", ".output/**"],
+    environment: "nuxt",
+
+    exclude: [
+      ...configDefaults.exclude,
+      "e2e/**",
+      ".nuxt/**",
+      ".output/**",
+      "server/config.js",
+    ],
+
     root: fileURLToPath(new URL("./", import.meta.url)),
-    reporters: process.env.GITHUB_ACTIONS ? ["dot", "github-actions"] : ["dot"],
-  },
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./", import.meta.url)),
-      "#imports": fileURLToPath(new URL("./tests/helpers/stubs/imports.js", import.meta.url)),
-      "#i18n": fileURLToPath(new URL("./tests/helpers/stubs/i18n.js", import.meta.url)),
-    },
+
+    reporters: process.env.GITHUB_ACTIONS
+      ? ["dot", "github-actions"]
+      : ["dot"],
   },
 });
