@@ -12,6 +12,7 @@ describe("Integration | Shared | Services | Email | Send Mail", () => {
 
   it("should send email and log url to visualize", async () => {
     // given
+    vi.spyOn(console, "log");
     const req = {
       to: "john.doe@example.net",
       subject: "The subject",

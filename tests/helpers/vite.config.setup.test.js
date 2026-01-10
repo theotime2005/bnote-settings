@@ -1,8 +1,8 @@
-beforeEach(() => {
-  vi.spyOn(console, "error").mockImplementation(() => {});
-  vi.spyOn(console, "log").mockImplementation(() => {});
-});
+import localStorage from "@/tests/helpers/localStorage.js";
+
+global.localStorage = localStorage;
 
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.clearAllMocks();
 });
