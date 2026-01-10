@@ -46,7 +46,7 @@
     "husky": "^9.1.7",
     "translatte": "^3.0.1",
     "vitest": "^3.2.4",
-    "vue-router": "^4.6.3",
+    "vue-router": "^4.6.4",
     "yargs": "^18.0.0"
   }
 }
