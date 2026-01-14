@@ -1,73 +1,49 @@
-import { vi } from "vitest";
+import * as fs from "node:fs/promises";
 
-vi.mock("@/utils/send-log-message-script.js", () => ({
-  sendLog: vi.fn(),
-}));
+import { describe, expect, it, vi } from "vitest";
 
 import { createMailBodyService } from "@/server/email/create-mail-body-service.js";
-import { sendLog } from "@/utils/send-log-message-script.js";
 
-describe("server | createMailBodyService", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
+vi.mock("node:fs/promises", () => ({
+  readFile: vi.fn(),
+}));
 
-  it("converts markdown to HTML", async () => {
-    // when
-    const result = await createMailBodyService("# Hello World");
-
-    // then
-    expect(result).toContain("<h1");
-    expect(result).toContain("Hello World");
-  });
-
-  it("replaces simple placeholders before converting to HTML", async () => {
+describe("Unit | shared | Create mail body", () => {
+  it("should replace placeholders and add footer", async () => {
     // given
-    const body = "Hello {{name}} and **{{thing}}**";
+    fs.readFile
+      .mockResolvedValueOnce("Hello {{name}}, welcome!")
+      .mockResolvedValueOnce("\n-- Footer --");
+
+    const replaceElements = { name: "John" };
 
     // when
-    const result = await createMailBodyService(body, { name: "Alice", thing: "bold" });
+    const result = await createMailBodyService("test", replaceElements);
 
     // then
-    expect(result).toContain("Hello Alice");
-    expect(result).toContain("<strong>bold</strong>");
+    expect(result).toContain("Hello John, welcome!");
+    expect(result).toContain("-- Footer --");
   });
 
-  it("replaces a placeholder whose key contains regex-special characters", async () => {
+  it("should return content without placeholder", async () => {
     // given
-    const key = "a.b[c]*+?^$()|";
-    const body = `Special {{${key}}} end`;
+    fs.readFile
+      .mockResolvedValueOnce("Simple content")
+      .mockResolvedValueOnce("\n-- Footer --");
 
     // when
-    const result = await createMailBodyService(body, { [key]: "X" });
+    const result = await createMailBodyService("test");
 
     // then
-    expect(result).toContain("Special X end");
+    expect(result).toContain("Simple content");
+    expect(result).toContain("-- Footer --");
   });
 
-  it("does not modify placeholders when replaceElements is not provided", async () => {
+  it("should throw an error if reading failed", async () => {
     // given
-    const body = "Keep {{missing}}";
+    fs.readFile.mockRejectedValue(new Error("File not found"));
 
-    // when
-    const result = await createMailBodyService(body);
-
-    // then
-    expect(result).toContain("{{missing}}");
-  });
-
-  it("logs an error and rethrows when processing fails", async () => {
-    // then
-    await expect(createMailBodyService(null)).rejects.toBeDefined();
-    expect(sendLog).toHaveBeenCalled();
-    expect(sendLog).toHaveBeenCalledWith(
-      expect.objectContaining({
-        fileName: "create mail body",
-        functionName: "createMailBody",
-        type: "error",
-        log: expect.stringContaining("Error creating body"),
-      }),
-    );
+    // when // then
+    await expect(createMailBodyService("unknown")).rejects.toThrow("File not found");
   });
 });
-
