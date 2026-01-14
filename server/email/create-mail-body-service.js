@@ -7,7 +7,7 @@ import { marked } from "marked";
 
 const MAIL_FOLDER = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  "../email-templates",
+  "../../server/email-templates",
 );
 const FOOTER_FILE_NAME = "footer.md";
 
