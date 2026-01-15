@@ -42,7 +42,7 @@ async function sendReportContactFormController({
     });
     await sendMail({
       to: config.email.auth.user,
-      from: email,
+      from: config.email.auth.user,
       subject,
       html: finalDocument,
     });
