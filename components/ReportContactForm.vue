@@ -46,7 +46,7 @@ async function handleSubmit() {
   if (request.ok) {
     formIsSubmitted.value = true;
   } else {
-    alertMessage.value = t("report-contact-form.alert.submit-error");
+    alertMessage.value = t("report-contact-form.submit.error");
   }
 }
 </script>
@@ -78,7 +78,7 @@ async function handleSubmit() {
     <p role="alert">{{alertMessage}}</p>
     <button type="submit">{{t('report-contact-form.form.submit')}}</button>
   </form>
-  <p v-else id="success">{{t('report-contact-form.success-message')}}</p>
+  <p v-else id="success">{{t('report-contact-form.submit.success')}}</p>
 </template>
 
 <style scoped>
