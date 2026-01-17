@@ -22,7 +22,7 @@ const configuration = (function() {
       enabled: toBoolean(process.env.MAILING_ENABLED),
       testAccount: toBoolean(process.env.MAIL_TEST_ACCOUNT_ENABLED),
       service: process.env.MAILING_SERVICE,
-      port: _getNumber(process.env.MAILING_PORT, 587),
+      port: _getNumber(process.env.MAILING_PORT, null),
       secure: toBoolean(process.env.MAILING_SECURE),
       auth: {
         user: process.env.MAILING_USER,

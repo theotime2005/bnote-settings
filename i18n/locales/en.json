@@ -79,6 +79,35 @@
         "it": "Italian",
         "select": "Choose a language"
     },
+    "report-contact-form": {
+        "form": {
+            "body-informations": {
+                "message": "Your message",
+                "report-type": "I wish:",
+                "subject": "Subject",
+                "title": "Contact"
+            },
+            "personnal-informations": {
+                "email": "Your email",
+                "firstname": "Your first name",
+                "lastname": "Your last name",
+                "title": "Personal information"
+            },
+            "submit": "Submit the form",
+            "title": "Contact form"
+        },
+        "question": "You don't want to use GitHub, use the contact form.",
+        "report-type": {
+            "bug": "Report a bug",
+            "select": "Select an option",
+            "suggestion": "Make a suggestion"
+        },
+        "submit": {
+            "error": "An error occurred while submitting the form. Please try again later. 😞",
+            "success": "The form has been sent successfully ☺️"
+        },
+        "title": "Use the contact form"
+    },
     "settings": {
         "id": {
             "agenda": "Agenda",
