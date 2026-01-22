@@ -15,7 +15,7 @@ const faq = ref(null);
 
 async function loadFaq() {
   faq.value = null;
-  const fileName = `faq/${locale.value}.json`;
+  const fileName = `/faq/${locale.value}.json`;
   try {
     const request = await fetch(fileName);
     if (request.ok) {
