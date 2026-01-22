@@ -20,8 +20,8 @@ const configuration = (function() {
     environment: process.env.MODE || "development",
     email: {
       enabled: toBoolean(process.env.MAILING_ENABLED),
-      testAccount: toBoolean(process.env.MAIL_TEST_ACCOUNT_ENABLED),
-      service: process.env.MAILING_SERVICE,
+      testAccount: toBoolean(process.env.MAILING_TEST_ACCOUNT_ENABLED),
+      host: process.env.MAILING_HOST,
       port: _getNumber(process.env.MAILING_PORT, 587),
       secure: toBoolean(process.env.MAILING_SECURE),
       auth: {

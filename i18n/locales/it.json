@@ -79,6 +79,35 @@
         "it": "Italiano",
         "select": "Seleziona una lingua"
     },
+    "report-contact-form": {
+        "form": {
+            "body-informations": {
+                "message": "Il suo messaggio",
+                "report-type": "Spero che:",
+                "subject": "Soggetto",
+                "title": "Contatto"
+            },
+            "personnal-informations": {
+                "email": "La sua email",
+                "firstname": "Il suo nome",
+                "lastname": "Il suo cognome",
+                "title": "Informazioni personali"
+            },
+            "submit": "Invia il modulo",
+            "title": "Modulo di contatto"
+        },
+        "question": "Se non vuoi utilizzare GitHub, utilizza il modulo di contatto.",
+        "report-type": {
+            "bug": "Segnalare un bug",
+            "select": "Seleziona un'opzione",
+            "suggestion": "Dai un suggerimento"
+        },
+        "submit": {
+            "error": "Si è verificato un errore durante l'invio del modulo. Per favore riprova più tardi. 😞",
+            "success": "Il modulo è stato inviato con successo ☺️"
+        },
+        "title": "Utilizza il modulo di contatto"
+    },
     "settings": {
         "id": {
             "agenda": "Agenda",

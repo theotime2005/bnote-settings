@@ -79,6 +79,35 @@
         "it": "Italien",
         "select": "Choisir une langue"
     },
+    "report-contact-form": {
+        "form": {
+            "body-informations": {
+                "message": "Votre message",
+                "report-type": "Je souhaite:",
+                "subject": "Objet",
+                "title": "Contact"
+            },
+            "personnal-informations": {
+                "email": "Votre email",
+                "firstname": "Votre prénom",
+                "lastname": "Votre nom",
+                "title": "Informations personnelles"
+            },
+            "submit": "Soumettre le formulaire",
+            "title": "Formulaire de contact"
+        },
+        "question": "Vous ne souhaitez pas utiliser GitHub, utilisez le formulaire de contact.",
+        "report-type": {
+            "bug": "Signaler un bug",
+            "select": "Sélectionnez une option",
+            "suggestion": "Faire une suggestion"
+        },
+        "submit": {
+            "error": "Une erreur est survenue lors de l'envoi du formulaire. Veuillez réessayer plus tard. 😞",
+            "success": "Le formulaire a bien été envoyé ☺️"
+        },
+        "title": "Utiliser le formulaire de contact"
+    },
     "settings": {
         "id": {
             "agenda": "Agenda",
