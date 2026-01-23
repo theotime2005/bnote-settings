@@ -19,10 +19,10 @@ describe("Report Contact Form", () => {
     // then
     const h2 = wrapper.find("h2");
     const form = wrapper.find("form");
-    const h3 = wrapper.findAll("h3");
+    const legend = wrapper.findAll("legend");
     expect(h2.text()).toBe(t("report-contact-form.title"));
     expect(form.exists()).toBe(true);
-    expect(h3).toHaveLength(2);
+    expect(legend).toHaveLength(2);
   });
 
   describe("Form submition", () => {
