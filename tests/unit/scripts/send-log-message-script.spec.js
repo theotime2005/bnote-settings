@@ -5,7 +5,7 @@ describe("scripts | sendLog", () => {
   let console;
   beforeEach(() => {
     fetch = vi.spyOn(global, "fetch").mockResolvedValue({ ok: true });
-    process.env.VUE_APP_LOG_API_URL = "http://example.net";
+    process.env.LOG_API_URL = "http://example.net";
     console = { log: vi.spyOn(global.console, "log"), error: vi.spyOn(global.console, "error") };
   });
 
@@ -15,9 +15,8 @@ describe("scripts | sendLog", () => {
       await sendLog({
         fileName: "testFile",
         functionName: "testFunction",
-        type: "info",
+        type: "log",
         log: "Hello World",
-        environment: false,
       });
 
       // then
@@ -37,7 +36,6 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "error",
         log: "Error occurred",
-        environment: false,
       });
 
       // then
@@ -54,16 +52,15 @@ describe("scripts | sendLog", () => {
       await sendLog({
         fileName: "testFile",
         functionName: "testFunction",
-        type: "warning",
+        type: "warn",
         log: "Warning issued",
-        environment: false,
       });
 
       // then
       expect(fetch).toHaveBeenCalledWith(
         "http://example.net",
         expect.objectContaining({
-          body: expect.stringContaining("\\\"type\\\": \\\"warning\\\""),
+          body: expect.stringContaining("\\\"type\\\": \\\"warn\\\""),
         }),
       );
     });
@@ -72,25 +69,24 @@ describe("scripts | sendLog", () => {
       await sendLog({
         fileName: "testFile",
         functionName: "testFunction",
-        type: "info",
+        type: "log",
         log: "Information",
-        environment: false,
       });
 
       // then
       expect(fetch).toHaveBeenCalledWith(
         "http://example.net",
         expect.objectContaining({
-          body: expect.stringContaining("\\\"type\\\": \\\"info\\\""),
+          body: expect.stringContaining("\\\"type\\\": \\\"log\\\""),
         }),
       );
     });
   });
 
   describe("Send a log with missing or invalid URL", function() {
-    it("does not send a log if LOG_API_URL is missing", async () => {
+    it("does not send a log if environment variable is missing", async () => {
       // given
-      delete process.env.VUE_APP_LOG_API_URL;
+      delete process.env.LOG_API_URL;
 
       // when
       await sendLog({
@@ -98,7 +94,6 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "error",
         log: "Error occurred",
-        environment: false,
       });
 
       // then
@@ -107,7 +102,7 @@ describe("scripts | sendLog", () => {
 
     it("does not send a log if LOG_API_URL is invalid", async () => {
       // given
-      process.env.VUE_APP_LOG_API_URL = "";
+      process.env.LOG_API_URL = "";
 
       // when
       await sendLog({
@@ -115,7 +110,6 @@ describe("scripts | sendLog", () => {
         functionName: "testFunction",
         type: "error",
         log: "Error occurred",
-        environment: false,
       });
 
       // then
