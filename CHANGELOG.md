@@ -1,3 +1,15 @@
+## [6.2.1](https://github.com/theotime2005/bnote-settings/compare/v6.2.0...v6.2.1) (2026-01-23)
+
+### 🐛 Bug fixes
+
+* Fix the send log function and restore starting message ([#497](https://github.com/theotime2005/bnote-settings/issues/497)) ([e04913c](https://github.com/theotime2005/bnote-settings/commit/e04913cce34ab7201221539d1b84cc8451891d39)), closes [/#diff-cb1d77559ec575de9bbe13651079e1bcf0230a31d557fada03435df41134a891L1-R9](https://github.com/theotime2005///issues/diff-cb1d77559ec575de9bbe13651079e1bcf0230a31d557fada03435df41134a891L1-R9) [/#diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L8-R8](https://github.com/theotime2005///issues/diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L8-R8) [/#diff-b80385df109d2e96812772e7905b6d846a851623b7261d35480bdb4e83a009d0L2-R4](https://github.com/theotime2005///issues/diff-b80385df109d2e96812772e7905b6d846a851623b7261d35480bdb4e83a009d0L2-R4) [/#diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L18-R18](https://github.com/theotime2005///issues/diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L18-R18) [/#diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L57-R64](https://github.com/theotime2005///issues/diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L57-R64) [/#diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L75-L101](https://github.com/theotime2005///issues/diff-b1a96950e3e102ea8c2b3e53e1e87d1f96138cb23fdc56cada02b918a2016759L75-L101) [/#diff-65d5d69bb59dcc81ad971719549cdee5018f0a240add8b7ef5c65bee3e73dae0R1-R3](https://github.com/theotime2005///issues/diff-65d5d69bb59dcc81ad971719549cdee5018f0a240add8b7ef5c65bee3e73dae0R1-R3) [/#diff-65d5d69bb59dcc81ad971719549cdee5018f0a240add8b7ef5c65bee3e73dae0L47-R58](https://github.com/theotime2005///issues/diff-65d5d69bb59dcc81ad971719549cdee5018f0a240add8b7ef5c65bee3e73dae0L47-R58)
+
+### 🔖 Version bump
+
+* **deps-dev:** bump eslint-plugin-vue from 10.6.2 to 10.7.0 ([#494](https://github.com/theotime2005/bnote-settings/issues/494)) ([367e38e](https://github.com/theotime2005/bnote-settings/commit/367e38e19d33155a62b7e52941f5ae48e44f9345))
+* **deps-dev:** bump happy-dom from 20.3.4 to 20.3.6 ([#495](https://github.com/theotime2005/bnote-settings/issues/495)) ([6bf44d1](https://github.com/theotime2005/bnote-settings/commit/6bf44d16d2f027f65f6be72c6d279f8107362d28))
+* **deps:** bump nuxt from 4.2.2 to 4.3.0 ([#496](https://github.com/theotime2005/bnote-settings/issues/496)) ([8523013](https://github.com/theotime2005/bnote-settings/commit/852301363e6821c4a8e1da9717d4ce61c5a9d9cb))
+
 ## [6.2.0](https://github.com/theotime2005/bnote-settings/compare/v6.1.0...v6.2.0) (2026-01-22)
 
 ### 🚀 New features
