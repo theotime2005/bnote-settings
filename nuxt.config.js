@@ -1,3 +1,5 @@
+import pkg from "./package.json";
+import { sendLog } from "./utils/send-log-message-script.js";
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
@@ -43,6 +45,17 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", href: "/favicon.ico" },
       ],
+    },
+  },
+  // Log Hello world in console to starting
+  hooks: {
+    "build:done": () => {
+      sendLog({
+        fileName: "nuxt.config.js",
+        functionName: "default",
+        type: "log",
+        log: `Application ${pkg.name} v${pkg.version} is running successfully in ${process.env.MODE}.`,
+      });
     },
   },
 });
