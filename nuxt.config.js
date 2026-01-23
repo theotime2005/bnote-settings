@@ -1,3 +1,6 @@
+import pkg from "./package.json";
+import { sendLog } from "./utils/send-log-message-script.js";
+// eslint-disable-next-line no-undef
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
@@ -31,6 +34,12 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      logApiUrl: process.env.LOG_API_URL || "",
+    },
+  },
+
   app: {
     head: {
       title: "B.note",
@@ -44,10 +53,15 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  runtimeConfig: {
-    public: {
-      logApiUrl: process.env.VUE_APP_LOG_API_URL || "",
+  // Log Hello world in console to starting
+  hooks: {
+    "build:done": () => {
+      sendLog({
+        fileName: "nuxt.config.js",
+        functionName: "default",
+        type: "log",
+        log: `Application ${pkg.name} v${pkg.version} is running successfully in ${process.env.MODE}.`,
+      });
     },
   },
 });
