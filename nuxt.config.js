@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
@@ -31,6 +32,12 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      logApiUrl: process.env.LOG_API_URL || "",
+    },
+  },
+
   app: {
     head: {
       title: "B.note",
@@ -42,12 +49,6 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", href: "/favicon.ico" },
       ],
-    },
-  },
-
-  runtimeConfig: {
-    public: {
-      logApiUrl: process.env.VUE_APP_LOG_API_URL || "",
     },
   },
 });
