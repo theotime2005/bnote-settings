@@ -52,7 +52,7 @@ async function sendReportContactFormController({
       fileName: "send-report",
       functionName: "controller",
       type: "error",
-      log: `Error sending report contact form email: ${err.body}`,
+      log: `Error sending report contact form email: ${err}`,
     });
     return false;
   }
