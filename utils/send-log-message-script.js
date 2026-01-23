@@ -6,7 +6,17 @@ async function sendLog({ fileName, functionName, type, log }) {
     log,
   };
   console[type](message);
-  const apiUrl = process.env.LOG_API_URL;
+
+  // Get API URL: browser-safe lookup for client-side, process.env for server-side
+  let apiUrl = "";
+  if (typeof window !== "undefined" && window.__NUXT__) {
+    // Client-side: use Nuxt runtime config
+    apiUrl = window.__NUXT__.config?.public?.logApiUrl || "";
+  } else if (typeof process !== "undefined" && process.env) {
+    // Server-side: use process.env
+    apiUrl = process.env.LOG_API_URL || "";
+  }
+
   if (!apiUrl) {
     console.log("Message not sent, no API URL");
     return;

@@ -34,6 +34,12 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      logApiUrl: process.env.LOG_API_URL || "",
+    },
+  },
+
   app: {
     head: {
       title: "B.note",
