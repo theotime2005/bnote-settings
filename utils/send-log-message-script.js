@@ -1,23 +1,12 @@
-async function sendLog({ fileName, functionName, type, log, environment = true }) {
+async function sendLog({ fileName, functionName, type, log }) {
   const redColor = 16711680;
   const message = {
     type,
     where: `${fileName} > ${functionName}`,
     log,
   };
-  console.log(message);
-  let apiUrl = "";
-  if (environment) {
-    try {
-      if (typeof window !== "undefined" && window.__NUXT__) {
-        apiUrl = window.__NUXT__.config?.public?.logApiUrl || "";
-      }
-    } catch {
-      apiUrl = "";
-    }
-  } else {
-    apiUrl = process.env.VUE_APP_LOG_API_URL || "";
-  }
+  console[type](message);
+  const apiUrl = process.env.LOG_API_URL;
   if (!apiUrl) {
     console.log("Message not sent, no API URL");
     return;
