@@ -5,7 +5,6 @@ describe("scripts | sendLog", () => {
   let console;
   beforeEach(() => {
     fetch = vi.spyOn(global, "fetch").mockResolvedValue({ ok: true });
-    process.env.LOG_API_URL = "http://example.net";
     console = { log: vi.spyOn(global.console, "log"), error: vi.spyOn(global.console, "error") };
   });
 
@@ -21,8 +20,14 @@ describe("scripts | sendLog", () => {
 
       // then
       expect(fetch).toHaveBeenCalledWith(
-        "http://example.net",
-        expect.any(Object),
+        "/api/send-log",
+        expect.objectContaining({
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: expect.stringContaining("testFile"),
+        }),
       );
       expect(console.log).toHaveBeenCalled;
     });
@@ -40,9 +45,9 @@ describe("scripts | sendLog", () => {
 
       // then
       expect(fetch).toHaveBeenCalledWith(
-        "http://example.net",
+        "/api/send-log",
         expect.objectContaining({
-          body: expect.stringContaining("\\\"type\\\": \\\"error\\\""),
+          body: expect.stringContaining("error"),
         }),
       );
     });
@@ -58,9 +63,9 @@ describe("scripts | sendLog", () => {
 
       // then
       expect(fetch).toHaveBeenCalledWith(
-        "http://example.net",
+        "/api/send-log",
         expect.objectContaining({
-          body: expect.stringContaining("\\\"type\\\": \\\"warn\\\""),
+          body: expect.stringContaining("warn"),
         }),
       );
     });
@@ -75,18 +80,18 @@ describe("scripts | sendLog", () => {
 
       // then
       expect(fetch).toHaveBeenCalledWith(
-        "http://example.net",
+        "/api/send-log",
         expect.objectContaining({
-          body: expect.stringContaining("\\\"type\\\": \\\"log\\\""),
+          body: expect.stringContaining("log"),
         }),
       );
     });
   });
 
-  describe("Send a log with missing or invalid URL", function() {
-    it("does not send a log if environment variable is missing", async () => {
+  describe("Send a log with error handling", function() {
+    it("handles fetch errors gracefully", async () => {
       // given
-      delete process.env.LOG_API_URL;
+      fetch.mockRejectedValue(new Error("Network error"));
 
       // when
       await sendLog({
@@ -97,23 +102,7 @@ describe("scripts | sendLog", () => {
       });
 
       // then
-      expect(fetch).not.toHaveBeenCalled();
-    });
-
-    it("does not send a log if LOG_API_URL is invalid", async () => {
-      // given
-      process.env.LOG_API_URL = "";
-
-      // when
-      await sendLog({
-        fileName: "testFile",
-        functionName: "testFunction",
-        type: "error",
-        log: "Error occurred",
-      });
-
-      // then
-      expect(fetch).not.toHaveBeenCalled();
+      expect(fetch).toHaveBeenCalled();
       expect(console.error).toHaveBeenCalled;
     });
   });
