@@ -1,3 +1,14 @@
+## [6.2.2](https://github.com/theotime2005/bnote-settings/compare/v6.2.1...v6.2.2) (2026-01-25)
+
+### 🐛 Bug fixes
+
+* Fix the error logging in send report contact form controller ([#500](https://github.com/theotime2005/bnote-settings/issues/500)) ([7d266fb](https://github.com/theotime2005/bnote-settings/commit/7d266fb08dd374df95801df6d8361c0b7229de02))
+* Use fieldset and stylize report contact form ([#502](https://github.com/theotime2005/bnote-settings/issues/502)) ([c456ab3](https://github.com/theotime2005/bnote-settings/commit/c456ab32671326b320fe98e78bd78b7de6ea8b9d)), closes [/#diff-a73671945a28b89c00866957e005d5ca2e3f8f61be5e16e6488c891de2cd7d13L58-R68](https://github.com/theotime2005///issues/diff-a73671945a28b89c00866957e005d5ca2e3f8f61be5e16e6488c891de2cd7d13L58-R68) [/#diff-a73671945a28b89c00866957e005d5ca2e3f8f61be5e16e6488c891de2cd7d13L77-R187](https://github.com/theotime2005///issues/diff-a73671945a28b89c00866957e005d5ca2e3f8f61be5e16e6488c891de2cd7d13L77-R187)
+
+### 🛠️ Tech
+
+* Move Discord webhook calls to server-side to fix CORS issues ([#501](https://github.com/theotime2005/bnote-settings/issues/501)) ([d8a2019](https://github.com/theotime2005/bnote-settings/commit/d8a20194c80c1f381e8098db76fc418f16f0b303)), closes [theotime2005/bnote-settings#499](https://github.com/theotime2005/bnote-settings/issues/499)
+
 ## [6.2.1](https://github.com/theotime2005/bnote-settings/compare/v6.2.0...v6.2.1) (2026-01-23)
 
 ### 🐛 Bug fixes
