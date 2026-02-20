@@ -53,3 +53,9 @@ jobs:
           gh pr create --title "bump: Update .nvmrc to Node.js ${{ env.latest_node_version }}" --body "This PR updates the .nvmrc file to the latest Node.js version ${{ env.latest_node_version }}." --base main --head update-nvmrc-${{ env.latest_node_version }}
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable auto merge
+        run: |
+          gh pr merge --auto -s -d
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
