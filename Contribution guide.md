@@ -39,3 +39,31 @@ npm run translate --source <the_source_file_path> --targets <List_of_file_to_tra
 Important: Files must named with language, en, fr, es.
 New translations will be translated and  marked with a "*".
 NOTE: tests include a translation checking, based on french language.
+
+# Feature toggles
+Your feature can be toggled with the feature toggles. To create a new toggle, you must add it in the "sample.env" file. You must also complete the config file and api route. Here is an example of toggle:
+1. the sample.env
+```env
+# SHOW_CONTACT_FORM: Show the report contact form on the website (true/false)
+# Vercel name: show-contact-form
+# Type: boolean
+# Default: false
+FLAG_SHOW_CONTACT_FORM=false
+```
+2. The [configuration file](server/config.js), complete the "flags" object with the new toggle:
+```js
+flags: {
+  "show-contact-form": getToFlag(toBoolean(process.env.FLAG_SHOW_CONTACT_FORM)),
+},
+```
+3. The [api route](server/api/flags.js), add the new toggle in the return object with the function to get flag type:
+```js
+return {
+    showContactForm: await _getFlagType("show-contact-form", false),
+  };
+```
+The flag is available in the frontend with the "useFlags" hook. You can use it like this:
+```js
+const flags = useFlags();
+console.log(flags.getFlag("show-contact-form"));
+```
