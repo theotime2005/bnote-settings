@@ -2,12 +2,14 @@
 import { onMounted, ref } from "vue";
 
 import { useLocaleCookie } from "@/composables/useLocaleCookie.js";
+import { useFlags } from "@/stores/flags-store.js";
 
+const flags = useFlags();
 const mainRef = ref(null);
 const canReset = ref(false);
 
 
-onMounted(() => {
+onMounted(async () => {
   // const localeCookie = useLocaleCookie.getLocaleCookie();
   // if (localeCookie && availableLocales && availableLocales.value?.includes(localeCookie)) {
   //   locale.value = localeCookie;
@@ -22,6 +24,7 @@ onMounted(() => {
   if (import.meta.env.MODE === "development") {
     canReset.value = true;
   }
+  await flags.fetchFlags();
 });
 
 function focusMain() {

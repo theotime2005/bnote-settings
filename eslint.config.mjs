@@ -26,6 +26,7 @@ export default [
       globals: {
         ...globals.node,
         ...globals.browser,
+        $fetch: "readonly",
       },
 
       ecmaVersion: "latest",
@@ -115,6 +116,8 @@ export default [
   },
   {
     ignores: [
+      "output/",
+      ".vercel/",
       "dist/",
       "public/",
       ".nuxt/",

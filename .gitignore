@@ -38,3 +38,4 @@ coverage
 .nuxt
 .nitro
 .cache
+.env*.local

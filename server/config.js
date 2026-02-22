@@ -15,6 +15,14 @@ function toBoolean(value) {
   return value.toLowerCase() === "true";
 }
 
+/**
+ * This is a helper function to be used in Vercel's feature flags. It returns an object with a "value" property set to the provided flag value.
+ * @param flag - The value of the feature flag to be returned in the object.
+ */
+function getToFlag(flag) {
+  return { value: flag };
+}
+
 const configuration = (function() {
   const config = {
     environment: process.env.MODE || "development",
@@ -28,6 +36,10 @@ const configuration = (function() {
         user: process.env.MAILING_USER,
         pass: process.env.MAILING_PASSWORD,
       },
+    },
+    useVercelFlags: toBoolean(process.env.USE_VERCEL_FLAGS),
+    flags: {
+      "show-contact-form": getToFlag(toBoolean(process.env.FLAG_SHOW_CONTACT_FORM)),
     },
   };
   if (config.environment === "test") {
