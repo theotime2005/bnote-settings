@@ -26,6 +26,7 @@ export default [
       globals: {
         ...globals.node,
         ...globals.browser,
+        $fetch: "readonly",
       },
 
       ecmaVersion: "latest",
