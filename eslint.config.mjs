@@ -116,6 +116,8 @@ export default [
   },
   {
     ignores: [
+      "output/",
+      ".vercel/",
       "dist/",
       "public/",
       ".nuxt/",
