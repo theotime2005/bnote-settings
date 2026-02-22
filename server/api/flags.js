@@ -1,14 +1,17 @@
 import { flagsClient } from "@vercel/flags-core";
 import { defineEventHandler } from "h3";
 
-export default defineEventHandler(async (event) => {
-  const showReportContactForm = await flagsClient.evaluate("show-report-contact-form", false);
+import { config } from "@/server/config.js";
+
+export default defineEventHandler(async () => {
   return {
-    showReportContactForm,
+    "show-contact-form": await _getFlagType("show-contact-form", false),
   };
 });
 
 async function _getFlagType(flagName, flagDefault) {
-  const returningFlag = config.useVercelFlags ? await flagsClient.evaluate(flagName, flagDefault) : config.flags[flagName];
+  const returningFlag = config.useVercelFlags
+    ? await flagsClient.evaluate(flagName, flagDefault)
+    : (config.flags[flagName] === undefined ? flagDefault : config.flags[flagName]);
   return returningFlag;
 }
