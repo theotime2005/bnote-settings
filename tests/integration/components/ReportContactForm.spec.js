@@ -50,7 +50,7 @@ describe("Report Contact Form", () => {
 
     it("should hide form and display success message if form is submited", async () => {
       // given
-      vi.spyOn(global, "fetch").mockResolvedValue({ ok: true, status: 200 });
+      vi.spyOn(global, "$fetch").mockResolvedValue({ status: 200, success: true });
       const firstnameInput = wrapper.find("input[name=\"firstname\"]");
       const lastnameInput = wrapper.find("input[name=\"lastname\"]");
       const emailInput = wrapper.find("input[name=\"email\"]");

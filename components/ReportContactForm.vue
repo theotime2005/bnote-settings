@@ -36,14 +36,14 @@ async function handleSubmit() {
     body: value.body,
     language: locale.value,
   };
-  const request = await fetch("/api/report-contact", {
+  const request = await $fetch("/api/report-contact", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
   });
-  if (request.ok) {
+  if (request.success) {
     formIsSubmitted.value = true;
   } else {
     alertMessage.value = t("report-contact-form.submit.error");
