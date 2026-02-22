@@ -1,3 +1,26 @@
+## [6.2.3](https://github.com/theotime2005/bnote-settings/compare/v6.2.2...v6.2.3) (2026-02-22)
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.3 to 6.0.4 ([#512](https://github.com/theotime2005/bnote-settings/issues/512)) ([a4bc7b3](https://github.com/theotime2005/bnote-settings/commit/a4bc7b3ba8d198c521d72a6759ed0b4bd156d51a))
+* **deps-dev:** bump diff from 3.5.0 to 3.5.1 ([#520](https://github.com/theotime2005/bnote-settings/issues/520)) ([7afb6a2](https://github.com/theotime2005/bnote-settings/commit/7afb6a2c16973129cc0ac14e412d5ab5b43b9edd))
+* **deps-dev:** bump happy-dom from 20.3.7 to 20.4.0 ([#505](https://github.com/theotime2005/bnote-settings/issues/505)) ([b32b4af](https://github.com/theotime2005/bnote-settings/commit/b32b4afa580d185dad27f6883d485e1a434ecc79))
+* **deps-dev:** bump happy-dom from 20.4.0 to 20.5.0 ([#510](https://github.com/theotime2005/bnote-settings/issues/510)) ([42a9ea1](https://github.com/theotime2005/bnote-settings/commit/42a9ea1260b80a741cf85793c0bd007a871e9f77))
+* **deps:** bump @isaacs/brace-expansion from 5.0.0 to 5.0.1 ([#513](https://github.com/theotime2005/bnote-settings/issues/513)) ([ce62481](https://github.com/theotime2005/bnote-settings/commit/ce6248124644da751a65ec511173493d23aa4022))
+* **deps:** bump devalue from 5.6.2 to 5.6.3 ([#518](https://github.com/theotime2005/bnote-settings/issues/518)) ([8f68e7c](https://github.com/theotime2005/bnote-settings/commit/8f68e7c11498ef4a8d9f303cbf832dc1b16914ef))
+* **deps:** bump nodemailer from 7.0.12 to 7.0.13 ([#506](https://github.com/theotime2005/bnote-settings/issues/506)) ([49b29e1](https://github.com/theotime2005/bnote-settings/commit/49b29e19c06d80833dc6a0b1509c9fa1bbaf6efd))
+* **deps:** bump nodemailer from 7.0.13 to 8.0.0 ([#514](https://github.com/theotime2005/bnote-settings/issues/514)) ([beb6629](https://github.com/theotime2005/bnote-settings/commit/beb662947454b0300d5e7929f78e45b5478b0c2b))
+* **deps:** bump tar from 7.5.6 to 7.5.7 ([#507](https://github.com/theotime2005/bnote-settings/issues/507)) ([cb3725d](https://github.com/theotime2005/bnote-settings/commit/cb3725d935b9c0cafc40720c811fa112615d31c6))
+* **deps:** bump tar from 7.5.7 to 7.5.9 ([#517](https://github.com/theotime2005/bnote-settings/issues/517)) ([e4a5781](https://github.com/theotime2005/bnote-settings/commit/e4a5781003b0760be45356208b5a728c50c7f8fb))
+* Update .nvmrc to Node.js 25.5.0 ([#509](https://github.com/theotime2005/bnote-settings/issues/509)) ([d19f23a](https://github.com/theotime2005/bnote-settings/commit/d19f23a0a9fd512543f3960ab7bfdf101f2a2848))
+* Update .nvmrc to Node.js 25.6.0 ([#515](https://github.com/theotime2005/bnote-settings/issues/515)) ([ac5ab6a](https://github.com/theotime2005/bnote-settings/commit/ac5ab6a9a6c6f45a853bf3476dd66b1d34b2eb79))
+* Update .nvmrc to Node.js 25.6.1 ([#516](https://github.com/theotime2005/bnote-settings/issues/516)) ([c51608e](https://github.com/theotime2005/bnote-settings/commit/c51608ef7f32c2bcb768872f7b3f416b9e3ee568))
+
+### 🛠️ Tech
+
+* add auto merge to node workflo ([#521](https://github.com/theotime2005/bnote-settings/issues/521)) ([a014c25](https://github.com/theotime2005/bnote-settings/commit/a014c257652d61fa1be2f152e5fc3afa65284aac))
+* Use the vercel flags ([#522](https://github.com/theotime2005/bnote-settings/issues/522)) ([a34f498](https://github.com/theotime2005/bnote-settings/commit/a34f4987c5455b1ee590f7ffd8fcaf7399639325)), closes [/#diff-d16a8953870238e56c9c0173e99b8eb2c31eb848c19ea30615ab06ea41632b06R1-R15](https://github.com/theotime2005///issues/diff-d16a8953870238e56c9c0173e99b8eb2c31eb848c19ea30615ab06ea41632b06R1-R15) [/#diff-0880dd31651ac76081598388795f229d9c8a319c956ba8c56f3222e389efce13R18-R25](https://github.com/theotime2005///issues/diff-0880dd31651ac76081598388795f229d9c8a319c956ba8c56f3222e389efce13R18-R25) [/#diff-0880dd31651ac76081598388795f229d9c8a319c956ba8c56f3222e389efce13R40-R43](https://github.com/theotime2005///issues/diff-0880dd31651ac76081598388795f229d9c8a319c956ba8c56f3222e389efce13R40-R43) [/#diff-938b83b0ccc24fcc6c84fae972964953e4b1d605b956c3975cd1f8f409d035e6R5-R12](https://github.com/theotime2005///issues/diff-938b83b0ccc24fcc6c84fae972964953e4b1d605b956c3975cd1f8f409d035e6R5-R12) [/#diff-938b83b0ccc24fcc6c84fae972964953e4b1d605b956c3975cd1f8f409d035e6R27](https://github.com/theotime2005///issues/diff-938b83b0ccc24fcc6c84fae972964953e4b1d605b956c3975cd1f8f409d035e6R27) [/#diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3L2-R15](https://github.com/theotime2005///issues/diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3L2-R15) [/#diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3R51-R53](https://github.com/theotime2005///issues/diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3R51-R53) [/#diff-9601a8f6c734c2001be34a2361f76946d19a39a709b5e8c624a2a5a0aade05f2R29](https://github.com/theotime2005///issues/diff-9601a8f6c734c2001be34a2361f76946d19a39a709b5e8c624a2a5a0aade05f2R29) [/#diff-9601a8f6c734c2001be34a2361f76946d19a39a709b5e8c624a2a5a0aade05f2R119-R120](https://github.com/theotime2005///issues/diff-9601a8f6c734c2001be34a2361f76946d19a39a709b5e8c624a2a5a0aade05f2R119-R120)
+
 ## [6.2.2](https://github.com/theotime2005/bnote-settings/compare/v6.2.1...v6.2.2) (2026-01-25)
 
 ### 🐛 Bug fixes
