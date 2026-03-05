@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { createMailBodyService } from "@/server/email/create-mail-body-service.js";
 
@@ -11,6 +11,10 @@ vi.mock("#imports", () => ({
 }));
 
 describe("Unit | shared | Create mail body", () => {
+  beforeEach(() => {
+    mockGetItem.mockClear();
+  });
+
   it("should replace placeholders and add footer", async () => {
     // given
     mockGetItem
@@ -23,6 +27,8 @@ describe("Unit | shared | Create mail body", () => {
     const result = await createMailBodyService("test", replaceElements);
 
     // then
+    expect(mockGetItem).toHaveBeenCalledWith("test.md");
+    expect(mockGetItem).toHaveBeenCalledWith("footer.md");
     expect(result).toContain("Hello John, welcome!");
     expect(result).toContain("-- Footer --");
   });
@@ -37,6 +43,8 @@ describe("Unit | shared | Create mail body", () => {
     const result = await createMailBodyService("test");
 
     // then
+    expect(mockGetItem).toHaveBeenCalledWith("test.md");
+    expect(mockGetItem).toHaveBeenCalledWith("footer.md");
     expect(result).toContain("Simple content");
     expect(result).toContain("-- Footer --");
   });
@@ -49,6 +57,7 @@ describe("Unit | shared | Create mail body", () => {
     await expect(createMailBodyService("unknown")).rejects.toThrow(
       "Template not found: email-templates/unknown.md",
     );
+    expect(mockGetItem).toHaveBeenCalledWith("unknown.md");
   });
 
   it("should throw an error if footer is not found", async () => {
@@ -61,5 +70,7 @@ describe("Unit | shared | Create mail body", () => {
     await expect(createMailBodyService("test")).rejects.toThrow(
       "Footer not found: email-templates/footer.md",
     );
+    expect(mockGetItem).toHaveBeenCalledWith("test.md");
+    expect(mockGetItem).toHaveBeenCalledWith("footer.md");
   });
 });
