@@ -1,8 +1,17 @@
+import { resolve } from "path";
+
 import pkg from "./package.json";
 import { sendLog } from "./utils/send-log-message-script.js";
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
-  compatibilityDate: "2025-05-15",
+  nitro: {
+    serverAssets: [
+      {
+        baseName: "email-templates",
+        dir: resolve(__dirname, "./server/email-templates"),
+      },
+    ],
+  },
   devtools: { enabled: true },
 
   modules: [
