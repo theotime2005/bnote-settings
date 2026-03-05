@@ -4,6 +4,11 @@ import pkg from "./package.json";
 import { sendLog } from "./utils/send-log-message-script.js";
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
+  imports: {
+    transform: {
+      exclude: [/\/server\//],
+    },
+  },
   nitro: {
     serverAssets: [
       {
