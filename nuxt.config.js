@@ -1,7 +1,10 @@
-import { resolve } from "path";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
 
 import pkg from "./package.json";
 import { sendLog } from "./utils/send-log-message-script.js";
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
   imports: {
