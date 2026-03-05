@@ -7,6 +7,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
+  imports: {
+    transform: {
+      exclude: [/\/server\//],
+    },
+  },
   nitro: {
     serverAssets: [
       {

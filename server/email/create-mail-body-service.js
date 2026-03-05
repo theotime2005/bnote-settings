@@ -1,14 +1,8 @@
-import * as fs from "node:fs/promises";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
 import { marked } from "marked";
 
+import { useStorage } from "#imports";
 
-const MAIL_FOLDER = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../../server/email-templates",
-);
+const MAIL_FOLDER = "email-templates";
 const FOOTER_FILE_NAME = "footer.md";
 
 /**
@@ -28,14 +22,22 @@ function escapeRegExp(string) {
  */
 async function createMailBodyService(documentName, replaceElements) {
   try {
-    const documentPath = path.join(MAIL_FOLDER, `${documentName}.md`);
-    const footerPath = path.join(MAIL_FOLDER, FOOTER_FILE_NAME);
+    const storage = useStorage(`assets:${MAIL_FOLDER}`);
+    const documentBody = await storage.getItem(`${documentName}.md`);
 
-    const [documentBody, footerBody] = await Promise.all([
-      fs.readFile(documentPath, "utf8"),
-      fs.readFile(footerPath, "utf8"),
-    ]);
+    if (!documentBody) {
+      throw new Error(
+        `Template not found: ${MAIL_FOLDER}/${documentName}.md`,
+      );
+    }
 
+    const footerBody = await storage.getItem(`${FOOTER_FILE_NAME}`);
+
+    if (!footerBody) {
+      throw new Error(
+        `Footer not found: ${MAIL_FOLDER}/${FOOTER_FILE_NAME}`,
+      );
+    }
     let mailBody = documentBody;
 
     if (replaceElements) {
