@@ -1,8 +1,20 @@
+import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
+
 import pkg from "./package.json";
 import { sendLog } from "./utils/send-log-message-script.js";
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
-  compatibilityDate: "2025-05-15",
+  nitro: {
+    serverAssets: [
+      {
+        baseName: "email-templates",
+        dir: resolve(__dirname, "./server/email-templates"),
+      },
+    ],
+  },
   devtools: { enabled: true },
 
   modules: [
