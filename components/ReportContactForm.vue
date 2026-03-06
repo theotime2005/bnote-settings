@@ -18,6 +18,7 @@ const formData = ref({
   body: "",
 });
 const formIsSubmitted = ref(false);
+const formSubmiting = ref(false);
 const alertMessage = ref("");
 
 async function handleSubmit() {
@@ -26,17 +27,18 @@ async function handleSubmit() {
     alertMessage.value = t("report-contact-form.report-type.select");
     return;
   }
-  const { value } = formData;
-  const payload = {
-    firstname: value.firstname,
-    lastname: value.lastname,
-    email: value.email,
-    reportType: value.reportType,
-    subject: value.subject,
-    body: value.body,
-    language: locale.value,
-  };
   try {
+    formSubmiting.value = true;
+    const { value } = formData;
+    const payload = {
+      firstname: value.firstname,
+      lastname: value.lastname,
+      email: value.email,
+      reportType: value.reportType,
+      subject: value.subject,
+      body: value.body,
+      language: locale.value,
+    };
     const request = await $fetch("/api/report-contact", {
       method: "POST",
       headers: {
@@ -51,6 +53,8 @@ async function handleSubmit() {
     }
   } catch {
     alertMessage.value = t("report-contact-form.submit.error");
+  } finally {
+    formSubmiting.value = false;
   }
 }
 </script>
@@ -80,9 +84,9 @@ async function handleSubmit() {
       <textarea id="message" v-model="formData.body" name="message" required></textarea>
     </fieldset>
     <p role="alert">{{ alertMessage }}</p>
-    <button type="submit">{{ t("report-contact-form.form.submit") }}</button>
+    <button type="submit" :disabled="formSubmiting">{{ t("report-contact-form.form.submit") }}</button>
   </form>
-  <p v-else id="success">{{ t("report-contact-form.submit.success") }}</p>
+  <p v-else id="success" role="alert">{{ t("report-contact-form.submit.success") }}</p>
 </template>
 
 <style scoped>
