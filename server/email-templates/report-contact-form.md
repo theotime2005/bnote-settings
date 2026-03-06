@@ -11,5 +11,5 @@ Bonjour, un nouveau message a été adressé via le formulaire de contact permet
 - Type de signalement: {{reportType}}.
 ---
 ## {{subject}}
-
+<br>
 {{body}}

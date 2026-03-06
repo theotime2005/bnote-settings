@@ -49,6 +49,25 @@ describe("Unit | shared | Create mail body", () => {
     expect(result).toContain("-- Footer --");
   });
 
+  it("should correctly parse complex content with variable replacements", async () => {
+    // given
+    const markdownContent = ["# The title", "## {{replace1}}", "{{replace2}}", "\n"].join("\n");
+    mockGetItem
+      .mockResolvedValueOnce(markdownContent)
+      .mockResolvedValueOnce("\n-- Footer --");
+
+    const replaceElements = { replace1: "Subtitle", replace2: "Paragraphe" };
+
+    // when
+    const result = await createMailBodyService("test", replaceElements);
+
+    // then
+    expect(result).toContain("<h1>The title</h1>");
+    expect(result).toContain("<h2>Subtitle</h2>");
+    expect(result).toContain("<p>Paragraphe</p>");
+    expect(result).toContain("-- Footer --");
+  });
+
   it("should throw an error if template is not found", async () => {
     // given
     mockGetItem.mockResolvedValue(null);
