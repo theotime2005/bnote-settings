@@ -10,6 +10,10 @@
         "message3": "N'hésitez pas à nous faire remonter toutes suggestions ou problème via GitHub.",
         "title": "A propos du site"
     },
+    "changelog": {
+        "aria": "Changelog du projet",
+        "title": "Dernières mise à jour (en anglais)"
+    },
     "common": {
         "cancel": "Annuler",
         "close": "Fermer",

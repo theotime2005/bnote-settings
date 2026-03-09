@@ -10,6 +10,10 @@
         "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
         "title": "About website"
     },
+    "changelog": {
+        "aria": "Project changelog",
+        "title": "Latest updates (in English)"
+    },
     "common": {
         "cancel": "Cancel",
         "close": "Close",
