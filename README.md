@@ -56,4 +56,4 @@ In the past, this project used tailwindcss. However, its use has been removed. A
 You can read the [Contribution guide](https://github.com/theotime2005/bnote-settings/blob/main/Contribution%20guide.md) file to learn how to contribute to the project.
 
 ## Discord Server
-You can join the [Discord server](https://discord.gg/ThGqydYJ) to discuss the project. You can also ask for help or propose new features and receive notifications about the project.
+You can join the [Discord server](https://discord.gg/mQd4eqWr) to discuss the project. You can also ask for help or propose new features and receive notifications about the project.
