@@ -1,6 +1,7 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 
+import Changelog from "@/components/Changelog.vue";
 import { useHead } from "#imports";
 
 const { t } = useI18n();
@@ -22,6 +23,8 @@ useHead({
       <h2 class="home-subtitle">{{ t('home.title2') }}</h2>
       <p>{{ t('home.message2') }}</p>
     </div>
+    <hr>
+    <Changelog/>
   </div>
 </template>
 
