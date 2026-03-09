@@ -1,3 +1,22 @@
+## [6.3.0](https://github.com/theotime2005/bnote-settings/compare/v6.2.4...v6.3.0) (2026-03-09)
+
+### 🚀 New features
+
+* Display the changelog in the main page ([#549](https://github.com/theotime2005/bnote-settings/issues/549)) ([73bd9a5](https://github.com/theotime2005/bnote-settings/commit/73bd9a5762252bc4ed20abd6cec56d4ab4756d63)), closes [/#diff-02281a80fab758cb4e8e8359b222a8a5afeaa9d5a7ba858f15d852f1f8969ecfR6-R7](https://github.com/theotime2005///issues/diff-02281a80fab758cb4e8e8359b222a8a5afeaa9d5a7ba858f15d852f1f8969ecfR6-R7) [/#diff-02281a80fab758cb4e8e8359b222a8a5afeaa9d5a7ba858f15d852f1f8969ecfR27-R28](https://github.com/theotime2005///issues/diff-02281a80fab758cb4e8e8359b222a8a5afeaa9d5a7ba858f15d852f1f8969ecfR27-R28) [/#diff-4c5e948ebdf8601f1013d7979d2e623707d40bb142d1889d5666473f15f6fd5dR13-R16](https://github.com/theotime2005///issues/diff-4c5e948ebdf8601f1013d7979d2e623707d40bb142d1889d5666473f15f6fd5dR13-R16) [/#diff-9fa01a1cd4512028fae44a8aeb5264d090101b844fc65af33cc92da16ef5558cR13-R16](https://github.com/theotime2005///issues/diff-9fa01a1cd4512028fae44a8aeb5264d090101b844fc65af33cc92da16ef5558cR13-R16) [/#diff-07fe243ce852a74b4a11577cc0ea81d6f7a3d502c3d4a665936b770e09cf7928R13-R16](https://github.com/theotime2005///issues/diff-07fe243ce852a74b4a11577cc0ea81d6f7a3d502c3d4a665936b770e09cf7928R13-R16) [/#diff-ea1ac724e45fde5874c4a9127b787f83aea2242e4975ba210d639a389556864cR13-R16](https://github.com/theotime2005///issues/diff-ea1ac724e45fde5874c4a9127b787f83aea2242e4975ba210d639a389556864cR13-R16)
+
+### 🐛 Bug fixes
+
+* update Discord server link in README ([#550](https://github.com/theotime2005/bnote-settings/issues/550)) ([3e1eeca](https://github.com/theotime2005/bnote-settings/commit/3e1eeca43de091a319dc08ef8229151b754a803b))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @unhead/vue from 2.1.9 to 2.1.10 ([#547](https://github.com/theotime2005/bnote-settings/issues/547)) ([f48bbfc](https://github.com/theotime2005/bnote-settings/commit/f48bbfc5e024f3c319c35b0e765807ab486a6814))
+* **deps:** bump vue-i18n from 11.2.8 to 11.3.0 ([#545](https://github.com/theotime2005/bnote-settings/issues/545)) ([c402919](https://github.com/theotime2005/bnote-settings/commit/c402919ad06ed02d16195de80d31c39d3e270441))
+
+### 🛠️ Tech
+
+* Add .idea files to version control ([#548](https://github.com/theotime2005/bnote-settings/issues/548)) ([89ef2c6](https://github.com/theotime2005/bnote-settings/commit/89ef2c621cbdfc031c18d078fda9897919ab56fa)), closes [/#diff-11745b49c51a1ecde7d4d4cffda53d76594e6711ec81bf1148a05942b0438141R1-R62](https://github.com/theotime2005///issues/diff-11745b49c51a1ecde7d4d4cffda53d76594e6711ec81bf1148a05942b0438141R1-R62) [/#diff-6c3e13b4e32c149ec42839ac3da504c9ea988311698c5a59535556a21fac4825R1-R5](https://github.com/theotime2005///issues/diff-6c3e13b4e32c149ec42839ac3da504c9ea988311698c5a59535556a21fac4825R1-R5) [/#diff-cf85320cb6f981acff8d1b2a226a03a0fb302f3278a4269b569c7e6fb953c037R1-R12](https://github.com/theotime2005///issues/diff-cf85320cb6f981acff8d1b2a226a03a0fb302f3278a4269b569c7e6fb953c037R1-R12) [/#diff-0aae258f1732eac2acd4fcdd1af6d0737b4ec8d233136c3ba7c40b6d49aeda50R1-R8](https://github.com/theotime2005///issues/diff-0aae258f1732eac2acd4fcdd1af6d0737b4ec8d233136c3ba7c40b6d49aeda50R1-R8) [/#diff-bbf0d02ebcf6764cae92fa4045a2d6f15f8a479cd1aa2ab4d1fd435a3aa74bbdR1-R6](https://github.com/theotime2005///issues/diff-bbf0d02ebcf6764cae92fa4045a2d6f15f8a479cd1aa2ab4d1fd435a3aa74bbdR1-R6) [/#diff-2d13b61b816460c9407f156939fe01a735cf4589af59c2a8cdda411b977f9af5R1-R6](https://github.com/theotime2005///issues/diff-2d13b61b816460c9407f156939fe01a735cf4589af59c2a8cdda411b977f9af5R1-R6)
+
 ## [6.2.4](https://github.com/theotime2005/bnote-settings/compare/v6.2.3...v6.2.4) (2026-03-06)
 
 ### 🐛 Bug fixes
