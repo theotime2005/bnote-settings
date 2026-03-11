@@ -27,7 +27,7 @@
     "nodemailer": "^8.0.2",
     "nuxt": "^4.3.1",
     "pinia": "^2.3.0",
-    "vue": "^3.5.29",
+    "vue": "^3.5.30",
     "vue-i18n": "^11.3.0"
   },
   "devDependencies": {
