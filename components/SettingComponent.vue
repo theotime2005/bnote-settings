@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 import { useSettingsStore } from "@/stores/settingsStore.js";
@@ -20,20 +20,22 @@ const props = defineProps({
     required: true,
   },
 });
-const settingValue = ref(settingsStore.getSetting(props.settingSection, props.settingKey));
+const settingValue = computed({
+  get() {
+    return settingsStore.getSetting(props.settingSection, props.settingKey);
+  },
+  set(value) {
+    if (props.setting.type === "number") {
+      value = parseInt(value);
+    }
+    settingsStore.updateSetting(props.settingSection, props.settingKey, value);
+  },
+});
 const labelId = `${props.settingSection}.${props.settingKey}`;
 const name = t(`settings.id.${props.settingKey}`);
 
-function updateSetting() {
-  if (props.setting.type === "number") {
-    settingValue.value = parseInt(settingValue.value);
-  }
-  settingsStore.updateSetting(props.settingSection, props.settingKey, settingValue.value);
-}
-
 function setDefault() {
   settingValue.value = props.setting.default;
-  updateSetting();
 }
 </script>
 
@@ -61,9 +63,7 @@ function setDefault() {
         v-model="settingValue"
         type="checkbox"
         :name="name"
-        :checked="settingValue"
         class="setting-checkbox focus-ring"
-        @change="updateSetting"
       />
       <label :for="labelId" class="setting-checkbox-label">
         <span class="setting-checkbox-indicator"></span>
@@ -76,9 +76,7 @@ function setDefault() {
         :id="labelId"
         v-model="settingValue"
         :name="name"
-        class="setting-select focus-ring"
-        @change="updateSetting"
-      >
+        class="setting-select focus-ring">
         <option
           v-for="option in props.setting.values"
           :key="option"
@@ -100,7 +98,6 @@ function setDefault() {
         :max="props.setting.max"
         class="setting-range focus-ring"
         :list="labelId + 'tickmarks'"
-        @input="updateSetting"
       />
       <output class="setting-value">{{ settingValue }}</output>
       <datalist :id="labelId + 'tickmarks'">
@@ -119,7 +116,6 @@ function setDefault() {
         :name="name"
         class="setting-input focus-ring"
         :placeholder="t('settings.values.default')"
-        @input="updateSetting"
       />
     </div>
   </div>
