@@ -1,17 +1,21 @@
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 import { useLocaleCookie } from "@/composables/useLocaleCookie.js";
 
 const { t, locale, availableLocales, setLocale } = useI18n();
-const currentLanguage = ref(locale.value);
+const currentLanguage = computed({
+  get() {
+    return locale.value;
+  },
+  set(value) {
+    setLocale(value);
+    document.documentElement.lang = value;
+    useLocaleCookie.setLocaleCookie(value);
+  },
+});
 
-async function changeLanguage() {
-  await setLocale(currentLanguage.value);
-  document.documentElement.lang = currentLanguage.value;
-  useLocaleCookie.setLocaleCookie(currentLanguage.value);
-}
 </script>
 
 <template>
@@ -20,9 +24,7 @@ async function changeLanguage() {
     <select
       id="language"
       v-model="currentLanguage"
-      :value="currentLanguage"
       class="language-select"
-      @change="changeLanguage"
     >
       <option v-for="language in availableLocales" :key="language" :value="language">
         {{ t(`languages.${language}`) }}
