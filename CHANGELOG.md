@@ -1,3 +1,27 @@
+## [6.4.0](https://github.com/theotime2005/bnote-settings/compare/v6.3.0...v6.4.0) (2026-03-12)
+
+### 🚀 New features
+
+* refactor setting component to use computed properties for value… ([#556](https://github.com/theotime2005/bnote-settings/issues/556)) ([e866b48](https://github.com/theotime2005/bnote-settings/commit/e866b485fa22defd1a185b298e15907881607c4a)), closes [/#diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L2-R2](https://github.com/theotime2005///issues/diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L2-R2) [/#diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L23-L36](https://github.com/theotime2005///issues/diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L23-L36) [/#diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L64-L66](https://github.com/theotime2005///issues/diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L64-L66) [/#diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L79-R79](https://github.com/theotime2005///issues/diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L79-R79) [/#diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L103](https://github.com/theotime2005///issues/diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L103) [/#diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L122](https://github.com/theotime2005///issues/diff-73f411c66c42f49148bbb8de1347892cc69ecfc3ccb98c6352abd2fb24a6e610L122)
+
+### 🔨 Refactor
+
+* Use computed in language component ([#560](https://github.com/theotime2005/bnote-settings/issues/560)) ([a7006b2](https://github.com/theotime2005/bnote-settings/commit/a7006b24046cbd2c1515dc0727129119a9e8d332))
+
+### 🧪 Tests
+
+* Update the test of the setting component ([#561](https://github.com/theotime2005/bnote-settings/issues/561)) ([2998992](https://github.com/theotime2005/bnote-settings/commit/29989921dc8f6ff6449d2bbfb556e6ae3d221fda)), closes [/#diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791L13-R17](https://github.com/theotime2005///issues/diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791L13-R17) [/#diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R33](https://github.com/theotime2005///issues/diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R33) [/#diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R42-R65](https://github.com/theotime2005///issues/diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R42-R65) [/#diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R74-R80](https://github.com/theotime2005///issues/diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R74-R80) [/#diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R42-R65](https://github.com/theotime2005///issues/diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R42-R65) [/#diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R74-R80](https://github.com/theotime2005///issues/diff-91187584d7fbd1dd430e49157a8f9cfa9ed516d15e6ba568a165edc03e061791R74-R80)
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @unhead/vue from 2.1.10 to 2.1.12 ([#557](https://github.com/theotime2005/bnote-settings/issues/557)) ([f06338d](https://github.com/theotime2005/bnote-settings/commit/f06338d3a37ca580a31ed187499f40cbf9fd4139))
+* **deps-dev:** bump happy-dom from 20.7.0 to 20.8.3 ([#559](https://github.com/theotime2005/bnote-settings/issues/559)) ([b669762](https://github.com/theotime2005/bnote-settings/commit/b6697621444f2b7f700651110f22b083bb77755c))
+* **deps:** bump @vercel/flags-core from 1.0.1 to 1.1.0 ([#558](https://github.com/theotime2005/bnote-settings/issues/558)) ([6b47c6b](https://github.com/theotime2005/bnote-settings/commit/6b47c6b5d727fb7d9f6df2941da3dc7df0ad72da))
+* **deps:** bump nodemailer from 8.0.1 to 8.0.2 ([#552](https://github.com/theotime2005/bnote-settings/issues/552)) ([2d87923](https://github.com/theotime2005/bnote-settings/commit/2d87923cd09cec0548a839c35fcbd0359ff8bbda))
+* **deps:** bump simple-git from 3.30.0 to 3.33.0 ([#554](https://github.com/theotime2005/bnote-settings/issues/554)) ([35209c5](https://github.com/theotime2005/bnote-settings/commit/35209c525ffa4a7982d8e8346d36d6668d2b87f8))
+* **deps:** bump tar from 7.5.10 to 7.5.11 ([#555](https://github.com/theotime2005/bnote-settings/issues/555)) ([9b94f69](https://github.com/theotime2005/bnote-settings/commit/9b94f695710fb58cefd06d0b536a06a24ff91f78))
+* **deps:** bump vue from 3.5.29 to 3.5.30 ([#551](https://github.com/theotime2005/bnote-settings/issues/551)) ([d3a574e](https://github.com/theotime2005/bnote-settings/commit/d3a574ee6180b83167afa5d6574fac861da723fa))
+
 ## [6.3.0](https://github.com/theotime2005/bnote-settings/compare/v6.2.4...v6.3.0) (2026-03-09)
 
 ### 🚀 New features
