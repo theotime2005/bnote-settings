@@ -1,9 +1,11 @@
+import { translate } from "@vitalets/google-translate-api";
 import fs from "fs/promises";
-import translatte from "translatte";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("fs/promises");
-vi.mock("translatte");
+vi.mock("@vitalets/google-translate-api", () => ({
+  translate: vi.fn(),
+}));
 vi.mock("yargs/helpers", () => ({
   hideBin: vi.fn(() => []),
 }));
@@ -19,20 +21,20 @@ vi.mock("yargs/yargs", () => ({
 }));
 
 const mockFs = vi.mocked(fs);
-const mockTranslatte = vi.mocked(translatte);
+const mockTranslate = vi.mocked(translate);
 
 const { UpdateTranslations } = await import("@/scripts/update-translations.js");
 
 describe("Script | Update translations", () => {
   beforeEach(function() {
     vi.clearAllMocks();
-    mockTranslatte.mockImplementation(function(text, options) {
+    mockTranslate.mockImplementation(function(text, options) {
       return Promise.resolve({ text: `${text}-${options.to}` });
     });
   });
 
   afterEach(function() {
-    mockTranslatte.mockRestore();
+    mockTranslate.mockRestore();
   });
 
   describe("#constructor", () => {
@@ -121,12 +123,12 @@ describe("Script | Update translations", () => {
 
       // then
       expect(result).toBe("hello-fr");
-      expect(mockTranslatte).toHaveBeenCalledWith("hello", { to: "fr" });
+      expect(mockTranslate).toHaveBeenCalledWith("hello", { to: "fr" });
     });
 
     it("should return original text on translation error", async () => {
       // given
-      mockTranslatte.mockRejectedValue(new Error("Translation failed"));
+      mockTranslate.mockRejectedValue(new Error("Translation failed"));
       const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
       const updater = new UpdateTranslations({});
 

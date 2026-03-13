@@ -2,8 +2,8 @@
  * This script is used to update translation files with new keys from a source file.
  */
 
+import { translate } from "@vitalets/google-translate-api";
 import fs from "fs/promises";
-import translatte from "translatte";
 import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
 
@@ -57,8 +57,8 @@ export class UpdateTranslations {
 
   async _getTranslation(text, language) {
     try {
-      const translation = await translatte(text, { to: language });
-      return translation.text;
+      const result = await translate(text, { to: language });
+      return result.text;
     } catch (e) {
       console.error(`Error during translation of "${text}" to ${language}`);
       console.error(e);
