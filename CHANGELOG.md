@@ -1,3 +1,19 @@
+## [6.4.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.0...v6.4.1) (2026-03-15)
+
+### 🐛 Bug fixes
+
+* fix security vulnerabilities in dependencies ([#565](https://github.com/theotime2005/bnote-settings/issues/565)) ([a1b19a1](https://github.com/theotime2005/bnote-settings/commit/a1b19a152d7170136caef6ac202f57d4481ae638))
+
+### 🔖 Version bump
+
+* **deps:** bump @vercel/flags-core from 1.1.0 to 1.1.1 ([#563](https://github.com/theotime2005/bnote-settings/issues/563)) ([039181a](https://github.com/theotime2005/bnote-settings/commit/039181a94163d79b3a45559701f35ee9688f5da3))
+* **deps:** bump devalue from 5.6.3 to 5.6.4 ([#562](https://github.com/theotime2005/bnote-settings/issues/562)) ([aa9ae40](https://github.com/theotime2005/bnote-settings/commit/aa9ae40076df7cb49af49d3ba7835e47d4ad8c35))
+* **deps:** bump flatted from 3.3.3 to 3.4.1 ([#566](https://github.com/theotime2005/bnote-settings/issues/566)) ([844938e](https://github.com/theotime2005/bnote-settings/commit/844938ef52fc1616286fed6c09676a83d8f95c50))
+
+### 🛠️ Tech
+
+* Remove the report contact form flag ([#567](https://github.com/theotime2005/bnote-settings/issues/567)) ([9951fa5](https://github.com/theotime2005/bnote-settings/commit/9951fa5fb97ce1591a9382b194642b221f1a7b16)), closes [/#diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3L2-L15](https://github.com/theotime2005///issues/diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3L2-L15) [/#diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3L51-R45](https://github.com/theotime2005///issues/diff-b10942e88a1a75cc0044cdafd5a2b6dc81068901722be8708978731fefee6eb3L51-R45)
+
 ## [6.4.0](https://github.com/theotime2005/bnote-settings/compare/v6.3.0...v6.4.0) (2026-03-12)
 
 ### 🚀 New features
