@@ -19,6 +19,7 @@ function toBoolean(value) {
  * This is a helper function to be used in Vercel's feature flags. It returns an object with a "value" property set to the provided flag value.
  * @param flag - The value of the feature flag to be returned in the object.
  */
+// eslint-disable-next-line no-unused-vars
 function getToFlag(flag) {
   return { value: flag };
 }
@@ -39,7 +40,7 @@ const configuration = (function() {
     },
     useVercelFlags: toBoolean(process.env.USE_VERCEL_FLAGS),
     flags: {
-      "show-contact-form": getToFlag(toBoolean(process.env.FLAG_SHOW_CONTACT_FORM)),
+      // Example of a feature flag that can be toggled on or off using Vercel's feature flags.
     },
   };
   if (config.environment === "test") {

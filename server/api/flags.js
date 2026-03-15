@@ -5,10 +5,10 @@ import { config } from "@/server/config.js";
 
 export default defineEventHandler(async () => {
   return {
-    "show-contact-form": await _getFlagType("show-contact-form", false),
   };
 });
 
+// eslint-disable-next-line no-unused-vars
 async function _getFlagType(flagName, flagDefault) {
   const returningFlag = config.useVercelFlags
     ? await flagsClient.evaluate(flagName, flagDefault)
