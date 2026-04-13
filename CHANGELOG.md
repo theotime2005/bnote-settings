@@ -1,3 +1,25 @@
+## [6.4.2](https://github.com/theotime2005/bnote-settings/compare/v6.4.1...v6.4.2) (2026-04-13)
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.4 to 6.0.5 ([#568](https://github.com/theotime2005/bnote-settings/issues/568)) ([0649425](https://github.com/theotime2005/bnote-settings/commit/0649425979a40cb2a582d5fef303a2ded84ae390))
+* **deps-dev:** bump eslint-plugin-vitest-globals from 1.5.0 to 1.6.1 ([#569](https://github.com/theotime2005/bnote-settings/issues/569)) ([2b58041](https://github.com/theotime2005/bnote-settings/commit/2b580412bb2165a3549db2f7cdaf9076e57b0c76))
+* **deps-dev:** bump happy-dom from 20.8.3 to 20.8.9 ([#570](https://github.com/theotime2005/bnote-settings/issues/570)) ([b51f8c6](https://github.com/theotime2005/bnote-settings/commit/b51f8c64856dbd59f0ce8ebb5f50f030095a4e41))
+* **deps:** bump brace-expansion from 1.1.12 to 1.1.13 ([#578](https://github.com/theotime2005/bnote-settings/issues/578)) ([3fb35f6](https://github.com/theotime2005/bnote-settings/commit/3fb35f6fe94a22ade65cebb7f145accf369132ce))
+* **deps:** bump defu from 6.1.4 to 6.1.6 ([#582](https://github.com/theotime2005/bnote-settings/issues/582)) ([a1f1f2d](https://github.com/theotime2005/bnote-settings/commit/a1f1f2d2f5c55eaa6253fe03734f3ba005f7b04d))
+* **deps:** bump flatted from 3.4.1 to 3.4.2 ([#572](https://github.com/theotime2005/bnote-settings/issues/572)) ([4ee535a](https://github.com/theotime2005/bnote-settings/commit/4ee535a2a23a126e5cccde95ac5327a4d8762370))
+* **deps:** bump h3 from 1.15.6 to 1.15.9 ([#571](https://github.com/theotime2005/bnote-settings/issues/571)) ([e0a0196](https://github.com/theotime2005/bnote-settings/commit/e0a019627b501260a60f975cc1a655f0853e3ebf))
+* **deps:** bump lodash from 4.17.23 to 4.18.1 ([#583](https://github.com/theotime2005/bnote-settings/issues/583)) ([7e48c37](https://github.com/theotime2005/bnote-settings/commit/7e48c37546694776facb386316bfc52a38472691))
+* **deps:** bump node-forge from 1.3.3 to 1.4.0 ([#579](https://github.com/theotime2005/bnote-settings/issues/579)) ([7df5389](https://github.com/theotime2005/bnote-settings/commit/7df53893f96274223b9102ace171e6a5ba5faa8f)), closes [PKCS#1](https://github.com/theotime2005/PKCS/issues/1)
+* **deps:** bump nodemailer from 8.0.2 to 8.0.4 ([#577](https://github.com/theotime2005/bnote-settings/issues/577)) ([812ce2f](https://github.com/theotime2005/bnote-settings/commit/812ce2ff2fe32a7f63f005d9c1b76fbb1d6aeb18))
+* **deps:** bump nodemailer from 8.0.4 to 8.0.5 ([#586](https://github.com/theotime2005/bnote-settings/issues/586)) ([f0fedc6](https://github.com/theotime2005/bnote-settings/commit/f0fedc6519d5476ded752e1f60da32e57d6637b8))
+* **deps:** bump picomatch from 2.3.1 to 2.3.2 ([#573](https://github.com/theotime2005/bnote-settings/issues/573)) ([372ee4b](https://github.com/theotime2005/bnote-settings/commit/372ee4b83f64d1a629665a71bd6c8726c9b712e2))
+* **deps:** bump serialize-javascript from 7.0.4 to 7.0.5 ([#581](https://github.com/theotime2005/bnote-settings/issues/581)) ([ba2fb00](https://github.com/theotime2005/bnote-settings/commit/ba2fb0057931d241a1d4b2a18a526fea40162f18))
+* **deps:** bump srvx from 0.11.9 to 0.11.13 ([#574](https://github.com/theotime2005/bnote-settings/issues/574)) ([1b2d5e1](https://github.com/theotime2005/bnote-settings/commit/1b2d5e16de5a649f0786a303dc4c30ea275444ba))
+* **deps:** bump unhead and @unhead/vue ([#587](https://github.com/theotime2005/bnote-settings/issues/587)) ([7ec6b0a](https://github.com/theotime2005/bnote-settings/commit/7ec6b0ace4e532a651e5b693bc26bb2eeab45627))
+* **deps:** bump vite from 7.3.1 to 7.3.2 ([#584](https://github.com/theotime2005/bnote-settings/issues/584)) ([44fd1e7](https://github.com/theotime2005/bnote-settings/commit/44fd1e73dd8d96e5ad0d67ab7a1e42562bd83063))
+* **deps:** bump yaml from 2.8.2 to 2.8.3 ([#576](https://github.com/theotime2005/bnote-settings/issues/576)) ([9cd5541](https://github.com/theotime2005/bnote-settings/commit/9cd55418c7e405b8a23971f9b7e92447f2806ce5))
+
 ## [6.4.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.0...v6.4.1) (2026-03-15)
 
 ### 🐛 Bug fixes
