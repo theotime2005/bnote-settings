@@ -1,3 +1,14 @@
+## [6.4.3](https://github.com/theotime2005/bnote-settings/compare/v6.4.2...v6.4.3) (2026-05-10)
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.5 to 6.0.6 ([#588](https://github.com/theotime2005/bnote-settings/issues/588)) ([536ecab](https://github.com/theotime2005/bnote-settings/commit/536ecab69d031ce9c3d68de4d178d320da59dd08))
+* **deps:** bump dotenv from 17.3.1 to 17.4.2 ([#589](https://github.com/theotime2005/bnote-settings/issues/589)) ([0f88c8f](https://github.com/theotime2005/bnote-settings/commit/0f88c8f4ed7a4e5c7af1bc14b1b36edd92bacde3))
+* **deps:** bump marked from 17.0.4 to 18.0.3 ([#590](https://github.com/theotime2005/bnote-settings/issues/590)) ([91a4c5b](https://github.com/theotime2005/bnote-settings/commit/91a4c5bb00f0767c7d00683038f265099017aa7b))
+* **deps:** bump nitropack from 2.13.1 to 2.13.4 ([#591](https://github.com/theotime2005/bnote-settings/issues/591)) ([1bf7213](https://github.com/theotime2005/bnote-settings/commit/1bf7213e8ade2928492d12bcc3de3b8faf8031ba))
+* **deps:** bump postcss from 8.5.8 to 8.5.14 ([#592](https://github.com/theotime2005/bnote-settings/issues/592)) ([7278b39](https://github.com/theotime2005/bnote-settings/commit/7278b39f2e17fd64080a31c568e9c79e5ddf4a1c))
+* **deps:** bump simple-git from 3.33.0 to 3.36.0 ([#593](https://github.com/theotime2005/bnote-settings/issues/593)) ([14878e4](https://github.com/theotime2005/bnote-settings/commit/14878e49cac7195f13959ad6d70dccb7a77bd54d))
+
 ## [6.4.2](https://github.com/theotime2005/bnote-settings/compare/v6.4.1...v6.4.2) (2026-04-13)
 
 ### 🔖 Version bump
