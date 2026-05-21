@@ -28,7 +28,7 @@
     "nuxt": "^4.4.6",
     "pinia": "^2.3.0",
     "vue": "^3.5.30",
-    "vue-i18n": "^11.3.0"
+    "vue-i18n": "^11.4.4"
   },
   "devDependencies": {
     "@nuxt/test-utils": "^3.21.0",
