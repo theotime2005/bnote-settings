@@ -33,7 +33,7 @@
   "devDependencies": {
     "@nuxt/test-utils": "^3.21.0",
     "@pinia/testing": "^0.1.7",
-    "@unhead/vue": "^2.1.13",
+    "@unhead/vue": "^3.1.1",
     "@vitalets/google-translate-api": "^9.2.1",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vitest/ui": "^3.2.4",
