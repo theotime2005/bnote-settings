@@ -31,12 +31,12 @@
     "vue-i18n": "^11.4.4"
   },
   "devDependencies": {
-    "@nuxt/test-utils": "^4.0.3",
+    "@nuxt/test-utils": "^3.21.0",
     "@pinia/testing": "^0.1.7",
     "@unhead/vue": "^3.1.1",
     "@vitalets/google-translate-api": "^9.2.1",
     "@vitejs/plugin-vue": "^6.0.6",
-    "@vitest/ui": "^4.1.8",
+    "@vitest/ui": "^3.2.4",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.39.2",
@@ -46,7 +46,7 @@
     "eslint-plugin-vue": "^10.9.1",
     "happy-dom": "^20.9.0",
     "husky": "^9.1.7",
-    "vitest": "^4.1.8",
+    "vitest": "^3.2.4",
     "vue-router": "^4.6.4",
     "yargs": "^18.0.0"
   },
