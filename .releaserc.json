@@ -33,7 +33,6 @@
             { "type": "breaking", "section": "💥 Breaking changes" },
             { "type": "feat", "section": "🚀 New features" },
             { "type": "fix", "section": "🐛 Bug fixes" },
-            { "type": "chore", "section": "🔧 Chore" },
             { "type": "docs", "section": "📚 Documentation" },
             { "type": "style", "section": "💅 Styles" },
             { "type": "refactor", "section": "🔨 Refactor" },
@@ -50,6 +49,12 @@
       "@semantic-release/changelog",
       {
         "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "npm version ${nextRelease.version} --no-git-tag-version"
       }
     ],
     [

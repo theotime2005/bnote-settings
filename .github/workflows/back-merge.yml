@@ -1,9 +1,9 @@
 name: Back Merge Main into Production
 
 on:
-  push:
-    branches:
-      - production
+  release:
+    types:
+      - released
 
 permissions:
   contents: write
