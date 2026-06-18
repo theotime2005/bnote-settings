@@ -1,5 +1,11 @@
 {
-  "branches": ["main"],
+  "branches": [
+    {
+      "name": "main",
+      "prerelease": "beta"
+    },
+    "production"
+  ],
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
@@ -9,15 +15,9 @@
           { "type": "breaking", "release": "major" },
           { "type": "feat", "release": "minor" },
           { "type": "fix", "release": "patch" },
-          { "type": "chore", "release": "patch" },
-          { "type": "docs", "release": "patch" },
-          { "type": "style", "release": "patch" },
-          { "type": "refactor", "release": "patch" },
-          { "type": "perf", "release": "patch" },
-          { "type": "test", "release": "patch" },
-          { "type": "bump", "release": "patch" },
-          { "type": "tech", "release": "patch" },
-          { "type": "revert", "release": "patch" }
+          {
+            "type": "tech", "release": "patch"
+          }
         ],
         "parserOpts": {
           "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
@@ -50,12 +50,6 @@
       "@semantic-release/changelog",
       {
         "changelogFile": "CHANGELOG.md"
-      }
-    ],
-    [
-      "@semantic-release/npm",
-      {
-        "npmPublish": false
       }
     ],
     [
