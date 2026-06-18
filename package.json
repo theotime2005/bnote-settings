@@ -24,7 +24,7 @@
     "dotenv": "^17.4.2",
     "js-cookie": "^3.0.7",
     "marked": "^18.0.5",
-    "nodemailer": "^8.0.9",
+    "nodemailer": "^9.0.1",
     "nuxt": "^4.4.7",
     "pinia": "^2.3.0",
     "vue": "^3.5.35",
