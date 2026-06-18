@@ -1,3 +1,25 @@
+## [6.4.5-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.4...v6.4.5-beta.1) (2026-06-18)
+
+### 🐛 Bug fixes
+
+* **deps-dev:** restore vitest, @nuxt/test-utils and @vitest/ui to compatible versions ([#615](https://github.com/theotime2005/bnote-settings/issues/615)) ([668ae88](https://github.com/theotime2005/bnote-settings/commit/668ae883b33d4f1139d042bb5ac5808acb01e8ee))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @unhead/vue from 2.1.15 to 3.1.1 ([#612](https://github.com/theotime2005/bnote-settings/issues/612)) ([ee7b6ba](https://github.com/theotime2005/bnote-settings/commit/ee7b6babc99d87026aa94be4e8ce06e61599bee3))
+* **deps-dev:** bump eslint-plugin-vue from 10.9.1 to 10.9.2 ([#622](https://github.com/theotime2005/bnote-settings/issues/622)) ([0906647](https://github.com/theotime2005/bnote-settings/commit/09066477049d8a74e0e84900a4a4a16ecaacca61))
+* **deps:** bump @vercel/flags-core from 1.1.1 to 1.4.0 ([#613](https://github.com/theotime2005/bnote-settings/issues/613)) ([552a4ef](https://github.com/theotime2005/bnote-settings/commit/552a4ef7c9594b2110aa8fc4a7edb21878b6e05b))
+* **deps:** bump js-yaml from 4.1.1 to 4.2.0 ([#625](https://github.com/theotime2005/bnote-settings/issues/625)) ([52d997c](https://github.com/theotime2005/bnote-settings/commit/52d997c4bcbfe069904b1bf16b8d9d0e3fa379f5))
+* **deps:** bump launch-editor from 2.13.2 to 2.14.1 ([#626](https://github.com/theotime2005/bnote-settings/issues/626)) ([437a3e4](https://github.com/theotime2005/bnote-settings/commit/437a3e44f605d89a40a2789df5f730a74db04794))
+* **deps:** bump nodemailer from 8.0.5 to 8.0.9 ([#627](https://github.com/theotime2005/bnote-settings/issues/627)) ([599e93c](https://github.com/theotime2005/bnote-settings/commit/599e93c3b8de90a836b86f38b7f77d2b0a5e187d))
+* **deps:** bump nuxt from 4.4.6 to 4.4.7 ([#620](https://github.com/theotime2005/bnote-settings/issues/620)) ([ef3f505](https://github.com/theotime2005/bnote-settings/commit/ef3f505a2d15b567fb0bae504c4943fe3bc69268))
+* **deps:** bump shell-quote from 1.8.3 to 1.8.4 ([#623](https://github.com/theotime2005/bnote-settings/issues/623)) ([53a57bc](https://github.com/theotime2005/bnote-settings/commit/53a57bce1b5824f0354ed21f04b7688e7620ba9e))
+* **deps:** bump ws from 8.20.1 to 8.21.0 ([#624](https://github.com/theotime2005/bnote-settings/issues/624)) ([166f5a0](https://github.com/theotime2005/bnote-settings/commit/166f5a0aa4f5bc7b0a795ed4366ccee3beeeeaf7))
+
+### 🛠️ Tech
+
+* Update the release configuration ([#630](https://github.com/theotime2005/bnote-settings/issues/630)) ([0be305f](https://github.com/theotime2005/bnote-settings/commit/0be305fee3f2b554799024a72dca647ceef3335a))
+
 ## [6.4.4](https://github.com/theotime2005/bnote-settings/compare/v6.4.3...v6.4.4) (2026-05-31)
 
 ### 🔖 Version bump
