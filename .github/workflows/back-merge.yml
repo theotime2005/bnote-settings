@@ -1,9 +1,9 @@
-name: merge into production
+name: Back Merge Main into Production
 
 on:
-  release:
-    types:
-      - released
+  push:
+    branches:
+      - production
 
 permissions:
   contents: write
@@ -24,13 +24,13 @@ jobs:
           git config --global user.email "bnote-auto-merge@github.com"
           git config --global user.name "bnote-auto-merge"
 
-      - name: Merge main into production
+      - name: Pull production branch to main
         run: |
-          git checkout production
-          git merge origin/main --no-edit
+          git checkout main
+          git pull origin production
 
       - name: Push changes
         run: |
-          git push origin production
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
