@@ -1,0 +1,36 @@
+name: Back Merge Main into Production
+
+on:
+  push:
+    branches:
+      - production
+
+permissions:
+  contents: write
+
+jobs:
+  merge-main-into-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0  # Nécessaire pour récupérer tous les tags
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "bnote-auto-merge@github.com"
+          git config --global user.name "bnote-auto-merge"
+
+      - name: Pull production branch to main
+        run: |
+          git checkout main
+          git pull origin production
+
+      - name: Push changes
+        run: |
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
