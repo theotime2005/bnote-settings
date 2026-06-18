@@ -1,3 +1,9 @@
+## [6.4.6-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.5...v6.4.6-beta.1) (2026-06-18)
+
+### 🐛 Bug fixes
+
+* Fix the release rules and remove one section ([#633](https://github.com/theotime2005/bnote-settings/issues/633)) ([ded7e12](https://github.com/theotime2005/bnote-settings/commit/ded7e1236317c934ad0571f761c986ab36e7a359))
+
 ## [6.4.5](https://github.com/theotime2005/bnote-settings/compare/v6.4.4...v6.4.5) (2026-06-18)
 
 ### 🐛 Bug fixes
