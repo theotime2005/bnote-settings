@@ -1,4 +1,4 @@
-import localStorage from "@/tests/helpers/localStorage.js";
+import localStorage from "./localStorage.js";
 
 global.localStorage = localStorage;
 
