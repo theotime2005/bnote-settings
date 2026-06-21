@@ -1,3 +1,16 @@
+## [6.4.6-beta.2](https://github.com/theotime2005/bnote-settings/compare/v6.4.6-beta.1...v6.4.6-beta.2) (2026-06-21)
+
+### 🔖 Version bump
+
+* **deps:** bump @nuxtjs/i18n from 10.2.3 to 10.4.0 ([#636](https://github.com/theotime2005/bnote-settings/issues/636)) ([763db92](https://github.com/theotime2005/bnote-settings/commit/763db9284f85691bdc858ba958f273a7ae69b659))
+* **deps:** bump actions/checkout from 6 to 7 ([#634](https://github.com/theotime2005/bnote-settings/issues/634)) ([9b381a5](https://github.com/theotime2005/bnote-settings/commit/9b381a5ca9a173823bca67f1e2627b2a9c33e6d0))
+* **deps:** bump nuxt from 4.4.7 to 4.4.8 ([#635](https://github.com/theotime2005/bnote-settings/issues/635)) ([fb25798](https://github.com/theotime2005/bnote-settings/commit/fb25798beb5e396b18c1a8060e36eaf25ca06b56))
+* **deps:** bump vue from 3.5.35 to 3.5.38 ([#637](https://github.com/theotime2005/bnote-settings/issues/637)) ([f332b44](https://github.com/theotime2005/bnote-settings/commit/f332b443ca8cbfc0afc385fe542fea40964cb3d9))
+
+### 🛠️ Tech
+
+* Upgrade to vitest 4 ([#638](https://github.com/theotime2005/bnote-settings/issues/638)) ([3db6a99](https://github.com/theotime2005/bnote-settings/commit/3db6a9910f9a4bfc33baf84eb767d64c991857b1))
+
 ## [6.4.6-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.5...v6.4.6-beta.1) (2026-06-18)
 
 ### 🐛 Bug fixes
