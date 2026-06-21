@@ -2,7 +2,12 @@ import { translate } from "@vitalets/google-translate-api";
 import fs from "fs/promises";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("fs/promises");
+vi.mock("fs/promises", () => ({
+  default: {
+    readFile: vi.fn(),
+    writeFile: vi.fn(),
+  },
+}));
 vi.mock("@vitalets/google-translate-api", () => ({
   translate: vi.fn(),
 }));
