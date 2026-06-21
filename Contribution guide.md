@@ -67,3 +67,14 @@ The flag is available in the frontend with the "useFlags" hook. You can use it l
 const flags = useFlags();
 console.log(flags.getFlag("show-contact-form"));
 ```
+
+## Versioning
+This project uses semantic versioning. The version is updated automatically when a pull request is merged. The versioning is based on the type of pull request:
+- fix: patch version is updated,
+- feat: minor version is updated,
+- breaking: major version is updated.
+This pull request merge triggered a new beta version. A release version will be created when the project is stable. To create a release version, it's necessary to create a pull request from main branch and with production base. The pull request name must follow this format:
+```
+chore: Finalize release v<version_number>
+```
+When the pull request is merged, a new release version will be created automatically. The release version will be available in the "releases" section of the repository.
