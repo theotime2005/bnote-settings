@@ -1,7 +1,12 @@
 import fs from "fs/promises";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("fs/promises");
+vi.mock("fs/promises", () => ({
+  default: {
+    readFile: vi.fn(),
+    writeFile: vi.fn(),
+  },
+}));
 vi.mock("yargs/helpers", () => ({
   hideBin: vi.fn(() => []),
 }));

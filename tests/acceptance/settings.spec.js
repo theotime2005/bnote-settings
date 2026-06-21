@@ -106,7 +106,7 @@ describe("Acceptance | SettingsView", () => {
 
     describe("test the dialogs box", () => {
       beforeEach(() => {
-        vi.spyOn(window, "confirm").mockReturnValue(true);
+        window.confirm = vi.fn().mockReturnValue(true);
       });
 
       afterEach(() => {
