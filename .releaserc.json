@@ -14,7 +14,7 @@
         "releaseRules": [
           { "type": "breaking", "release": "major" },
           { "type": "feat", "release": "minor" },
-          { "type": "fix", "release": "patch" },
+          { "type": "fix", "release": "patch" }
         ],
         "parserOpts": {
           "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
