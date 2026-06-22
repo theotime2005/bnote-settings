@@ -4,6 +4,7 @@ import prettierConfig from "@vue/eslint-config-prettier/skip-formatting";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
+import eslintPluginYml from "eslint-plugin-yml";
 import globals from "globals";
 
 export default [
@@ -11,6 +12,7 @@ export default [
   ...pluginVue.configs["flat/recommended"],
   prettierConfig,
   ...vueI18n.configs.recommended,
+  ...eslintPluginYml.configs.recommended,
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
