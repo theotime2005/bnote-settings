@@ -1,15 +1,16 @@
 import js from "@eslint/js";
+import vueI18n from "@intlify/eslint-plugin-vue-i18n";
 import prettierConfig from "@vue/eslint-config-prettier/skip-formatting";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
 
-
 export default [
   js.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
   prettierConfig,
+  ...vueI18n.configs.recommended,
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
@@ -74,6 +75,13 @@ export default [
         },
       ],
       "vue/multi-word-component-names": "off",
+      "@intlify/vue-i18n/no-raw-text": "off",
+    },
+    settings: {
+      "vue-i18n": {
+        localeDir: "./i18n/locales/*.json",
+        messageSyntaxVersion: "^11.0.0",
+      },
     },
   },
   {
