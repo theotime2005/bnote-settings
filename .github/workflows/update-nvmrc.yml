@@ -1,8 +1,7 @@
 name: Update .nvmrc to latest Node.js
 
 on:
-  workflow_dispatch: {}
-  schedule:
+  workflow_dispatch schedule:
     - cron: '0 3 * * 1'
 
 jobs:
