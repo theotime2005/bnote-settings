@@ -2,14 +2,17 @@
  * This script is used to update translation files with new keys from a source file.
  */
 
+import { useLogger } from "@nuxt/kit";
 import { translate } from "@vitalets/google-translate-api";
 import fs from "fs/promises";
 import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
 
+const LOGGER = useLogger("update-translation");
 export class UpdateTranslations {
-  constructor(options = {}) {
+  constructor(options = {}, logger = LOGGER) {
     const { source = "", targets = [] } = options;
+    this.logger = logger;
     this.source = source;
     this.targets = targets;
     this.sourceData = {};
@@ -19,20 +22,20 @@ export class UpdateTranslations {
   async handle() {
     this.sourceData = await this.loadFile(this.source);
     for (const file of this.targets) {
-      console.log("Reading file :", file);
+      this.logger.info("Reading file :", file);
       this.updateData = await this.loadFile(file);
-      console.log("Translating file:", file);
+      this.logger.info("Translating file:", file);
       this.updateData = await this.checkAndUpdate(
         this.sourceData,
         this.updateData,
         this.#_getLanguageFromFileName(file),
       );
-      console.log("Clearing old values in file:", file);
+      this.logger.info("Clearing old values in file:", file);
       this.updateData = this.clearOldValues(this.sourceData, this.updateData);
-      console.log("Writing file:", file);
+      this.logger.info("Writing file:", file);
       await this.writeFile(file, this.updateData);
     }
-    console.log("Finished writing files");
+    this.logger.info("Finished writing files");
   }
 
   async loadFile(file) {
@@ -40,8 +43,8 @@ export class UpdateTranslations {
       const data = await fs.readFile(file, "utf8");
       return JSON.parse(data);
     } catch (e) {
-      console.error(`Error when reading ${file}`);
-      console.error(e);
+      this.logger.error(`Error when reading ${file}`);
+      this.logger.error(e);
       return {};
     }
   }
@@ -50,8 +53,8 @@ export class UpdateTranslations {
     try {
       await fs.writeFile(file, JSON.stringify(data, null, 4), "utf8");
     } catch (e) {
-      console.error(`Error when writing ${file}`);
-      console.error(e);
+      this.logger.error(`Error when writing ${file}`);
+      this.logger.error(e);
     }
   }
 
@@ -60,8 +63,8 @@ export class UpdateTranslations {
       const result = await translate(text, { to: language });
       return result.text;
     } catch (e) {
-      console.error(`Error during translation of "${text}" to ${language}`);
-      console.error(e);
+      this.logger.error(`Error during translation of "${text}" to ${language}`);
+      this.logger.error(e);
       return text;
     }
   }
@@ -77,7 +80,7 @@ export class UpdateTranslations {
         );
       } else {
         if (!otherObj || !otherObj[key]) {
-          console.log(`New key found : ${key}`);
+          this.logger.info(`New key found : ${key}`);
           result[key] = `*${await this._getTranslation(objStart[key], language)}`;
         } else {
           result[key] = otherObj[key];
@@ -101,7 +104,7 @@ export class UpdateTranslations {
     // Optionally, log old keys that are being removed
     for (const key in otherObj) {
       if (!Object.prototype.hasOwnProperty.call(objStart, key)) {
-        console.log(`Old key : ${key}`);
+        this.logger.warn(`Old key : ${key}`);
       }
     }
     return result;
@@ -133,7 +136,7 @@ const argv = yargs(hideBin(process.argv))
   try {
     await new UpdateTranslations(argv).handle();
   } catch (error) {
-    console.error("An error occurred:", error);
+    this.logger.error("An error occurred:", error);
     process.exit(1);
   }
 })();

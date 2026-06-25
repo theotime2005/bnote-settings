@@ -31,11 +31,17 @@ const mockTranslate = vi.mocked(translate);
 const { UpdateTranslations } = await import("@/scripts/update-translations.js");
 
 describe("Script | Update translations", () => {
+  let loggerScript;
   beforeEach(function() {
     vi.clearAllMocks();
     mockTranslate.mockImplementation(function(text, options) {
       return Promise.resolve({ text: `${text}-${options.to}` });
     });
+    loggerScript = {
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
+    };
   });
 
   afterEach(function() {
@@ -75,15 +81,12 @@ describe("Script | Update translations", () => {
     it("should return empty object on error", async () => {
       // given
       mockFs.readFile.mockRejectedValue(new Error("File not found"));
-      const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-
       // when
-      const result = await new UpdateTranslations({}).loadFile("missing.json");
+      const result = await new UpdateTranslations({}, loggerScript).loadFile("missing.json");
 
       // then
       expect(result).toEqual({});
-      expect(consoleSpy).toHaveBeenCalled();
-      consoleSpy.mockRestore();
+      expect(loggerScript.error).toHaveBeenCalled();
     });
   });
 
@@ -107,14 +110,12 @@ describe("Script | Update translations", () => {
     it("should handle write errors", async () => {
       // given
       mockFs.writeFile.mockRejectedValue(new Error("Write failed"));
-      const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
       // when
-      await new UpdateTranslations({}).writeFile("test.json", {});
+      await new UpdateTranslations({}, loggerScript).writeFile("test.json", {});
 
       // then
-      expect(consoleSpy).toHaveBeenCalled();
-      consoleSpy.mockRestore();
+      expect(loggerScript.error).toHaveBeenCalled();
     });
   });
 
@@ -134,26 +135,23 @@ describe("Script | Update translations", () => {
     it("should return original text on translation error", async () => {
       // given
       mockTranslate.mockRejectedValue(new Error("Translation failed"));
-      const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-      const updater = new UpdateTranslations({});
+      const updater = new UpdateTranslations({}, loggerScript);
 
       // when
       const result = await updater._getTranslation("hello", "fr");
 
       // then
       expect(result).toBe("hello");
-      expect(consoleSpy).toHaveBeenCalled();
-      consoleSpy.mockRestore();
+      expect(loggerScript.error).toHaveBeenCalled();
     });
   });
 
   describe("#checkAndUpdate", () => {
     it("should add missing keys with translation", async () => {
       // given
-      const updater = new UpdateTranslations({});
+      const updater = new UpdateTranslations({}, loggerScript);
       const objStart = { greeting: "hello", farewell: "goodbye" };
       const otherObj = { greeting: "bonjour" };
-      const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
       // when
       const result = await updater.checkAndUpdate(objStart, otherObj, "fr");
@@ -163,8 +161,7 @@ describe("Script | Update translations", () => {
         greeting: "bonjour",
         farewell: "*goodbye-fr",
       });
-      expect(consoleSpy).toHaveBeenCalledWith("New key found : farewell");
-      consoleSpy.mockRestore();
+      expect(loggerScript.info).toHaveBeenCalledWith("New key found : farewell");
     });
 
     it("should handle nested objects", async () => {
@@ -205,18 +202,16 @@ describe("Script | Update translations", () => {
   describe("#clearOldValues", () => {
     it("should remove keys not in source", () => {
       // given
-      const updater = new UpdateTranslations({});
+      const updater = new UpdateTranslations({}, loggerScript);
       const objStart = { key1: "value1" };
       const otherObj = { key1: "value1", key2: "value2" };
-      const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
       // when
       const result = updater.clearOldValues(objStart, otherObj);
 
       // then
       expect(result).toEqual({ key1: "value1" });
-      expect(consoleSpy).toHaveBeenCalledWith("Old key : key2");
-      consoleSpy.mockRestore();
+      expect(loggerScript.warn).toHaveBeenCalledWith("Old key : key2");
     });
 
     it("should handle nested objects", () => {
@@ -268,8 +263,7 @@ describe("Script | Update translations", () => {
       const updater = new UpdateTranslations({
         source: "locales/en.json",
         targets: ["locales/es.json"],
-      });
-      const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+      }, loggerScript);
 
       // when
       await updater.handle();
@@ -278,8 +272,7 @@ describe("Script | Update translations", () => {
       expect(mockFs.readFile).toHaveBeenCalledWith("locales/en.json", "utf8");
       expect(mockFs.readFile).toHaveBeenCalledWith("locales/es.json", "utf8");
       expect(mockFs.writeFile).toHaveBeenCalled();
-      expect(consoleSpy).toHaveBeenCalledWith("Finished writing files");
-      consoleSpy.mockRestore();
+      expect(loggerScript.info).toHaveBeenCalledWith("Finished writing files");
     });
 
     it("should process multiple target files sequentially", async () => {
@@ -290,7 +283,6 @@ describe("Script | Update translations", () => {
         source: "locales/en.json",
         targets: ["locales/es.json", "locales/fr.json", "locales/it.json"],
       });
-      const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
       // when
       await updater.handle();
@@ -298,7 +290,6 @@ describe("Script | Update translations", () => {
       // then
       expect(mockFs.readFile).toHaveBeenCalledTimes(4);
       expect(mockFs.writeFile).toHaveBeenCalledTimes(3);
-      consoleSpy.mockRestore();
     });
   });
 });
