@@ -23,13 +23,15 @@ const { AddNewSetting } = await import("@/scripts/add-new-setting.js");
 
 describe("AddNewSetting", () => {
   let mockFs;
-  let consoleLogSpy;
-  let consoleErrorSpy;
+  let loggerScript;
 
   beforeEach(() => {
     mockFs = vi.mocked(fs);
-    consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    loggerScript = {
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
+    };
   });
 
   afterEach(() => {
@@ -41,7 +43,7 @@ describe("AddNewSetting", () => {
       const mockData = { general: { theme: "dark" } };
       mockFs.readFile.mockResolvedValue(JSON.stringify(mockData));
 
-      const addNewSetting = new AddNewSetting({ file: "test.json" });
+      const addNewSetting = new AddNewSetting({ file: "test.json" }, loggerScript);
       const result = await addNewSetting.readAndParseFile();
 
       expect(result).toEqual(mockData);
@@ -51,19 +53,19 @@ describe("AddNewSetting", () => {
     it("should handle file read errors", async () => {
       mockFs.readFile.mockRejectedValue(new Error("File not found"));
 
-      const addNewSetting = new AddNewSetting({ file: "test.json" });
+      const addNewSetting = new AddNewSetting({ file: "test.json" }, loggerScript);
 
       await expect(addNewSetting.readAndParseFile()).rejects.toThrow("File not found");
-      expect(consoleErrorSpy).toHaveBeenCalled();
+      expect(loggerScript.error).toHaveBeenCalled();
     });
 
     it("should handle JSON parse errors", async () => {
       mockFs.readFile.mockResolvedValue("invalid json");
 
-      const addNewSetting = new AddNewSetting({ file: "test.json" });
+      const addNewSetting = new AddNewSetting({ file: "test.json" }, loggerScript);
 
       await expect(addNewSetting.readAndParseFile()).rejects.toThrow();
-      expect(consoleErrorSpy).toHaveBeenCalled();
+      expect(loggerScript.error).toHaveBeenCalled();
     });
   });
 
@@ -71,7 +73,7 @@ describe("AddNewSetting", () => {
     it("should write settings to file", async () => {
       mockFs.writeFile.mockResolvedValue();
 
-      const addNewSetting = new AddNewSetting({ file: "test.json" });
+      const addNewSetting = new AddNewSetting({ file: "test.json" }, loggerScript);
       addNewSetting.settings = { general: { theme: "dark" } };
 
       await addNewSetting.writeFile();
@@ -81,17 +83,17 @@ describe("AddNewSetting", () => {
         JSON.stringify({ general: { theme: "dark" } }, null, 2),
         "utf-8",
       );
-      expect(consoleLogSpy).toHaveBeenCalledWith("File written successfully to test.json");
+      expect(loggerScript.info).toHaveBeenCalledWith("File written successfully to test.json");
     });
 
     it("should handle write errors", async () => {
       mockFs.writeFile.mockRejectedValue(new Error("Write failed"));
 
-      const addNewSetting = new AddNewSetting({ file: "test.json" });
+      const addNewSetting = new AddNewSetting({ file: "test.json" }, loggerScript);
       addNewSetting.settings = { general: { theme: "dark" } };
 
       await expect(addNewSetting.writeFile()).rejects.toThrow("Write failed");
-      expect(consoleErrorSpy).toHaveBeenCalled();
+      expect(loggerScript.error).toHaveBeenCalled();
     });
   });
 
@@ -108,7 +110,7 @@ describe("AddNewSetting", () => {
         type: "checkbox",
         defaultValue: "false",
         dryRun: false,
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
@@ -131,7 +133,7 @@ describe("AddNewSetting", () => {
         type: "checkbox",
         defaultValue: "false",
         dryRun: false,
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
@@ -156,7 +158,7 @@ describe("AddNewSetting", () => {
         values: ["en", "fr", "de"],
         defaultValue: "en",
         dryRun: false,
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
@@ -182,7 +184,7 @@ describe("AddNewSetting", () => {
         max: 24,
         defaultValue: "12",
         dryRun: false,
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
@@ -207,12 +209,12 @@ describe("AddNewSetting", () => {
         type: "text",
         defaultValue: "dark",
         dryRun: true,
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
       expect(mockFs.writeFile).not.toHaveBeenCalled();
-      expect(consoleLogSpy).toHaveBeenCalledWith(
+      expect(loggerScript.info).toHaveBeenCalledWith(
         expect.stringContaining("Dry run mode"),
       );
     });
@@ -232,12 +234,12 @@ describe("AddNewSetting", () => {
         type: "text",
         defaultValue: "dark",
         force: false,
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
       expect(mockFs.writeFile).not.toHaveBeenCalled();
-      expect(consoleLogSpy).toHaveBeenCalledWith(
+      expect(loggerScript.warn).toHaveBeenCalledWith(
         expect.stringContaining("already exists"),
       );
     });
@@ -256,7 +258,7 @@ describe("AddNewSetting", () => {
         type: "text",
         defaultValue: "dark",
         force: true,
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
@@ -275,11 +277,11 @@ describe("AddNewSetting", () => {
         key: "theme",
         type: "text",
         defaultValue: "dark",
-      });
+      }, loggerScript);
 
       await addNewSetting.handle();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
+      expect(loggerScript.error).toHaveBeenCalledWith(
         expect.stringContaining("Error handling settings"),
       );
     });
