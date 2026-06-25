@@ -1,10 +1,14 @@
+import { useLogger } from "@nuxt/kit";
 import fs from "fs/promises";
 import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
 
+const loggerScript = useLogger("add-new-setting");
+
 export class AddNewSetting {
-  constructor(options = {}) {
+  constructor(options = {}, logger = loggerScript) {
     const { file, section, key, type, values, defaultValue, min, max, dryRun, force } = options;
+    this.logger = logger;
     this.file = file;
     this.section = section;
     this.key = key;
@@ -23,7 +27,7 @@ export class AddNewSetting {
       const data = await fs.readFile(filePath, "utf-8");
       return JSON.parse(data);
     } catch (error) {
-      console.error(`Error reading or parsing file: ${error}`);
+      this.logger.error(`Error reading or parsing file: ${error}`);
       throw error;
     }
   }
@@ -32,9 +36,9 @@ export class AddNewSetting {
     try {
       const data = JSON.stringify(this.settings, null, 2);
       await fs.writeFile(filePath, data, "utf-8");
-      console.log(`File written successfully to ${filePath}`);
+      this.logger.info(`File written successfully to ${filePath}`);
     } catch (error) {
-      console.error(`Error writing file: ${error}`);
+      this.logger.error(`Error writing file: ${error}`);
       throw error;
     }
   }
@@ -46,7 +50,7 @@ export class AddNewSetting {
       const setting = section[this.key];
 
       if (setting && !this.force) {
-        console.log(`Setting ${this.key} already exists in section ${this.section}. Use --force to overwrite.`);
+        this.logger.warn(`Setting ${this.key} already exists in section ${this.section}. Use --force to overwrite.`);
         return;
       }
 
@@ -61,13 +65,13 @@ export class AddNewSetting {
 
       if (!this.dryRun) {
         await this.writeFile();
-        console.log(`The setting ${this.key} has been added to the ${this.section} with these params: ${JSON.stringify(section[this.key], null, 2)}`);
+        this.logger.info(`The setting ${this.key} has been added to the ${this.section} with these params: ${JSON.stringify(section[this.key], null, 2)}`);
       } else {
-        console.log("Dry run mode. No changes made., but the following changes would be made:");
+        this.logger.info("Dry run mode. No changes made., but the following changes would be made:");
         console.log(`the setting ${this.key} will be added to the ${this.section} with this params: ${JSON.stringify(section[this.key], null, 2)}`);
       }
     } catch (error) {
-      console.error(`Error handling settings: ${error}`);
+      this.logger.error(`Error handling settings: ${error}`);
     }
   }
 }
