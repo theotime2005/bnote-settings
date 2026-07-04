@@ -39,7 +39,7 @@
     "@vitalets/google-translate-api": "^9.2.1",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue/eslint-config-prettier": "^10.2.0",
-    "@vue/test-utils": "^2.4.6",
+    "@vue/test-utils": "^2.4.11",
     "eslint": "^10.5.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
     "eslint-plugin-vitest-globals": "^1.6.1",
