@@ -43,8 +43,6 @@ jobs:
           GIT_COMMITTER_EMAIL: bnote-settings-deployer@github.com
         with:
           extra_plugins: |
-            @semantic-release/release-notes-generator
             @semantic-release/changelog
             @semantic-release/git
             @semantic-release/exec
-            conventional-changelog-conventionalcommits
