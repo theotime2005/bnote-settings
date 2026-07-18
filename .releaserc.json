@@ -12,12 +12,24 @@
       {
         "preset": "conventionalcommits",
         "releaseRules": [
-          { "type": "breaking", "release": "major" },
-          { "type": "feat", "release": "minor" },
-          { "type": "fix", "release": "patch" }
+          {
+            "type": "breaking",
+            "release": "major"
+          },
+          {
+            "type": "feat",
+            "release": "minor"
+          },
+          {
+            "type": "fix",
+            "release": "patch"
+          }
         ],
         "parserOpts": {
-          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
+          "noteKeywords": [
+            "BREAKING CHANGE",
+            "BREAKING CHANGES"
+          ]
         }
       }
     ],
@@ -27,18 +39,64 @@
         "preset": "conventionalcommits",
         "presetConfig": {
           "types": [
-            { "type": "breaking", "section": "💥 Breaking changes" },
-            { "type": "feat", "section": "🚀 New features" },
-            { "type": "fix", "section": "🐛 Bug fixes" },
-            { "type": "docs", "section": "📚 Documentation" },
-            { "type": "style", "section": "💅 Styles" },
-            { "type": "refactor", "section": "🔨 Refactor" },
-            { "type": "perf", "section": "⚡ Performance" },
-            { "type": "test", "section": "🧪 Tests" },
-            { "type": "bump", "section": "🔖 Version bump" },
-            { "type": "tech", "section": "🛠️ Tech" },
-            { "type": "revert", "section": "⏪ Revert" }
-          ]
+            {
+              "type": "breaking",
+              "section": "💥 Breaking changes",
+              "hidden": false
+            },
+            {
+              "type": "feat",
+              "section": "🚀 New features",
+              "hidden": false
+            },
+            {
+              "type": "fix",
+              "section": "🐛 Bug fixes",
+              "hidden": false
+            },
+            {
+              "type": "docs",
+              "section": "📚 Documentation",
+              "hidden": false
+            },
+            {
+              "type": "style",
+              "section": "💅 Styles",
+              "hidden": false
+            },
+            {
+              "type": "refactor",
+              "section": "🔨 Refactor",
+              "hidden": false
+            },
+            {
+              "type": "perf",
+              "section": "⚡ Performance",
+              "hidden": false
+            },
+            {
+              "type": "test",
+              "section": "🧪 Tests",
+              "hidden": false
+            },
+            {
+              "type": "bump",
+              "section": "🔖 Version bump",
+              "hidden": false
+            },
+            {
+              "type": "tech",
+              "section": "🛠️ Tech",
+              "hidden": false
+            },
+            {
+              "type": "revert",
+              "section": "⏪ Revert",
+              "hidden": false
+            }
+          ],
+          "linkReferences": true,
+          "linkCompare": true
         }
       }
     ],
@@ -57,7 +115,11 @@
     [
       "@semantic-release/git",
       {
-        "assets": ["CHANGELOG.md", "package.json", "package-lock.json"],
+        "assets": [
+          "CHANGELOG.md",
+          "package.json",
+          "package-lock.json"
+        ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
