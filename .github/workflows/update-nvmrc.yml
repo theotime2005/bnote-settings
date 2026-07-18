@@ -8,9 +8,14 @@ on:
 jobs:
   update-nvmrc:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: setup node
         uses: actions/setup-node@v6
@@ -22,41 +27,49 @@ jobs:
         run: |
           current_version=$(cat .nvmrc)
           latest_version=$(node -v | sed 's/^v//')
-          echo "current_version=$current_version" >> $GITHUB_ENV
           echo "latest_node_version=$latest_version" >> $GITHUB_ENV
           if [ "$current_version" = "$latest_version" ]; then
-            echo "Node.js version is up to date."
-            exit 0
+            echo "up_to_date=true" >> $GITHUB_ENV
           else
-            echo "Node.js version is outdated. Current: $current_version, Latest: $latest_version"
+            echo "up_to_date=false" >> $GITHUB_ENV
           fi
 
-      - name: Create new branch with node-version
+      - name: Create or Update branch and PR
+        if: env.up_to_date == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.name "github-actions-updater"
           git config --local user.email "github-actions-updater@github.com"
-          git checkout -b update-nvmrc-${{ env.latest_node_version }}
 
-      - name: Update .nvmrc file
-        run: |
+          BRANCH_NAME="update-nvmrc-${{ env.latest_node_version }}"
+
+
+          if git ls-remote --heads origin $BRANCH_NAME | grep -q $BRANCH_NAME; then
+            echo "Branch $BRANCH_NAME already exists"
+            git fetch origin $BRANCH_NAME
+            git checkout $BRANCH_NAME
+          else
+            echo "Création of $BRANCH_NAME branch."
+            git checkout -b $BRANCH_NAME
+          fi
+
           echo "${{ env.latest_node_version }}" > .nvmrc
 
-      - name: Commit and push file
-        run: |
-          git add .nvmrc
-          git commit -m "Update .nvmrc to Node.js ${{ env.latest_node_version }}"
-          git push --set-upstream origin update-nvmrc-${{ env.latest_node_version }}
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .nvmrc
+            git commit -m "Update .nvmrc to Node.js ${{ env.latest_node_version }}"
+            git push --set-upstream origin $BRANCH_NAME
+          fi
 
+          EXISTING_PR=$(gh pr list --head $BRANCH_NAME --status open --json number -q '.[0].number')
 
-      - name: Create pull request with gh
-        run: |
-          pr_url=$(gh pr create --title "bump: Update .nvmrc to Node.js ${{ env.latest_node_version }}" --body "This PR updates the .nvmrc file to the latest Node.js version ${{ env.latest_node_version }}." --base main --head update-nvmrc-${{ env.latest_node_version }} --json url --jq '.url')
-          echo "PR_URL=$pr_url" >> "$GITHUB_ENV"
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          if [ -z "$EXISTING_PR" ]; then
+            echo "Pull request creation."
+            PR_URL=$(gh pr create --title "bump: Update .nvmrc to Node.js ${{ env.latest_node_version }}" --body "This PR updates the .nvmrc file to the latest Node.js version ${{ env.latest_node_version }}." --base main --head $BRANCH_NAME)
+            echo "PR_URL=$PR_URL" >> "$GITHUB_ENV"
 
-      - name: Enable auto merge
-        run: |
-          gh pr merge "$PR_URL" --auto -s -d
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            gh pr merge "$PR_URL" --auto -s -d
+          else
+            echo "Pull request already exists for this branch (#$EXISTING_PR). No actions required."
+          fi
