@@ -35,7 +35,7 @@
     "@intlify/eslint-plugin-vue-i18n": "^4.5.1",
     "@nuxt/test-utils": "^4.0.3",
     "@pinia/testing": "^0.1.7",
-    "@unhead/vue": "^3.1.5",
+    "@unhead/vue": "^3.1.6",
     "@vitalets/google-translate-api": "^9.2.1",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue/eslint-config-prettier": "^10.2.0",
