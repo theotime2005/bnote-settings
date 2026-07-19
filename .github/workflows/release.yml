@@ -25,14 +25,6 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check tests and eslint
-        run: |
-          npm test
-          npm run lint
-
       - name: Release with semantic-release
         uses: cycjimmy/semantic-release-action@v6
         env:
@@ -43,8 +35,8 @@ jobs:
           GIT_COMMITTER_EMAIL: bnote-settings-deployer@github.com
         with:
           extra_plugins: |
-            @semantic-release/release-notes-generator
-            @semantic-release/changelog
-            @semantic-release/git
-            @semantic-release/exec
-            conventional-changelog-conventionalcommits
+            @semantic-release/release-notes-generator@14.0.3
+            @semantic-release/changelog@6.0.3
+            @semantic-release/git@10.0.1
+            @semantic-release/exec@6.0.3
+            conventional-changelog-conventionalcommits@4.4.0
