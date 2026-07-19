@@ -42,7 +42,6 @@ jobs:
           GIT_COMMITTER_NAME: bnote-settings-deployer
           GIT_COMMITTER_EMAIL: bnote-settings-deployer@github.com
         with:
-          semantic_version: 19
           extra_plugins: |
             @semantic-release/release-notes-generator
             @semantic-release/changelog
