@@ -1,3 +1,5 @@
+## [6.4.6-beta.6](https://github.com/theotime2005/bnote-settings/compare/v6.4.6-beta.5...v6.4.6-beta.6) (2026-07-19)
+
 ## [6.4.6-beta.5](https://github.com/theotime2005/bnote-settings/compare/v6.4.6-beta.4...v6.4.6-beta.5) (2026-07-18)
 
 ## [6.4.6-beta.4](https://github.com/theotime2005/bnote-settings/compare/v6.4.6-beta.3...v6.4.6-beta.4) (2026-07-18)
