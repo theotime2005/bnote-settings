@@ -41,6 +41,7 @@ const configuration = (function() {
     useVercelFlags: toBoolean(process.env.USE_VERCEL_FLAGS),
     flags: {
       // Example of a feature flag that can be toggled on or off using Vercel's feature flags.
+      displayChangelog: toBoolean(process.env.DISPLAY_CHANGELOG),
     },
   };
   if (config.environment === "test") {
