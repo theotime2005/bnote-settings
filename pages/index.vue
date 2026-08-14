@@ -1,10 +1,14 @@
 <script setup>
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 import Changelog from "@/components/Changelog.vue";
+import { useFlags } from "@/stores/flags-store.js";
 import { useHead } from "#imports";
 
 const { t } = useI18n();
+const flagsStore = useFlags();
+const displayChangelog = computed(() => flagsStore.getFlag("displayChangelog"));
 
 useHead({
   title: () => `${t("home.title")} | ${t("title")}`,
@@ -23,8 +27,10 @@ useHead({
       <h2 class="home-subtitle">{{ t('home.title2') }}</h2>
       <p>{{ t('home.message2') }}</p>
     </div>
-    <hr>
-    <Changelog/>
+    <div v-if="displayChangelog">
+      <hr>
+      <Changelog/>
+    </div>
   </div>
 </template>
 

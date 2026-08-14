@@ -5,13 +5,14 @@ import { config } from "@/server/config.js";
 
 export default defineEventHandler(async () => {
   return {
+    displayChangelog: await _getFlagType("displayChangelog", false),
   };
 });
 
-// eslint-disable-next-line no-unused-vars
+
 async function _getFlagType(flagName, flagDefault) {
   const returningFlag = config.useVercelFlags
     ? await flagsClient.evaluate(flagName, flagDefault)
-    : (config.flags[flagName] === undefined ? flagDefault : config.flags[flagName]);
+    : { value: (config.flags[flagName] === undefined ? flagDefault : config.flags[flagName]) };
   return returningFlag;
 }
