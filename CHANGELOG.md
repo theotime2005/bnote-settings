@@ -1,3 +1,5 @@
+## [6.4.6](https://github.com/theotime2005/bnote-settings/compare/v6.4.5...v6.4.6) (2026-08-14)
+
 ## <small>6.4.6-beta.7 (2026-07-19)</small>
 
 * fix: Another fix for release action (#668) ([f0850f9](https://github.com/theotime2005/bnote-settings/commit/f0850f9)), closes [#668](https://github.com/theotime2005/bnote-settings/issues/668)
