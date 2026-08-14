@@ -113,13 +113,23 @@ describe("UploadFileComponent.vue", () => {
     window.alert = vi.fn();
     const fileContent = "invalid json content";
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
-    const mockFileReader = { readAsText: vi.fn(), onloadend: null };
-    window.FileReader = vi.fn(() => mockFileReader);
+    let readerInstance;
+
+    class MockFileReader {
+      constructor() {
+        readerInstance = this;
+        this.onloadend = null;
+      }
+
+      readAsText() {}
+    }
+
+    vi.stubGlobal("FileReader", MockFileReader);
     wrapper.vm.selectedFile = file;
 
     // when
     wrapper.vm.uploadFile();
-    mockFileReader.onloadend({ target: { result: fileContent } });
+    readerInstance.onloadend({ target: { result: fileContent } });
     await new Promise(resolve => setTimeout(resolve, 0));
 
     // then
@@ -130,13 +140,23 @@ describe("UploadFileComponent.vue", () => {
     // given
     const fileContent = JSON.stringify({ theme: "dark" });
     const file = new File([fileContent], "settings.bnote", { type: "text/plain" });
-    const mockFileReader = { readAsText: vi.fn(), onloadend: null };
-    window.FileReader = vi.fn(() => mockFileReader);
+    let readerInstance;
+
+    class MockFileReader {
+      constructor() {
+        readerInstance = this;
+        this.onloadend = null;
+      }
+
+      readAsText() {}
+    }
+
+    vi.stubGlobal("FileReader", MockFileReader);
     wrapper.vm.selectedFile = file;
 
     // when
     wrapper.vm.uploadFile();
-    mockFileReader.onloadend({ target: { result: fileContent } });
+    readerInstance.onloadend({ target: { result: fileContent } });
     await new Promise(resolve => setTimeout(resolve, 0));
 
     // then

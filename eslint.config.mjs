@@ -1,21 +1,18 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
 import js from "@eslint/js";
+import vueI18n from "@intlify/eslint-plugin-vue-i18n";
 import prettierConfig from "@vue/eslint-config-prettier/skip-formatting";
-import i18nJson from "eslint-plugin-i18n-json";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
+import eslintPluginYml from "eslint-plugin-yml";
 import globals from "globals";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default [
   js.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
   prettierConfig,
+  ...vueI18n.configs.recommended,
+  ...eslintPluginYml.configs.recommended,
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
@@ -80,6 +77,13 @@ export default [
         },
       ],
       "vue/multi-word-component-names": "off",
+      "@intlify/vue-i18n/no-raw-text": "off",
+    },
+    settings: {
+      "vue-i18n": {
+        localeDir: "./i18n/locales/*.json",
+        messageSyntaxVersion: "^11.0.0",
+      },
     },
   },
   {
@@ -91,29 +95,7 @@ export default [
       },
     },
   },
-  {
-    files: ["locales/*.json", "i18n/locales/*.json"],
-    plugins: {
-      "i18n-json": i18nJson,
-    },
-    processor: i18nJson.processors[".json"],
-    rules: {
-      "i18n-json/valid-json": "error",
-      "i18n-json/sorted-keys": [
-        "error",
-        {
-          order: "asc",
-          indentSpaces: 4,
-        },
-      ],
-      "i18n-json/identical-keys": [
-        "error",
-        {
-          filePath: path.resolve(__dirname, "i18n/locales/fr.json"),
-        },
-      ],
-    },
-  },
+
   {
     ignores: [
       "output/",

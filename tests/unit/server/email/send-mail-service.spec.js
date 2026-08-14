@@ -70,6 +70,7 @@ describe("Unit | Shared | Services | Send mail", () => {
   describe("when mail is enabled", () => {
     beforeEach(() => {
       email.enabled = true;
+      email.testAccount = false;
     });
     it("should send email correctly with text", async () => {
       // given

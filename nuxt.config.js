@@ -77,7 +77,7 @@ export default defineNuxtConfig({
         fileName: "nuxt.config.js",
         functionName: "default",
         type: "log",
-        log: `Application ${pkg.name} v${pkg.version} is running successfully in ${process.env.MODE}.`,
+        log: `Application ${pkg.name} v${pkg.version} is running successfully in ${process.env.MODE || process.env.NODE_ENV}.`,
       });
     },
   },

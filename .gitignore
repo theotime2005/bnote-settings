@@ -39,3 +39,4 @@ coverage
 .nitro
 .cache
 .env*.local
+.nuxtrc

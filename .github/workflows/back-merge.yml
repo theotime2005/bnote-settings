@@ -1,9 +1,9 @@
 name: Back Merge Main into Production
 
 on:
-  push:
-    branches:
-      - production
+  release:
+    types:
+      - released
 
 permissions:
   contents: write
@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GH_TOKEN }}
-          fetch-depth: 0  # Nécessaire pour récupérer tous les tags
+          fetch-depth: 0 # Nécessaire pour récupérer tous les tags
 
       - name: Set up Git
         run: |
