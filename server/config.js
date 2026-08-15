@@ -42,6 +42,7 @@ const configuration = (function() {
     flags: {
       // Example of a feature flag that can be toggled on or off using Vercel's feature flags.
       displayChangelog: toBoolean(process.env.DISPLAY_CHANGELOG),
+      useAccountSystem: toBoolean(process.env.USE_ACCOUNT_SYSTEM),
     },
   };
   if (config.environment === "test") {
