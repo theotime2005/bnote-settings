@@ -1,3 +1,20 @@
+## [6.4.7-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.6...v6.4.7-beta.1) (2026-09-02)
+
+### 🐛 Bug fixes
+
+* Add version of conventional commit ([#696](https://github.com/theotime2005/bnote-settings/issues/696)) ([c7fc10a](https://github.com/theotime2005/bnote-settings/commit/c7fc10afb1c3fbc47c65da7d0a2f7ae03ad47e38))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @unhead/vue from 3.1.6 to 3.3.2 ([#693](https://github.com/theotime2005/bnote-settings/issues/693)) ([a1022e9](https://github.com/theotime2005/bnote-settings/commit/a1022e90c3bd0624f0fb375a345cfeffe278f28f))
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.7 to 6.0.8 ([#694](https://github.com/theotime2005/bnote-settings/issues/694)) ([0f66f46](https://github.com/theotime2005/bnote-settings/commit/0f66f465d4e1dcf38fa7591e5afa5dc9379cdb4f))
+* **deps-dev:** bump yargs from 18.0.0 to 18.1.0 ([#692](https://github.com/theotime2005/bnote-settings/issues/692)) ([0caa975](https://github.com/theotime2005/bnote-settings/commit/0caa975072bc6514eb639894cc662eb61808bcf9))
+* **deps:** bump browserslist from 4.28.2 to 4.28.8 ([#697](https://github.com/theotime2005/bnote-settings/issues/697)) ([4546a35](https://github.com/theotime2005/bnote-settings/commit/4546a351f4af670e8aac7cd22e3eead0bae01ae6))
+
+### 🛠️ Tech
+
+* Add a feature toggle for account management ([#690](https://github.com/theotime2005/bnote-settings/issues/690)) ([2e5e8ae](https://github.com/theotime2005/bnote-settings/commit/2e5e8aed5a254b086e124a7f278229acb6676425))
+
 ## [6.4.6](https://github.com/theotime2005/bnote-settings/compare/v6.4.5...v6.4.6) (2026-08-14)
 
 ## <small>6.4.6-beta.7 (2026-07-19)</small>

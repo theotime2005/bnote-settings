@@ -6,6 +6,7 @@ import { config } from "@/server/config.js";
 export default defineEventHandler(async () => {
   return {
     displayChangelog: await _getFlagType("displayChangelog", false),
+    useAccountSystem: await _getFlagType("useAccountSystem", false),
   };
 });
 
