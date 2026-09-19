@@ -1,3 +1,31 @@
+## [6.4.7](https://github.com/theotime2005/bnote-settings/compare/v6.4.6...v6.4.7) (2026-09-19)
+
+### 🐛 Bug fixes
+
+* Add version of conventional commit ([#696](https://github.com/theotime2005/bnote-settings/issues/696)) ([c7fc10a](https://github.com/theotime2005/bnote-settings/commit/c7fc10afb1c3fbc47c65da7d0a2f7ae03ad47e38))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @unhead/vue from 3.1.6 to 3.3.2 ([#693](https://github.com/theotime2005/bnote-settings/issues/693)) ([a1022e9](https://github.com/theotime2005/bnote-settings/commit/a1022e90c3bd0624f0fb375a345cfeffe278f28f))
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.7 to 6.0.8 ([#694](https://github.com/theotime2005/bnote-settings/issues/694)) ([0f66f46](https://github.com/theotime2005/bnote-settings/commit/0f66f465d4e1dcf38fa7591e5afa5dc9379cdb4f))
+* **deps-dev:** bump globals from 17.7.0 to 17.12.0 ([#699](https://github.com/theotime2005/bnote-settings/issues/699)) ([f5c912b](https://github.com/theotime2005/bnote-settings/commit/f5c912b1bca599fa65397c129b976171b2603dac))
+* **deps-dev:** bump happy-dom from 20.10.6 to 20.14.0 ([#698](https://github.com/theotime2005/bnote-settings/issues/698)) ([d8d9281](https://github.com/theotime2005/bnote-settings/commit/d8d92818db8d2a7864409f139c2b4382b15d8b8e))
+* **deps-dev:** bump yargs from 18.0.0 to 18.1.0 ([#692](https://github.com/theotime2005/bnote-settings/issues/692)) ([0caa975](https://github.com/theotime2005/bnote-settings/commit/0caa975072bc6514eb639894cc662eb61808bcf9))
+* **deps:** bump @humanfs/node from 0.16.7 to 0.16.8 ([#701](https://github.com/theotime2005/bnote-settings/issues/701)) ([1c334ea](https://github.com/theotime2005/bnote-settings/commit/1c334ea91217537d192cc5ff0df49f3063876957))
+* **deps:** bump @vitest/mocker and vitest ([#704](https://github.com/theotime2005/bnote-settings/issues/704)) ([a6b3040](https://github.com/theotime2005/bnote-settings/commit/a6b304019be01b01f205111e9d3a958321fcca38))
+* **deps:** bump browserslist from 4.28.2 to 4.28.8 ([#697](https://github.com/theotime2005/bnote-settings/issues/697)) ([4546a35](https://github.com/theotime2005/bnote-settings/commit/4546a351f4af670e8aac7cd22e3eead0bae01ae6))
+* **deps:** bump devalue from 5.8.1 to 5.9.4 ([#707](https://github.com/theotime2005/bnote-settings/issues/707)) ([87c4c25](https://github.com/theotime2005/bnote-settings/commit/87c4c250cee1b01a1b99a366c491731350a1a4a1))
+* **deps:** bump js-yaml from 4.3.1 to 4.3.2 ([#705](https://github.com/theotime2005/bnote-settings/issues/705)) ([3812660](https://github.com/theotime2005/bnote-settings/commit/38126601f0a9d8270a0eef3500d6a1e187a40b72))
+* **deps:** bump marked from 18.0.5 to 18.0.13 ([#700](https://github.com/theotime2005/bnote-settings/issues/700)) ([5db1bec](https://github.com/theotime2005/bnote-settings/commit/5db1becfb9fcb1bdebffcab6aea40b39f4819edc))
+* **deps:** bump nodemailer from 9.0.1 to 9.1.1 ([#703](https://github.com/theotime2005/bnote-settings/issues/703)) ([104f0da](https://github.com/theotime2005/bnote-settings/commit/104f0da658cd1689e02e08612720e8995bd9d993))
+* **deps:** bump svgo from 4.0.2 to 4.1.0 ([#702](https://github.com/theotime2005/bnote-settings/issues/702)) ([4e840f7](https://github.com/theotime2005/bnote-settings/commit/4e840f72f0c456daaaf50261cc93686186cc4c8b))
+* Update .nvmrc to Node.js 26.8.1 ([#695](https://github.com/theotime2005/bnote-settings/issues/695)) ([3f70bcc](https://github.com/theotime2005/bnote-settings/commit/3f70bccba57d9488d7ade92eee3b26710da168e7))
+* Update .nvmrc to Node.js 26.8.2 ([#706](https://github.com/theotime2005/bnote-settings/issues/706)) ([a5b97f5](https://github.com/theotime2005/bnote-settings/commit/a5b97f5f0cd63193773c607cddcbadb3dab8db1e))
+
+### 🛠️ Tech
+
+* Add a feature toggle for account management ([#690](https://github.com/theotime2005/bnote-settings/issues/690)) ([2e5e8ae](https://github.com/theotime2005/bnote-settings/commit/2e5e8aed5a254b086e124a7f278229acb6676425))
+
 ## [6.4.7-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.6...v6.4.7-beta.1) (2026-09-02)
 
 ### 🐛 Bug fixes
