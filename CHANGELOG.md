@@ -1,3 +1,19 @@
+## [6.4.8-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.7...v6.4.8-beta.1) (2026-09-26)
+
+### 🐛 Bug fixes
+
+* Correct UI translations for English, Spanish, and Italian locales ([#710](https://github.com/theotime2005/bnote-settings/issues/710)) ([2cd5ff4](https://github.com/theotime2005/bnote-settings/commit/2cd5ff49d8832153499ddc0a1305dbdb2143ede1))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @nuxt/test-utils from 4.0.3 to 4.3.2 ([#711](https://github.com/theotime2005/bnote-settings/issues/711)) ([690b4a9](https://github.com/theotime2005/bnote-settings/commit/690b4a9896bba1d4eadbc06df8f0de93dfab0b5b))
+* **deps-dev:** bump eslint-plugin-vue from 10.9.2 to 10.11.0 ([#713](https://github.com/theotime2005/bnote-settings/issues/713)) ([2c45a29](https://github.com/theotime2005/bnote-settings/commit/2c45a2993aae7a4fe26d7b594aefb22b5235e54f))
+* **deps-dev:** bump eslint-plugin-yml from 3.6.0 to 3.8.1 ([#712](https://github.com/theotime2005/bnote-settings/issues/712)) ([31ee16f](https://github.com/theotime2005/bnote-settings/commit/31ee16f9bedd7e9b1d5f078fbd6690025c6fa697))
+* **deps-dev:** bump vitest from 4.1.11 to 5.0.1 ([#715](https://github.com/theotime2005/bnote-settings/issues/715)) ([69a9ede](https://github.com/theotime2005/bnote-settings/commit/69a9edeeebb618e6d6ac9d3f26d5be7ec160cf15))
+* **deps-dev:** bump vue-router from 4.6.4 to 5.3.1 ([#717](https://github.com/theotime2005/bnote-settings/issues/717)) ([8f19f86](https://github.com/theotime2005/bnote-settings/commit/8f19f86f40894b2b0c33d94133e931dba8f9dac5))
+* **deps:** bump @vercel/flags-core from 1.7.0 to 1.8.1 ([#716](https://github.com/theotime2005/bnote-settings/issues/716)) ([949f8a3](https://github.com/theotime2005/bnote-settings/commit/949f8a32b1511f8c52d222619f06150f5e592dd9))
+* Update .nvmrc to Node.js 26.9.0 ([#714](https://github.com/theotime2005/bnote-settings/issues/714)) ([8d7885b](https://github.com/theotime2005/bnote-settings/commit/8d7885b3d398ffb4cb9f93d1989ce8c9e11574c9))
+
 ## [6.4.7](https://github.com/theotime2005/bnote-settings/compare/v6.4.6...v6.4.7) (2026-09-19)
 
 ### 🐛 Bug fixes
