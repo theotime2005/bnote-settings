@@ -19,14 +19,14 @@
   },
   "dependencies": {
     "@nuxtjs/i18n": "^10.4.1",
-    "@pinia/nuxt": "^0.9.0",
+    "@pinia/nuxt": "^1.0.2",
     "@vercel/flags-core": "^1.8.1",
     "dotenv": "^17.4.2",
     "js-cookie": "^3.0.8",
     "marked": "^18.0.13",
     "nodemailer": "^9.1.1",
     "nuxt": "^4.4.8",
-    "pinia": "^2.3.0",
+    "pinia": "^4.0.3",
     "vue": "^3.5.39",
     "vue-i18n": "^11.4.6"
   },
@@ -34,7 +34,7 @@
     "@eslint/js": "^10.0.1",
     "@intlify/eslint-plugin-vue-i18n": "^4.5.1",
     "@nuxt/test-utils": "^4.3.2",
-    "@pinia/testing": "^0.1.7",
+    "@pinia/testing": "^2.0.1",
     "@unhead/vue": "^3.3.2",
     "@vitalets/google-translate-api": "^9.2.1",
     "@vitejs/plugin-vue": "^6.0.8",
@@ -49,7 +49,7 @@
     "happy-dom": "^20.14.0",
     "husky": "^9.1.7",
     "vitest": "^5.0.1",
-    "vue-router": "^4.6.4",
+    "vue-router": "^5.3.1",
     "yargs": "^18.1.0"
   },
   "overrides": {
