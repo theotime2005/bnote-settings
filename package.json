@@ -23,7 +23,7 @@
     "@vercel/flags-core": "^1.8.1",
     "dotenv": "^17.4.2",
     "js-cookie": "^3.0.8",
-    "marked": "^18.0.13",
+    "marked": "^18.0.14",
     "nodemailer": "^9.1.1",
     "nuxt": "^4.4.8",
     "pinia": "^4.0.3",
