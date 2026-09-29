@@ -23,15 +23,13 @@ const links = ref({
 </script>
 
 <template>
-  <div class="about-container page container">
-    <header class="page-header">
-      <p class="eyebrow reveal">B.note · Open source</p>
-      <h1 class="about-title reveal" style="--reveal-index: 1">{{ t('about.title') }}</h1>
-      <p class="about-text lead reveal" style="--reveal-index: 2">{{ t('about.message1') }}</p>
-    </header>
+  <div class="about-container">
+    <PageHero index="05" label="Open source" :title="t('about.title')" title-class="about-title" word="info">
+      <p class="about-text">{{ t('about.message1') }}</p>
+    </PageHero>
 
-    <div class="about-grid">
-      <section class="about-section reveal" style="--reveal-index: 3">
+    <div class="about-grid page container">
+      <section class="about-section" data-reveal>
         <h2 class="section-title">{{ t('about.contribution') }}</h2>
         <p class="about-text">{{ t('about.message2') }}</p>
         <div class="about-actions">
@@ -39,7 +37,7 @@ const links = ref({
         </div>
       </section>
 
-      <section class="about-section reveal" style="--reveal-index: 4">
+      <section class="about-section" data-reveal>
         <h2 class="section-title">{{ t('about.feature-bug') }}</h2>
         <p class="about-text">{{ t('about.message3') }}</p>
         <div class="link-container">
@@ -49,7 +47,7 @@ const links = ref({
       </section>
     </div>
 
-    <div class="about-contact">
+    <div class="about-contact container">
       <ReportContactForm />
     </div>
   </div>
@@ -66,14 +64,28 @@ const links = ref({
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  min-height: clamp(20rem, 40vh, 28rem);
+  padding: clamp(1.75rem, 4vw, 3.5rem);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
 }
 
 .section-title {
-  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-size: clamp(2rem, 1.2rem + 2.4vw, 3.5rem);
+  letter-spacing: -0.04em;
+}
+
+.about-section:first-child {
+  --text: var(--inverse-text);
+  --text-muted: var(--inverse-muted);
+  --accent: var(--accent-vivid);
+  --accent-strong: var(--inverse-text);
+  --accent-contrast: var(--inverse-bg);
+  --focus: var(--inverse-text);
+  color: var(--text);
+  background: var(--inverse-bg);
+  border-color: var(--inverse-bg);
 }
 
 .about-section .about-text {
@@ -91,9 +103,7 @@ const links = ref({
 }
 
 .about-contact {
-  margin-top: clamp(3rem, 8vw, 6rem);
-  padding-top: clamp(2.5rem, 6vw, 4rem);
-  border-top: 1px solid var(--border);
+  padding-bottom: clamp(4rem, 10vw, 8rem);
 }
 
 @media (max-width: 768px) {

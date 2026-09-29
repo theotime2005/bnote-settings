@@ -193,129 +193,129 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="settings-container page container">
-    <header class="settings-page-header page-header">
-      <p class="eyebrow reveal">{{ t("header.nav.settings") }}</p>
-      <h1 class="settings-title reveal" style="--reveal-index: 1">{{ t("settings.page.title") }}</h1>
-      <p class="lead reveal" style="--reveal-index: 2">{{ t("settings.page.message") }}</p>
-    </header>
+  <div class="settings-container">
+    <PageHero index="03" :label="t('header.nav.settings')" :title="t('settings.page.title')" title-class="settings-title" word="config">
+      <p>{{ t("settings.page.message") }}</p>
+    </PageHero>
 
-    <div v-if="isLoading" class="loading-overlay">
-      <LoadingSpinner size="large" :text="t('common.loading')" />
-    </div>
-
-    <div v-if="!fileIsImported" class="settings-intro-card fade-in">
-      <div class="settings-intro-text">
-        <h2 class="settings-subtitle">{{ t("settings.page.how") }}</h2>
-        <p class="settings-explanation">{{ t("settings.page.explication") }}</p>
+    <div class="settings-body page container">
+      <div v-if="isLoading" class="loading-overlay">
+        <LoadingSpinner size="large" :text="t('common.loading')" />
       </div>
-      <div class="settings-intro-options">
-        <UploadFileComponent ref="upload" @file-uploaded="showFile" />
-        <p class="settings-or" aria-hidden="true"><span>{{ t("settings.page.or") }}</span></p>
-        <div class="settings-create-card">
-          <BrailleWord word="bnote" class="settings-create-braille" />
-          <h3 class="settings-create-title">{{ t("settings.page.defaultName") }}</h3>
-          <button
-            type="button"
-            class="btn btn--primary settings-button settings-button-primary focus-ring"
-            @click="createBasicData"
-          >
-            {{ t("settings.page.create") }}
-          </button>
+
+      <div v-if="!fileIsImported" class="settings-intro-card fade-in">
+        <div class="settings-intro-text">
+          <h2 class="settings-subtitle">{{ t("settings.page.how") }}</h2>
+          <p class="settings-explanation">{{ t("settings.page.explication") }}</p>
         </div>
-      </div>
-    </div>
-
-    <div v-if="fileIsImported" class="settings-manager fade-in">
-      <header class="settings-header">
-        <div class="settings-file">
-          <span class="settings-file-icon" aria-hidden="true">.bnote</span>
-          <div>
-            <p class="settings-file-label">{{ t("settings.page.title2") }}</p>
-            <h2 class="settings-filename">{{ fileName }}</h2>
+        <div class="settings-intro-options">
+          <UploadFileComponent ref="upload" @file-uploaded="showFile" />
+          <p class="settings-or" aria-hidden="true"><span>{{ t("settings.page.or") }}</span></p>
+          <div class="settings-create-card">
+            <BrailleWord word="bnote" class="settings-create-braille" />
+            <h3 class="settings-create-title">{{ t("settings.page.defaultName") }}</h3>
+            <button
+              type="button"
+              class="btn btn--primary settings-button settings-button-primary focus-ring"
+              @click="createBasicData"
+            >
+              {{ t("settings.page.create") }}
+            </button>
           </div>
         </div>
+      </div>
 
-        <div class="search-container">
-          <label for="settings-search" class="sr-only">{{ t('settings.page.search') }}</label>
-          <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
-            <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          <input
-            id="settings-search"
-            v-model="searchQuery"
-            type="search"
-            class="settings-search focus-ring"
-            :placeholder="t('settings.page.search')"
-            @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
-          />
-        </div>
-        <ToolBar
-          :actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')" />
-      </header>
-
-      <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
-        <nav class="settings-nav" :aria-label="t('settings.page.navigation-section')">
-          <ul class="settings-nav-list">
-            <li v-for="(settings, section) in filteredSettings" :key="section">
-              <button
-                type="button"
-                class="settings-nav-button focus-ring"
-                :class="{ 'active': activeSection === section }"
-                :aria-expanded="activeSection === section"
-                :aria-controls="`section-${section}`"
-                @click="toggleSection(section)"
-                @keydown.enter.prevent="toggleSection(section)"
-                @keydown.space.prevent="toggleSection(section)"
-              >
-                <span class="settings-nav-label">{{ t(`settings.id.${section}`) }}</span>
-                <span class="settings-nav-count" aria-hidden="true">{{ Object.keys(settings).length }}</span>
-              </button>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="settings-content">
-          <div v-if="!activeSection" class="settings-placeholder">
-            <BrailleWord word="bnote" size="large" class="settings-placeholder-braille" />
-            <p>{{ t("settings.page.select-section") }}</p>
-          </div>
-          <section
-            v-for="(settings, section) in filteredSettings"
-            :id="`section-${section}`"
-            :key="section"
-            class="settings-section slide-in"
-            :class="{ 'active': activeSection === section }"
-            :aria-hidden="activeSection !== section"
-          >
-            <h3 class="settings-section-title">{{ t(`settings.id.${section}`) }}</h3>
-            <div class="settings-grid">
-              <SettingComponent
-                v-for="(setting, key) in settings"
-                :key="`${section}.${key}`"
-                :setting-section="section"
-                :setting-key="key"
-                :setting="setting"
-              />
+      <div v-if="fileIsImported" class="settings-manager fade-in">
+        <header class="settings-header">
+          <div class="settings-file">
+            <span class="settings-file-icon" aria-hidden="true">.bnote</span>
+            <div>
+              <p class="settings-file-label">{{ t("settings.page.title2") }}</p>
+              <h2 class="settings-filename">{{ fileName }}</h2>
             </div>
-          </section>
-        </div>
-      </form>
-      <p v-else class="settings-no-results">
-        {{ t("settings.page.no-result") }}
-      </p>
-    </div>
+          </div>
 
-    <div v-for="notification in notifications.notifications.value" :key="notification.id">
-      <NotificationToast
-        :visible="notification.visible"
-        :type="notification.type"
-        :title="notification.title"
-        :message="notification.message"
-        :dismissible="notification.dismissible"
-        @close="notifications.removeNotification(notification.id)"
-      />
+          <div class="search-container">
+            <label for="settings-search" class="sr-only">{{ t('settings.page.search') }}</label>
+            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <input
+              id="settings-search"
+              v-model="searchQuery"
+              type="search"
+              class="settings-search focus-ring"
+              :placeholder="t('settings.page.search')"
+              @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
+            />
+          </div>
+          <ToolBar
+            :actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')" />
+        </header>
+
+        <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
+          <nav class="settings-nav" :aria-label="t('settings.page.navigation-section')">
+            <ul class="settings-nav-list">
+              <li v-for="(settings, section) in filteredSettings" :key="section">
+                <button
+                  type="button"
+                  class="settings-nav-button focus-ring"
+                  :class="{ 'active': activeSection === section }"
+                  :aria-expanded="activeSection === section"
+                  :aria-controls="`section-${section}`"
+                  @click="toggleSection(section)"
+                  @keydown.enter.prevent="toggleSection(section)"
+                  @keydown.space.prevent="toggleSection(section)"
+                >
+                  <span class="settings-nav-label">{{ t(`settings.id.${section}`) }}</span>
+                  <span class="settings-nav-count" aria-hidden="true">{{ Object.keys(settings).length }}</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="settings-content">
+            <div v-if="!activeSection" class="settings-placeholder">
+              <BrailleWord word="bnote" size="large" class="settings-placeholder-braille" />
+              <p>{{ t("settings.page.select-section") }}</p>
+            </div>
+            <section
+              v-for="(settings, section) in filteredSettings"
+              :id="`section-${section}`"
+              :key="section"
+              class="settings-section slide-in"
+              :class="{ 'active': activeSection === section }"
+              :aria-hidden="activeSection !== section"
+            >
+              <h3 class="settings-section-title">{{ t(`settings.id.${section}`) }}</h3>
+              <div class="settings-grid">
+                <SettingComponent
+                  v-for="(setting, key) in settings"
+                  :key="`${section}.${key}`"
+                  :setting-section="section"
+                  :setting-key="key"
+                  :setting="setting"
+                />
+              </div>
+            </section>
+          </div>
+        </form>
+        <p v-else class="settings-no-results">
+          {{ t("settings.page.no-result") }}
+        </p>
+      </div>
+
+      <div v-for="notification in notifications.notifications.value" :key="notification.id">
+        <NotificationToast
+          :visible="notification.visible"
+          :type="notification.type"
+          :title="notification.title"
+          :message="notification.message"
+          :dismissible="notification.dismissible"
+          @close="notifications.removeNotification(notification.id)"
+        />
+      </div>
     </div>
   </div>
 </template>

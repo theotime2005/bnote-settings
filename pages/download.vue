@@ -48,17 +48,15 @@ onMounted(function() {
 </script>
 
 <template>
-  <div class="download-container page container">
-    <header class="download-section page-header">
-      <p class="eyebrow reveal">B.note · Open source</p>
-      <h1 class="download-title reveal" style="--reveal-index: 1">{{ t("download.title") }}</h1>
-      <p class="lead reveal" style="--reveal-index: 2">{{ t('download.message-1') }}
+  <div class="download-container">
+    <PageHero index="02" :label="t('header.nav.download')" :title="t('download.title')" title-class="download-title" word="open">
+      <p>{{ t('download.message-1') }}
         <a :href="links.eurobraille.github" target="_blank" class="download-link">GitHub</a>.
       </p>
-    </header>
+    </PageHero>
 
-    <div class="download-grid">
-      <section class="download-section download-card download-card--featured reveal" style="--reveal-index: 3">
+    <div class="download-grid page container">
+      <section class="download-section download-card download-card--featured" data-reveal>
         <span class="download-index" aria-hidden="true">01</span>
         <h2 class="download-title">{{ t("download.eurobrailleTitle") }}</h2>
         <p class="download-description">{{ t("download.message2") }}</p>
@@ -71,7 +69,7 @@ onMounted(function() {
         </div>
       </section>
 
-      <section class="download-section download-card reveal" style="--reveal-index: 4">
+      <section class="download-section download-card" data-reveal>
         <span class="download-index" aria-hidden="true">02</span>
         <h2 class="download-title">{{ t('download.otherTitle') }}</h2>
         <p class="download-description">{{ t('download.message3') }}
@@ -107,7 +105,8 @@ onMounted(function() {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  min-height: clamp(24rem, 50vh, 34rem);
+  padding: clamp(1.75rem, 4vw, 3.5rem);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
@@ -147,11 +146,13 @@ onMounted(function() {
 }
 
 .download-index {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 2rem + 6vw, 8rem);
+  font-style: italic;
+  line-height: 0.8;
   color: var(--accent);
-  margin-bottom: var(--space-8);
+  margin-bottom: auto;
+  padding-bottom: var(--space-8);
 }
 
 .download-card--featured .download-index {
@@ -167,16 +168,19 @@ onMounted(function() {
 }
 
 .download-card .download-title {
-  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-size: clamp(2rem, 1.2rem + 2.4vw, 3.5rem);
+  letter-spacing: -0.04em;
 }
 
 .download-description {
+  max-width: 34rem;
+  font-size: 1.125rem;
   color: var(--text-muted);
-  flex: 1;
 }
 
 .download-link {
   font-weight: 600;
+  color: inherit;
 }
 
 .download-card--featured .download-link {

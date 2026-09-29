@@ -36,18 +36,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="faq-container page container">
-    <header class="faq-header">
-      <p class="eyebrow reveal">B.note</p>
-      <h1 class="faq-title reveal" style="--reveal-index: 1">{{ t('faq.title') }}</h1>
-      <p class="faq-presentation reveal" style="--reveal-index: 2">{{ t('faq.presentation') }}</p>
-    </header>
+  <div class="faq-container">
+    <PageHero index="04" label="B.note" :title="t('faq.title')" title-class="faq-title" word="faq">
+      <p class="faq-presentation">{{ t('faq.presentation') }}</p>
+    </PageHero>
 
-    <div v-if="faq && faq.length" class="faq-list">
+    <div v-if="faq && faq.length" class="faq-list page container">
       <article
         v-for="(item, index) in faq"
         :key="`faq-item-${index}`"
         class="faq-item"
+        data-reveal
       >
         <span class="faq-number" aria-hidden="true">{{ String(index + 1).padStart(2, '0') }}</span>
         <div class="faq-body">
@@ -74,73 +73,51 @@ onMounted(() => {
       </article>
     </div>
 
-    <p v-else class="faq-empty">{{ t('faq.nofaq') }}</p>
+    <p v-else class="faq-empty page container">{{ t('faq.nofaq') }}</p>
   </div>
 </template>
 
 <style scoped>
-.faq-container {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: clamp(2rem, 6vw, 6rem);
-  align-items: start;
-}
-
-.faq-header {
-  position: sticky;
-  top: calc(var(--header-height) + var(--space-8));
-  display: grid;
-  gap: var(--space-4);
-}
-
-.faq-title {
-  font-size: clamp(3rem, 2rem + 4vw, 5.5rem);
-  line-height: 0.95;
-}
-
-.faq-presentation {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-}
-
 .faq-list {
-  border-top: 1.5px solid var(--border-strong);
+  display: grid;
 }
 
 .faq-item {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  gap: var(--space-4);
-  padding-block: clamp(1.5rem, 3vw, 2.5rem);
-  border-bottom: 1px solid var(--border);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(1rem, 4vw, 4rem);
+  padding-block: clamp(2rem, 5vw, 4rem);
+  border-top: 1px solid var(--border-strong);
 }
 
 .faq-number {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 2rem + 5vw, 7rem);
+  font-style: italic;
+  line-height: 0.8;
   color: var(--accent);
-  padding-top: 0.35rem;
 }
 
 .faq-body {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
 .faq-question {
-  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
-  margin-bottom: var(--space-1);
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin-bottom: var(--space-2);
 }
 
 .faq-answer-text {
   color: var(--text-muted);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
 }
 
 .faq-answer-list {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-3);
   padding-left: 0;
   list-style: none;
   counter-reset: faq-step;
@@ -148,8 +125,9 @@ onMounted(() => {
 
 .faq-answer-list-item {
   position: relative;
-  padding-left: 2.5rem;
+  padding-left: 2.75rem;
   color: var(--text-muted);
+  font-size: 1.0625rem;
   counter-increment: faq-step;
 }
 
@@ -157,11 +135,11 @@ onMounted(() => {
   content: counter(faq-step);
   position: absolute;
   left: 0;
-  top: 0.1rem;
+  top: 0.05rem;
   display: grid;
   place-items: center;
-  width: 1.625rem;
-  height: 1.625rem;
+  width: 1.75rem;
+  height: 1.75rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
@@ -171,28 +149,13 @@ onMounted(() => {
 }
 
 .faq-empty {
-  padding: var(--space-8);
   color: var(--text-muted);
-  text-align: center;
-  background: var(--surface);
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-lg);
+  font-size: 1.25rem;
 }
 
-@media (max-width: 960px) {
-  .faq-container {
-    grid-template-columns: 1fr;
-  }
-
-  .faq-header {
-    position: static;
-  }
-}
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .faq-item {
     grid-template-columns: 1fr;
-    gap: var(--space-2);
   }
 }
 </style>
