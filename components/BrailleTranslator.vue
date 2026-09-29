@@ -18,7 +18,7 @@ const unicode = computed(() => toBrailleUnicode(displayedWord.value));
   <section class="translator" aria-labelledby="translator-title">
     <h2 id="translator-title" class="translator-title">
       {{ t('home.translator.title-start') }}
-      <span class="serif translator-accent">{{ t('home.translator.title-accent') }}</span>
+      <span class="translator-accent">{{ t('home.translator.title-accent') }}</span>
     </h2>
 
     <div class="translator-field">
@@ -66,8 +66,8 @@ const unicode = computed(() => toBrailleUnicode(displayedWord.value));
 
 .translator-accent {
   display: block;
+  font-weight: 300;
   color: var(--accent);
-  letter-spacing: -0.02em;
 }
 
 .translator-field {

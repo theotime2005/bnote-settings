@@ -21,6 +21,7 @@ const EXPLORE_LINKS = [
   { path: "/about", title: "about.title", text: "about.message1" },
 ];
 const MARQUEE_WORDS = ["bnote", "braille", "eurobraille", "settings"];
+const EUROBRAILLE_URL = "https://www.eurobraille.fr/";
 
 const manifestoWords = computed(() => t("home.message2").split(" "));
 const marqueeItems = computed(() => MARQUEE_WORDS.map((word) => ({ word, braille: toBrailleUnicode(word) })));
@@ -35,22 +36,23 @@ useHead({
     <section class="hero on-inverse" aria-labelledby="home-title">
       <PinField word="bnote" />
       <div class="hero-inner container">
-        <p class="hero-meta index-label reveal">
-          <span>(01)</span>
+        <div class="hero-meta index-label reveal">
+          <span aria-hidden="true">(01)</span>
           <span>{{ t('home.hero.eyebrow') }}</span>
-        </p>
+          <EurobrailleLogo class="hero-logo" />
+        </div>
 
         <h1 id="home-title" class="home-title">
           <span class="line-mask"><span class="line">{{ t('home.hero.title-start') }}</span></span>
-          <span class="line-mask"><span class="line serif home-title-accent" style="--line-index: 1">{{ t('home.hero.title-accent') }}</span></span>
+          <span class="line-mask home-title-accent-line"><span class="line" style="--line-index: 1"><span class="highlight home-title-accent">{{ t('home.hero.title-accent') }}</span></span></span>
           <span class="line-mask"><span class="line" style="--line-index: 2">{{ t('home.hero.title-end') }}</span></span>
         </h1>
 
         <div class="hero-bottom">
           <p class="hero-lead reveal" style="--reveal-index: 4">{{ t('home.message-1') }}</p>
           <div class="hero-actions reveal" style="--reveal-index: 5">
-            <NuxtLink class="btn btn--primary home-link" :to="localePath('/settings')">{{ t('home.goto-settings') }}</NuxtLink>
-            <NuxtLink class="btn" :to="localePath('/download')">{{ t('home.hero.secondary') }}</NuxtLink>
+            <NuxtLink class="btn btn--primary home-link" :to="localePath('/settings')" data-magnetic>{{ t('home.goto-settings') }}</NuxtLink>
+            <NuxtLink class="btn" :to="localePath('/download')" data-magnetic>{{ t('home.hero.secondary') }}</NuxtLink>
           </div>
         </div>
 
@@ -61,22 +63,41 @@ useHead({
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <template v-for="group in 2" :key="group">
-          <span v-for="item in marqueeItems" :key="`${group}-${item.word}`" class="marquee-item">
-            <span class="marquee-word">{{ item.word }}</span>
-            <span class="marquee-braille">{{ item.braille }}</span>
-          </span>
-        </template>
+    <div class="marquee-stack" aria-hidden="true">
+      <div class="marquee marquee--back">
+        <div class="marquee-track">
+          <template v-for="group in 2" :key="group">
+            <span v-for="item in marqueeItems" :key="`${group}-${item.word}`" class="marquee-item">
+              <span class="marquee-word">{{ item.word }}</span>
+              <span class="marquee-braille">{{ item.braille }}</span>
+            </span>
+          </template>
+        </div>
+      </div>
+      <div class="marquee marquee--front">
+        <div class="marquee-track">
+          <template v-for="group in 2" :key="group">
+            <span v-for="item in marqueeItems" :key="`${group}-${item.word}`" class="marquee-item">
+              <EurobrailleLogo v-if="item.word === 'eurobraille'" decorative class="marquee-logo" />
+              <span v-else class="marquee-word">{{ item.word }}</span>
+              <span class="marquee-braille">{{ item.braille }}</span>
+            </span>
+          </template>
+        </div>
       </div>
     </div>
 
     <section class="manifesto container" aria-labelledby="home-intro-title">
-      <h2 id="home-intro-title" class="section-label index-label">
-        <span aria-hidden="true">(02)</span>
-        {{ t('home.title2') }}
-      </h2>
+      <div class="manifesto-heading">
+        <h2 id="home-intro-title" class="section-label index-label">
+          <span aria-hidden="true">(02)</span>
+          {{ t('home.title2') }}
+        </h2>
+        <a class="manifesto-logo" :href="EUROBRAILLE_URL" target="_blank" rel="noopener">
+          <EurobrailleLogo />
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
       <p class="manifesto-text">
         <span class="sr-only">{{ t('home.message2') }}</span>
         <span aria-hidden="true">
@@ -92,7 +113,7 @@ useHead({
       </div>
       <ol class="steps">
         <li v-for="(step, index) in STEPS" :key="step" class="step" :style="{ '--step-index': index }">
-          <span class="step-number" aria-hidden="true">0{{ index + 1 }}</span>
+          <span class="step-number numeral" aria-hidden="true">0{{ index + 1 }}</span>
           <div class="step-body">
             <h3 class="step-title">{{ t(`home.steps.${step}.title`) }}</h3>
             <p class="step-text">{{ t(`home.steps.${step}.text`) }}</p>
@@ -145,7 +166,7 @@ useHead({
   grid-template-rows: auto 1fr auto;
   gap: clamp(2rem, 5vh, 4rem);
   padding-top: calc(var(--header-height) + clamp(2rem, 6vh, 4rem));
-  padding-bottom: clamp(2rem, 5vh, 3rem);
+  padding-bottom: calc(clamp(2rem, 5vh, 3rem) + var(--band-overlap) + 5vw);
   pointer-events: none;
 }
 
@@ -156,8 +177,16 @@ useHead({
 
 .hero-meta {
   display: flex;
-  gap: var(--space-6);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-6);
   color: var(--text-muted);
+}
+
+.hero-logo {
+  --logo-height: 2.25rem;
+  padding-left: var(--space-6);
+  border-left: 1px solid var(--border);
 }
 
 .home-title {
@@ -168,10 +197,16 @@ useHead({
   color: var(--text);
 }
 
+.home-title-accent-line {
+  padding-block: 0.07em 0.1em;
+  margin-block: 0.16em 0.04em;
+}
+
 .home-title-accent {
-  padding-right: 0.08em;
-  color: var(--accent);
-  letter-spacing: -0.02em;
+  padding: 0 0.14em 0.02em;
+  margin-left: -0.08em;
+  color: var(--inverse-bg);
+  border-radius: 0.06em;
 }
 
 .hero-bottom {
@@ -242,12 +277,55 @@ useHead({
   to { transform: translateY(100%); }
 }
 
+.home {
+  --band-overlap: clamp(2.25rem, 1.5rem + 2vw, 3.5rem);
+  overflow-x: clip;
+}
+
+.marquee-stack {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(-1 * var(--band-overlap));
+}
+
 .marquee {
+  width: 110%;
+  margin-left: -5%;
   overflow: hidden;
-  padding-block: var(--space-6);
-  background: var(--accent-vivid);
+  padding-block: var(--space-5);
+}
+
+.marquee--front {
+  position: relative;
+  color: var(--text);
+  background: var(--surface);
+  border-block: 2px solid var(--border-strong);
+  box-shadow: 0 1.5rem 3rem -1.5rem rgba(0, 0, 0, 0.45);
+  transform: rotate(-2deg);
+}
+
+.marquee--back {
+  position: absolute;
+  top: 50%;
+  left: 0;
   color: var(--inverse-bg);
-  border-block: 1px solid var(--inverse-bg);
+  background: var(--accent-vivid);
+  border-block: 2px solid var(--inverse-bg);
+  transform: translateY(-50%) rotate(4.5deg);
+}
+
+.marquee--back .marquee-track {
+  animation-direction: reverse;
+  animation-duration: 55s;
+}
+
+.marquee--back .marquee-item {
+  font-size: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+}
+
+.marquee--back .marquee-braille {
+  color: inherit;
+  opacity: 0.6;
 }
 
 .marquee-track {
@@ -267,10 +345,14 @@ useHead({
   white-space: nowrap;
 }
 
+.marquee-logo {
+  --logo-height: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+}
+
 .marquee-braille {
   font-weight: 400;
   letter-spacing: 0.1em;
-  opacity: 0.8;
+  color: var(--accent);
 }
 
 @keyframes marquee {
@@ -286,7 +368,33 @@ useHead({
 .manifesto {
   display: grid;
   gap: var(--space-10);
-  padding-block: clamp(5rem, 14vw, 12rem);
+  padding-block: clamp(3.5rem, 7vw, 6.5rem) clamp(5rem, 12vw, 10rem);
+}
+
+.manifesto-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.manifesto-logo {
+  --logo-height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-5) var(--space-2) var(--space-2);
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  transition: border-color var(--transition-fast), transform 0.4s var(--ease-out);
+}
+
+.manifesto-logo:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
 }
 
 .manifesto-text {
@@ -378,9 +486,7 @@ useHead({
 
 .step-number {
   align-self: start;
-  font-family: var(--font-serif);
   font-size: clamp(4rem, 2rem + 8vw, 10rem);
-  font-style: italic;
   line-height: 0.8;
   color: var(--text);
 }
