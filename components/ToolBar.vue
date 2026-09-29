@@ -50,30 +50,43 @@ function onKeyDown(e) {
 <style scoped>
 .toolbar {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
-  padding: var(--space-2);
-  background-color: var(--color-gray-50);
-  border: 1px solid var(--color-gray-200);
-  border-radius: 4px;
-  box-shadow: var(--shadow-sm);
 }
 
 .toolbar button {
-  padding: var(--space-2) var(--space-4);
-  border: 1px solid var(--color-gray-300);
-  background-color: var(--color-white);
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--space-5);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-full);
   cursor: pointer;
-  transition: background-color 0.2s, box-shadow 0.2s;
-  font-family: var(--font-family);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .toolbar button:hover {
-  background-color: var(--color-gray-100);
+  color: var(--bg);
+  background: var(--text);
 }
 
-.toolbar button:focus {
-  outline: 2px solid var(--color-blue-500);
-  outline-offset: 2px;
+.toolbar button:first-child {
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toolbar button:first-child:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.toolbar button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 </style>
