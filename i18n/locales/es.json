@@ -45,7 +45,6 @@
     },
     "footer": {
         "code": "Ver el código en GitHub",
-        "cta": "¿Listo para configurar?",
         "label": "Menú inferior",
         "message1": "Esta aplicación web es libre de derechos. El código fuente es totalmente reutilizable y modificable",
         "message2": "Tus contribuciones son bienvenidas.",

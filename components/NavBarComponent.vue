@@ -6,6 +6,8 @@ import { useRoute } from "vue-router";
 import { useLocalePath } from "#i18n";
 
 const MOBILE_BREAKPOINT = 960;
+const TOP_THRESHOLD = 24;
+const HIDE_THRESHOLD = 240;
 const routes = [
   { path: "/", name: "home", label: "home.title" },
   { path: "/download", name: "download", label: "header.nav.download" },
@@ -34,6 +36,10 @@ const route = useRoute();
 const buttonIsVisible = ref(false);
 const navBarIsVisible = ref(false);
 const showAccessibilityMenu = ref(false);
+const headerRef = ref(null);
+const isAtTop = ref(true);
+const isHidden = ref(false);
+let lastScrollY = 0;
 const emit = defineEmits(["move-cursor"]);
 const accessibilitySettings = ref({
   textSize: "normal",
@@ -47,6 +53,19 @@ function toggleNavBar() {
     ? t("header.menuOpened")
     : t("header.menuClosed");
   announceToScreenReader(announcement);
+}
+
+function handleScroll() {
+  const scrollY = window.scrollY;
+  const menuIsOpen = showAccessibilityMenu.value || (buttonIsVisible.value && navBarIsVisible.value);
+  const hasFocus = headerRef.value?.contains(document.activeElement);
+  isAtTop.value = scrollY < TOP_THRESHOLD;
+  isHidden.value = scrollY > lastScrollY && scrollY > HIDE_THRESHOLD && !menuIsOpen && !hasFocus;
+  lastScrollY = scrollY;
+}
+
+function showHeader() {
+  isHidden.value = false;
 }
 
 function toggleAccessibilityMenu() {
@@ -136,20 +155,33 @@ function handleClickOutside(event) {
 
 onMounted(() => {
   window.addEventListener("resize", handleResize);
+  window.addEventListener("scroll", handleScroll, { passive: true });
   document.addEventListener("click", handleClickOutside);
   handleResize();
+  handleScroll();
   loadAccessibilitySettings();
   applyAccessibilitySettings();
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("resize", handleResize);
+  window.removeEventListener("scroll", handleScroll);
   document.removeEventListener("click", handleClickOutside);
 });
 </script>
 
 <template>
-  <header class="nav-header" @keydown="handleKeyDown">
+  <header
+    ref="headerRef"
+    class="nav-header"
+    :class="{
+      'on-inverse nav-header--top': isAtTop,
+      'nav-header--hidden': isHidden,
+      'nav-header--menu-open': buttonIsVisible && navBarIsVisible,
+    }"
+    @keydown="handleKeyDown"
+    @focusin="showHeader"
+  >
     <a href="#main-content" class="skip-link">{{ t('skip-content') }}</a>
 
     <div class="nav-container container">
@@ -282,14 +314,45 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .nav-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   width: 100%;
+  color: var(--text);
   background: var(--header-bg);
   border-bottom: 1px solid var(--border);
   backdrop-filter: saturate(1.6) blur(18px);
   -webkit-backdrop-filter: saturate(1.6) blur(18px);
+  transition: transform 0.5s var(--ease-in-out), background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+}
+
+.nav-header.nav-header--top {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.nav-header--hidden {
+  transform: translateY(-100%);
+}
+
+.nav-header--menu-open,
+.nav-header.nav-header--menu-open {
+  --text: var(--inverse-text);
+  --text-muted: var(--inverse-muted);
+  --border: color-mix(in srgb, var(--inverse-text) 18%, transparent);
+  --border-strong: var(--inverse-text);
+  --surface: var(--inverse-surface);
+  --bg: var(--inverse-bg);
+  --accent: var(--accent-vivid);
+  --focus: var(--inverse-text);
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .skip-link {
@@ -582,19 +645,31 @@ onBeforeUnmount(() => {
   transform: rotate(-45deg);
 }
 
+.nav-brand,
+.nav-actions {
+  position: relative;
+  z-index: 1;
+}
+
 .main-nav--mobile {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  padding: var(--space-4) clamp(1rem, 4vw, 2.5rem) var(--space-6);
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-lg);
-  animation: fadeIn 0.3s var(--ease-out) both;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  height: 100dvh;
+  padding: calc(var(--header-height) + var(--space-8)) clamp(1rem, 4vw, 2.5rem) var(--space-10);
+  overflow-y: auto;
+  background: var(--inverse-bg);
+  animation: menuIn 0.6s var(--ease-in-out) both;
+}
+
+@keyframes menuIn {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
 }
 
 .main-nav--mobile .nav-menu {
+  counter-reset: nav;
   flex-direction: column;
   align-items: stretch;
   width: 100%;
@@ -605,22 +680,42 @@ onBeforeUnmount(() => {
 }
 
 .main-nav--mobile .nav-link {
-  justify-content: space-between;
+  counter-increment: nav;
+  align-items: baseline;
+  gap: var(--space-4);
   width: 100%;
-  min-height: 3.5rem;
-  padding: 0 var(--space-2);
-  font-size: 1.5rem;
+  min-height: 0;
+  padding: var(--space-3) 0;
+  font-size: clamp(2.25rem, 1rem + 7vw, 4rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  letter-spacing: -0.045em;
   color: var(--text);
   border-bottom: 1px solid var(--border);
   border-radius: 0;
+  animation: lineUp 0.7s var(--ease-out) both;
 }
 
-.main-nav--mobile .nav-link::after {
-  content: "→";
+.main-nav--mobile li:nth-child(2) .nav-link { animation-delay: 60ms; }
+.main-nav--mobile li:nth-child(3) .nav-link { animation-delay: 120ms; }
+.main-nav--mobile li:nth-child(4) .nav-link { animation-delay: 180ms; }
+.main-nav--mobile li:nth-child(5) .nav-link { animation-delay: 240ms; }
+
+.main-nav--mobile li {
+  overflow: hidden;
+}
+
+.main-nav--mobile .nav-link::before {
+  content: "0" counter(nav);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
   font-weight: 400;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
+}
+
+.main-nav--mobile .nav-link:hover {
+  background: transparent;
 }
 
 .main-nav--mobile .nav-link[aria-current="page"] {

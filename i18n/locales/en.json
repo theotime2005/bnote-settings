@@ -45,7 +45,6 @@
     },
     "footer": {
         "code": "See the code on GitHub",
-        "cta": "Ready to configure?",
         "label": "Page footer menu",
         "message1": "This web application is free of rights. The source code is fully reusable and editable",
         "message2": "Your contributions are welcome.",
