@@ -46,7 +46,7 @@
     "eslint-plugin-vue": "^10.11.0",
     "eslint-plugin-yml": "^3.8.1",
     "globals": "^17.12.0",
-    "happy-dom": "^20.14.0",
+    "happy-dom": "^20.14.5",
     "husky": "^9.1.7",
     "vitest": "^5.0.1",
     "vue-router": "^5.3.1",
