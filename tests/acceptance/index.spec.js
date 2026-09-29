@@ -94,4 +94,28 @@ describe("Acceptance | HomeView", async () => {
     expect(aboutLink).toBeTruthy();
     expect(aboutLink.attributes("aria-current")).toBe(undefined);
   });
+
+  it("should split the introduction into a statement and readable details", () => {
+    // given
+    const [statement, ...details] = t("home.message2").split(/(?<=\.)\s+/);
+
+    // when
+    const statementText = wrapper.find(".manifesto-statement .sr-only").text();
+    const detailTexts = wrapper.findAll(".manifesto-detail").map((detail) => detail.text());
+
+    // then
+    expect(statementText).toBe(statement);
+    expect(detailTexts).toHaveLength(2);
+    expect(detailTexts.join(" ")).toBe(details.join(" "));
+  });
+
+  it("should link the manufacturer in the facts list", () => {
+    // when
+    const link = wrapper.find(".manifesto-fact-link");
+
+    // then
+    expect(link.attributes("href")).toBe("https://www.eurobraille.fr/");
+    expect(link.attributes("target")).toBe("_blank");
+    expect(wrapper.find(".manifesto-facts").text()).toContain(t("home.facts.country"));
+  });
 });

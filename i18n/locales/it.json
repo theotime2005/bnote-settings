@@ -90,6 +90,11 @@
         "explore": {
             "title": "Approfondisci"
         },
+        "facts": {
+            "country": "Francia",
+            "maker": "Produttore",
+            "origin": "Origine"
+        },
         "goto-settings": "Accedi all'interfaccia di gestione",
         "hero": {
             "eyebrow": "Display braille B.note",

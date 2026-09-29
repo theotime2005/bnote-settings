@@ -90,6 +90,11 @@
         "explore": {
             "title": "Ir más allá"
         },
+        "facts": {
+            "country": "Francia",
+            "maker": "Fabricante",
+            "origin": "Origen"
+        },
         "goto-settings": "Acceder a la interfaz de gestión",
         "hero": {
             "eyebrow": "Pantalla braille B.note",

@@ -23,7 +23,14 @@ const EXPLORE_LINKS = [
 const MARQUEE_WORDS = ["bnote", "braille", "eurobraille", "settings"];
 const EUROBRAILLE_URL = "https://www.eurobraille.fr/";
 
-const manifestoWords = computed(() => t("home.message2").split(" "));
+const manifesto = computed(() => {
+  const [statement, firstDetail, ...otherDetails] = t("home.message2").split(/(?<=\.)\s+/);
+  const words = statement.split(" ").map((word) => {
+    const brand = /^eurobraille/i.test(word);
+    return { text: word, brand, suffix: brand ? word.slice("eurobraille".length) : "" };
+  });
+  return { statement, words, details: [firstDetail, otherDetails.join(" ")].filter(Boolean) };
+});
 const marqueeItems = computed(() => MARQUEE_WORDS.map((word) => ({ word, braille: toBrailleUnicode(word) })));
 
 useHead({
@@ -88,22 +95,37 @@ useHead({
     </div>
 
     <section class="manifesto container" aria-labelledby="home-intro-title">
-      <div class="manifesto-heading">
-        <h2 id="home-intro-title" class="section-label index-label">
-          <span aria-hidden="true">(02)</span>
-          {{ t('home.title2') }}
-        </h2>
-        <a class="manifesto-logo" :href="EUROBRAILLE_URL" target="_blank" rel="noopener" aria-describedby="new-tab-hint">
-          <EurobrailleLogo />
-          <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-      <p class="manifesto-text">
-        <span class="sr-only">{{ t('home.message2') }}</span>
+      <h2 id="home-intro-title" class="section-label index-label">
+        <span aria-hidden="true">(02)</span>
+        {{ t('home.title2') }}
+      </h2>
+      <p class="manifesto-statement">
+        <span class="sr-only">{{ manifesto.statement }}</span>
         <span aria-hidden="true">
-          <span v-for="(word, index) in manifestoWords" :key="index" class="manifesto-word">{{ `${word} ` }}</span>
+          <template v-for="(word, index) in manifesto.words" :key="index">
+            <span v-if="word.brand" class="manifesto-word manifesto-brand"><span class="manifesto-brand-chip"><EurobrailleLogo decorative class="manifesto-brand-logo" /></span>{{ word.suffix }}</span>
+            <span v-else class="manifesto-word">{{ word.text }}</span>
+            {{ " " }}
+          </template>
         </span>
       </p>
+      <div class="manifesto-details">
+        <dl class="manifesto-facts">
+          <div class="manifesto-fact">
+            <dt class="index-label">{{ t('home.facts.maker') }}</dt>
+            <dd>
+              <a class="manifesto-fact-link" :href="EUROBRAILLE_URL" target="_blank" rel="noopener" aria-describedby="new-tab-hint">
+                Eurobraille <span aria-hidden="true">↗</span>
+              </a>
+            </dd>
+          </div>
+          <div class="manifesto-fact">
+            <dt class="index-label">{{ t('home.facts.origin') }}</dt>
+            <dd>{{ t('home.facts.country') }}</dd>
+          </div>
+        </dl>
+        <p v-for="(detail, index) in manifesto.details" :key="index" class="manifesto-detail">{{ detail }}</p>
+      </div>
     </section>
 
     <section class="steps-section container" aria-labelledby="home-steps-title">
@@ -367,42 +389,99 @@ useHead({
 
 .manifesto {
   display: grid;
-  gap: var(--space-10);
+  gap: clamp(2rem, 4vw, 3.5rem);
   padding-block: clamp(3.5rem, 7vw, 6.5rem) clamp(5rem, 12vw, 10rem);
 }
 
-.manifesto-heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
+.manifesto-statement {
+  max-width: 21ch;
+  font-size: clamp(2.25rem, 0.9rem + 4.8vw, 5.75rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  color: var(--text);
+  text-wrap: balance;
 }
 
-.manifesto-logo {
-  --logo-height: 3rem;
+.manifesto-brand {
+  white-space: nowrap;
+}
+
+.manifesto-brand-chip {
+  --logo-height: 0.62em;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-5) var(--space-2) var(--space-2);
+  padding: 0.1em 0.3em 0.1em 0.14em;
+  vertical-align: -0.08em;
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  transform: rotate(-3deg);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.manifesto-statement:hover .manifesto-brand-chip {
+  transform: rotate(3deg) scale(1.04);
+}
+
+.manifesto-details {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-8) clamp(2rem, 4vw, 4rem);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+.manifesto-facts {
+  display: grid;
+  align-content: start;
+  margin: 0;
+}
+
+.manifesto-fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.manifesto-fact:first-child {
+  padding-top: 0;
+}
+
+.manifesto-fact dt {
+  color: var(--text-muted);
+}
+
+.manifesto-fact dd {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.manifesto-fact-link {
   color: var(--text);
   text-decoration: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  transition: border-color var(--transition-fast), transform 0.4s var(--ease-out);
+  background: linear-gradient(var(--accent-vivid), var(--accent-vivid)) no-repeat 0 100% / 0 2px;
+  transition: background-size 0.4s var(--ease-out);
 }
 
-.manifesto-logo:hover {
-  border-color: var(--border-strong);
-  transform: translateY(-2px);
+.manifesto-fact-link:hover,
+.manifesto-fact-link:focus-visible {
+  background-size: 100% 2px;
 }
 
-.manifesto-text {
-  max-width: 62rem;
-  font-size: clamp(1.5rem, 0.9rem + 2.4vw, 3.25rem);
-  font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.03em;
+.manifesto-detail {
+  max-width: 40ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.manifesto-detail:first-of-type {
   color: var(--text);
 }
 
@@ -413,12 +492,31 @@ useHead({
       animation-timeline: view();
       animation-range: entry 10% cover 40%;
     }
+
+    .manifesto-details::before {
+      position: absolute;
+      top: -1px;
+      right: 0;
+      left: 0;
+      height: 2px;
+      content: "";
+      background: var(--accent-vivid);
+      transform-origin: left;
+      animation: ruleIn linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
   }
 }
 
 @keyframes wordIn {
   from { opacity: 0.15; }
   to { opacity: 1; }
+}
+
+@keyframes ruleIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 .steps-section {
@@ -623,6 +721,10 @@ useHead({
 @media (max-width: 860px) {
   .hero-scroll {
     display: none;
+  }
+
+  .manifesto-details {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .step {
