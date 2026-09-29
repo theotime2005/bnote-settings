@@ -63,6 +63,10 @@
         "mainMenu": "Main menu",
         "menuClosed": "Navigation menu closed",
         "menuOpened": "Navigation menu opened",
+        "nav": {
+            "download": "Download",
+            "settings": "Settings"
+        },
         "normal": "Normal",
         "normalContrast": "Normal Contrast",
         "open": "Open the navigation menu",
@@ -70,9 +74,33 @@
         "textSize": "Text Size"
     },
     "home": {
+        "explore": {
+            "title": "Go further"
+        },
         "goto-settings": "Access the management interface",
+        "hero": {
+            "caption": "“bnote” in six-dot braille",
+            "eyebrow": "B.note braille display · Eurobraille",
+            "secondary": "Download the software",
+            "title": "Set up the B.note without going through braille."
+        },
         "message-1": "Welcome to the site dedicated to B.NOTE. On this site, you will find useful resources for B.NOTE, as well as a settings management interface.",
         "message2": "The B.NOTE is a display manufactured by the French company Eurobraille. This device can be configured in different ways, from the braille type to the display of certain applications. In order to allow a sighted person to configure it, this site offers a simple interface generating a file that can then be loaded into the B.NOTE. The user will then only have to open the file to load the new preferences.",
+        "steps": {
+            "adjust": {
+                "text": "Browse the sections, search for a setting and change it in a few clicks.",
+                "title": "Adjust every preference"
+            },
+            "import": {
+                "text": "Load the .bnote file exported from the device, or use the default template.",
+                "title": "Import or start fresh"
+            },
+            "load": {
+                "text": "Download the generated file, copy it to the device and open it to apply the settings.",
+                "title": "Load it on the B.note"
+            },
+            "title": "Three steps, one file."
+        },
         "title": "Home",
         "title2": "What is it?"
     },
@@ -204,9 +232,11 @@
             "navigation-section": "Setting navigation",
             "no-result": "No results found for this search",
             "openOther": "Open another file",
+            "or": "or",
             "question": "Do you really want to download the file?",
             "resetQuestion": "Do you really want to erase the current configuration? You will need to import another file.",
             "search": "Search for a setting",
+            "select-section": "Choose a category to view and edit its preferences.",
             "title": "B.note settings management",
             "title2": "Settings file",
             "toolbar": "File actions"

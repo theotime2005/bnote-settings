@@ -63,6 +63,10 @@
         "mainMenu": "Menu principal",
         "menuClosed": "Menu de navigation fermé",
         "menuOpened": "Menu de navigation ouvert",
+        "nav": {
+            "download": "Télécharger",
+            "settings": "Préférences"
+        },
         "normal": "Normal",
         "normalContrast": "Contraste normal",
         "open": "Ouvrir le menu de navigation",
@@ -70,9 +74,33 @@
         "textSize": "Taille du texte"
     },
     "home": {
+        "explore": {
+            "title": "Aller plus loin"
+        },
         "goto-settings": "Accéder à l'interface de gestion",
+        "hero": {
+            "caption": "« bnote » en braille à six points",
+            "eyebrow": "Afficheur braille B.note · Eurobraille",
+            "secondary": "Télécharger le logiciel",
+            "title": "Configurez le B.note, sans passer par le braille."
+        },
         "message-1": "Bienvenue sur le site dédié au B.NOTE. Sur ce site, vous trouverez des ressources utiles au B.NOTE, ainsi qu'une interface de gestion des préférences.",
         "message2": "Le B.NOTE est un afficheur fabriqué par la société française Eurobraille. Cet appareil peut être paramétré de différentes manière, du type de braille en passant par l'affichage de certaines applications. Afin de permettre à une personne voyante de le paramétrer, ce site offre une interface simple générant un fichier qui pourra ensuite être chargé dans le B.NOTE. L'utilisateur n'aura alors plus qu'à ouvrir le fichier pour charger les nouvelles préférences.",
+        "steps": {
+            "adjust": {
+                "text": "Parcourez les sections, recherchez un réglage et modifiez-le en quelques clics.",
+                "title": "Ajustez chaque préférence"
+            },
+            "import": {
+                "text": "Chargez le fichier .bnote exporté depuis l'appareil, ou utilisez le modèle par défaut.",
+                "title": "Importez ou partez de zéro"
+            },
+            "load": {
+                "text": "Téléchargez le fichier généré, copiez-le sur l'appareil et ouvrez-le pour appliquer les réglages.",
+                "title": "Chargez-le sur le B.note"
+            },
+            "title": "Trois étapes, un fichier."
+        },
         "title": "Accueil",
         "title2": "C'est quoi?"
     },
@@ -204,9 +232,11 @@
             "navigation-section": "Navigation des préférences",
             "no-result": "Aucun résultat pour cette recherche",
             "openOther": "Ouvrir un autre fichier",
+            "or": "ou",
             "question": "Voulez-vous vraiment télécharger le fichier ?",
             "resetQuestion": "Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier.",
             "search": "Rechercher une préférence",
+            "select-section": "Choisissez une catégorie pour afficher et modifier ses préférences.",
             "title": "Gestion des préférences du B.note",
             "title2": "Fichier de préférences",
             "toolbar": "Action sur le fichier"

@@ -35,36 +35,39 @@ const currentLanguage = computed({
 
 <style scoped>
 .language-container {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: var(--space-3);
 }
 
 .language-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #4b5563;
+  font-size: 0.9375rem;
+  color: var(--inverse-muted);
 }
 
 .language-select {
-  padding: 0.375rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  background-color: white;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  font-size: 0.875rem;
-  min-width: 8rem;
+  appearance: none;
+  min-width: 9rem;
+  min-height: 2.5rem;
+  padding: 0 2.25rem 0 var(--space-4);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--inverse-text);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E") no-repeat right 0.875rem center,
+    var(--inverse-surface);
+  border: 1px solid color-mix(in srgb, var(--inverse-text) 22%, transparent);
+  border-radius: var(--radius-full);
   cursor: pointer;
-}
-
-.language-select:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px #3b82f6;
+  transition: border-color var(--transition-fast);
 }
 
 .language-select:hover {
-  border-color: #9ca3af;
+  border-color: var(--inverse-text);
+}
+
+.language-select option {
+  color: #111412;
+  background: #ffffff;
 }
 </style>

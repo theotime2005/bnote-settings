@@ -23,92 +23,82 @@ const links = ref({
 </script>
 
 <template>
-  <div class="about-container">
-    <h1 class="about-title">{{ t('about.title') }}</h1>
-    <p class="about-text">{{ t('about.message1') }}</p>
+  <div class="about-container page container">
+    <header class="page-header">
+      <p class="eyebrow reveal">B.note · Open source</p>
+      <h1 class="about-title reveal" style="--reveal-index: 1">{{ t('about.title') }}</h1>
+      <p class="about-text lead reveal" style="--reveal-index: 2">{{ t('about.message1') }}</p>
+    </header>
 
-    <section class="about-section">
-      <h2 class="section-title">{{ t('about.contribution') }}</h2>
-      <p class="about-text">{{ t('about.message2') }}</p>
-      <a :href="links.github.repos" class="about-link">{{ t('about.github') }}</a>
-    </section>
+    <div class="about-grid">
+      <section class="about-section reveal" style="--reveal-index: 3">
+        <h2 class="section-title">{{ t('about.contribution') }}</h2>
+        <p class="about-text">{{ t('about.message2') }}</p>
+        <div class="about-actions">
+          <a :href="links.github.repos" class="about-link btn btn--primary">{{ t('about.github') }}</a>
+        </div>
+      </section>
 
-    <section class="about-section">
-      <h2 class="section-title">{{ t('about.feature-bug') }}</h2>
-      <p class="about-text">{{ t('about.message3') }}</p>
-      <div class="link-container">
-        <a :href="links.github.issues.feature" target="_blank" class="about-link">{{ t('about.feature') }}</a>
-        <a :href="links.github.issues.report" target="_blank" class="about-link">{{ t('about.bug_report') }}</a>
-      </div>
-    </section>
-  </div>
-  <div>
-    <ReportContactForm/>
+      <section class="about-section reveal" style="--reveal-index: 4">
+        <h2 class="section-title">{{ t('about.feature-bug') }}</h2>
+        <p class="about-text">{{ t('about.message3') }}</p>
+        <div class="link-container">
+          <a :href="links.github.issues.feature" target="_blank" class="about-link link-arrow">{{ t('about.feature') }}</a>
+          <a :href="links.github.issues.report" target="_blank" class="about-link link-arrow">{{ t('about.bug_report') }}</a>
+        </div>
+      </section>
+    </div>
+
+    <div class="about-contact">
+      <ReportContactForm />
+    </div>
   </div>
 </template>
 
 <style scoped>
-.about-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
-
-.about-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: inherit;
-}
-
-.section-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  color: inherit;
-}
-
-.about-text {
-  margin-bottom: 1rem;
-  line-height: 1.6;
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
 }
 
 .about-section {
-  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
 }
 
+.section-title {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+}
+
+.about-section .about-text {
+  flex: 1;
+  color: var(--text-muted);
+}
+
+.about-actions,
 .link-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.75rem;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-2);
 }
 
-.about-link {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  color: rgb(74, 222, 128);
-  border: 1px solid rgb(74, 222, 128);
-  border-radius: 0.25rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.about-link:hover {
-  background-color: rgb(74, 222, 128);
-  color: black;
-  transform: scale(0.98);
+.about-contact {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+  border-top: 1px solid var(--border);
 }
 
 @media (max-width: 768px) {
-  .link-container {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .about-link {
-    width: fit-content;
+  .about-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

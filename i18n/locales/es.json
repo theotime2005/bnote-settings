@@ -63,6 +63,10 @@
         "mainMenu": "Menú principal",
         "menuClosed": "Menú de navegación cerrado",
         "menuOpened": "Menú de navegación abierto",
+        "nav": {
+            "download": "Descargar",
+            "settings": "Preferencias"
+        },
         "normal": "Normal",
         "normalContrast": "Contraste normal",
         "open": "Abrir el menú de navegación",
@@ -70,9 +74,33 @@
         "textSize": "Tamaño del texto"
     },
     "home": {
+        "explore": {
+            "title": "Ir más allá"
+        },
         "goto-settings": "Acceder a la interfaz de gestión",
+        "hero": {
+            "caption": "«bnote» en braille de seis puntos",
+            "eyebrow": "Pantalla braille B.note · Eurobraille",
+            "secondary": "Descargar el software",
+            "title": "Configura el B.note sin pasar por el braille."
+        },
         "message-1": "Bienvenido al sitio dedicado al B.NOTE. En este sitio, encontrarás recursos útiles para el B.NOTE, así como una interfaz de gestión de preferencias.",
         "message2": "El B.NOTE es una pantalla fabricada por la empresa francesa Eurobraille. Este dispositivo se puede configurar de diferentes maneras, desde el tipo de braille hasta la visualización de ciertas aplicaciones. Para permitir que una persona vidente lo configure, este sitio ofrece una interfaz simple que genera un archivo que luego se puede cargar en el B.NOTE. El usuario entonces solo tendrá que abrir el archivo para cargar las nuevas preferencias.",
+        "steps": {
+            "adjust": {
+                "text": "Recorre las secciones, busca un ajuste y modifícalo en unos pocos clics.",
+                "title": "Ajusta cada preferencia"
+            },
+            "import": {
+                "text": "Carga el archivo .bnote exportado desde el dispositivo o utiliza la plantilla predeterminada.",
+                "title": "Importa o empieza de cero"
+            },
+            "load": {
+                "text": "Descarga el archivo generado, cópialo en el dispositivo y ábrelo para aplicar los ajustes.",
+                "title": "Cárgalo en el B.note"
+            },
+            "title": "Tres pasos, un archivo."
+        },
         "title": "Inicio",
         "title2": "¿Qué es?"
     },
@@ -204,9 +232,11 @@
             "navigation-section": "Navegación de preferencias",
             "no-result": "No hay resultados para esta búsqueda",
             "openOther": "Abrir otro archivo",
+            "or": "o",
             "question": "¿Realmente quieres descargar el archivo?",
             "resetQuestion": "¿Realmente quieres borrar la configuración actual? Deberá importar otro archivo.",
             "search": "Buscar una preferencia",
+            "select-section": "Elige una categoría para ver y modificar sus preferencias.",
             "title": "Gestión de preferencias de B.note",
             "title2": "Archivo de preferencias",
             "toolbar": "Acción sobre el archivo"

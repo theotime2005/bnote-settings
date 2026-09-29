@@ -40,16 +40,37 @@ function resetCookies() {
 </script>
 
 <template>
-  <div>
+  <div class="app-shell">
     <NavBarComponent @move-cursor="focusMain" />
-    <div class="container">
-      <main id="main-content" ref="mainRef" tabindex="-1" class="mt-4">
-        <NuxtPage />
-      </main>
-    </div>
+    <main id="main-content" ref="mainRef" tabindex="-1" class="site-main">
+      <NuxtPage />
+    </main>
     <FooterComponent />
-  </div>
-  <div v-if="canReset" class="container mt-4">
-    <button class="custom-button button-red" @click="resetCookies">Reset all cookies</button>
+    <div v-if="canReset" class="dev-tools">
+      <div class="container">
+        <button class="custom-button button-red" @click="resetCookies">Reset all cookies</button>
+      </div>
+    </div>
   </div>
 </template>
+
+<style>
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-main {
+  flex: 1;
+}
+
+.site-main:focus {
+  outline: none;
+}
+
+.dev-tools {
+  padding-block: 0 var(--space-6);
+  background: var(--inverse-bg);
+}
+</style>

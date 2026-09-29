@@ -48,77 +48,152 @@ onMounted(function() {
 </script>
 
 <template>
-  <div class="download-container">
-    <div class="download-section">
-      <h1 class="download-title">{{ t("download.title") }}</h1>
-      <p>{{ t('download.message-1') }}
+  <div class="download-container page container">
+    <header class="download-section page-header">
+      <p class="eyebrow reveal">B.note · Open source</p>
+      <h1 class="download-title reveal" style="--reveal-index: 1">{{ t("download.title") }}</h1>
+      <p class="lead reveal" style="--reveal-index: 2">{{ t('download.message-1') }}
         <a :href="links.eurobraille.github" target="_blank" class="download-link">GitHub</a>.
       </p>
-    </div>
+    </header>
 
-    <div class="download-section">
-      <h2 class="download-title">{{ t("download.eurobrailleTitle") }}</h2>
-      <p>{{ t("download.message2") }}</p>
-      <a
-        class="download-link"
-        :href="links.eurobraille.download"
-        target="_blank"
-      >{{ t("download.downloadEurobraille") }}</a>
-    </div>
+    <div class="download-grid">
+      <section class="download-section download-card download-card--featured reveal" style="--reveal-index: 3">
+        <span class="download-index" aria-hidden="true">01</span>
+        <h2 class="download-title">{{ t("download.eurobrailleTitle") }}</h2>
+        <p class="download-description">{{ t("download.message2") }}</p>
+        <div class="download-actions">
+          <a
+            class="btn btn--primary"
+            :href="links.eurobraille.download"
+            target="_blank"
+          >{{ t("download.downloadEurobraille") }}</a>
+        </div>
+      </section>
 
-    <div class="download-section">
-      <h2 class="download-title">{{ t('download.otherTitle') }}</h2>
-      <p class="download-description">{{ t('download.message3') }}
-        <a :href="links.theotime.github" target="_blank" class="download-link">{{ t('download.message-3-1') }}</a>
-        {{ t('download.message-3-2') }}
-      </p>
-      <a
-        v-if="lastVersion['file']"
-        class="download-link"
-        :href="lastVersion['file']"
-      >
-        {{ t('download.downloadOtherLast', { version: lastVersion['tag'] }) }}
-      </a>
-      <a class="download-link" :href="links.theotime.releases" target="_blank">
-        {{ t("download.releases") }}
-      </a>
+      <section class="download-section download-card reveal" style="--reveal-index: 4">
+        <span class="download-index" aria-hidden="true">02</span>
+        <h2 class="download-title">{{ t('download.otherTitle') }}</h2>
+        <p class="download-description">{{ t('download.message3') }}
+          <a :href="links.theotime.github" target="_blank" class="download-link">{{ t('download.message-3-1') }}</a>
+          {{ t('download.message-3-2') }}
+        </p>
+        <div class="download-actions">
+          <a
+            v-if="lastVersion['file']"
+            class="btn btn--primary"
+            :href="lastVersion['file']"
+          >
+            {{ t('download.downloadOtherLast', { version: lastVersion['tag'] }) }}
+          </a>
+          <a class="link-arrow" :href="links.theotime.releases" target="_blank">
+            {{ t("download.releases") }}
+          </a>
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <style scoped>
-.download-container {
-  padding: 0.75rem;
-  max-width: 800px;
-  margin: 0 auto;
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
 }
 
-.download-section {
+.download-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
+  gap: var(--space-4);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+}
+
+.download-card--featured {
+  --focus: var(--inverse-text);
+  color: var(--inverse-text);
+  background:
+    radial-gradient(90% 70% at 100% 0%, color-mix(in srgb, var(--accent-vivid) 20%, transparent), transparent 60%),
+    var(--inverse-bg);
+  border-color: var(--inverse-bg);
+}
+
+.download-card--featured .download-title {
+  color: var(--inverse-text);
+}
+
+.download-card--featured .download-description {
+  color: var(--inverse-muted);
+}
+
+.download-card--featured .btn--primary {
+  color: var(--inverse-bg);
+  background: var(--inverse-text);
+  border-color: var(--inverse-text);
+}
+
+.download-card--featured .btn--primary:hover {
+  background: var(--accent-vivid);
+  border-color: var(--accent-vivid);
+}
+
+:root[data-color-scheme="blue-yellow"] .download-card--featured .btn--primary:hover {
+  background: var(--inverse-muted);
+  border-color: var(--inverse-muted);
+}
+
+.download-index {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: var(--space-8);
+}
+
+.download-card--featured .download-index {
+  color: var(--accent-vivid);
+}
+
+:root[data-color-scheme="blue-yellow"] .download-card--featured .download-index {
+  color: var(--inverse-text);
 }
 
 .download-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: inherit;
+  color: var(--text);
+}
+
+.download-card .download-title {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
 }
 
 .download-description {
-  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+  flex: 1;
 }
 
 .download-link {
-  color: rgb(74, 222, 128);
-  transition: all 0.2s ease;
-  display: inline-block;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
-.download-link:hover {
-  color: rgb(134, 239, 172);
-  text-decoration: underline;
+.download-card--featured .download-link {
+  color: var(--inverse-text);
+}
+
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .download-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
