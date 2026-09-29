@@ -186,8 +186,7 @@ onBeforeUnmount(() => {
 
     <div class="nav-container container">
       <NuxtLink class="nav-brand" :to="localePath('/')" @click="goto">
-        <BrailleWord word="bn" size="small" class="nav-brand-braille" />
-        <span class="nav-brand-name">B.note</span>
+        <BrandMark />
       </NuxtLink>
 
       <nav
@@ -399,19 +398,6 @@ onBeforeUnmount(() => {
 .nav-brand:hover {
   color: var(--text);
   text-decoration: none;
-}
-
-.nav-brand-braille {
-  --braille-color: var(--accent);
-  padding: var(--space-2);
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-}
-
-.nav-brand-name {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
 }
 
 .main-nav {
@@ -721,11 +707,5 @@ onBeforeUnmount(() => {
 .main-nav--mobile .nav-link[aria-current="page"] {
   color: var(--accent);
   background: transparent;
-}
-
-@media (max-width: 480px) {
-  .nav-brand-braille {
-    display: none;
-  }
 }
 </style>

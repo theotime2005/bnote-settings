@@ -53,6 +53,7 @@ function resetCookies() {
       </div>
       <span class="preloader__label">B.note</span>
     </div>
+    <CursorFollower />
     <NavBarComponent @move-cursor="focusMain" />
     <main id="main-content" ref="mainRef" tabindex="-1" class="site-main">
       <NuxtPage />

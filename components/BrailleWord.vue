@@ -82,6 +82,7 @@ const cells = computed(() => props.word
   border-radius: 50%;
   background: currentColor;
   opacity: 0.14;
+  transition: opacity 0.2s var(--ease-out), transform 0.3s var(--ease-out), background-color 0.2s var(--ease-out);
 }
 
 .braille-dot--raised {
