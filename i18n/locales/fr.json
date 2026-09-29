@@ -28,6 +28,7 @@
         "error": "Erreur",
         "info": "Information",
         "loading": "Chargement...",
+        "newTab": "s'ouvre dans un nouvel onglet",
         "save": "Enregistrer",
         "success": "Succès",
         "warning": "Attention"

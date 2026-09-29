@@ -93,7 +93,7 @@ useHead({
           <span aria-hidden="true">(02)</span>
           {{ t('home.title2') }}
         </h2>
-        <a class="manifesto-logo" :href="EUROBRAILLE_URL" target="_blank" rel="noopener">
+        <a class="manifesto-logo" :href="EUROBRAILLE_URL" target="_blank" rel="noopener" aria-describedby="new-tab-hint">
           <EurobrailleLogo />
           <span aria-hidden="true">↗</span>
         </a>

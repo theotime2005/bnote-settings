@@ -1,14 +1,23 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { nextTick, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 import { useLocaleCookie } from "@/composables/useLocaleCookie.js";
 import { useFlags } from "@/stores/flags-store.js";
+import { useHead } from "#imports";
 
 const PRELOADER_DURATION = 1800;
+
+const { t, locale } = useI18n();
+
+useHead({
+  htmlAttrs: { lang: locale },
+});
 
 const flags = useFlags();
 const mainRef = ref(null);
 const canReset = ref(false);
+const menuIsOpen = ref(false);
 
 
 onMounted(async () => {
@@ -34,9 +43,7 @@ onMounted(async () => {
 });
 
 function focusMain() {
-  if (mainRef.value) {
-    mainRef.value.focus();
-  }
+  nextTick(() => mainRef.value?.focus());
 }
 
 function resetCookies() {
@@ -47,6 +54,8 @@ function resetCookies() {
 
 <template>
   <div class="app-shell">
+    <NuxtRouteAnnouncer />
+    <span id="new-tab-hint" hidden>{{ t("common.newTab") }}</span>
     <div class="preloader" aria-hidden="true">
       <div class="preloader__cells">
         <span v-for="cell in 6" :key="cell" class="preloader__dot" :style="{ '--dot-index': cell }"></span>
@@ -54,11 +63,11 @@ function resetCookies() {
       <span class="preloader__label">B.note</span>
     </div>
     <CursorFollower />
-    <NavBarComponent @move-cursor="focusMain" />
-    <main id="main-content" ref="mainRef" tabindex="-1" class="site-main">
+    <NavBarComponent @move-cursor="focusMain" @menu-change="menuIsOpen = $event" />
+    <main id="main-content" ref="mainRef" tabindex="-1" class="site-main" :inert="menuIsOpen">
       <NuxtPage />
     </main>
-    <FooterComponent />
+    <FooterComponent :inert="menuIsOpen" />
     <div v-if="canReset" class="dev-tools">
       <div class="container">
         <button class="custom-button button-red" @click="resetCookies">Reset all cookies</button>

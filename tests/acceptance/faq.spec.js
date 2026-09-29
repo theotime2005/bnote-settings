@@ -242,7 +242,8 @@ describe("Acceptance | FaqView", () => {
       const items = wrapper.findAll(".faq-item");
       expect(items.length).toBe(1);
       expect(items[0].find(".faq-question").text()).toBe("How to export preferences?");
-      expect(items[0].attributes("open")).toBeDefined();
+      expect(items[0].find(".faq-summary").attributes("aria-expanded")).toBe("true");
+      expect(items[0].find(".faq-body").attributes("hidden")).toBeUndefined();
     });
 
     it("should display a message when nothing matches", async () => {
@@ -252,6 +253,21 @@ describe("Acceptance | FaqView", () => {
       // then
       expect(wrapper.findAll(".faq-item").length).toBe(0);
       expect(wrapper.find(".faq-no-result").text()).toBe(t("faq.noResult"));
+    });
+    it("should toggle an answer from its question button", async () => {
+      // given
+      const button = wrapper.findAll(".faq-summary")[1];
+      const answer = wrapper.find(`#${button.attributes("aria-controls")}`);
+      expect(button.attributes("aria-expanded")).toBe("false");
+      expect(answer.attributes("hidden")).toBeDefined();
+
+      // when
+      await button.trigger("click");
+
+      // then
+      expect(button.attributes("aria-expanded")).toBe("true");
+      expect(answer.attributes("hidden")).toBeUndefined();
+      expect(answer.attributes("aria-labelledby")).toBe(button.attributes("id"));
     });
   });
 });

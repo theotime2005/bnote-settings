@@ -144,7 +144,10 @@ onBeforeUnmount(() => {
     <dl ref="statsRef" class="about-stats container">
       <div v-for="stat in stats" :key="stat.key" class="about-stat" data-reveal>
         <dt class="about-stat-label">{{ t(`about.stats.${stat.key}`) }}</dt>
-        <dd class="about-stat-value numeral">{{ stat.display }}{{ stat.suffix }}</dd>
+        <dd class="about-stat-value numeral">
+          <span aria-hidden="true">{{ stat.display }}{{ stat.suffix }}</span>
+          <span class="sr-only">{{ stat.value }}{{ stat.suffix }}</span>
+        </dd>
       </div>
     </dl>
 
@@ -163,8 +166,8 @@ onBeforeUnmount(() => {
         <h2 class="section-title">{{ t('about.feature-bug') }}</h2>
         <p class="about-text">{{ t('about.message3') }}</p>
         <div class="link-container">
-          <a :href="links.github.issues.feature" target="_blank" class="about-link link-arrow">{{ t('about.feature') }}</a>
-          <a :href="links.github.issues.report" target="_blank" class="about-link link-arrow">{{ t('about.bug_report') }}</a>
+          <a :href="links.github.issues.feature" target="_blank" rel="noopener" aria-describedby="new-tab-hint" class="about-link link-arrow">{{ t('about.feature') }}</a>
+          <a :href="links.github.issues.report" target="_blank" rel="noopener" aria-describedby="new-tab-hint" class="about-link link-arrow">{{ t('about.bug_report') }}</a>
         </div>
       </section>
     </div>

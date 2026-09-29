@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
@@ -41,11 +41,13 @@ const buttonIsVisible = ref(false);
 const navBarIsVisible = ref(false);
 const showAccessibilityMenu = ref(false);
 const headerRef = ref(null);
+const toggleButtonRef = ref(null);
 const isAtTop = ref(true);
 const isHidden = ref(false);
 let lastScrollY = 0;
 const heroTone = computed(() => route.meta?.heroTone || "dark");
-const emit = defineEmits(["move-cursor"]);
+const menuIsOpen = computed(() => buttonIsVisible.value && navBarIsVisible.value);
+const emit = defineEmits(["move-cursor", "menu-change"]);
 const accessibilitySettings = ref({
   textSize: "normal",
   contrast: "normal",
@@ -62,10 +64,10 @@ function toggleNavBar() {
 
 function handleScroll() {
   const scrollY = window.scrollY;
-  const menuIsOpen = showAccessibilityMenu.value || (buttonIsVisible.value && navBarIsVisible.value);
+  const panelIsOpen = showAccessibilityMenu.value || menuIsOpen.value;
   const hasFocus = headerRef.value?.contains(document.activeElement);
   isAtTop.value = scrollY < TOP_THRESHOLD;
-  isHidden.value = scrollY > lastScrollY && scrollY > HIDE_THRESHOLD && !menuIsOpen && !hasFocus;
+  isHidden.value = scrollY > lastScrollY && scrollY > HIDE_THRESHOLD && !panelIsOpen && !hasFocus;
   lastScrollY = scrollY;
 }
 
@@ -145,8 +147,9 @@ function handleKeyDown(event) {
   if (event.key === "Escape") {
     if (showAccessibilityMenu.value) {
       showAccessibilityMenu.value = false;
-    } else if (navBarIsVisible.value && buttonIsVisible.value) {
+    } else if (menuIsOpen.value) {
       toggleNavBar();
+      nextTick(() => toggleButtonRef.value?.focus());
     }
   }
 }
@@ -158,10 +161,13 @@ function handleClickOutside(event) {
   }
 }
 
+watch(menuIsOpen, (isOpen) => emit("menu-change", isOpen));
+
 onMounted(() => {
   window.addEventListener("resize", handleResize);
   window.addEventListener("scroll", handleScroll, { passive: true });
   document.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleKeyDown);
   handleResize();
   handleScroll();
   loadAccessibilitySettings();
@@ -172,6 +178,7 @@ onBeforeUnmount(() => {
   window.removeEventListener("resize", handleResize);
   window.removeEventListener("scroll", handleScroll);
   document.removeEventListener("click", handleClickOutside);
+  document.removeEventListener("keydown", handleKeyDown);
 });
 </script>
 
@@ -182,9 +189,8 @@ onBeforeUnmount(() => {
     :class="{
       [`nav-header--top ${HERO_TONE_CLASSES[heroTone] || ''}`]: isAtTop,
       'nav-header--hidden': isHidden,
-      'nav-header--menu-open': buttonIsVisible && navBarIsVisible,
+      'nav-header--menu-open': menuIsOpen,
     }"
-    @keydown="handleKeyDown"
     @focusin="showHeader"
   >
     <a href="#main-content" class="skip-link">{{ t('skip-content') }}</a>
@@ -193,6 +199,23 @@ onBeforeUnmount(() => {
       <NuxtLink class="nav-brand" :to="localePath('/')" @click="goto">
         <BrandMark />
       </NuxtLink>
+
+      <button
+        v-if="buttonIsVisible"
+        ref="toggleButtonRef"
+        class="nav-toggle-button"
+        :aria-expanded="navBarIsVisible"
+        :aria-controls="navBarIsVisible ? 'main-navigation' : null"
+        @click="toggleNavBar"
+      >
+        <span class="nav-toggle-icon" :class="{ 'open': navBarIsVisible }" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+        <span class="sr-only">
+          {{ navBarIsVisible ? t('header.close') : t('header.open') }}
+        </span>
+      </button>
 
       <nav
         v-if="navBarIsVisible"
@@ -218,99 +241,81 @@ onBeforeUnmount(() => {
         </ul>
       </nav>
 
-      <div class="nav-actions">
-        <div class="accessibility-controls">
-          <button
-            class="accessibility-toggle"
-            :aria-expanded="showAccessibilityMenu"
-            :aria-controls="showAccessibilityMenu ? 'accessibility-menu' : null"
-            :title="t('header.accessibilityOptions')"
-            @click="toggleAccessibilityMenu"
+      <div class="accessibility-controls">
+        <button
+          class="accessibility-toggle"
+          :aria-expanded="showAccessibilityMenu"
+          :aria-controls="showAccessibilityMenu ? 'accessibility-menu' : null"
+          :title="t('header.accessibilityOptions')"
+          @click="toggleAccessibilityMenu"
+        >
+          <svg class="accessibility-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="4.5" r="2" fill="currentColor" />
+            <path d="M4 8.5c2.6.8 5.3 1.2 8 1.2s5.4-.4 8-1.2M12 9.7v4.8m0 0-3 6.5m3-6.5 3 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="sr-only">{{ t('header.accessibilityOptions') }}</span>
+        </button>
+
+        <Transition name="popover">
+          <div
+            v-if="showAccessibilityMenu"
+            id="accessibility-menu"
+            class="accessibility-menu"
+            role="dialog"
+            :aria-label="t('header.accessibilityOptions')"
           >
-            <svg class="accessibility-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="4.5" r="2" fill="currentColor" />
-              <path d="M4 8.5c2.6.8 5.3 1.2 8 1.2s5.4-.4 8-1.2M12 9.7v4.8m0 0-3 6.5m3-6.5 3 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span class="sr-only">{{ t('header.accessibilityOptions') }}</span>
-          </button>
+            <p class="accessibility-menu-title">{{ t('header.accessibilityOptions') }}</p>
 
-          <Transition name="popover">
-            <div
-              v-if="showAccessibilityMenu"
-              id="accessibility-menu"
-              class="accessibility-menu"
-              role="dialog"
-              :aria-label="t('header.accessibilityOptions')"
-            >
-              <p class="accessibility-menu-title">{{ t('header.accessibilityOptions') }}</p>
-
-              <div class="accessibility-section">
-                <h3 class="accessibility-title">{{ t('header.textSize') }}</h3>
-                <div class="accessibility-options" role="radiogroup" :aria-label="t('header.textSize')">
-                  <label v-for="option in TEXT_SIZE_OPTIONS" :key="option.value" class="accessibility-option">
-                    <input
-                      type="radio"
-                      name="textSize"
-                      :value="option.value"
-                      :checked="accessibilitySettings.textSize === option.value"
-                      @change="updateTextSize(option.value)"
-                    />
-                    <span>{{ t(option.label) }}</span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="accessibility-section">
-                <h3 class="accessibility-title">{{ t('header.contrast') }}</h3>
-                <div class="accessibility-options" role="radiogroup" :aria-label="t('header.contrast')">
-                  <label v-for="option in CONTRAST_OPTIONS" :key="option.value" class="accessibility-option">
-                    <input
-                      type="radio"
-                      name="contrast"
-                      :value="option.value"
-                      :checked="accessibilitySettings.contrast === option.value"
-                      @change="updateContrast(option.value)"
-                    />
-                    <span>{{ t(option.label) }}</span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="accessibility-section">
-                <h3 class="accessibility-title">{{ t('header.colorScheme') }}</h3>
-                <div class="accessibility-options accessibility-options--stacked" role="radiogroup" :aria-label="t('header.colorScheme')">
-                  <label v-for="option in COLOR_SCHEME_OPTIONS" :key="option.value" class="accessibility-option">
-                    <input
-                      type="radio"
-                      name="colorScheme"
-                      :value="option.value"
-                      :checked="accessibilitySettings.colorScheme === option.value"
-                      @change="updateColorScheme(option.value)"
-                    />
-                    <span class="accessibility-swatch" :class="`accessibility-swatch--${option.value}`" aria-hidden="true"></span>
-                    <span>{{ t(option.label) }}</span>
-                  </label>
-                </div>
+            <div class="accessibility-section">
+              <h3 class="accessibility-title">{{ t('header.textSize') }}</h3>
+              <div class="accessibility-options" role="radiogroup" :aria-label="t('header.textSize')">
+                <label v-for="option in TEXT_SIZE_OPTIONS" :key="option.value" class="accessibility-option">
+                  <input
+                    type="radio"
+                    name="textSize"
+                    :value="option.value"
+                    :checked="accessibilitySettings.textSize === option.value"
+                    @change="updateTextSize(option.value)"
+                  />
+                  <span>{{ t(option.label) }}</span>
+                </label>
               </div>
             </div>
-          </Transition>
-        </div>
 
-        <button
-          v-if="buttonIsVisible"
-          class="nav-toggle-button"
-          :aria-expanded="navBarIsVisible"
-          :aria-controls="navBarIsVisible ? 'main-navigation' : null"
-          @click="toggleNavBar"
-        >
-          <span class="nav-toggle-icon" :class="{ 'open': navBarIsVisible }" aria-hidden="true">
-            <span></span>
-            <span></span>
-          </span>
-          <span class="sr-only">
-            {{ navBarIsVisible ? t('header.close') : t('header.open') }}
-          </span>
-        </button>
+            <div class="accessibility-section">
+              <h3 class="accessibility-title">{{ t('header.contrast') }}</h3>
+              <div class="accessibility-options" role="radiogroup" :aria-label="t('header.contrast')">
+                <label v-for="option in CONTRAST_OPTIONS" :key="option.value" class="accessibility-option">
+                  <input
+                    type="radio"
+                    name="contrast"
+                    :value="option.value"
+                    :checked="accessibilitySettings.contrast === option.value"
+                    @change="updateContrast(option.value)"
+                  />
+                  <span>{{ t(option.label) }}</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="accessibility-section">
+              <h3 class="accessibility-title">{{ t('header.colorScheme') }}</h3>
+              <div class="accessibility-options accessibility-options--stacked" role="radiogroup" :aria-label="t('header.colorScheme')">
+                <label v-for="option in COLOR_SCHEME_OPTIONS" :key="option.value" class="accessibility-option">
+                  <input
+                    type="radio"
+                    name="colorScheme"
+                    :value="option.value"
+                    :checked="accessibilitySettings.colorScheme === option.value"
+                    @change="updateColorScheme(option.value)"
+                  />
+                  <span class="accessibility-swatch" :class="`accessibility-swatch--${option.value}`" aria-hidden="true"></span>
+                  <span>{{ t(option.label) }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </Transition>
       </div>
     </div>
   </header>
@@ -386,8 +391,7 @@ onBeforeUnmount(() => {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-6);
+  gap: var(--space-2);
   min-height: var(--header-height);
 }
 
@@ -395,6 +399,7 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
+  margin-right: auto;
   color: var(--text);
   text-decoration: none;
   flex-shrink: 0;
@@ -406,9 +411,11 @@ onBeforeUnmount(() => {
 }
 
 .main-nav {
+  order: 1;
   flex: 1;
   display: flex;
   justify-content: center;
+  margin-inline: var(--space-4);
 }
 
 .nav-menu {
@@ -447,15 +454,15 @@ onBeforeUnmount(() => {
   background: var(--text);
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
+.accessibility-controls {
+  position: relative;
+  order: 2;
   flex-shrink: 0;
 }
 
-.accessibility-controls {
-  position: relative;
+.nav-toggle-button {
+  order: 3;
+  flex-shrink: 0;
 }
 
 .accessibility-toggle,
@@ -637,7 +644,8 @@ onBeforeUnmount(() => {
 }
 
 .nav-brand,
-.nav-actions {
+.accessibility-controls,
+.nav-toggle-button {
   position: relative;
   z-index: 1;
 }
@@ -646,7 +654,8 @@ onBeforeUnmount(() => {
   position: fixed;
   inset: 0;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  margin: 0;
   height: 100dvh;
   padding: calc(var(--header-height) + var(--space-8)) clamp(1rem, 4vw, 2.5rem) var(--space-10);
   overflow-y: auto;
@@ -664,6 +673,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: stretch;
   width: 100%;
+  margin-top: auto;
   padding: 0;
   background: transparent;
   border: 0;
@@ -677,7 +687,7 @@ onBeforeUnmount(() => {
   width: 100%;
   min-height: 0;
   padding: var(--space-3) 0;
-  font-size: clamp(2.25rem, 1rem + 7vw, 4rem);
+  font-size: clamp(1.75rem, min(1rem + 7vw, 7dvh), 4rem);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.045em;

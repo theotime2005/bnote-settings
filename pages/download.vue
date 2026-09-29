@@ -61,7 +61,7 @@ onMounted(function() {
           <span class="line-mask"><span class="line">{{ t("download.title") }}</span></span>
         </h1>
         <p class="download-lead reveal" style="--reveal-index: 3">{{ t('download.message-1') }}
-          <a :href="links.eurobraille.github" target="_blank" class="download-link">GitHub</a>.
+          <a :href="links.eurobraille.github" target="_blank" rel="noopener" aria-describedby="new-tab-hint" class="download-link">GitHub</a>.
         </p>
       </div>
       <BnoteDevice class="download-device" :words="['open', 'source', 'bnote', 'v3']" />
@@ -79,7 +79,7 @@ onMounted(function() {
           <a
             class="btn btn--primary"
             :href="links.eurobraille.download"
-            target="_blank"
+            target="_blank" rel="noopener" aria-describedby="new-tab-hint"
             data-magnetic
           >{{ t("download.downloadEurobraille") }}</a>
         </div>
@@ -93,7 +93,7 @@ onMounted(function() {
         </div>
         <h2 class="download-title">{{ t('download.otherTitle') }}</h2>
         <p class="download-description">{{ t('download.message3') }}
-          <a :href="links.theotime.github" target="_blank" class="download-link">{{ t('download.message-3-1') }}</a>
+          <a :href="links.theotime.github" target="_blank" rel="noopener" aria-describedby="new-tab-hint" class="download-link">{{ t('download.message-3-1') }}</a>
           {{ t('download.message-3-2') }}
         </p>
         <div class="download-actions">
@@ -105,7 +105,7 @@ onMounted(function() {
           >
             {{ t('download.downloadOtherLast', { version: lastVersion['tag'] }) }}
           </a>
-          <a class="link-arrow" :href="links.theotime.releases" target="_blank">
+          <a class="link-arrow" :href="links.theotime.releases" target="_blank" rel="noopener" aria-describedby="new-tab-hint">
             {{ t("download.releases") }}
           </a>
         </div>

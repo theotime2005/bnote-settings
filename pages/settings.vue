@@ -503,6 +503,16 @@ onBeforeUnmount(() => {
   animation: stepPulse 2.4s var(--ease-out) infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .settings-step--current .settings-step-node {
+    animation: none;
+  }
+
+  .settings-steps::after {
+    transition: none;
+  }
+}
+
 @keyframes stepPulse {
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
   70%, 100% { box-shadow: 0 0 0 0.75rem transparent; }

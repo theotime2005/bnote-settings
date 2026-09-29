@@ -15,6 +15,7 @@ useHead({
 
 const faq = ref(null);
 const query = ref("");
+const openItems = ref(new Set());
 
 const normalizedQuery = computed(() => query.value.trim().toLowerCase());
 
@@ -23,6 +24,24 @@ const filteredFaq = computed(() => {
   const items = faq.value.map((item, index) => ({ ...item, index }));
   if (!normalizedQuery.value) return items;
   return items.filter((item) => getSearchableText(item).includes(normalizedQuery.value));
+});
+
+function isOpen(index) {
+  return openItems.value.has(index);
+}
+
+function toggleItem(index) {
+  const next = new Set(openItems.value);
+  if (next.has(index)) {
+    next.delete(index);
+  } else {
+    next.add(index);
+  }
+  openItems.value = next;
+}
+
+watch(normalizedQuery, (value) => {
+  openItems.value = new Set(value ? filteredFaq.value.map((item) => item.index) : []);
 });
 
 function getAnswerElements(answer) {
@@ -82,7 +101,8 @@ onMounted(() => {
             <span>B.note</span>
           </p>
           <p v-if="faq && faq.length" class="faq-count reveal" aria-live="polite">
-            <span class="faq-count-value numeral">{{ String(filteredFaq.length).padStart(2, "0") }}</span>
+            <span class="faq-count-value numeral" aria-hidden="true">{{ String(filteredFaq.length).padStart(2, "0") }}</span>
+            <span class="sr-only">{{ filteredFaq.length }}</span>
             <span>{{ t("faq.questions", filteredFaq.length) }}</span>
           </p>
         </div>
@@ -116,24 +136,39 @@ onMounted(() => {
     </section>
 
     <div v-if="faq && faq.length" class="faq-list page container">
-      <details
+      <article
         v-for="item in filteredFaq"
         :key="`faq-item-${item.index}`"
         class="faq-item"
-        :open="Boolean(normalizedQuery)"
+        :class="{ 'faq-item--open': isOpen(item.index) }"
       >
-        <summary class="faq-summary">
-          <span class="faq-number numeral" aria-hidden="true">{{ String(item.index + 1).padStart(2, '0') }}</span>
-          <h2 class="faq-question">
-            <template v-for="(part, partIndex) in splitMatches(item.question)" :key="partIndex">
-              <mark v-if="part.match" class="faq-match">{{ part.text }}</mark>
-              <template v-else>{{ part.text }}</template>
-            </template>
-          </h2>
-          <span class="faq-toggle" aria-hidden="true"></span>
-        </summary>
+        <h2 class="faq-heading">
+          <button
+            :id="`faq-question-${item.index}`"
+            type="button"
+            class="faq-summary"
+            :aria-expanded="String(isOpen(item.index))"
+            :aria-controls="`faq-answer-${item.index}`"
+            @click="toggleItem(item.index)"
+          >
+            <span class="faq-number numeral" aria-hidden="true">{{ String(item.index + 1).padStart(2, '0') }}</span>
+            <span class="faq-question">
+              <template v-for="(part, partIndex) in splitMatches(item.question)" :key="partIndex">
+                <mark v-if="part.match" class="faq-match">{{ part.text }}</mark>
+                <template v-else>{{ part.text }}</template>
+              </template>
+            </span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+        </h2>
 
-        <div class="faq-body">
+        <div
+          :id="`faq-answer-${item.index}`"
+          class="faq-body"
+          role="region"
+          :aria-labelledby="`faq-question-${item.index}`"
+          :hidden="!isOpen(item.index)"
+        >
           <div
             v-for="(element, subIndex) in getAnswerElements(item.answer)"
             :key="`faq-answer-${item.index}-${subIndex}`"
@@ -160,7 +195,7 @@ onMounted(() => {
             </ol>
           </div>
         </div>
-      </details>
+      </article>
 
       <p v-if="!filteredFaq.length" class="faq-no-result">{{ t("faq.noResult") }}</p>
     </div>
@@ -305,20 +340,26 @@ onMounted(() => {
   border-bottom: 1px solid var(--border-strong);
 }
 
+.faq-heading {
+  margin: 0;
+  font-size: inherit;
+}
+
 .faq-summary {
   position: relative;
   display: grid;
   grid-template-columns: 5rem minmax(0, 1fr) auto;
   align-items: center;
   gap: clamp(1rem, 3vw, 2.5rem);
+  width: 100%;
   padding: clamp(1.5rem, 3vw, 2.5rem) var(--space-4);
+  font: inherit;
+  text-align: left;
+  color: var(--text);
+  background: none;
+  border: 0;
   cursor: pointer;
-  list-style: none;
   isolation: isolate;
-}
-
-.faq-summary::-webkit-details-marker {
-  display: none;
 }
 
 .faq-summary::before {
@@ -360,6 +401,8 @@ onMounted(() => {
 }
 
 .faq-question {
+  display: block;
+  font-weight: 700;
   font-size: clamp(1.375rem, 1rem + 1.4vw, 2.25rem);
   line-height: 1.15;
   letter-spacing: -0.035em;
@@ -408,11 +451,11 @@ onMounted(() => {
   transition: transform 0.5s var(--ease-out);
 }
 
-.faq-item[open] .faq-toggle {
+.faq-item--open .faq-toggle {
   transform: rotate(180deg);
 }
 
-.faq-item[open] .faq-toggle::after {
+.faq-item--open .faq-toggle::after {
   transform: translate(-50%, -50%) rotate(0deg);
 }
 
@@ -422,6 +465,10 @@ onMounted(() => {
   max-width: 48rem;
   padding: 0 var(--space-4) clamp(2rem, 4vw, 3rem) calc(5rem + clamp(1rem, 3vw, 2.5rem) + var(--space-4));
   animation: answerIn 0.6s var(--ease-out) both;
+}
+
+.faq-body[hidden] {
+  display: none;
 }
 
 .faq-answer-text {
