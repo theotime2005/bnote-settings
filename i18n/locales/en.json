@@ -45,6 +45,7 @@
     },
     "footer": {
         "code": "See the code on GitHub",
+        "cta": "Ready to configure?",
         "label": "Page footer menu",
         "message1": "This web application is free of rights. The source code is fully reusable and editable",
         "message2": "Your contributions are welcome.",
@@ -79,10 +80,12 @@
         },
         "goto-settings": "Access the management interface",
         "hero": {
-            "caption": "“bnote” in six-dot braille",
             "eyebrow": "B.note braille display · Eurobraille",
+            "scroll": "Scroll",
             "secondary": "Download the software",
-            "title": "Set up the B.note without going through braille."
+            "title-accent": "your B.note",
+            "title-end": "from any screen.",
+            "title-start": "Configure"
         },
         "message-1": "Welcome to the site dedicated to B.NOTE. On this site, you will find useful resources for B.NOTE, as well as a settings management interface.",
         "message2": "The B.NOTE is a display manufactured by the French company Eurobraille. This device can be configured in different ways, from the braille type to the display of certain applications. In order to allow a sighted person to configure it, this site offers a simple interface generating a file that can then be loaded into the B.NOTE. The user will then only have to open the file to load the new preferences.",
@@ -102,7 +105,15 @@
             "title": "Three steps, one file."
         },
         "title": "Home",
-        "title2": "What is it?"
+        "title2": "What is it?",
+        "translator": {
+            "hint": "Letters a to z, uncontracted six-dot braille.",
+            "label": "Word to transcribe",
+            "output": "Braille transcription",
+            "placeholder": "hello",
+            "title-accent": "see it in braille.",
+            "title-start": "Type a word,"
+        }
     },
     "languages": {
         "en": "English",

@@ -45,6 +45,7 @@
     },
     "footer": {
         "code": "Voir le code sur GitHub",
+        "cta": "Prêt à configurer ?",
         "label": "Menu de bas de page",
         "message1": "Cette application web est libre de droit. Le code source est entièrement réutilisable et modifiable",
         "message2": "Vos contributions sont les bienvenues.",
@@ -79,10 +80,12 @@
         },
         "goto-settings": "Accéder à l'interface de gestion",
         "hero": {
-            "caption": "« bnote » en braille à six points",
             "eyebrow": "Afficheur braille B.note · Eurobraille",
+            "scroll": "Défiler",
             "secondary": "Télécharger le logiciel",
-            "title": "Configurez le B.note, sans passer par le braille."
+            "title-accent": "votre B.note",
+            "title-end": "depuis n'importe quel écran.",
+            "title-start": "Configurez"
         },
         "message-1": "Bienvenue sur le site dédié au B.NOTE. Sur ce site, vous trouverez des ressources utiles au B.NOTE, ainsi qu'une interface de gestion des préférences.",
         "message2": "Le B.NOTE est un afficheur fabriqué par la société française Eurobraille. Cet appareil peut être paramétré de différentes manière, du type de braille en passant par l'affichage de certaines applications. Afin de permettre à une personne voyante de le paramétrer, ce site offre une interface simple générant un fichier qui pourra ensuite être chargé dans le B.NOTE. L'utilisateur n'aura alors plus qu'à ouvrir le fichier pour charger les nouvelles préférences.",
@@ -102,7 +105,15 @@
             "title": "Trois étapes, un fichier."
         },
         "title": "Accueil",
-        "title2": "C'est quoi?"
+        "title2": "C'est quoi?",
+        "translator": {
+            "hint": "Lettres de a à z, braille à six points non abrégé.",
+            "label": "Mot à transcrire",
+            "output": "Transcription braille",
+            "placeholder": "bonjour",
+            "title-accent": "voyez-le en braille.",
+            "title-start": "Tapez un mot,"
+        }
     },
     "languages": {
         "en": "Anglais",

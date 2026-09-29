@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n";
 
 import Changelog from "@/components/Changelog.vue";
 import { useFlags } from "@/stores/flags-store.js";
+import { toBrailleUnicode } from "@/utils/braille.js";
 import { useLocalePath } from "#i18n";
 import { useHead } from "#imports";
 
@@ -14,10 +15,15 @@ const displayChangelog = computed(() => flagsStore.getFlag("displayChangelog"));
 
 const STEPS = ["import", "adjust", "load"];
 const EXPLORE_LINKS = [
+  { path: "/settings", title: "header.nav.settings", text: "home.goto-settings" },
   { path: "/download", title: "download.title", text: "download.message2" },
   { path: "/faq", title: "faq.title", text: "faq.presentation" },
   { path: "/about", title: "about.title", text: "about.message1" },
 ];
+const MARQUEE_WORDS = ["bnote", "braille", "eurobraille", "settings"];
+
+const manifestoWords = computed(() => t("home.message2").split(" "));
+const marqueeItems = computed(() => MARQUEE_WORDS.map((word) => ({ word, braille: toBrailleUnicode(word) })));
 
 useHead({
   title: () => `${t("home.title")} | ${t("title")}`,
@@ -26,102 +32,173 @@ useHead({
 
 <template>
   <div class="home">
-    <section class="hero container" aria-labelledby="home-title">
-      <div class="hero-content">
-        <p class="eyebrow reveal">{{ t('home.hero.eyebrow') }}</p>
-        <h1 id="home-title" class="home-title reveal" style="--reveal-index: 1">{{ t('home.hero.title') }}</h1>
-        <p class="lead reveal" style="--reveal-index: 2">{{ t('home.message-1') }}</p>
-        <div class="hero-actions reveal" style="--reveal-index: 3">
-          <NuxtLink class="btn btn--primary home-link" :to="localePath('/settings')">{{ t('home.goto-settings') }}</NuxtLink>
-          <NuxtLink class="btn" :to="localePath('/download')">{{ t('home.hero.secondary') }}</NuxtLink>
+    <section class="hero on-inverse" aria-labelledby="home-title">
+      <PinField word="bnote" />
+      <div class="hero-inner container">
+        <p class="hero-meta index-label reveal">
+          <span>(01)</span>
+          <span>{{ t('home.hero.eyebrow') }}</span>
+        </p>
+
+        <h1 id="home-title" class="home-title">
+          <span class="line-mask"><span class="line">{{ t('home.hero.title-start') }}</span></span>
+          <span class="line-mask"><span class="line serif home-title-accent" style="--line-index: 1">{{ t('home.hero.title-accent') }}</span></span>
+          <span class="line-mask"><span class="line" style="--line-index: 2">{{ t('home.hero.title-end') }}</span></span>
+        </h1>
+
+        <div class="hero-bottom">
+          <p class="hero-lead reveal" style="--reveal-index: 4">{{ t('home.message-1') }}</p>
+          <div class="hero-actions reveal" style="--reveal-index: 5">
+            <NuxtLink class="btn btn--primary home-link" :to="localePath('/settings')">{{ t('home.goto-settings') }}</NuxtLink>
+            <NuxtLink class="btn" :to="localePath('/download')">{{ t('home.hero.secondary') }}</NuxtLink>
+          </div>
         </div>
+
+        <span class="hero-scroll index-label reveal" style="--reveal-index: 6" aria-hidden="true">
+          {{ t('home.hero.scroll') }}
+          <span class="hero-scroll-line"></span>
+        </span>
       </div>
-
-      <figure class="hero-visual reveal" style="--reveal-index: 2">
-        <div class="hero-device">
-          <div class="hero-device-keys" aria-hidden="true">
-            <span v-for="key in 8" :key="key"></span>
-          </div>
-          <BrailleWord word="bnote" size="large" animated class="hero-braille" />
-          <div class="hero-device-cells" aria-hidden="true">
-            <span v-for="cell in 20" :key="cell"></span>
-          </div>
-        </div>
-        <figcaption class="hero-caption">{{ t('home.hero.caption') }}</figcaption>
-      </figure>
     </section>
 
-    <section class="home-section home-intro container" aria-labelledby="home-intro-title">
-      <h2 id="home-intro-title" class="home-subtitle">{{ t('home.title2') }}</h2>
-      <p class="home-intro-text">{{ t('home.message2') }}</p>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <template v-for="group in 2" :key="group">
+          <span v-for="item in marqueeItems" :key="`${group}-${item.word}`" class="marquee-item">
+            <span class="marquee-word">{{ item.word }}</span>
+            <span class="marquee-braille">{{ item.braille }}</span>
+          </span>
+        </template>
+      </div>
+    </div>
+
+    <section class="manifesto container" aria-labelledby="home-intro-title">
+      <h2 id="home-intro-title" class="section-label index-label">
+        <span aria-hidden="true">(02)</span>
+        {{ t('home.title2') }}
+      </h2>
+      <p class="manifesto-text">
+        <span class="sr-only">{{ t('home.message2') }}</span>
+        <span aria-hidden="true">
+          <span v-for="(word, index) in manifestoWords" :key="index" class="manifesto-word">{{ `${word} ` }}</span>
+        </span>
+      </p>
     </section>
 
-    <section class="home-section container" aria-labelledby="home-steps-title">
-      <div class="section-heading">
-        <p class="eyebrow">{{ t('settings.page.how') }}</p>
-        <h2 id="home-steps-title" class="home-subtitle">{{ t('home.steps.title') }}</h2>
+    <section class="steps-section container" aria-labelledby="home-steps-title">
+      <div class="steps-heading">
+        <p class="section-label index-label"><span aria-hidden="true">(03)</span> {{ t('settings.page.how') }}</p>
+        <h2 id="home-steps-title" class="display-title">{{ t('home.steps.title') }}</h2>
       </div>
       <ol class="steps">
-        <li v-for="(step, index) in STEPS" :key="step" class="step">
+        <li v-for="(step, index) in STEPS" :key="step" class="step" :style="{ '--step-index': index }">
           <span class="step-number" aria-hidden="true">0{{ index + 1 }}</span>
-          <h3 class="step-title">{{ t(`home.steps.${step}.title`) }}</h3>
-          <p class="step-text">{{ t(`home.steps.${step}.text`) }}</p>
+          <div class="step-body">
+            <h3 class="step-title">{{ t(`home.steps.${step}.title`) }}</h3>
+            <p class="step-text">{{ t(`home.steps.${step}.text`) }}</p>
+          </div>
+          <BrailleWord :word="String.fromCharCode(97 + index)" size="large" class="step-braille" />
         </li>
       </ol>
     </section>
 
-    <section class="home-section container" aria-labelledby="home-explore-title">
-      <div class="section-heading">
-        <h2 id="home-explore-title" class="home-subtitle">{{ t('home.explore.title') }}</h2>
+    <div class="translator-section">
+      <div class="container" data-reveal>
+        <BrailleTranslator />
       </div>
+    </div>
+
+    <section class="explore-section container" aria-labelledby="home-explore-title">
+      <p class="section-label index-label"><span aria-hidden="true">(04)</span> {{ t('home.explore.title') }}</p>
+      <h2 id="home-explore-title" class="sr-only">{{ t('home.explore.title') }}</h2>
       <ul class="explore">
-        <li v-for="link in EXPLORE_LINKS" :key="link.path">
-          <NuxtLink class="explore-tile" :to="localePath(link.path)">
+        <li v-for="(link, index) in EXPLORE_LINKS" :key="link.path">
+          <NuxtLink class="explore-row" :to="localePath(link.path)">
+            <span class="explore-index index-label" aria-hidden="true">0{{ index + 1 }}</span>
             <span class="explore-title">{{ t(link.title) }}</span>
             <span class="explore-text">{{ t(link.text) }}</span>
-            <span class="explore-arrow" aria-hidden="true">→</span>
+            <span class="explore-arrow" aria-hidden="true">↗</span>
           </NuxtLink>
         </li>
       </ul>
     </section>
 
-    <section v-if="displayChangelog" class="home-section container">
+    <section v-if="displayChangelog" class="changelog-section container">
       <Changelog />
     </section>
   </div>
 </template>
 
 <style scoped>
-.home {
-  padding-bottom: clamp(3rem, 8vw, 6rem);
-}
-
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(2rem, 5vw, 5rem);
-  padding-top: clamp(3rem, 8vw, 7rem);
-  padding-bottom: clamp(3rem, 8vw, 6rem);
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.hero-content {
+.hero-inner {
+  position: relative;
+  z-index: 1;
   display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(2rem, 5vh, 4rem);
+  padding-top: calc(var(--header-height) + clamp(2rem, 6vh, 4rem));
+  padding-bottom: clamp(2rem, 5vh, 3rem);
+  pointer-events: none;
+}
+
+.hero-inner a,
+.hero-inner p {
+  pointer-events: auto;
+}
+
+.hero-meta {
+  display: flex;
   gap: var(--space-6);
-  justify-items: start;
+  color: var(--text-muted);
 }
 
 .home-title {
-  font-size: clamp(2.5rem, 1.4rem + 4.2vw, 5rem);
-  line-height: 1;
-  letter-spacing: -0.045em;
+  align-self: end;
+  font-size: clamp(3rem, 1rem + 8.2vw, 10.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  color: var(--text);
+}
+
+.home-title-accent {
+  padding-right: 0.08em;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.hero-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.hero-lead {
+  max-width: 34rem;
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--text-muted);
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  margin-top: var(--space-2);
+}
+
+.hero-actions .btn {
+  min-height: 3.5rem;
+  padding-inline: var(--space-8);
+  border-radius: var(--radius-full);
 }
 
 .home-link::after {
@@ -133,217 +210,336 @@ useHead({
   transform: translateX(4px);
 }
 
-.hero-visual {
-  display: grid;
+.hero-scroll {
+  position: absolute;
+  right: clamp(1rem, 4vw, 2.5rem);
+  top: 50%;
+  display: flex;
+  align-items: center;
   gap: var(--space-3);
+  color: var(--text-muted);
+  writing-mode: vertical-rl;
 }
 
-.hero-device {
+.hero-scroll-line {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 2.5rem);
-  justify-items: center;
-  padding: clamp(1.5rem, 4vw, 3rem);
-  color: var(--inverse-text);
-  background:
-    radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--accent-vivid) 22%, transparent), transparent 60%),
-    var(--inverse-bg);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  width: 1px;
+  height: 4rem;
   overflow: hidden;
+  background: var(--border);
 }
 
-.hero-device::before {
+.hero-scroll-line::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(currentColor 1px, transparent 1px);
-  background-size: 18px 18px;
-  opacity: 0.06;
-  pointer-events: none;
+  background: var(--accent);
+  animation: scrollHint 2s var(--ease-in-out) infinite;
 }
 
-.hero-device-keys {
+@keyframes scrollHint {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+
+.marquee {
+  overflow: hidden;
+  padding-block: var(--space-6);
+  background: var(--accent-vivid);
+  color: var(--inverse-bg);
+  border-block: 1px solid var(--inverse-bg);
+}
+
+.marquee-track {
   display: flex;
-  gap: var(--space-2);
-  width: 100%;
-  justify-content: space-between;
+  width: max-content;
+  animation: marquee 40s linear infinite;
 }
 
-.hero-device-keys span {
-  flex: 1;
-  height: 0.5rem;
-  border-radius: var(--radius-full);
-  background: var(--inverse-surface);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding-right: var(--space-12);
+  font-size: clamp(1.75rem, 1rem + 3vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
 }
 
-.hero-braille {
-  --braille-color: var(--accent-vivid);
-  color: var(--inverse-muted);
-  padding-block: var(--space-4);
+.marquee-braille {
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
 }
 
-.hero-device-cells {
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: 3px;
-  width: 100%;
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
 
-.hero-device-cells span {
-  height: 1.25rem;
-  border-radius: 3px;
-  background: var(--inverse-surface);
-}
-
-.hero-device-cells span:nth-child(-n + 5) {
-  background: color-mix(in srgb, var(--accent-vivid) 35%, var(--inverse-surface));
-}
-
-.hero-caption {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
+.section-label {
+  display: flex;
+  gap: var(--space-4);
   color: var(--text-muted);
-  text-align: center;
 }
 
-.home-section {
-  padding-block: clamp(2.5rem, 6vw, 5rem);
-  border-top: 1px solid var(--border);
-}
-
-.home-intro {
+.manifesto {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
+  gap: var(--space-10);
+  padding-block: clamp(5rem, 14vw, 12rem);
 }
 
-.home-intro-text {
-  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+.manifesto-text {
+  max-width: 62rem;
+  font-size: clamp(1.5rem, 0.9rem + 2.4vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
 
-.section-heading {
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .manifesto-word {
+      animation: wordIn linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+  }
+}
+
+@keyframes wordIn {
+  from { opacity: 0.15; }
+  to { opacity: 1; }
+}
+
+.steps-section {
   display: grid;
-  gap: var(--space-3);
-  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  gap: var(--space-12);
+  padding-bottom: clamp(5rem, 12vw, 10rem);
+}
+
+.steps-heading {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.display-title {
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 1.2rem + 5vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
 }
 
 .steps {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
 .step {
+  --braille-color: var(--accent);
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem + var(--step-index) * 1.25rem);
   display: grid;
-  align-content: start;
-  gap: var(--space-3);
-  padding: clamp(1.5rem, 3vw, 2rem);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  min-height: clamp(16rem, 38vh, 22rem);
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+  color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.step:nth-child(2) {
+  --text: var(--inverse-text);
+  --text-muted: var(--inverse-muted);
+  --braille-color: var(--accent-vivid);
+  background: var(--inverse-bg);
+  border-color: var(--inverse-bg);
+}
+
+.step:nth-child(3) {
+  --text: var(--inverse-bg);
+  --text-muted: var(--inverse-bg);
+  --braille-color: var(--inverse-bg);
+  background: var(--accent-vivid);
+  border-color: var(--accent-vivid);
+}
+
+:root[data-color-scheme="blue-yellow"] .step:nth-child(3) {
+  border: 2px solid var(--inverse-bg);
 }
 
 .step-number {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--accent);
-  margin-bottom: var(--space-6);
+  align-self: start;
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 2rem + 8vw, 10rem);
+  font-style: italic;
+  line-height: 0.8;
+  color: var(--text);
+}
+
+.step-body {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 36rem;
 }
 
 .step-title {
-  font-size: 1.375rem;
+  font-size: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  letter-spacing: -0.035em;
+  color: var(--text);
 }
 
 .step-text {
+  font-size: 1.125rem;
   color: var(--text-muted);
 }
 
-.explore {
+.step-braille {
+  color: var(--text-muted);
+}
+
+.translator-section {
+  padding-block: clamp(5rem, 12vw, 10rem);
+  background: var(--surface-2);
+  border-block: 1px solid var(--border);
+}
+
+.explore-section {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
+  gap: var(--space-10);
+  padding-block: clamp(5rem, 12vw, 10rem);
+}
+
+.explore {
+  margin: 0;
+  padding: 0;
   list-style: none;
+  border-top: 1px solid var(--border-strong);
 }
 
 .explore li {
-  display: flex;
+  border-bottom: 1px solid var(--border-strong);
 }
 
-.explore-tile {
+.explore-row {
   position: relative;
   display: grid;
-  align-content: start;
-  gap: var(--space-3);
-  width: 100%;
-  padding: clamp(1.5rem, 3vw, 2rem);
-  padding-bottom: var(--space-16);
+  grid-template-columns: 4rem minmax(0, 1.2fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-6);
+  padding: clamp(1.5rem, 3vw, 2.5rem) var(--space-4);
   color: var(--text);
   text-decoration: none;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+  isolation: isolate;
+  overflow: hidden;
+  transition: color 0.4s var(--ease-out);
 }
 
-.explore-tile:hover {
-  color: var(--bg);
-  background: var(--text);
-  border-color: var(--text);
+.explore-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--inverse-bg);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.explore-row:hover,
+.explore-row:focus-visible {
+  --text-muted: var(--inverse-muted);
+  color: var(--inverse-text);
   text-decoration: none;
+}
+
+.explore-row:hover::before,
+.explore-row:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.explore-index {
+  color: var(--text-muted);
 }
 
 .explore-title {
-  font-size: 1.375rem;
+  font-size: clamp(2rem, 1rem + 4vw, 5rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.explore-row:hover .explore-title {
+  transform: translateX(1rem);
 }
 
 .explore-text {
-  color: inherit;
-  opacity: 0.75;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
   overflow: hidden;
+  font-size: 1rem;
+  color: var(--text-muted);
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .explore-arrow {
-  position: absolute;
-  right: clamp(1.5rem, 3vw, 2rem);
-  bottom: var(--space-6);
   display: grid;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: 1.125rem;
-  border: 1.5px solid currentColor;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.5rem;
+  border: 1px solid currentColor;
   border-radius: 50%;
-  transition: transform var(--transition-base);
+  transition: transform 0.5s var(--ease-out), background 0.3s, color 0.3s;
 }
 
-.explore-tile:hover .explore-arrow {
-  transform: rotate(-45deg);
+.explore-row:hover .explore-arrow {
+  color: var(--inverse-bg);
+  background: var(--accent-vivid);
+  border-color: var(--accent-vivid);
+  transform: rotate(45deg);
 }
 
-@media (max-width: 960px) {
-  .hero {
-    grid-template-columns: 1fr;
+.changelog-section {
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+@media (max-width: 860px) {
+  .hero-scroll {
+    display: none;
   }
 
-  .home-intro {
-    grid-template-columns: 1fr;
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
   }
 
-  .steps,
-  .explore {
-    grid-template-columns: 1fr;
+  .step-braille {
+    display: none;
+  }
+
+  .explore-row {
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  }
+
+  .explore-text {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }
 </style>

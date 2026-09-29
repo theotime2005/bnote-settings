@@ -45,6 +45,7 @@
     },
     "footer": {
         "code": "Ver el código en GitHub",
+        "cta": "¿Listo para configurar?",
         "label": "Menú inferior",
         "message1": "Esta aplicación web es libre de derechos. El código fuente es totalmente reutilizable y modificable",
         "message2": "Tus contribuciones son bienvenidas.",
@@ -79,10 +80,12 @@
         },
         "goto-settings": "Acceder a la interfaz de gestión",
         "hero": {
-            "caption": "«bnote» en braille de seis puntos",
             "eyebrow": "Pantalla braille B.note · Eurobraille",
+            "scroll": "Desplazar",
             "secondary": "Descargar el software",
-            "title": "Configura el B.note sin pasar por el braille."
+            "title-accent": "tu B.note",
+            "title-end": "desde cualquier pantalla.",
+            "title-start": "Configura"
         },
         "message-1": "Bienvenido al sitio dedicado al B.NOTE. En este sitio, encontrarás recursos útiles para el B.NOTE, así como una interfaz de gestión de preferencias.",
         "message2": "El B.NOTE es una pantalla fabricada por la empresa francesa Eurobraille. Este dispositivo se puede configurar de diferentes maneras, desde el tipo de braille hasta la visualización de ciertas aplicaciones. Para permitir que una persona vidente lo configure, este sitio ofrece una interfaz simple que genera un archivo que luego se puede cargar en el B.NOTE. El usuario entonces solo tendrá que abrir el archivo para cargar las nuevas preferencias.",
@@ -102,7 +105,15 @@
             "title": "Tres pasos, un archivo."
         },
         "title": "Inicio",
-        "title2": "¿Qué es?"
+        "title2": "¿Qué es?",
+        "translator": {
+            "hint": "Letras de la a a la z, braille de seis puntos sin abreviar.",
+            "label": "Palabra a transcribir",
+            "output": "Transcripción braille",
+            "placeholder": "hola",
+            "title-accent": "mírala en braille.",
+            "title-start": "Escribe una palabra,"
+        }
     },
     "languages": {
         "en": "Inglés",
