@@ -9,6 +9,7 @@
         "message1": "Questo sito è stato creato nel 2024 da Théotime Berthod. Il suo codice sorgente è libero su GitHub.",
         "message2": "Se sei uno sviluppatore o una sviluppatrice e vuoi unirti all'avventura, non esitare più. Saremo sempre felici di vedere il sito arricchirsi di nuove funzionalità",
         "message3": "Non esitare a segnalarci qualsiasi suggerimento o problema tramite GitHub.",
+        "redesign": "Il design del sito è stato rinnovato nel 2026 con l'aiuto di Abdoul Kyrie Kane.",
         "stats": {
             "languages": "Lingue disponibili",
             "openSource": "Codice libero",
@@ -55,6 +56,7 @@
     },
     "footer": {
         "code": "Vedi il codice su GitHub",
+        "credits": "Creato da Théotime Berthod · Design rinnovato con Abdoul Kyrie Kane",
         "label": "Menu in fondo alla pagina",
         "message1": "Questa applicazione web è libera da diritti. Il codice sorgente è completamente riutilizzabile e modificabile",
         "message2": "I tuoi contributi sono benvenuti.",

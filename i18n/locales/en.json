@@ -9,6 +9,7 @@
         "message1": "This site was created in 2024 by Théotime Berthod. Its source code is free on GitHub.",
         "message2": "If you are a developer and want to join the adventure, do not hesitate any longer. We will always be happy to see the site enriched with new features",
         "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
+        "redesign": "The site's design was reworked in 2026 with the help of Abdoul Kyrie Kane.",
         "stats": {
             "languages": "Available languages",
             "openSource": "Open source code",
@@ -55,6 +56,7 @@
     },
     "footer": {
         "code": "See the code on GitHub",
+        "credits": "Created by Théotime Berthod · Design reworked with Abdoul Kyrie Kane",
         "label": "Page footer menu",
         "message1": "This web application is free of rights. The source code is fully reusable and editable",
         "message2": "Your contributions are welcome.",

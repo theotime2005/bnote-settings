@@ -52,6 +52,10 @@ Npm run build
 
 In the past, this project used tailwindcss. However, its use has been removed. A main style sheet is available, and you can enrich it from the components directly.
 
+## Credits
+- [Théotime Berthod](https://github.com/theotime2005): creator and maintainer of the project.
+- Abdoul Kyrie Kane: redesign of the website front end (2026).
+
 ## Contributing
 You can read the [Contribution guide](https://github.com/theotime2005/bnote-settings/blob/main/Contribution%20guide.md) file to learn how to contribute to the project.
 

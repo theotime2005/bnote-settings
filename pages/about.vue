@@ -132,7 +132,10 @@ onBeforeUnmount(() => {
           </span>
         </h1>
         <div class="about-hero-footer reveal" style="--reveal-index: 3">
-          <p class="about-text">{{ t('about.message1') }}</p>
+          <div class="about-intro">
+            <p class="about-text">{{ t('about.message1') }}</p>
+            <p class="about-credit">{{ t('about.redesign') }}</p>
+          </div>
           <p class="about-hint index-label" aria-hidden="true">{{ t("about.hint") }}</p>
         </div>
       </div>
@@ -246,6 +249,28 @@ onBeforeUnmount(() => {
   max-width: 34rem;
   font-size: 1.25rem;
   color: var(--text-muted);
+}
+
+.about-intro {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.about-credit {
+  max-width: 34rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.about-credit::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: var(--space-3);
+  vertical-align: middle;
+  background: var(--accent-vivid);
+  border-radius: 50%;
 }
 
 .about-hint {
