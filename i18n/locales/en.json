@@ -5,9 +5,15 @@
         "feature": "Suggest a new feature",
         "feature-bug": "An idea or a bug?",
         "github": "View the source code on GitHub",
+        "hint": "Hover the title",
         "message1": "This site was created in 2024 by Théotime Berthod. Its source code is free on GitHub.",
         "message2": "If you are a developer and want to join the adventure, do not hesitate any longer. We will always be happy to see the site enriched with new features",
         "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
+        "stats": {
+            "languages": "Available languages",
+            "openSource": "Open source code",
+            "year": "Year of creation"
+        },
         "title": "About website"
     },
     "changelog": {
@@ -39,8 +45,12 @@
         "title": "B.note download"
     },
     "faq": {
+        "noResult": "No question matches your search.",
         "nofaq": "No FAQ available in this language.",
         "presentation": "Welcome to the site's FAQ. This FAQ is different depending on the language selected.",
+        "questions": "question | questions",
+        "search": "Search the FAQ",
+        "searchPlaceholder": "What are you looking for?",
         "title": "FAQ"
     },
     "footer": {
@@ -243,6 +253,7 @@
             "no-result": "No results found for this search",
             "openOther": "Open another file",
             "or": "or",
+            "progress": "Progress",
             "question": "Do you really want to download the file?",
             "resetQuestion": "Do you really want to erase the current configuration? You will need to import another file.",
             "search": "Search for a setting",

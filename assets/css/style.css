@@ -583,6 +583,22 @@ hr {
     background: var(--bg);
 }
 
+.on-accent {
+    --bg: var(--accent-vivid);
+    --surface: color-mix(in srgb, var(--accent-vivid) 70%, #ffffff);
+    --surface-2: color-mix(in srgb, var(--accent-vivid) 85%, var(--inverse-bg));
+    --text: var(--inverse-bg);
+    --text-muted: color-mix(in srgb, var(--inverse-bg) 78%, var(--accent-vivid));
+    --border: color-mix(in srgb, var(--inverse-bg) 22%, transparent);
+    --border-strong: var(--inverse-bg);
+    --accent: var(--inverse-bg);
+    --accent-strong: var(--inverse-bg);
+    --accent-contrast: var(--accent-vivid);
+    --focus: var(--inverse-bg);
+    color: var(--text);
+    background: var(--bg);
+}
+
 .highlight {
     display: inline;
     padding: 0 0.12em;

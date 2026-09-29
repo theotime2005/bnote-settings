@@ -5,7 +5,9 @@ import { useI18n } from "vue-i18n";
 import { useNotifications } from "@/composables/useNotifications.js";
 import all_settings from "@/settings.json";
 import { useSettingsStore } from "@/stores/settingsStore.js";
-import { useHead } from "#imports";
+import { definePageMeta, useHead } from "#imports";
+
+definePageMeta({ heroTone: "light" });
 
 const { t } = useI18n();
 
@@ -29,8 +31,20 @@ const fileIsImported = ref(false);
 const activeSection = ref(null);
 const searchQuery = ref("");
 const isLoading = ref(false);
+const hasDownloaded = ref(false);
 const notifications = useNotifications();
 const settingsStore = useSettingsStore();
+
+const STEPS = [
+  { key: "import", cell: "a" },
+  { key: "adjust", cell: "b" },
+  { key: "load", cell: "c" },
+];
+
+const currentStep = computed(() => {
+  if (!fileIsImported.value) return 0;
+  return hasDownloaded.value ? 2 : 1;
+});
 
 const filteredSettings = computed(() => {
   if (!all_settings || typeof all_settings !== "object") {
@@ -66,6 +80,7 @@ function cleanData() {
   if (confirm) {
     isLoading.value = true;
     fileIsImported.value = false;
+    hasDownloaded.value = false;
     settingsStore.removeAll();
     window.removeEventListener("beforeunload", handleBeforeReload);
     activeSection.value = null;
@@ -143,6 +158,7 @@ function downloadFile() {
     link.download = fileNameValue;
     link.click();
     URL.revokeObjectURL(urlObject);
+    hasDownloaded.value = true;
     notifications.success(t("settings.notifications.fileDownloaded"));
   } catch (error) {
     notifications.error(t("settings.notifications.downloadError"));
@@ -194,9 +210,34 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="settings-container">
-    <PageHero index="03" :label="t('header.nav.settings')" :title="t('settings.page.title')" title-class="settings-title" word="config">
-      <p>{{ t("settings.page.message") }}</p>
-    </PageHero>
+    <section class="settings-hero">
+      <div class="settings-hero-inner container">
+        <p class="settings-hero-meta index-label reveal">
+          <span aria-hidden="true">(03)</span>
+          <span>{{ t("header.nav.settings") }}</span>
+        </p>
+        <h1 class="settings-title">
+          <span class="line-mask"><span class="line">{{ t("settings.page.title") }}</span></span>
+        </h1>
+        <p class="settings-hero-message reveal" style="--reveal-index: 3">{{ t("settings.page.message") }}</p>
+
+        <ol class="settings-steps reveal" :aria-label="t('settings.page.progress')" :style="{ '--step': currentStep }" style="--reveal-index: 4">
+          <li
+            v-for="(step, index) in STEPS"
+            :key="step.key"
+            class="settings-step"
+            :class="{ 'settings-step--done': index < currentStep, 'settings-step--current': index === currentStep }"
+            :aria-current="index === currentStep ? 'step' : undefined"
+          >
+            <span class="settings-step-node">
+              <BrailleWord :word="step.cell" size="small" />
+            </span>
+            <span class="settings-step-number numeral" aria-hidden="true">0{{ index + 1 }}</span>
+            <span class="settings-step-title">{{ t(`home.steps.${step.key}.title`) }}</span>
+          </li>
+        </ol>
+      </div>
+    </section>
 
     <div class="settings-body page container">
       <div v-if="isLoading" class="loading-overlay">
@@ -323,6 +364,148 @@ onBeforeUnmount(() => {
 <style scoped>
 .settings-container {
   position: relative;
+}
+
+.settings-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 48px 48px,
+    var(--surface-2);
+}
+
+.settings-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 20% 30%, transparent, var(--surface-2) 90%);
+  pointer-events: none;
+}
+
+.settings-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-8) clamp(2rem, 5vw, 5rem);
+  padding-top: calc(var(--header-height) + clamp(2.5rem, 7vh, 4.5rem));
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.settings-hero-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--space-6);
+  color: var(--text-muted);
+}
+
+.settings-title {
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 1rem + 4.2vw, 5.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  color: var(--text);
+}
+
+.settings-hero-message {
+  max-width: 28rem;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+}
+
+.settings-steps {
+  --step: 0;
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: var(--space-8) 0 0;
+  padding: var(--space-6) 0 0;
+  list-style: none;
+}
+
+.settings-steps::before,
+.settings-steps::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--space-6) + 1.25rem);
+  left: 1.25rem;
+  height: 2px;
+  background: var(--border);
+}
+
+.settings-steps::before {
+  right: 0;
+}
+
+.settings-steps::after {
+  width: calc((100% - 1.25rem) * var(--step) / 3);
+  background: var(--text);
+  transition: width 0.9s var(--ease-in-out);
+}
+
+.settings-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding-right: var(--space-4);
+  color: var(--text-muted);
+  transition: color 0.4s var(--ease-out);
+}
+
+.settings-step-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  grid-row: span 2;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  transition: color 0.4s var(--ease-out), background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.settings-step-number {
+  font-size: 0.8125rem;
+}
+
+.settings-step-title {
+  font-size: clamp(0.9375rem, 0.8rem + 0.4vw, 1.125rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.settings-step--done,
+.settings-step--current {
+  color: var(--text);
+}
+
+.settings-step--done .settings-step-node {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.settings-step--current .settings-step-node {
+  --braille-color: var(--accent-contrast);
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.15);
+  animation: stepPulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes stepPulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 0.75rem transparent; }
 }
 
 .loading-overlay {
@@ -653,6 +836,24 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 768px) {
+  .settings-hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-step {
+    grid-template-columns: 1fr;
+    align-content: start;
+    justify-items: start;
+  }
+
+  .settings-step-node {
+    grid-row: auto;
+  }
+
+  .settings-step-number {
+    display: none;
+  }
+
   .settings-intro-options {
     grid-template-columns: 1fr;
   }

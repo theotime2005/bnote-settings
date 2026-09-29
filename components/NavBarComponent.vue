@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
@@ -7,6 +7,10 @@ import { useLocalePath } from "#i18n";
 
 const MOBILE_BREAKPOINT = 960;
 const TOP_THRESHOLD = 24;
+const HERO_TONE_CLASSES = {
+  dark: "on-inverse",
+  accent: "on-accent",
+};
 const HIDE_THRESHOLD = 240;
 const routes = [
   { path: "/", name: "home", label: "home.title" },
@@ -40,6 +44,7 @@ const headerRef = ref(null);
 const isAtTop = ref(true);
 const isHidden = ref(false);
 let lastScrollY = 0;
+const heroTone = computed(() => route.meta?.heroTone || "dark");
 const emit = defineEmits(["move-cursor"]);
 const accessibilitySettings = ref({
   textSize: "normal",
@@ -175,7 +180,7 @@ onBeforeUnmount(() => {
     ref="headerRef"
     class="nav-header"
     :class="{
-      'on-inverse nav-header--top': isAtTop,
+      [`nav-header--top ${HERO_TONE_CLASSES[heroTone] || ''}`]: isAtTop,
       'nav-header--hidden': isHidden,
       'nav-header--menu-open': buttonIsVisible && navBarIsVisible,
     }"

@@ -5,9 +5,15 @@
         "feature": "Suggerire una nuova funzionalità",
         "feature-bug": "Un'idea o un bug?",
         "github": "Vedi il codice sorgente su GitHub",
+        "hint": "Passa sopra il titolo",
         "message1": "Questo sito è stato creato nel 2024 da Théotime Berthod. Il suo codice sorgente è libero su GitHub.",
         "message2": "Se sei uno sviluppatore o una sviluppatrice e vuoi unirti all'avventura, non esitare più. Saremo sempre felici di vedere il sito arricchirsi di nuove funzionalità",
         "message3": "Non esitare a segnalarci qualsiasi suggerimento o problema tramite GitHub.",
+        "stats": {
+            "languages": "Lingue disponibili",
+            "openSource": "Codice libero",
+            "year": "Anno di creazione"
+        },
         "title": "A proposito del sito"
     },
     "changelog": {
@@ -39,8 +45,12 @@
         "title": "Download B.note"
     },
     "faq": {
+        "noResult": "Nessuna domanda corrisponde alla ricerca.",
         "nofaq": "Nessuna FAQ disponibile in questa lingua.",
         "presentation": "Benvenuto nelle FAQ del sito. Questa FAQ è diversa a seconda della lingua selezionata.",
+        "questions": "domanda | domande",
+        "search": "Cerca nelle FAQ",
+        "searchPlaceholder": "Cosa stai cercando?",
         "title": "Domande frequenti"
     },
     "footer": {
@@ -243,6 +253,7 @@
             "no-result": "Nessun risultato per questa ricerca",
             "openOther": "Aprire un altro file",
             "or": "oppure",
+            "progress": "Avanzamento",
             "question": "Vuoi davvero scaricare il file?",
             "resetQuestion": "Vuoi davvero cancellare la configurazione corrente? Dovrai importare un altro file.",
             "search": "Cerca una preferenza",
