@@ -58,6 +58,7 @@ export default defineNuxtConfig({
   },
 
   app: {
+    pageTransition: { name: "page", mode: "out-in" },
     head: {
       title: "B.note",
       meta: [
@@ -67,6 +68,13 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", href: "/favicon.ico" },
+      ],
+      script: [
+        {
+          // Applied before paint to avoid a flash of the wrong theme and to replay the intro only once per session.
+          innerHTML: "(function(){var r=document.documentElement;try{if(sessionStorage.getItem('bnote-visited')){r.setAttribute('data-visited','');}else{sessionStorage.setItem('bnote-visited','1');}var s=JSON.parse(localStorage.getItem('accessibilitySettings')||'null');if(s){r.setAttribute('data-text-size',s.textSize||'normal');r.setAttribute('data-contrast',s.contrast||'normal');r.setAttribute('data-color-scheme',s.colorScheme||'default');}}catch(e){}})();",
+          tagPosition: "head",
+        },
       ],
     },
   },

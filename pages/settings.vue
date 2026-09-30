@@ -5,7 +5,9 @@ import { useI18n } from "vue-i18n";
 import { useNotifications } from "@/composables/useNotifications.js";
 import all_settings from "@/settings.json";
 import { useSettingsStore } from "@/stores/settingsStore.js";
-import { useHead } from "#imports";
+import { definePageMeta, useHead } from "#imports";
+
+definePageMeta({ heroTone: "light" });
 
 const { t } = useI18n();
 
@@ -29,8 +31,20 @@ const fileIsImported = ref(false);
 const activeSection = ref(null);
 const searchQuery = ref("");
 const isLoading = ref(false);
+const hasDownloaded = ref(false);
 const notifications = useNotifications();
 const settingsStore = useSettingsStore();
+
+const STEPS = [
+  { key: "import", cell: "a" },
+  { key: "adjust", cell: "b" },
+  { key: "load", cell: "c" },
+];
+
+const currentStep = computed(() => {
+  if (!fileIsImported.value) return 0;
+  return hasDownloaded.value ? 2 : 1;
+});
 
 const filteredSettings = computed(() => {
   if (!all_settings || typeof all_settings !== "object") {
@@ -66,6 +80,7 @@ function cleanData() {
   if (confirm) {
     isLoading.value = true;
     fileIsImported.value = false;
+    hasDownloaded.value = false;
     settingsStore.removeAll();
     window.removeEventListener("beforeunload", handleBeforeReload);
     activeSection.value = null;
@@ -143,6 +158,7 @@ function downloadFile() {
     link.download = fileNameValue;
     link.click();
     URL.revokeObjectURL(urlObject);
+    hasDownloaded.value = true;
     notifications.success(t("settings.notifications.fileDownloaded"));
   } catch (error) {
     notifications.error(t("settings.notifications.downloadError"));
@@ -194,342 +210,727 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="settings-container">
-    <h1 class="settings-title">{{ t("settings.page.title") }}</h1>
+    <section class="settings-hero">
+      <div class="settings-hero-inner container">
+        <p class="settings-hero-meta index-label reveal">
+          <span aria-hidden="true">(03)</span>
+          <span>{{ t("header.nav.settings") }}</span>
+        </p>
+        <h1 class="settings-title">
+          <span class="line-mask"><span class="line">{{ t("settings.page.title") }}</span></span>
+        </h1>
+        <p class="settings-hero-message reveal" style="--reveal-index: 3">{{ t("settings.page.message") }}</p>
 
-    <!-- Loading Overlay -->
-    <div v-if="isLoading" class="loading-overlay">
-      <LoadingSpinner size="large" :text="t('common.loading')" />
-    </div>
-
-    <!-- Initial Setup View -->
-    <div v-if="!fileIsImported" class="settings-intro-card fade-in">
-      <h2 class="settings-subtitle">{{ t("settings.page.how") }}</h2>
-      <p class="settings-explanation">{{ t("settings.page.explication") }}</p>
-      <UploadFileComponent ref="upload" @file-uploaded="showFile" />
-      <hr class="settings-divider" />
-      <button
-        type="button"
-        class="settings-button settings-button-primary focus-ring"
-        @click="createBasicData"
-      >
-        {{ t("settings.page.create") }}
-      </button>
-    </div>
-
-    <!-- Settings Management View -->
-    <div v-if="fileIsImported" class="settings-manager fade-in">
-      <header class="settings-header">
-        <h2 class="settings-filename">{{ fileName }}</h2>
-
-        <!-- Search Bar -->
-        <div class="search-container">
-          <label for="settings-search" class="sr-only">{{ t('settings.page.search') }}</label>
-          <input
-            id="settings-search"
-            v-model="searchQuery"
-            type="search"
-            class="settings-search focus-ring"
-            :placeholder="t('settings.page.search')"
-            @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
-          />
-        </div>
-        <ToolBar
-          :actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')" />
-      </header>
-
-      <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
-        <!-- Settings Navigation -->
-        <nav class="settings-nav" :aria-label="t('settings.page.navigation-section')">
-          <ul class="settings-nav-list">
-            <li v-for="(settings, section) in filteredSettings" :key="section">
-              <button
-                type="button"
-                class="settings-nav-button focus-ring"
-                :class="{ 'active': activeSection === section }"
-                :aria-expanded="activeSection === section"
-                :aria-controls="`section-${section}`"
-                @click="toggleSection(section)"
-                @keydown.enter.prevent="toggleSection(section)"
-                @keydown.space.prevent="toggleSection(section)"
-              >
-                {{ t(`settings.id.${section}`) }}
-              </button>
-            </li>
-          </ul>
-        </nav>
-
-        <!-- Settings Content -->
-        <div class="settings-content">
-          <section
-            v-for="(settings, section) in filteredSettings"
-            :id="`section-${section}`"
-            :key="section"
-            class="settings-section slide-in"
-            :class="{ 'active': activeSection === section }"
-            :aria-hidden="activeSection !== section"
+        <ol class="settings-steps reveal" :aria-label="t('settings.page.progress')" :style="{ '--step': currentStep }" style="--reveal-index: 4">
+          <li
+            v-for="(step, index) in STEPS"
+            :key="step.key"
+            class="settings-step"
+            :class="{ 'settings-step--done': index < currentStep, 'settings-step--current': index === currentStep }"
+            :aria-current="index === currentStep ? 'step' : undefined"
           >
-            <h3 class="settings-section-title">{{ t(`settings.id.${section}`) }}</h3>
-            <div class="settings-grid">
-              <SettingComponent
-                v-for="(setting, key) in settings"
-                :key="`${section}.${key}`"
-                :setting-section="section"
-                :setting-key="key"
-                :setting="setting"
-              />
-            </div>
-          </section>
-        </div>
-      </form>
-      <p v-else class="settings-no-results">
-        {{ t("settings.page.no-result") }}
-      </p>
-    </div>
+            <span class="settings-step-node">
+              <BrailleWord :word="step.cell" size="small" />
+            </span>
+            <span class="settings-step-number numeral" aria-hidden="true">0{{ index + 1 }}</span>
+            <span class="settings-step-title">{{ t(`home.steps.${step.key}.title`) }}</span>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-    <!-- Notifications -->
-    <div v-for="notification in notifications.notifications.value" :key="notification.id">
-      <NotificationToast
-        :visible="notification.visible"
-        :type="notification.type"
-        :title="notification.title"
-        :message="notification.message"
-        :dismissible="notification.dismissible"
-        @close="notifications.removeNotification(notification.id)"
-      />
+    <div class="settings-body page container">
+      <div v-if="isLoading" class="loading-overlay">
+        <LoadingSpinner size="large" :text="t('common.loading')" />
+      </div>
+
+      <div v-if="!fileIsImported" class="settings-intro-card fade-in">
+        <div class="settings-intro-text">
+          <h2 class="settings-subtitle">{{ t("settings.page.how") }}</h2>
+          <p class="settings-explanation">{{ t("settings.page.explication") }}</p>
+        </div>
+        <div class="settings-intro-options">
+          <UploadFileComponent ref="upload" @file-uploaded="showFile" />
+          <p class="settings-or" aria-hidden="true"><span>{{ t("settings.page.or") }}</span></p>
+          <div class="settings-create-card">
+            <BrailleWord word="bnote" class="settings-create-braille" />
+            <h3 class="settings-create-title">{{ t("settings.page.defaultName") }}</h3>
+            <button
+              type="button"
+              class="btn btn--primary settings-button settings-button-primary focus-ring"
+              @click="createBasicData"
+            >
+              {{ t("settings.page.create") }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="fileIsImported" class="settings-manager fade-in">
+        <header class="settings-header">
+          <div class="settings-file">
+            <span class="settings-file-icon" aria-hidden="true">.bnote</span>
+            <div>
+              <p class="settings-file-label">{{ t("settings.page.title2") }}</p>
+              <h2 class="settings-filename">{{ fileName }}</h2>
+            </div>
+          </div>
+
+          <div class="search-container">
+            <label for="settings-search" class="sr-only">{{ t('settings.page.search') }}</label>
+            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <input
+              id="settings-search"
+              v-model="searchQuery"
+              type="search"
+              class="settings-search focus-ring"
+              :placeholder="t('settings.page.search')"
+              @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
+            />
+          </div>
+          <ToolBar
+            :actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')" />
+        </header>
+
+        <form v-if="filteredSettings && Object.keys(filteredSettings).length > 0" class="settings-form" @submit.prevent="save">
+          <nav class="settings-nav" :aria-label="t('settings.page.navigation-section')">
+            <ul class="settings-nav-list">
+              <li v-for="(settings, section) in filteredSettings" :key="section">
+                <button
+                  type="button"
+                  class="settings-nav-button focus-ring"
+                  :class="{ 'active': activeSection === section }"
+                  :aria-expanded="activeSection === section"
+                  :aria-controls="`section-${section}`"
+                  @click="toggleSection(section)"
+                  @keydown.enter.prevent="toggleSection(section)"
+                  @keydown.space.prevent="toggleSection(section)"
+                >
+                  <span class="settings-nav-label">{{ t(`settings.id.${section}`) }}</span>
+                  <span class="settings-nav-count" aria-hidden="true">{{ Object.keys(settings).length }}</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="settings-content">
+            <div v-if="!activeSection" class="settings-placeholder">
+              <BrailleWord word="bnote" size="large" class="settings-placeholder-braille" />
+              <p>{{ t("settings.page.select-section") }}</p>
+            </div>
+            <section
+              v-for="(settings, section) in filteredSettings"
+              :id="`section-${section}`"
+              :key="section"
+              class="settings-section slide-in"
+              :class="{ 'active': activeSection === section }"
+              :aria-hidden="activeSection !== section"
+            >
+              <h3 class="settings-section-title">{{ t(`settings.id.${section}`) }}</h3>
+              <div class="settings-grid">
+                <SettingComponent
+                  v-for="(setting, key) in settings"
+                  :key="`${section}.${key}`"
+                  :setting-section="section"
+                  :setting-key="key"
+                  :setting="setting"
+                />
+              </div>
+            </section>
+          </div>
+        </form>
+        <p v-else class="settings-no-results">
+          {{ t("settings.page.no-result") }}
+        </p>
+      </div>
+
+      <div v-for="notification in notifications.notifications.value" :key="notification.id">
+        <NotificationToast
+          :visible="notification.visible"
+          :type="notification.type"
+          :title="notification.title"
+          :message="notification.message"
+          :dismissible="notification.dismissible"
+          @close="notifications.removeNotification(notification.id)"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .settings-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
   position: relative;
+}
+
+.settings-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 48px 48px,
+    var(--surface-2);
+}
+
+.settings-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 20% 30%, transparent, var(--surface-2) 90%);
+  pointer-events: none;
+}
+
+.settings-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-8) clamp(2rem, 5vw, 5rem);
+  padding-top: calc(var(--header-height) + clamp(2.5rem, 7vh, 4.5rem));
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.settings-hero-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--space-6);
+  color: var(--text-muted);
+}
+
+.settings-title {
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 1rem + 4.2vw, 5.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  color: var(--text);
+}
+
+.settings-hero-message {
+  max-width: 28rem;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+}
+
+.settings-steps {
+  --step: 0;
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: var(--space-8) 0 0;
+  padding: var(--space-6) 0 0;
+  list-style: none;
+}
+
+.settings-steps::before,
+.settings-steps::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--space-6) + 1.25rem);
+  left: 1.25rem;
+  height: 2px;
+  background: var(--border);
+}
+
+.settings-steps::before {
+  right: 0;
+}
+
+.settings-steps::after {
+  width: calc((100% - 1.25rem) * var(--step) / 3);
+  background: var(--text);
+  transition: width 0.9s var(--ease-in-out);
+}
+
+.settings-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding-right: var(--space-4);
+  color: var(--text-muted);
+  transition: color 0.4s var(--ease-out);
+}
+
+.settings-step-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  grid-row: span 2;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  transition: color 0.4s var(--ease-out), background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.settings-step-number {
+  font-size: 0.8125rem;
+}
+
+.settings-step-title {
+  font-size: clamp(0.9375rem, 0.8rem + 0.4vw, 1.125rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.settings-step--done,
+.settings-step--current {
+  color: var(--text);
+}
+
+.settings-step--done .settings-step-node {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.settings-step--current .settings-step-node {
+  --braille-color: var(--accent-contrast);
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.15);
+  animation: stepPulse 2.4s var(--ease-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settings-step--current .settings-step-node {
+    animation: none;
+  }
+
+  .settings-steps::after {
+    transition: none;
+  }
+}
+
+@keyframes stepPulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 0.75rem transparent; }
 }
 
 .loading-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset: 0;
   z-index: 999;
-  backdrop-filter: blur(2px);
-}
-
-.settings-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: var(--color-gray-900);
+  display: grid;
+  place-items: center;
+  background: var(--overlay);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .settings-intro-card {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1.5px solid var(--border-strong);
 }
 
-.settings-subtitle {
+.settings-intro-text {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+}
+
+.settings-explanation {
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}
+
+.settings-intro-options {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) auto minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.settings-or {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  position: relative;
+}
+
+.settings-or::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--border);
+}
+
+.settings-or span {
+  position: relative;
+  padding: var(--space-2) 0;
+  background: var(--bg);
+}
+
+.settings-create-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  color: var(--inverse-text);
+  background:
+    radial-gradient(100% 80% at 100% 0%, color-mix(in srgb, var(--accent-vivid) 22%, transparent), transparent 60%),
+    var(--inverse-bg);
+  border-radius: var(--radius-xl);
+}
+
+.settings-create-braille {
+  --braille-color: var(--accent-vivid);
+  color: var(--inverse-muted);
+  margin-bottom: auto;
+}
+
+:root[data-color-scheme="blue-yellow"] .settings-create-braille {
+  --braille-color: var(--inverse-text);
+}
+
+.settings-create-title {
+  color: var(--inverse-text);
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+}
+
+.settings-create-card .btn--primary {
+  --focus: var(--inverse-text);
+  color: var(--inverse-bg);
+  background: var(--inverse-text);
+  border-color: var(--inverse-text);
+}
+
+.settings-create-card .btn--primary:hover {
+  background: var(--accent-vivid);
+  border-color: var(--accent-vivid);
+}
+
+:root[data-color-scheme="blue-yellow"] .settings-create-card .btn--primary:hover {
+  background: var(--inverse-muted);
+  border-color: var(--inverse-muted);
 }
 
 .settings-manager {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
 }
 
 .settings-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--color-gray-200);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 20;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.settings-file {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.settings-file-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-radius: var(--radius-sm) 1rem var(--radius-sm) var(--radius-sm);
+}
+
+.settings-file-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .settings-filename {
   font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-gray-900);
+  overflow-wrap: anywhere;
 }
 
 .search-container {
+  position: relative;
   flex: 1;
-  max-width: 400px;
+  min-width: 14rem;
+  max-width: 26rem;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--space-4);
+  color: var(--text-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .settings-search {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--color-gray-300);
-  border-radius: var(--radius-md);
+  min-height: 2.75rem;
+  padding: 0 var(--space-4) 0 2.75rem;
   font-size: 1rem;
-  transition: var(--transition-base);
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-full);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
-.settings-search:focus {
+.settings-search:hover {
+  border-color: var(--border);
+}
+
+.settings-search:focus-visible {
   outline: none;
-  border-color: var(--color-blue-500);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  background: var(--surface);
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 30%, transparent);
 }
 
 .settings-form {
   display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 2rem;
-  padding: 1.5rem;
+  grid-template-columns: 17rem minmax(0, 1fr);
+  min-height: 32rem;
 }
 
 .settings-nav {
-  border-right: 1px solid var(--color-gray-200);
-  padding-right: 1.5rem;
+  min-width: 0;
+  padding: var(--space-4);
+  border-right: 1px solid var(--border);
 }
 
 .settings-nav-list {
+  position: sticky;
+  top: calc(var(--header-height) + 6.5rem);
+  display: grid;
+  gap: 2px;
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 .settings-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   width: 100%;
-  padding: 0.75rem 1rem;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9375rem;
+  font-weight: 600;
   text-align: left;
-  border: none;
+  color: var(--text-muted);
   background: transparent;
-  border-radius: var(--radius-md);
-  color: var(--color-gray-700);
+  border: 0;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .settings-nav-button:hover {
-  background: var(--color-gray-100);
-  transform: translateX(2px);
+  color: var(--text);
+  background: var(--surface-2);
 }
 
 .settings-nav-button.active {
-  background: var(--color-blue-100);
-  color: var(--color-blue-700);
-  font-weight: 500;
-  transform: translateX(4px);
+  color: var(--bg);
+  background: var(--text);
+}
+
+.settings-nav-count {
+  min-width: 1.75rem;
+  padding: 0.125rem var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
+  background: var(--surface-2);
+  border-radius: var(--radius-full);
+}
+
+.settings-nav-button.active .settings-nav-count {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.settings-content {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  min-width: 0;
+}
+
+.settings-placeholder {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-6);
+  height: 100%;
+  min-height: 24rem;
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--text-muted);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.settings-placeholder-braille {
+  --braille-color: var(--accent);
+  color: var(--text-muted);
 }
 
 .settings-section {
   display: none;
-  padding: 1rem;
-  background: var(--color-gray-50);
-  border-radius: var(--radius-lg);
 }
 
 .settings-section.active {
   display: block;
 }
 
+.settings-section-title {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
 .settings-grid {
   display: grid;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.settings-actions {
-  grid-column: 1 / -1;
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--color-gray-200);
-}
-
-.settings-button {
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-}
-
-.settings-button-primary {
-  background: var(--color-blue-500);
-  color: white;
-}
-
-.settings-button-primary:hover {
-  background: var(--color-blue-600);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.settings-button-success {
-  background: var(--color-green-500);
-  color: white;
-}
-
-.settings-button-success:hover {
-  background: var(--color-green-600);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.settings-button-danger {
-  background: var(--color-red-500);
-  color: white;
-}
-
-.settings-button-danger:hover {
-  background: var(--color-red-600);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  align-items: start;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
 }
 
 .settings-no-results {
+  padding: var(--space-16) var(--space-8);
   text-align: center;
-  color: var(--color-gray-500);
-  font-style: italic;
-  padding: 2rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1100px) {
+  .settings-intro-card {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
-  .settings-form {
+  .settings-hero-inner {
     grid-template-columns: 1fr;
   }
 
+  .settings-step {
+    grid-template-columns: 1fr;
+    align-content: start;
+    justify-items: start;
+  }
+
+  .settings-step-node {
+    grid-row: auto;
+  }
+
+  .settings-step-number {
+    display: none;
+  }
+
+  .settings-intro-options {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-or::before {
+    top: 50%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 1px;
+  }
+
+  .settings-or span {
+    padding: 0 var(--space-3);
+  }
+
+  .settings-header {
+    position: static;
+    padding: var(--space-4);
+  }
+
+  .search-container {
+    max-width: none;
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .settings-form {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
   .settings-nav {
-    border-right: none;
-    border-bottom: 1px solid var(--color-gray-200);
-    padding-right: 0;
-    padding-bottom: 1.5rem;
+    padding: var(--space-3) 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .settings-actions {
-    flex-direction: column;
+  .settings-nav-list {
+    position: static;
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
   }
 
-  .settings-button {
-    width: 100%;
+  .settings-nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .settings-nav-list li {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .settings-nav-button {
+    width: auto;
+    white-space: nowrap;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+  }
+
+  .settings-placeholder {
+    min-height: 14rem;
   }
 }
 </style>

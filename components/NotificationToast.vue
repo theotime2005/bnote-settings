@@ -33,14 +33,14 @@ const props = defineProps({
 
 const emit = defineEmits(["close"]);
 
-const iconComponent = computed(() => {
+const icon = computed(() => {
   const icons = {
-    success: "CheckIcon",
-    error: "XIcon",
-    warning: "ExclamationIcon",
-    info: "InfoIcon",
+    success: "✓",
+    error: "✕",
+    warning: "!",
+    info: "i",
   };
-  return icons[props.type] || "InfoIcon";
+  return icons[props.type] || icons.info;
 });
 
 onMounted(() => {
@@ -62,9 +62,7 @@ onMounted(() => {
         role="alert"
         :aria-live="type === 'error' ? 'assertive' : 'polite'"
       >
-        <div class="toast__icon">
-          <component :is="iconComponent" />
-        </div>
+        <span class="toast__icon" aria-hidden="true">{{ icon }}</span>
         <div class="toast__content">
           <h4 v-if="props.title" class="toast__title">{{ props.title }}</h4>
           <p class="toast__message">{{ props.message }}</p>
@@ -84,119 +82,112 @@ onMounted(() => {
 
 <style scoped>
 .toast {
+  --toast-color: var(--info);
   position: fixed;
-  top: var(--space-4);
-  right: var(--space-4);
-  max-width: 400px;
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
-  border: 1px solid var(--color-gray-200);
+  right: var(--space-6);
+  bottom: var(--space-6);
+  z-index: 1000;
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
+  max-width: 26rem;
   padding: var(--space-4);
-  z-index: 1000;
+  color: var(--inverse-text);
+  background: var(--inverse-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .toast--success {
-  border-left: 4px solid var(--color-green-500);
+  --toast-color: var(--accent-vivid);
 }
 
 .toast--error {
-  border-left: 4px solid var(--color-red-500);
+  --toast-color: #ff8a7a;
 }
 
 .toast--warning {
-  border-left: 4px solid var(--color-yellow-500);
+  --toast-color: #ffb86b;
 }
 
 .toast--info {
-  border-left: 4px solid var(--color-blue-500);
+  --toast-color: #8ab4ff;
+}
+
+:root[data-color-scheme="blue-yellow"] .toast {
+  --toast-color: var(--inverse-text);
 }
 
 .toast__icon {
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  margin-top: 2px;
-}
-
-.toast--success .toast__icon {
-  color: var(--color-green-500);
-}
-
-.toast--error .toast__icon {
-  color: var(--color-red-500);
-}
-
-.toast--warning .toast__icon {
-  color: var(--color-yellow-500);
-}
-
-.toast--info .toast__icon {
-  color: var(--color-blue-500);
+  width: 1.75rem;
+  height: 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--inverse-bg);
+  background: var(--toast-color);
+  border-radius: 50%;
 }
 
 .toast__content {
   flex: 1;
+  padding-top: 0.125rem;
 }
 
 .toast__title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin: 0 0 var(--space-1) 0;
-  color: var(--color-gray-900);
+  margin-bottom: var(--space-1);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--inverse-text);
 }
 
 .toast__message {
-  font-size: 0.875rem;
-  margin: 0;
-  color: var(--color-gray-700);
-  line-height: 1.4;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--inverse-muted);
 }
 
 .toast__close {
+  --focus: var(--inverse-text);
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
-  background: none;
-  border: none;
+  width: 1.75rem;
+  height: 1.75rem;
   font-size: 1.25rem;
-  color: var(--color-gray-400);
+  line-height: 1;
+  color: var(--inverse-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
   cursor: pointer;
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-base);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .toast__close:hover {
-  color: var(--color-gray-600);
-  background-color: var(--color-gray-100);
+  color: var(--inverse-text);
+  background: var(--inverse-surface);
 }
 
 .toast-enter-active,
 .toast-leave-active {
-  transition: all 0.3s ease;
+  transition: opacity var(--transition-base), transform var(--transition-base);
 }
 
-.toast-enter-from {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
+.toast-enter-from,
 .toast-leave-to {
   opacity: 0;
-  transform: translateX(100%);
+  transform: translateY(16px) scale(0.98);
 }
 
 @media (max-width: 768px) {
   .toast {
     left: var(--space-4);
     right: var(--space-4);
+    bottom: var(--space-4);
     max-width: none;
   }
 }

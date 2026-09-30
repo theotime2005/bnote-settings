@@ -5,9 +5,16 @@
         "feature": "Suggest a new feature",
         "feature-bug": "An idea or a bug?",
         "github": "View the source code on GitHub",
+        "hint": "Hover the title",
         "message1": "This site was created in 2024 by Théotime Berthod. Its source code is free on GitHub.",
         "message2": "If you are a developer and want to join the adventure, do not hesitate any longer. We will always be happy to see the site enriched with new features",
         "message3": "Do not hesitate to send us any suggestions or problems via GitHub.",
+        "redesign": "The site's design was reworked in 2026 with the help of Abdoul Kyrie Kane.",
+        "stats": {
+            "languages": "Available languages",
+            "openSource": "Open source code",
+            "year": "Year of creation"
+        },
         "title": "About website"
     },
     "changelog": {
@@ -21,6 +28,7 @@
         "error": "Error",
         "info": "Information",
         "loading": "Loading...",
+        "newTab": "opens in a new tab",
         "save": "Save",
         "success": "Success",
         "warning": "Warning"
@@ -39,12 +47,17 @@
         "title": "B.note download"
     },
     "faq": {
+        "noResult": "No question matches your search.",
         "nofaq": "No FAQ available in this language.",
         "presentation": "Welcome to the site's FAQ. This FAQ is different depending on the language selected.",
+        "questions": "question | questions",
+        "search": "Search the FAQ",
+        "searchPlaceholder": "What are you looking for?",
         "title": "FAQ"
     },
     "footer": {
         "code": "See the code on GitHub",
+        "credits": "Created by Théotime Berthod · Design reworked with Abdoul Kyrie Kane",
         "label": "Page footer menu",
         "message1": "This web application is free of rights. The source code is fully reusable and editable",
         "message2": "Your contributions are welcome.",
@@ -63,6 +76,10 @@
         "mainMenu": "Main menu",
         "menuClosed": "Navigation menu closed",
         "menuOpened": "Navigation menu opened",
+        "nav": {
+            "download": "Download",
+            "settings": "Settings"
+        },
         "normal": "Normal",
         "normalContrast": "Normal Contrast",
         "open": "Open the navigation menu",
@@ -70,11 +87,50 @@
         "textSize": "Text Size"
     },
     "home": {
+        "explore": {
+            "title": "Go further"
+        },
+        "facts": {
+            "country": "France",
+            "maker": "Manufacturer",
+            "origin": "Origin"
+        },
         "goto-settings": "Access the management interface",
+        "hero": {
+            "eyebrow": "B.note braille display",
+            "scroll": "Scroll",
+            "secondary": "Download the software",
+            "title-accent": "your B.note",
+            "title-end": "from any screen.",
+            "title-start": "Configure"
+        },
         "message-1": "Welcome to the site dedicated to B.NOTE. On this site, you will find useful resources for B.NOTE, as well as a settings management interface.",
         "message2": "The B.NOTE is a display manufactured by the French company Eurobraille. This device can be configured in different ways, from the braille type to the display of certain applications. In order to allow a sighted person to configure it, this site offers a simple interface generating a file that can then be loaded into the B.NOTE. The user will then only have to open the file to load the new preferences.",
+        "steps": {
+            "adjust": {
+                "text": "Browse the sections, search for a setting and change it in a few clicks.",
+                "title": "Adjust every preference"
+            },
+            "import": {
+                "text": "Load the .bnote file exported from the device, or use the default template.",
+                "title": "Import or start fresh"
+            },
+            "load": {
+                "text": "Download the generated file, copy it to the device and open it to apply the settings.",
+                "title": "Load it on the B.note"
+            },
+            "title": "Three steps, one file."
+        },
         "title": "Home",
-        "title2": "What is it?"
+        "title2": "What is it?",
+        "translator": {
+            "hint": "Letters a to z, uncontracted six-dot braille.",
+            "label": "Word to transcribe",
+            "output": "Braille transcription",
+            "placeholder": "hello",
+            "title-accent": "see it in braille.",
+            "title-start": "Type a word,"
+        }
     },
     "languages": {
         "en": "English",
@@ -204,9 +260,12 @@
             "navigation-section": "Setting navigation",
             "no-result": "No results found for this search",
             "openOther": "Open another file",
+            "or": "or",
+            "progress": "Progress",
             "question": "Do you really want to download the file?",
             "resetQuestion": "Do you really want to erase the current configuration? You will need to import another file.",
             "search": "Search for a setting",
+            "select-section": "Choose a category to view and edit its preferences.",
             "title": "B.note settings management",
             "title2": "Settings file",
             "toolbar": "File actions"

@@ -36,4 +36,17 @@ describe("FooterComponent", () => {
   it("contains LanguageComponent", () => {
     expect(wrapper.findComponent({ name: "LanguageComponent" }).exists()).toBe(true);
   });
+
+  it("reserves the bold width of every wordmark letter", () => {
+    const glyphs = wrapper.findAll(".wordmark-glyph");
+    expect(glyphs.map((glyph) => glyph.attributes("data-glyph")).join("")).toBe("B.note");
+    glyphs.forEach((glyph) => {
+      expect(glyph.find(".wordmark-face").text()).toBe(glyph.attributes("data-glyph"));
+    });
+  });
+
+  it("does not duplicate the site navigation", () => {
+    const hrefs = wrapper.findAll("a").map((link) => link.attributes("href"));
+    expect(hrefs).toEqual(["https://github.com/theotime2005/bnote-settings"]);
+  });
 });
