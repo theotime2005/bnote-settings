@@ -1,3 +1,17 @@
+## [6.5.0-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.8-beta.1...v6.5.0-beta.1) (2026-10-13)
+
+### 🚀 New features
+
+* Redesign the website interface ([#723](https://github.com/theotime2005/bnote-settings/issues/723)) ([273a70a](https://github.com/theotime2005/bnote-settings/commit/273a70a2685a0cbe8bc9da7971f5b35e2d392207))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump eslint-plugin-simple-import-sort from 13.0.0 to 14.0.0 ([#719](https://github.com/theotime2005/bnote-settings/issues/719)) ([95ff55c](https://github.com/theotime2005/bnote-settings/commit/95ff55c3b71f8547573e255059657ffeea2e773e))
+* **deps-dev:** bump happy-dom from 20.14.0 to 20.14.5 ([#721](https://github.com/theotime2005/bnote-settings/issues/721)) ([fb4bc4a](https://github.com/theotime2005/bnote-settings/commit/fb4bc4a5f21d40f40dcc940de0a90c1f151271ab))
+* **deps:** bump brace-expansion ([#729](https://github.com/theotime2005/bnote-settings/issues/729)) ([3dd6a71](https://github.com/theotime2005/bnote-settings/commit/3dd6a71fdfcde7bd78c93909c3460ae33f64355e))
+* **deps:** bump marked from 18.0.13 to 18.0.14 ([#720](https://github.com/theotime2005/bnote-settings/issues/720)) ([de6977b](https://github.com/theotime2005/bnote-settings/commit/de6977b3cd253abe2c45976b57c1e940129ec92a))
+* Update .nvmrc to Node.js 26.10.0 ([#722](https://github.com/theotime2005/bnote-settings/issues/722)) ([efcb3fc](https://github.com/theotime2005/bnote-settings/commit/efcb3fc731235ab90e21b6696e583c4a913eab4c))
+
 ## [6.4.8-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.7...v6.4.8-beta.1) (2026-09-26)
 
 ### 🐛 Bug fixes
