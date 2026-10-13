@@ -31,8 +31,8 @@ const props = defineProps({
 .loading-spinner__circle {
   width: 32px;
   height: 32px;
-  border: 3px solid var(--color-gray-200);
-  border-top-color: var(--color-blue-500);
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -50,8 +50,9 @@ const props = defineProps({
 }
 
 .loading-spinner__text {
+  font-family: var(--font-mono);
   font-size: 0.875rem;
-  color: var(--color-gray-600);
+  color: var(--text-muted);
   text-align: center;
 }
 

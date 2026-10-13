@@ -1,16 +1,37 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
 import { useLocalePath } from "#i18n";
 
+const MOBILE_BREAKPOINT = 960;
+const TOP_THRESHOLD = 24;
+const HERO_TONE_CLASSES = {
+  dark: "on-inverse",
+  accent: "on-accent",
+};
+const HIDE_THRESHOLD = 240;
 const routes = [
-  { path: "/", name: "home" },
-  { path: "/download", name: "download" },
-  { path: "/settings", name: "settings.page" },
-  { path: "/faq", name: "faq" },
-  { path: "/about", name: "about" },
+  { path: "/", name: "home", label: "home.title" },
+  { path: "/download", name: "download", label: "header.nav.download" },
+  { path: "/settings", name: "settings.page", label: "header.nav.settings" },
+  { path: "/faq", name: "faq", label: "faq.title" },
+  { path: "/about", name: "about", label: "about.title" },
+];
+const TEXT_SIZE_OPTIONS = [
+  { value: "small", label: "header.small" },
+  { value: "normal", label: "header.normal" },
+  { value: "large", label: "header.large" },
+];
+const CONTRAST_OPTIONS = [
+  { value: "normal", label: "header.normalContrast" },
+  { value: "high", label: "header.highContrast" },
+];
+const COLOR_SCHEME_OPTIONS = [
+  { value: "default", label: "header.defaultColors" },
+  { value: "dark", label: "header.darkMode" },
+  { value: "blue-yellow", label: "header.blueYellow" },
 ];
 
 const localePath = useLocalePath();
@@ -19,7 +40,14 @@ const route = useRoute();
 const buttonIsVisible = ref(false);
 const navBarIsVisible = ref(false);
 const showAccessibilityMenu = ref(false);
-const emit = defineEmits(["move-cursor"]);
+const headerRef = ref(null);
+const toggleButtonRef = ref(null);
+const isAtTop = ref(true);
+const isHidden = ref(false);
+let lastScrollY = 0;
+const heroTone = computed(() => route.meta?.heroTone || "dark");
+const menuIsOpen = computed(() => buttonIsVisible.value && navBarIsVisible.value);
+const emit = defineEmits(["move-cursor", "menu-change"]);
 const accessibilitySettings = ref({
   textSize: "normal",
   contrast: "normal",
@@ -34,12 +62,25 @@ function toggleNavBar() {
   announceToScreenReader(announcement);
 }
 
+function handleScroll() {
+  const scrollY = window.scrollY;
+  const panelIsOpen = showAccessibilityMenu.value || menuIsOpen.value;
+  const hasFocus = headerRef.value?.contains(document.activeElement);
+  isAtTop.value = scrollY < TOP_THRESHOLD;
+  isHidden.value = scrollY > lastScrollY && scrollY > HIDE_THRESHOLD && !panelIsOpen && !hasFocus;
+  lastScrollY = scrollY;
+}
+
+function showHeader() {
+  isHidden.value = false;
+}
+
 function toggleAccessibilityMenu() {
   showAccessibilityMenu.value = !showAccessibilityMenu.value;
 }
 
 function handleResize() {
-  if (window.innerWidth > 768) {
+  if (window.innerWidth > MOBILE_BREAKPOINT) {
     navBarIsVisible.value = true;
     buttonIsVisible.value = false;
   } else {
@@ -106,8 +147,9 @@ function handleKeyDown(event) {
   if (event.key === "Escape") {
     if (showAccessibilityMenu.value) {
       showAccessibilityMenu.value = false;
-    } else if (navBarIsVisible.value && buttonIsVisible.value) {
+    } else if (menuIsOpen.value) {
       toggleNavBar();
+      nextTick(() => toggleButtonRef.value?.focus());
     }
   }
 }
@@ -119,27 +161,86 @@ function handleClickOutside(event) {
   }
 }
 
+watch(menuIsOpen, (isOpen) => emit("menu-change", isOpen));
+
 onMounted(() => {
   window.addEventListener("resize", handleResize);
+  window.addEventListener("scroll", handleScroll, { passive: true });
   document.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleKeyDown);
   handleResize();
+  handleScroll();
   loadAccessibilitySettings();
   applyAccessibilitySettings();
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("resize", handleResize);
+  window.removeEventListener("scroll", handleScroll);
   document.removeEventListener("click", handleClickOutside);
+  document.removeEventListener("keydown", handleKeyDown);
 });
 </script>
 
 <template>
-  <header class="nav-header" @keydown="handleKeyDown">
-    <!-- Skip to main content link for screen readers -->
+  <header
+    ref="headerRef"
+    class="nav-header"
+    :class="{
+      [`nav-header--top ${HERO_TONE_CLASSES[heroTone] || ''}`]: isAtTop,
+      'nav-header--hidden': isHidden,
+      'nav-header--menu-open': menuIsOpen,
+    }"
+    @focusin="showHeader"
+  >
     <a href="#main-content" class="skip-link">{{ t('skip-content') }}</a>
 
-    <div class="nav-container">
-      <!-- Accessibility controls -->
+    <div class="nav-container container">
+      <NuxtLink class="nav-brand" :to="localePath('/')" @click="goto">
+        <BrandMark />
+      </NuxtLink>
+
+      <button
+        v-if="buttonIsVisible"
+        ref="toggleButtonRef"
+        class="nav-toggle-button"
+        :aria-expanded="navBarIsVisible"
+        :aria-controls="navBarIsVisible ? 'main-navigation' : null"
+        @click="toggleNavBar"
+      >
+        <span class="nav-toggle-icon" :class="{ 'open': navBarIsVisible }" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+        <span class="sr-only">
+          {{ navBarIsVisible ? t('header.close') : t('header.open') }}
+        </span>
+      </button>
+
+      <nav
+        v-if="navBarIsVisible"
+        id="main-navigation"
+        class="main-nav"
+        :class="{ 'main-nav--mobile': buttonIsVisible }"
+        :aria-label="t('header.mainMenu')"
+        role="navigation"
+      >
+        <ul class="nav-menu" role="menubar">
+          <li v-for="routeItem in routes" :key="routeItem.name" role="none">
+            <NuxtLink
+              class="nav-link"
+              :to="localePath(routeItem.path)"
+              role="menuitem"
+              :aria-current="route.path === localePath(routeItem.path) ? 'page' : undefined"
+              @click="goto"
+              @keydown.enter="goto"
+            >
+              {{ t(routeItem.label) }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </nav>
+
       <div class="accessibility-controls">
         <button
           class="accessibility-toggle"
@@ -148,602 +249,478 @@ onBeforeUnmount(() => {
           :title="t('header.accessibilityOptions')"
           @click="toggleAccessibilityMenu"
         >
-          <span class="accessibility-icon" aria-hidden="true">⚙️</span>
+          <svg class="accessibility-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="4.5" r="2" fill="currentColor" />
+            <path d="M4 8.5c2.6.8 5.3 1.2 8 1.2s5.4-.4 8-1.2M12 9.7v4.8m0 0-3 6.5m3-6.5 3 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
           <span class="sr-only">{{ t('header.accessibilityOptions') }}</span>
         </button>
 
-        <!-- Accessibility menu -->
-        <div
-          v-if="showAccessibilityMenu"
-          id="accessibility-menu"
-          class="accessibility-menu"
-          role="dialog"
-          :aria-label="t('header.accessibilityOptions')"
-        >
-          <div class="accessibility-section">
-            <h3 class="accessibility-title">{{ t('header.textSize') }}</h3>
-            <div class="accessibility-options" role="radiogroup" :aria-label="t('header.textSize')">
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="textSize"
-                  value="small"
-                  :checked="accessibilitySettings.textSize === 'small'"
-                  @change="updateTextSize('small')"
-                />
-                <span>{{ t('header.small') }}</span>
-              </label>
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="textSize"
-                  value="normal"
-                  :checked="accessibilitySettings.textSize === 'normal'"
-                  @change="updateTextSize('normal')"
-                />
-                <span>{{ t('header.normal') }}</span>
-              </label>
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="textSize"
-                  value="large"
-                  :checked="accessibilitySettings.textSize === 'large'"
-                  @change="updateTextSize('large')"
-                />
-                <span>{{ t('header.large') }}</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="accessibility-section">
-            <h3 class="accessibility-title">{{ t('header.contrast') }}</h3>
-            <div class="accessibility-options" role="radiogroup" :aria-label="t('header.contrast')">
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="contrast"
-                  value="normal"
-                  :checked="accessibilitySettings.contrast === 'normal'"
-                  @change="updateContrast('normal')"
-                />
-                <span>{{ t('header.normalContrast') }}</span>
-              </label>
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="contrast"
-                  value="high"
-                  :checked="accessibilitySettings.contrast === 'high'"
-                  @change="updateContrast('high')"
-                />
-                <span>{{ t('header.highContrast') }}</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="accessibility-section">
-            <h3 class="accessibility-title">{{ t('header.colorScheme') }}</h3>
-            <div class="accessibility-options" role="radiogroup" :aria-label="t('header.colorScheme')">
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="colorScheme"
-                  value="default"
-                  :checked="accessibilitySettings.colorScheme === 'default'"
-                  @change="updateColorScheme('default')"
-                />
-                <span>{{ t('header.defaultColors') }}</span>
-              </label>
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="colorScheme"
-                  value="dark"
-                  :checked="accessibilitySettings.colorScheme === 'dark'"
-                  @change="updateColorScheme('dark')"
-                />
-                <span>{{ t('header.darkMode') }}</span>
-              </label>
-              <label class="accessibility-option">
-                <input
-                  type="radio"
-                  name="colorScheme"
-                  value="blue-yellow"
-                  :checked="accessibilitySettings.colorScheme === 'blue-yellow'"
-                  @change="updateColorScheme('blue-yellow')"
-                />
-                <span>{{ t('header.blueYellow') }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile menu toggle -->
-      <button
-        v-if="buttonIsVisible"
-        class="nav-toggle-button"
-        :aria-expanded="navBarIsVisible"
-        :aria-controls="navBarIsVisible ? 'main-navigation' : null"
-        @click="toggleNavBar"
-      >
-        <span class="nav-toggle-icon" :class="{ 'open': navBarIsVisible }">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-        <span class="nav-toggle-text">
-          {{ navBarIsVisible ? t('header.close') : t('header.open') }}
-        </span>
-      </button>
-    </div>
-
-    <!-- Main navigation -->
-    <nav
-      v-if="navBarIsVisible"
-      id="main-navigation"
-      class="main-nav"
-      :aria-label="t('header.mainMenu')"
-      role="navigation"
-    >
-      <ul class="nav-menu" role="menubar">
-        <li v-for="routeItem in routes" :key="routeItem.name" role="none">
-          <NuxtLink
-            class="nav-link"
-            :to="localePath(routeItem.path)"
-            role="menuitem"
-            :aria-current="route.path === localePath(routeItem.path) ? 'page' : undefined"
-            @click="goto"
-            @keydown.enter="goto"
+        <Transition name="popover">
+          <div
+            v-if="showAccessibilityMenu"
+            id="accessibility-menu"
+            class="accessibility-menu"
+            role="dialog"
+            :aria-label="t('header.accessibilityOptions')"
           >
-            {{ t(`${routeItem.name}.title`) }}
-          </NuxtLink>
-        </li>
-      </ul>
-    </nav>
+            <p class="accessibility-menu-title">{{ t('header.accessibilityOptions') }}</p>
+
+            <div class="accessibility-section">
+              <h3 class="accessibility-title">{{ t('header.textSize') }}</h3>
+              <div class="accessibility-options" role="radiogroup" :aria-label="t('header.textSize')">
+                <label v-for="option in TEXT_SIZE_OPTIONS" :key="option.value" class="accessibility-option">
+                  <input
+                    type="radio"
+                    name="textSize"
+                    :value="option.value"
+                    :checked="accessibilitySettings.textSize === option.value"
+                    @change="updateTextSize(option.value)"
+                  />
+                  <span>{{ t(option.label) }}</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="accessibility-section">
+              <h3 class="accessibility-title">{{ t('header.contrast') }}</h3>
+              <div class="accessibility-options" role="radiogroup" :aria-label="t('header.contrast')">
+                <label v-for="option in CONTRAST_OPTIONS" :key="option.value" class="accessibility-option">
+                  <input
+                    type="radio"
+                    name="contrast"
+                    :value="option.value"
+                    :checked="accessibilitySettings.contrast === option.value"
+                    @change="updateContrast(option.value)"
+                  />
+                  <span>{{ t(option.label) }}</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="accessibility-section">
+              <h3 class="accessibility-title">{{ t('header.colorScheme') }}</h3>
+              <div class="accessibility-options accessibility-options--stacked" role="radiogroup" :aria-label="t('header.colorScheme')">
+                <label v-for="option in COLOR_SCHEME_OPTIONS" :key="option.value" class="accessibility-option">
+                  <input
+                    type="radio"
+                    name="colorScheme"
+                    :value="option.value"
+                    :checked="accessibilitySettings.colorScheme === option.value"
+                    @change="updateColorScheme(option.value)"
+                  />
+                  <span class="accessibility-swatch" :class="`accessibility-swatch--${option.value}`" aria-hidden="true"></span>
+                  <span>{{ t(option.label) }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </div>
+    </div>
   </header>
 </template>
 
 <style scoped>
 .nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   width: 100%;
-  position: relative;
+  color: var(--text);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: saturate(1.6) blur(18px);
+  -webkit-backdrop-filter: saturate(1.6) blur(18px);
+  transition: transform 0.5s var(--ease-in-out), background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+}
+
+.nav-header.nav-header--top {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.nav-header--hidden {
+  transform: translateY(-100%);
+}
+
+.nav-header--menu-open,
+.nav-header.nav-header--menu-open {
+  --text: var(--inverse-text);
+  --text-muted: var(--inverse-muted);
+  --border: color-mix(in srgb, var(--inverse-text) 18%, transparent);
+  --border-strong: var(--inverse-text);
+  --surface: var(--inverse-surface);
+  --bg: var(--inverse-bg);
+  --accent: var(--accent-vivid);
+  --focus: var(--inverse-text);
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .skip-link {
   position: absolute;
-  top: -40px;
-  left: 6px;
-  background: var(--color-blue-600);
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  border-radius: 4px;
+  top: var(--space-3);
+  left: var(--space-4);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-150%);
   z-index: 1000;
-  transition: top 0.3s;
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: transform var(--transition-base), opacity var(--transition-base);
 }
 
 .skip-link:focus {
-  top: 6px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: rgb(15, 23, 42);
-}
-
-.nav-toggle-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  background: transparent;
-  border: 2px solid rgb(74, 222, 128);
-  border-radius: 0.375rem;
-  color: rgb(74, 222, 128);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-toggle-button:hover,
-.nav-toggle-button:focus {
-  background-color: rgb(74, 222, 128);
-  color: rgb(15, 23, 42);
-  outline: none;
-}
-
-.nav-toggle-icon {
-  display: flex;
-  flex-direction: column;
-  width: 20px;
-  height: 16px;
-  justify-content: space-between;
-}
-
-.nav-toggle-icon span {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background-color: currentColor;
-  transition: all 0.3s ease;
-  transform-origin: center;
-}
-
-.nav-toggle-icon.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.nav-toggle-icon.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.nav-toggle-icon.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
-}
-
-.nav-toggle-text {
-  font-weight: 500;
-}
-
-.accessibility-controls {
   position: relative;
-}
-
-.accessibility-toggle {
-  padding: var(--space-3);
-  background: transparent;
-  border: 2px solid var(--color-blue-500);
-  border-radius: var(--radius-md);
-  color: var(--color-blue-600);
-  cursor: pointer;
-  transition: var(--transition-base);
-  font-size: 1.1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-}
-
-.accessibility-toggle:hover,
-.accessibility-toggle:focus {
-  background-color: var(--color-blue-500);
-  color: var(--color-white);
-  outline: none;
-  transform: scale(1.05);
-}
-
-.accessibility-toggle:focus-visible {
-  outline: 3px solid var(--color-blue-300);
-  outline-offset: 2px;
-}
-
-.accessibility-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 0.5rem;
-  background: #ffffff !important;
-  border: 2px solid #d1d5db;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
-  padding: var(--space-4);
-  width: 300px;
-  z-index: 9999;
-  transform: translateX(calc(100% - 44px));
-  color: #111827 !important;
-}
-
-.accessibility-menu * {
-  color: #111827 !important;
-}
-
-.accessibility-section {
-  margin-bottom: 1rem;
-}
-
-.accessibility-section:last-child {
-  margin-bottom: 0;
-}
-
-.accessibility-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #111827 !important;
-  margin-bottom: var(--space-3);
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: var(--space-2);
-}
-
-.accessibility-options {
-  display: flex;
-  flex-direction: column;
   gap: var(--space-2);
+  min-height: var(--header-height);
 }
 
-.accessibility-option {
-  display: flex;
+.nav-brand {
+  display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3);
-  cursor: pointer;
-  border-radius: var(--radius-md);
-  transition: var(--transition-base);
-  border: 1px solid transparent;
-  background-color: transparent;
+  margin-right: auto;
+  color: var(--text);
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
-.accessibility-option:hover {
-  background-color: var(--color-green-100) !important;
-  border-color: var(--color-green-500);
-}
-
-.accessibility-option:focus-within {
-  background-color: var(--color-green-100) !important;
-  border-color: var(--color-green-500);
-}
-
-.accessibility-option input[type="radio"] {
-  margin: 0;
-  width: 16px;
-  height: 16px;
-}
-
-.accessibility-option span {
-  font-weight: 500;
-  color: #111827 !important;
-}
-
-.accessibility-option:hover span {
-  color: #111827 !important;
-}
-
-.accessibility-option:focus-within span {
-  color: #111827 !important;
-}
-
-.accessibility-option label {
-  color: #111827 !important;
-}
-
-.accessibility-option label span {
-  color: #111827 !important;
+.nav-brand:hover {
+  color: var(--text);
+  text-decoration: none;
 }
 
 .main-nav {
-  background-color: rgb(15, 23, 42);
-  border-top: 1px solid rgb(71, 85, 105);
-  padding: 1rem;
+  order: 1;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-inline: var(--space-4);
 }
 
 .nav-menu {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1);
   list-style: none;
-  margin: 0;
-  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
 }
 
 .nav-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1rem;
-  color: rgb(74, 222, 128);
-  background: transparent;
-  border: 2px solid rgb(74, 222, 128);
-  border-radius: 0.375rem;
+  min-height: 2.5rem;
+  padding: 0 var(--space-4);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-muted);
   text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
+  white-space: nowrap;
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-.nav-link:hover,
-.nav-link:focus {
-  background-color: rgb(74, 222, 128);
-  color: rgb(15, 23, 42);
-  outline: none;
-  transform: translateY(-2px);
+.nav-link:hover {
+  color: var(--text);
+  background: var(--surface-2);
+  text-decoration: none;
 }
 
 .nav-link[aria-current="page"] {
-  background-color: rgb(74, 222, 128);
-  color: rgb(15, 23, 42);
+  color: var(--bg);
+  background: var(--text);
 }
 
-.nav-link[aria-current="page"]::after {
-  content: '';
+.accessibility-controls {
+  position: relative;
+  order: 2;
+  flex-shrink: 0;
+}
+
+.nav-toggle-button {
+  order: 3;
+  flex-shrink: 0;
+}
+
+.accessibility-toggle,
+.nav-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.accessibility-toggle:hover,
+.nav-toggle-button:hover,
+.accessibility-toggle[aria-expanded="true"],
+.nav-toggle-button[aria-expanded="true"] {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.accessibility-menu {
   position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 2px;
-  background-color: rgb(34, 197, 94);
+  top: calc(100% + var(--space-3));
+  right: 0;
+  z-index: 200;
+  display: grid;
+  gap: var(--space-5);
+  width: min(22rem, calc(100vw - 2rem));
+  padding: var(--space-5);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.accessibility-menu-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .nav-menu {
-    flex-direction: column;
-  }
-
-  .nav-link {
-    width: 100%;
-    text-align: center;
-  }
-
-  .accessibility-menu {
-    right: auto;
-    left: 0;
-  }
+.accessibility-title {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-/* Accessibility enhancements based on user preferences */
-:root[data-text-size="small"] {
-  font-size: 14px;
+.accessibility-options {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
 }
 
-:root[data-text-size="large"] {
-  font-size: 18px;
+.accessibility-options--stacked {
+  flex-direction: column;
 }
 
-:root[data-contrast="high"] .nav-header {
-  --color-primary: #000000;
-  --color-secondary: #ffffff;
-  --color-accent: #ffff00;
+.accessibility-option {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.5rem;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-muted);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-:root[data-contrast="high"] .nav-toggle-button,
-:root[data-contrast="high"] .nav-link,
-:root[data-contrast="high"] .accessibility-toggle {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+.accessibility-options--stacked .accessibility-option {
+  justify-content: flex-start;
 }
 
-:root[data-contrast="high"] .nav-toggle-button:hover,
-:root[data-contrast="high"] .nav-toggle-button:focus,
-:root[data-contrast="high"] .nav-link:hover,
-:root[data-contrast="high"] .nav-link:focus,
-:root[data-contrast="high"] .accessibility-toggle:hover,
-:root[data-contrast="high"] .accessibility-toggle:focus {
-  background-color: var(--color-accent);
-  color: var(--color-primary);
+.accessibility-option:hover {
+  color: var(--text);
 }
 
-:root[data-color-scheme="dark"] .nav-container,
-:root[data-color-scheme="dark"] .main-nav {
-  background-color: #1a1a1a;
+.accessibility-option:has(input:checked) {
+  color: var(--text);
+  background: var(--surface);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
 }
 
-:root[data-color-scheme="dark"] .accessibility-menu {
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-900);
-  border-color: var(--color-gray-400);
-}
-
-:root[data-color-scheme="dark"] .accessibility-title {
-  color: var(--color-gray-900);
-  border-bottom-color: var(--color-gray-400);
-}
-
-:root[data-color-scheme="dark"] .accessibility-option span {
-  color: var(--color-gray-800);
-}
-
-:root[data-color-scheme="dark"] .accessibility-option:hover {
-  background-color: var(--color-green-200) !important;
-  border-color: var(--color-green-600);
-}
-
-:root[data-color-scheme="dark"] .accessibility-option:focus-within {
-  background-color: var(--color-green-200) !important;
-  border-color: var(--color-green-600);
-}
-
-:root[data-color-scheme="dark"] .accessibility-option:hover span {
-  color: var(--color-gray-900) !important;
-}
-
-:root[data-color-scheme="dark"] .accessibility-option:focus-within span {
-  color: var(--color-gray-900) !important;
-}
-
-:root[data-color-scheme="blue-yellow"] .nav-toggle-button,
-:root[data-color-scheme="blue-yellow"] .nav-link,
-:root[data-color-scheme="blue-yellow"] .accessibility-toggle {
-  border-color: #0066cc;
-  color: #0066cc;
-}
-
-:root[data-color-scheme="blue-yellow"] .nav-toggle-button:hover,
-:root[data-color-scheme="blue-yellow"] .nav-toggle-button:focus,
-:root[data-color-scheme="blue-yellow"] .nav-link:hover,
-:root[data-color-scheme="blue-yellow"] .nav-link:focus,
-:root[data-color-scheme="blue-yellow"] .accessibility-toggle:hover,
-:root[data-color-scheme="blue-yellow"] .accessibility-toggle:focus {
-  background-color: #ffcc00;
-  color: #000000;
-}
-
-/* Focus indicators for better keyboard navigation */
-.nav-toggle-button:focus-visible,
-.nav-link:focus-visible,
-.accessibility-toggle:focus-visible,
 .accessibility-option:focus-within {
-  outline: 3px solid #4A90E2;
-  outline-offset: 2px;
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
 }
 
-/* Accessibility settings */
-:root[data-text-size="small"] {
-  font-size: 14px;
+.accessibility-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-:root[data-text-size="large"] {
-  font-size: 18px;
+.accessibility-swatch {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  flex-shrink: 0;
 }
 
-:root[data-contrast="high"] {
-  --color-gray-900: #000000;
-  --color-gray-800: #1a1a1a;
-  --color-gray-700: #333333;
-  --color-gray-600: #4a4a4a;
-  --color-gray-500: #666666;
-  --color-gray-400: #808080;
-  --color-gray-300: #999999;
-  --color-gray-200: #b3b3b3;
-  --color-gray-100: #cccccc;
-  --color-gray-50: #e6e6e6;
+.accessibility-swatch--default {
+  background: linear-gradient(135deg, #f5f3ee 50%, #0a6b42 50%);
 }
 
-:root[data-color-scheme="dark"] {
-  --color-gray-50: #1f2937;
-  --color-gray-100: #374151;
-  --color-gray-200: #4b5563;
-  --color-gray-300: #6b7280;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #d1d5db;
-  --color-gray-600: #e5e7eb;
-  --color-gray-700: #f3f4f6;
-  --color-gray-800: #f9fafb;
-  --color-gray-900: #ffffff;
+.accessibility-swatch--dark {
+  background: linear-gradient(135deg, #0b0e0c 50%, #3ddc84 50%);
 }
 
-:root[data-color-scheme="blue-yellow"] {
-  --color-blue-500: #0066cc;
-  --color-blue-600: #0052a3;
-  --color-blue-700: #003d7a;
-  --color-green-500: #ffcc00;
-  --color-green-600: #e6b800;
-  --color-green-700: #cca300;
+.accessibility-swatch--blue-yellow {
+  background: linear-gradient(135deg, #ffd400 50%, #002a7a 50%);
 }
 
-/* Reduced motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  .nav-toggle-button,
-  .nav-link,
-  .accessibility-toggle,
-  .nav-toggle-icon span {
-    transition: none;
-  }
+.popover-enter-active,
+.popover-leave-active {
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.popover-enter-from,
+.popover-leave-to {
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+}
+
+.nav-toggle-icon {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 12px;
+}
+
+.nav-toggle-icon span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform var(--transition-base), top var(--transition-base);
+}
+
+.nav-toggle-icon span:nth-child(1) {
+  top: 1px;
+}
+
+.nav-toggle-icon span:nth-child(2) {
+  top: 9px;
+}
+
+.nav-toggle-icon.open span:nth-child(1) {
+  top: 5px;
+  transform: rotate(45deg);
+}
+
+.nav-toggle-icon.open span:nth-child(2) {
+  top: 5px;
+  transform: rotate(-45deg);
+}
+
+.nav-brand,
+.accessibility-controls,
+.nav-toggle-button {
+  position: relative;
+  z-index: 1;
+}
+
+.main-nav--mobile {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100dvh;
+  padding: calc(var(--header-height) + var(--space-8)) clamp(1rem, 4vw, 2.5rem) var(--space-10);
+  overflow-y: auto;
+  background: var(--inverse-bg);
+  animation: menuIn 0.6s var(--ease-in-out) both;
+}
+
+@keyframes menuIn {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+.main-nav--mobile .nav-menu {
+  counter-reset: nav;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  margin-top: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.main-nav--mobile .nav-link {
+  counter-increment: nav;
+  align-items: baseline;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 0;
+  padding: var(--space-3) 0;
+  font-size: clamp(1.75rem, min(1rem + 7vw, 7dvh), 4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  animation: lineUp 0.7s var(--ease-out) both;
+}
+
+.main-nav--mobile li:nth-child(2) .nav-link { animation-delay: 60ms; }
+.main-nav--mobile li:nth-child(3) .nav-link { animation-delay: 120ms; }
+.main-nav--mobile li:nth-child(4) .nav-link { animation-delay: 180ms; }
+.main-nav--mobile li:nth-child(5) .nav-link { animation-delay: 240ms; }
+
+.main-nav--mobile li {
+  overflow: hidden;
+}
+
+.main-nav--mobile .nav-link::before {
+  content: "0" counter(nav);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.main-nav--mobile .nav-link:hover {
+  background: transparent;
+}
+
+.main-nav--mobile .nav-link[aria-current="page"] {
+  color: var(--accent);
+  background: transparent;
 }
 </style>

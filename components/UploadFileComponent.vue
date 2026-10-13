@@ -90,7 +90,9 @@ function uploadFile() {
           @change="handleFileUpload"
         />
         <div class="file-drop-zone">
-          <div class="file-drop-icon">📁</div>
+          <svg class="file-drop-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+            <path d="M12 16V4m0 0-4.5 4.5M12 4l4.5 4.5M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
           <p class="file-drop-text">{{ t('uploadFile.dragDrop') }}</p>
           <p class="file-drop-subtext">{{ t('uploadFile.orClick') }}</p>
         </div>
@@ -102,7 +104,7 @@ function uploadFile() {
         </div>
         <button type="button" class="file-remove" :aria-label="t('uploadFile.remove')" @click="removeFile">×</button>
       </div>
-      <button type="submit" class="upload-button focus-ring" :disabled="!selectedFile">
+      <button type="submit" class="btn btn--primary upload-button focus-ring" :disabled="!selectedFile">
         {{ t('uploadFile.show') }}
       </button>
     </form>
@@ -111,63 +113,53 @@ function uploadFile() {
 
 <style scoped>
 .upload-container {
-  width: fit-content;
-  min-width: 300px;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: grid;
+  gap: var(--space-4);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
 }
 
 .upload-title {
   font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: inherit;
 }
 
 .upload-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  display: grid;
+  gap: var(--space-4);
 }
 
 .file-label {
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-muted);
 }
 
 .file-input-wrapper {
   position: relative;
-  border: 2px dashed var(--color-gray-300);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  transition: var(--transition-base);
-  background: var(--color-gray-50);
+  padding: clamp(1.5rem, 4vw, 2.5rem) var(--space-4);
+  background: var(--surface-2);
+  border: 1.5px dashed var(--text-muted);
+  border-radius: var(--radius-lg);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.file-input-wrapper input[type="file"] {
-  padding: 0.5rem;
-  width: 100%;
-  cursor: pointer;
-  color: inherit;
-}
-
-.file-input-wrapper input[type="file"]:hover {
-  border-color: rgb(74, 222, 128);
-  background-color: rgba(74, 222, 128, 0.1);
-  font-weight: 500;
-}
-
+.file-input-wrapper:hover,
 .file-input-wrapper.drag-over {
-  border-color: var(--color-blue-500);
-  background: rgba(59,130,246,0.05);
+  border-color: var(--accent);
+  border-style: solid;
+  background: var(--accent-soft);
+}
+
+.file-input-wrapper:focus-within {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .file-input {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -175,121 +167,90 @@ function uploadFile() {
 }
 
 .file-drop-zone {
-  pointer-events: none;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
   text-align: center;
+  pointer-events: none;
 }
 
 .file-drop-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0.875rem;
+  margin-bottom: var(--space-2);
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-radius: 50%;
 }
 
 .file-drop-text {
-  font-weight: 500;
-  color: var(--color-gray-700);
-  margin-bottom: 0.25rem;
+  font-weight: 600;
 }
 
 .file-drop-subtext {
-  font-size: 0.875rem;
-  color: var(--color-gray-500);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
 }
 
 .file-preview {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem;
-  background: var(--color-gray-100);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-gray-200);
 }
 
 .file-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  display: grid;
+  min-width: 0;
 }
 
 .file-name {
-  font-weight: 500;
-  color: var(--color-gray-800);
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .file-size {
-  font-size: 0.875rem;
-  color: var(--color-gray-600);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
 }
 
 .file-remove {
-  background: var(--color-red-500);
-  color: white;
-  border: none;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  font-size: 1rem;
-  transition: var(--transition-base);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .file-remove:hover {
-  background: var(--color-red-600);
-  transform: scale(1.1);
+  color: #ffffff;
+  background: var(--danger);
+  border-color: var(--danger);
 }
 
 .upload-button {
-  width: fit-content;
-  align-self: center;
-  padding: 0.75rem 1.5rem;
-  background-color: rgb(21, 128, 61);
-  color: white;
-  border: 2px solid rgb(21, 128, 61);
-  border-radius: 0.375rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.upload-button:hover {
-  background-color: transparent;
-  color: rgb(134, 239, 172);
-  border-color: rgb(134, 239, 172);
-  transform: scale(0.98);
-}
-
-.upload-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.upload-button:disabled:hover {
-  background-color: rgb(21, 128, 61);
-  color: white;
-  border-color: rgb(21, 128, 61);
-}
-
-.upload-button:focus {
-  outline: 2px solid rgb(134, 239, 172);
-  outline-offset: 2px;
+  justify-self: start;
 }
 
 @media (max-width: 640px) {
-  .upload-container {
-    min-width: auto;
-    width: 100%;
-  }
-
-  .file-input-wrapper {
-    padding: 1.5rem;
-  }
-
   .upload-button {
-    width: 100%;
+    justify-self: stretch;
   }
 }
 </style>

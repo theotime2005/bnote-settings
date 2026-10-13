@@ -5,9 +5,16 @@
         "feature": "Suggérer une nouvelle fonctionnalité",
         "feature-bug": "Une idée ou un bug ?",
         "github": "Voir le code source sur GitHub",
+        "hint": "Survolez le titre",
         "message1": "Ce site a été créé en 2024 par Théotime Berthod. Son code source est libre sur GitHub.",
         "message2": "Si vous êtes développeur ou développeuse et que vous souhaitez rejoindre l'aventure, n'hésitez plus. Nous serons toujours heureux de voir le site s'enrichir de nouvelles fonctionalités",
         "message3": "N'hésitez pas à nous faire remonter toutes suggestions ou problème via GitHub.",
+        "redesign": "Le design du site a été repensé en 2026 avec l'aide d'Abdoul Kyrie Kane.",
+        "stats": {
+            "languages": "Langues disponibles",
+            "openSource": "Code libre",
+            "year": "Année de création"
+        },
         "title": "A propos du site"
     },
     "changelog": {
@@ -21,6 +28,7 @@
         "error": "Erreur",
         "info": "Information",
         "loading": "Chargement...",
+        "newTab": "s'ouvre dans un nouvel onglet",
         "save": "Enregistrer",
         "success": "Succès",
         "warning": "Attention"
@@ -39,12 +47,17 @@
         "title": "Téléchargement B.note"
     },
     "faq": {
+        "noResult": "Aucune question ne correspond à votre recherche.",
         "nofaq": "Pas de FAQ disponible dans cette langue.",
         "presentation": "Bienvenue sur la FAQ du site. Cette FAQ est différentes selon la langue sélectionnée.",
+        "questions": "question | questions",
+        "search": "Rechercher dans la FAQ",
+        "searchPlaceholder": "Que cherchez-vous ?",
         "title": "FAQ"
     },
     "footer": {
         "code": "Voir le code sur GitHub",
+        "credits": "Créé par Théotime Berthod · Design repensé avec Abdoul Kyrie Kane",
         "label": "Menu de bas de page",
         "message1": "Cette application web est libre de droit. Le code source est entièrement réutilisable et modifiable",
         "message2": "Vos contributions sont les bienvenues.",
@@ -63,6 +76,10 @@
         "mainMenu": "Menu principal",
         "menuClosed": "Menu de navigation fermé",
         "menuOpened": "Menu de navigation ouvert",
+        "nav": {
+            "download": "Télécharger",
+            "settings": "Préférences"
+        },
         "normal": "Normal",
         "normalContrast": "Contraste normal",
         "open": "Ouvrir le menu de navigation",
@@ -70,11 +87,50 @@
         "textSize": "Taille du texte"
     },
     "home": {
+        "explore": {
+            "title": "Aller plus loin"
+        },
+        "facts": {
+            "country": "France",
+            "maker": "Fabricant",
+            "origin": "Origine"
+        },
         "goto-settings": "Accéder à l'interface de gestion",
+        "hero": {
+            "eyebrow": "Afficheur braille B.note",
+            "scroll": "Défiler",
+            "secondary": "Télécharger le logiciel",
+            "title-accent": "votre B.note",
+            "title-end": "depuis n'importe quel écran.",
+            "title-start": "Configurez"
+        },
         "message-1": "Bienvenue sur le site dédié au B.NOTE. Sur ce site, vous trouverez des ressources utiles au B.NOTE, ainsi qu'une interface de gestion des préférences.",
         "message2": "Le B.NOTE est un afficheur fabriqué par la société française Eurobraille. Cet appareil peut être paramétré de différentes manière, du type de braille en passant par l'affichage de certaines applications. Afin de permettre à une personne voyante de le paramétrer, ce site offre une interface simple générant un fichier qui pourra ensuite être chargé dans le B.NOTE. L'utilisateur n'aura alors plus qu'à ouvrir le fichier pour charger les nouvelles préférences.",
+        "steps": {
+            "adjust": {
+                "text": "Parcourez les sections, recherchez un réglage et modifiez-le en quelques clics.",
+                "title": "Ajustez chaque préférence"
+            },
+            "import": {
+                "text": "Chargez le fichier .bnote exporté depuis l'appareil, ou utilisez le modèle par défaut.",
+                "title": "Importez ou partez de zéro"
+            },
+            "load": {
+                "text": "Téléchargez le fichier généré, copiez-le sur l'appareil et ouvrez-le pour appliquer les réglages.",
+                "title": "Chargez-le sur le B.note"
+            },
+            "title": "Trois étapes, un fichier."
+        },
         "title": "Accueil",
-        "title2": "C'est quoi?"
+        "title2": "C'est quoi?",
+        "translator": {
+            "hint": "Lettres de a à z, braille à six points non abrégé.",
+            "label": "Mot à transcrire",
+            "output": "Transcription braille",
+            "placeholder": "bonjour",
+            "title-accent": "voyez-le en braille.",
+            "title-start": "Tapez un mot,"
+        }
     },
     "languages": {
         "en": "Anglais",
@@ -204,9 +260,12 @@
             "navigation-section": "Navigation des préférences",
             "no-result": "Aucun résultat pour cette recherche",
             "openOther": "Ouvrir un autre fichier",
+            "or": "ou",
+            "progress": "Progression",
             "question": "Voulez-vous vraiment télécharger le fichier ?",
             "resetQuestion": "Voulez-vous vraiment effacer la configuration actuelle? Vous devrez importer un autre fichier.",
             "search": "Rechercher une préférence",
+            "select-section": "Choisissez une catégorie pour afficher et modifier ses préférences.",
             "title": "Gestion des préférences du B.note",
             "title2": "Fichier de préférences",
             "toolbar": "Action sur le fichier"
