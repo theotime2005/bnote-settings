@@ -39,7 +39,7 @@
     "@pinia/testing": "^2.0.1",
     "@unhead/vue": "^3.3.2",
     "@vitalets/google-translate-api": "^9.2.1",
-    "@vitejs/plugin-vue": "^6.0.8",
+    "@vitejs/plugin-vue": "^6.0.10",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.11",
     "eslint": "^10.5.0",
