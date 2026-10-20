@@ -13,13 +13,14 @@ describe("useFlags Store", function() {
 
   afterEach(function() {
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   describe("#fetchFlags", function() {
     it("should fetch flags successfully", async function() {
       // given
       const mockFlags = { showContactForm: { value: true } };
-      global.$fetch = vi.fn().mockResolvedValue(mockFlags);
+      vi.stubGlobal("$fetch", vi.fn().mockResolvedValue(mockFlags));
 
       // when
       await store.fetchFlags();
@@ -32,7 +33,7 @@ describe("useFlags Store", function() {
 
     it("should handle API errors gracefully", async function() {
       // given
-      global.$fetch = vi.fn().mockRejectedValue(new Error("Flags error"));
+      vi.stubGlobal("$fetch", vi.fn().mockRejectedValue(new Error("Flags error")));
 
       // when
       await store.fetchFlags();
@@ -46,13 +47,13 @@ describe("useFlags Store", function() {
     it("should not refetch flags if they are already loaded", async function() {
       // given
       const mockFlags = { showContactForm: { value: true } };
-      global.$fetch = vi.fn().mockResolvedValue(mockFlags);
+      vi.stubGlobal("$fetch", vi.fn().mockResolvedValue(mockFlags));
       await store.fetchFlags();
-      const firstCallCount = global.$fetch.mock.calls.length;
+      const firstCallCount = globalThis.$fetch.mock.calls.length;
 
       // when
       await store.fetchFlags();
-      const secondCallCount = global.$fetch.mock.calls.length;
+      const secondCallCount = globalThis.$fetch.mock.calls.length;
 
       // then
       expect(secondCallCount).toBe(firstCallCount);
@@ -64,9 +65,9 @@ describe("useFlags Store", function() {
       const $fetchPromise = new Promise(function(resolve) {
         resolveFetch = resolve;
       });
-      global.$fetch = vi.fn(function() {
+      vi.stubGlobal("$fetch", vi.fn(function() {
         return $fetchPromise;
-      });
+      }));
 
       // when
       const $fetchCall = store.fetchFlags();

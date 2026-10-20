@@ -15,6 +15,11 @@ describe("Report Contact Form", () => {
     });
   });
 
+  afterEach(function() {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
   it("should display the form correctly", () => {
     // then
     const h2 = wrapper.find("h2");
@@ -50,7 +55,7 @@ describe("Report Contact Form", () => {
 
     it("should hide form and display success message if form is submited", async () => {
       // given
-      vi.spyOn(global, "$fetch").mockResolvedValue({ status: 200, success: true });
+      vi.stubGlobal("$fetch", vi.fn().mockResolvedValue({ status: 200, success: true }));
       const firstnameInput = wrapper.find("input[name=\"firstname\"]");
       const lastnameInput = wrapper.find("input[name=\"lastname\"]");
       const emailInput = wrapper.find("input[name=\"email\"]");
