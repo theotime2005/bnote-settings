@@ -29,13 +29,21 @@ const configuration = (function() {
     environment: process.env.MODE || "development",
     email: {
       enabled: toBoolean(process.env.MAILING_ENABLED),
-      testAccount: toBoolean(process.env.MAILING_TEST_ACCOUNT_ENABLED),
       host: process.env.MAILING_HOST,
       port: _getNumber(process.env.MAILING_PORT, 587),
       secure: toBoolean(process.env.MAILING_SECURE),
       auth: {
         user: process.env.MAILING_USER,
         pass: process.env.MAILING_PASSWORD,
+      },
+    },
+    mailPit: {
+      enabled: toBoolean(process.env.MAILING_MAILPIT_ENABLED),
+      port: _getNumber(process.env.MAILING_MAILPIT_PORT, 1025),
+      secure: false,
+      host: process.env.MAILING_MAILPIT_HOST || "localhost",
+      auth: {
+        user: "no-reply@example.com",
       },
     },
     useVercelFlags: toBoolean(process.env.USE_VERCEL_FLAGS),
@@ -47,8 +55,9 @@ const configuration = (function() {
   };
   if (config.environment === "test") {
     config.email.enabled = false;
-    config.email.testAccount = false;
     config.baseUrl = "http://localhost/#/";
+  } else if (config.mailPit.enabled) {
+    config.email = config.mailPit;
   }
   return config;
 })();
