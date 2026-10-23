@@ -1,5 +1,7 @@
+import { registerEndpoint } from "@nuxt/test-utils/runtime";
+import { createError } from "h3";
 import { createPinia, setActivePinia } from "pinia";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { useFlags } from "@/stores/flags-store.js";
 
@@ -11,15 +13,13 @@ describe("useFlags Store", function() {
     store = useFlags();
   });
 
-  afterEach(function() {
-    vi.restoreAllMocks();
-  });
-
   describe("#fetchFlags", function() {
     it("should fetch flags successfully", async function() {
       // given
       const mockFlags = { showContactForm: { value: true } };
-      global.$fetch = vi.fn().mockResolvedValue(mockFlags);
+      registerEndpoint("/api/flags", function() {
+        return mockFlags;
+      });
 
       // when
       await store.fetchFlags();
@@ -32,7 +32,9 @@ describe("useFlags Store", function() {
 
     it("should handle API errors gracefully", async function() {
       // given
-      global.$fetch = vi.fn().mockRejectedValue(new Error("Flags error"));
+      registerEndpoint("/api/flags", function() {
+        throw createError({ statusCode: 500, statusMessage: "Flags error" });
+      });
 
       // when
       await store.fetchFlags();
@@ -40,43 +42,47 @@ describe("useFlags Store", function() {
       // then
       expect(store.flags).toBeNull();
       expect(store.loading).toBe(false);
-      expect(store.error).toBe("Flags error");
+      expect(store.error).toContain("Flags error");
     });
 
     it("should not refetch flags if they are already loaded", async function() {
       // given
       const mockFlags = { showContactForm: { value: true } };
-      global.$fetch = vi.fn().mockResolvedValue(mockFlags);
+      const handler = vi.fn(function() {
+        return mockFlags;
+      });
+      registerEndpoint("/api/flags", handler);
       await store.fetchFlags();
-      const firstCallCount = global.$fetch.mock.calls.length;
+      const firstCallCount = handler.mock.calls.length;
 
       // when
       await store.fetchFlags();
-      const secondCallCount = global.$fetch.mock.calls.length;
+      const secondCallCount = handler.mock.calls.length;
 
       // then
+      expect(firstCallCount).toBe(1);
       expect(secondCallCount).toBe(firstCallCount);
     });
 
     it("should track loading state during fetch", async function() {
       // given
       let resolveFetch;
-      const $fetchPromise = new Promise(function(resolve) {
+      const pendingResponse = new Promise(function(resolve) {
         resolveFetch = resolve;
       });
-      global.$fetch = vi.fn(function() {
-        return $fetchPromise;
+      registerEndpoint("/api/flags", function() {
+        return pendingResponse;
       });
 
       // when
-      const $fetchCall = store.fetchFlags();
+      const fetchCall = store.fetchFlags();
 
       // then
       expect(store.loading).toBe(true);
 
       // when
       resolveFetch({ showContactForm: { value: true } });
-      await $fetchCall;
+      await fetchCall;
 
       // then
       expect(store.loading).toBe(false);
