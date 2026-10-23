@@ -1,4 +1,5 @@
-import { mount } from "@vue/test-utils";
+import { registerEndpoint } from "@nuxt/test-utils/runtime";
+import { flushPromises, mount } from "@vue/test-utils";
 
 import ReportContactForm from "@/components/ReportContactForm.vue";
 import i18n from "@/tests/helpers/i18n.js";
@@ -50,7 +51,12 @@ describe("Report Contact Form", () => {
 
     it("should hide form and display success message if form is submited", async () => {
       // given
-      vi.spyOn(global, "$fetch").mockResolvedValue({ status: 200, success: true });
+      registerEndpoint("/api/report-contact", {
+        method: "POST",
+        handler: function() {
+          return { success: true };
+        },
+      });
       const firstnameInput = wrapper.find("input[name=\"firstname\"]");
       const lastnameInput = wrapper.find("input[name=\"lastname\"]");
       const emailInput = wrapper.find("input[name=\"email\"]");
@@ -67,7 +73,7 @@ describe("Report Contact Form", () => {
       objectInput.setValue("This is a test message.");
       messageInput.setValue("Hello, this is a test message.");
       await submitButton.trigger("submit");
-      await wrapper.vm.$nextTick();
+      await flushPromises();
 
       // then
       const form = wrapper.find("form");
