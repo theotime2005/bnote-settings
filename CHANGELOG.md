@@ -1,3 +1,25 @@
+## [6.5.0-beta.2](https://github.com/theotime2005/bnote-settings/compare/v6.5.0-beta.1...v6.5.0-beta.2) (2026-10-23)
+
+### 🚀 New features
+
+* Use mailpit to test email service ([#746](https://github.com/theotime2005/bnote-settings/issues/746)) ([6e8fe07](https://github.com/theotime2005/bnote-settings/commit/6e8fe074f092c9cb78ac7925bf897a487ad3f6eb))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.8 to 6.0.10 ([#734](https://github.com/theotime2005/bnote-settings/issues/734)) ([64937ba](https://github.com/theotime2005/bnote-settings/commit/64937ba0d3e40a91cff1e18a172f567c71149c57))
+* **deps-dev:** bump eslint-plugin-vue from 10.11.0 to 10.11.1 ([#737](https://github.com/theotime2005/bnote-settings/issues/737)) ([39f354e](https://github.com/theotime2005/bnote-settings/commit/39f354edc328386699a3b15678070d65238cb5cb))
+* **deps:** bump @vercel/flags-core from 1.8.1 to 1.10.0 ([#735](https://github.com/theotime2005/bnote-settings/issues/735)) ([0723cc8](https://github.com/theotime2005/bnote-settings/commit/0723cc87fcb247c025c29ee898eaac37a0350a98))
+* **deps:** bump cycjimmy/semantic-release-action from 6 to 8 ([#739](https://github.com/theotime2005/bnote-settings/issues/739)) ([6313332](https://github.com/theotime2005/bnote-settings/commit/6313332ba33403bccd8ec873e318a6bc7591ec35))
+* **deps:** bump dotenv from 17.4.2 to 18.0.7 ([#725](https://github.com/theotime2005/bnote-settings/issues/725)) ([5f0c223](https://github.com/theotime2005/bnote-settings/commit/5f0c223dd096384258e6993350bf3455dfb9712d))
+* **deps:** bump nodemailer from 10.0.9 to 10.1.0 ([#727](https://github.com/theotime2005/bnote-settings/issues/727)) ([380e559](https://github.com/theotime2005/bnote-settings/commit/380e55929ed0e9d8d150aad1173fe6a884f445d9))
+* **deps:** bump nodemailer from 9.1.1 to 10.0.9 ([#724](https://github.com/theotime2005/bnote-settings/issues/724)) ([b95aee6](https://github.com/theotime2005/bnote-settings/commit/b95aee6a2b5d6f349f0d6b78b6442e5b12186a0f))
+* **deps:** bump postcss-selector-parser from 7.1.4 to 7.1.6 ([#730](https://github.com/theotime2005/bnote-settings/issues/730)) ([e9c2a96](https://github.com/theotime2005/bnote-settings/commit/e9c2a9600a84df5497820699283004827f239165))
+* **deps:** bump seroval from 1.5.4 to 1.6.9 ([#733](https://github.com/theotime2005/bnote-settings/issues/733)) ([8c1ee1e](https://github.com/theotime2005/bnote-settings/commit/8c1ee1e4b61288b589669dcf01404a7eb2d01dfb))
+* **deps:** bump shell-quote from 1.10.0 to 1.12.0 ([#732](https://github.com/theotime2005/bnote-settings/issues/732)) ([c5625e0](https://github.com/theotime2005/bnote-settings/commit/c5625e0d65ea2fe740627f1f5685bedf09e598ff))
+* **deps:** bump source-map-js from 1.2.1 to 1.2.2 ([#731](https://github.com/theotime2005/bnote-settings/issues/731)) ([e9730b2](https://github.com/theotime2005/bnote-settings/commit/e9730b2c06d4f42d877fb92dce83f089c17b4428))
+* **deps:** bump vite from 7.3.6 to 7.3.7 ([#741](https://github.com/theotime2005/bnote-settings/issues/741)) ([64f5a86](https://github.com/theotime2005/bnote-settings/commit/64f5a86eae863a3ea9260d7a78de9305da0c2888))
+* Update .nvmrc to Node.js 26.11.1 ([#728](https://github.com/theotime2005/bnote-settings/issues/728)) ([e2e326c](https://github.com/theotime2005/bnote-settings/commit/e2e326ca395016436b454b9594ccca91f8e6aace))
+
 ## [6.5.0-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.4.8-beta.1...v6.5.0-beta.1) (2026-10-13)
 
 ### 🚀 New features
