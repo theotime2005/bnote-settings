@@ -19,6 +19,9 @@ export default defineNuxtConfig({
         dir: resolve(__dirname, "./server/email-templates"),
       },
     ],
+    externals: {
+      inline: ["vue", "@vue/shared", "@vue/reactivity", "@vue/runtime-core", "@vue/runtime-dom", "@vue/server-renderer"],
+    },
   },
   devtools: { enabled: true },
 
