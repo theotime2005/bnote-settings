@@ -11,4 +11,4 @@
 <!-- Add any additional information that you think is important. -->
 
 ## Test
-<ç-- How can we test the changes? -->
+<!-- How can we test the changes? -->
