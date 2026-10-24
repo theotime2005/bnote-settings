@@ -78,3 +78,6 @@ This pull request merge triggered a new beta version. A release version will be 
 chore: Finalize release v<version_number>
 ```
 When the pull request is merged, a new release version will be created automatically. The release version will be available in the "releases" section of the repository.
+
+## Contribution display
+When you contribute to this project, your contribution will be displayed in the "Contributors" section of the repository, but it's not displayed on the website. When you contribute to the project, don't forget to add your name in the [contributors file](public/contributors.txt). Add just your name and a new line.

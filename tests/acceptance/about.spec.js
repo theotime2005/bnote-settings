@@ -1,3 +1,4 @@
+import { registerEndpoint } from "@nuxt/test-utils/runtime";
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
@@ -18,6 +19,9 @@ describe("Acceptance | AboutView", () => {
   let wrapper;
 
   beforeEach(async () => {
+    registerEndpoint("/contributors.txt", function() {
+      return "Hello";
+    });
     wrapper = mount(AboutView, {
       global: {
         plugins: [i18n],

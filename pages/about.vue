@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import ReportContactForm from "@/components/ReportContactForm.vue";
+import { contributors } from "@/utils/contributors.js";
 import { useHead } from "#imports";
 
 const { t, availableLocales } = useI18n();
@@ -20,6 +21,8 @@ const links = ref({
     repos: "https://github.com/theotime2005/bnote-settings",
   },
 });
+
+const contributorsList = ref([]);
 
 const MIN_WEIGHT = 200;
 const MAX_WEIGHT = 800;
@@ -84,7 +87,8 @@ function handleSpotlight(event) {
   event.currentTarget.style.setProperty("--my", `${event.clientY - rect.top}px`);
 }
 
-onMounted(() => {
+onMounted(async () => {
+  contributorsList.value = await contributors();
   letterElements = Array.from(heroRef.value?.querySelectorAll(".about-letter") || []);
   const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   if (reducedMotion || typeof IntersectionObserver === "undefined") return;
@@ -134,7 +138,6 @@ onBeforeUnmount(() => {
         <div class="about-hero-footer reveal" style="--reveal-index: 3">
           <div class="about-intro">
             <p class="about-text">{{ t('about.message1') }}</p>
-            <p class="about-credit">{{ t('about.redesign') }}</p>
           </div>
           <p class="about-hint index-label" aria-hidden="true">{{ t("about.hint") }}</p>
         </div>
@@ -175,6 +178,20 @@ onBeforeUnmount(() => {
     <div class="about-contact container">
       <ReportContactForm />
     </div>
+
+    <section v-if="contributorsList.length" class="about-contributors container" data-reveal>
+      <p class="about-contributors-meta index-label" aria-hidden="true">
+        <span>(06)</span>
+        <span>{{ contributorsList.length }}</span>
+      </p>
+      <h2 class="section-title">{{t('about.contributorsTitle')}}</h2>
+      <ul class="contributors-list">
+        <li v-for="(contributor, index) in contributorsList" :key="index" class="contributor">
+          <span class="contributor-index numeral" aria-hidden="true">{{ String(index + 1).padStart(2, "0") }}</span>
+          <span class="contributor-name">{{ contributor }}</span>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -390,6 +407,54 @@ onBeforeUnmount(() => {
 
 .about-contact {
   padding-bottom: clamp(4rem, 10vw, 8rem);
+}
+
+
+.about-contributors {
+  padding-bottom: clamp(4rem, 10vw, 8rem);
+}
+
+.about-contributors-meta {
+  display: flex;
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
+  color: var(--text-muted);
+}
+
+.contributors-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contributor {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  transition: border-color 0.3s var(--ease-out);
+}
+
+.contributor:hover {
+  border-color: var(--accent-vivid);
+}
+
+.contributor-index {
+  font-size: 0.875rem;
+  color: var(--accent);
+}
+
+.contributor-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
 }
 
 @keyframes weightWave {
