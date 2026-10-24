@@ -1,3 +1,17 @@
+## [6.5.0-beta.3](https://github.com/theotime2005/bnote-settings/compare/v6.5.0-beta.2...v6.5.0-beta.3) (2026-10-24)
+
+### 🚀 New features
+
+* Add contributors section on about page ([#751](https://github.com/theotime2005/bnote-settings/issues/751)) ([034bc24](https://github.com/theotime2005/bnote-settings/commit/034bc24b4fcd06595b65b10b1160490fd26aedad))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump happy-dom from 20.14.5 to 21.0.4 ([#750](https://github.com/theotime2005/bnote-settings/issues/750)) ([3ec5c0c](https://github.com/theotime2005/bnote-settings/commit/3ec5c0c0be105d53d3e0f795d457c9f5552c9cfe))
+* **deps:** bump launch-editor from 2.14.1 to 2.14.2 ([#742](https://github.com/theotime2005/bnote-settings/issues/742)) ([89e1c98](https://github.com/theotime2005/bnote-settings/commit/89e1c9871ddfd688d352a812a4514253ef5bf2b0))
+* **deps:** bump nodemailer from 10.1.0 to 10.1.4 ([#749](https://github.com/theotime2005/bnote-settings/issues/749)) ([32ded10](https://github.com/theotime2005/bnote-settings/commit/32ded10b63ca5e9b27f9bc927510cbdf1c9dd88a))
+* Update .nvmrc to Node.js 26.12.0 ([#740](https://github.com/theotime2005/bnote-settings/issues/740)) ([4c18249](https://github.com/theotime2005/bnote-settings/commit/4c1824949d58fe77f15926e927d6392f690afd6b))
+* Upgrade nuxt to latest version ([#748](https://github.com/theotime2005/bnote-settings/issues/748)) ([aa75b35](https://github.com/theotime2005/bnote-settings/commit/aa75b35809613d56041de6b13d90defc8cb4601c))
+
 ## [6.5.0-beta.2](https://github.com/theotime2005/bnote-settings/compare/v6.5.0-beta.1...v6.5.0-beta.2) (2026-10-23)
 
 ### 🚀 New features
