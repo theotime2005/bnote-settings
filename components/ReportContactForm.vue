@@ -69,33 +69,39 @@ async function handleSubmit() {
       <fieldset id="personnal-informations" class="contact-fieldset contact-fieldset--grid">
         <legend>{{ t("report-contact-form.form.personnal-informations.title") }}</legend>
         <div class="form-group">
-          <label for="firstname" class="form-label">{{ t("report-contact-form.form.personnal-informations.firstname") }}</label>
+          <label for="firstname" class="form-label">{{ t("report-contact-form.form.personnal-informations.firstname") }}
           <input id="firstname" v-model="formData.firstname" class="form-input" name="firstname" type="text" autocomplete="given-name" required>
+          </label>
         </div>
         <div class="form-group">
-          <label for="lastname" class="form-label">{{ t("report-contact-form.form.personnal-informations.lastname") }}</label>
+          <label for="lastname" class="form-label">{{ t("report-contact-form.form.personnal-informations.lastname") }}
           <input id="lastname" v-model="formData.lastname" class="form-input" name="lastname" type="text" autocomplete="family-name" required>
+          </label>
         </div>
         <div class="form-group form-group--full">
-          <label for="email" class="form-label">{{ t("report-contact-form.form.personnal-informations.email") }}</label>
+          <label for="email" class="form-label">{{ t("report-contact-form.form.personnal-informations.email") }}
           <input id="email" v-model="formData.email" class="form-input" name="email" type="email" autocomplete="email" required>
+          </label>
         </div>
       </fieldset>
       <fieldset id="body-informations" class="contact-fieldset">
         <legend>{{ t("report-contact-form.form.body-informations.title") }}</legend>
         <div class="form-group">
-          <label for="report-type" class="form-label">{{ t("report-contact-form.form.body-informations.report-type") }}</label>
+          <label for="report-type" class="form-label">{{ t("report-contact-form.form.body-informations.report-type") }}
           <select id="report-type" v-model="formData.reportType" class="form-select" name="report-type" required>
             <option v-for="(value, key) in REPORT_TYPE" :key="key" :value="key">{{ value }}</option>
           </select>
+          </label>
         </div>
         <div class="form-group">
-          <label for="subject" class="form-label">{{ t("report-contact-form.form.body-informations.subject") }}</label>
+          <label for="subject" class="form-label">{{ t("report-contact-form.form.body-informations.subject") }}
           <input id="subject" v-model="formData.subject" class="form-input" name="subject" type="text" required>
+          </label>
         </div>
         <div class="form-group">
-          <label for="message" class="form-label">{{ t("report-contact-form.form.body-informations.message") }}</label>
+          <label for="message" class="form-label">{{ t("report-contact-form.form.body-informations.message") }}
           <textarea id="message" v-model="formData.body" class="form-textarea" name="message" required></textarea>
+          </label>
         </div>
       </fieldset>
       <p role="alert" class="contact-alert">{{ alertMessage }}</p>

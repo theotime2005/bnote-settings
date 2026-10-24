@@ -120,7 +120,8 @@ onBeforeUnmount(() => {
           <span aria-hidden="true">(05)</span>
           <span>Open source</span>
         </p>
-        <h1 class="about-title" :aria-label="t('about.title')">
+        <h1 class="about-title">
+          <span class="sr-only">{{ t('about.title') }}</span>
           <span class="about-title-letters" aria-hidden="true">
             <template v-for="(word, wordIndex) in titleWords" :key="wordIndex">
               <span class="about-word">

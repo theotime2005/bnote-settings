@@ -7,25 +7,6 @@ defineProps({
 });
 
 const toolbarRef = ref(null);
-
-function onKeyDown(e) {
-  const buttons = toolbarRef.value?.querySelectorAll("button");
-  if (!buttons) return;
-
-  const currentIndex = Array.from(buttons).indexOf(document.activeElement);
-
-  if (e.key === "ArrowRight") {
-    const next = (currentIndex + 1) % buttons.length;
-    buttons[next].focus();
-    e.preventDefault();
-  }
-
-  if (e.key === "ArrowLeft") {
-    const prev = (currentIndex - 1 + buttons.length) % buttons.length;
-    buttons[prev].focus();
-    e.preventDefault();
-  }
-}
 </script>
 
 <template>
@@ -34,7 +15,6 @@ function onKeyDown(e) {
     role="toolbar"
     class="toolbar"
     :aria-label="ariaLabel"
-    @keydown="onKeyDown"
   >
     <button
       v-for="(action, i) in actions"

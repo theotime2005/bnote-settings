@@ -35,7 +35,8 @@ describe("Acceptance | AboutView", () => {
 
     // then
     expect(title.exists()).toBe(true);
-    expect(title.text()).toBe(t("about.title"));
+    expect(title.find(".sr-only").text()).toBe(t("about.title"));
+    expect(title.find(".about-title-letters").attributes("aria-hidden")).toBe("true");
   });
 
   it("should display the main about message", () => {

@@ -20,7 +20,7 @@ const currentLanguage = computed({
 
 <template>
   <div class="language-container">
-    <label for="language" class="language-label">{{ t('languages.select') }}</label>
+    <label for="language" class="language-label">{{ t('languages.select') }}
     <select
       id="language"
       v-model="currentLanguage"
@@ -30,6 +30,7 @@ const currentLanguage = computed({
         {{ t(`languages.${language}`) }}
       </option>
     </select>
+    </label>
   </div>
 </template>
 

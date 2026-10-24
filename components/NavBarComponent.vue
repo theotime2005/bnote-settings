@@ -269,8 +269,9 @@ onBeforeUnmount(() => {
             <div class="accessibility-section">
               <h3 class="accessibility-title">{{ t('header.textSize') }}</h3>
               <div class="accessibility-options" role="radiogroup" :aria-label="t('header.textSize')">
-                <label v-for="option in TEXT_SIZE_OPTIONS" :key="option.value" class="accessibility-option">
+                <label v-for="option in TEXT_SIZE_OPTIONS" :key="option.value" class="accessibility-option" :for="option.value">
                   <input
+                    :id="option.value"
                     type="radio"
                     name="textSize"
                     :value="option.value"
@@ -285,8 +286,9 @@ onBeforeUnmount(() => {
             <div class="accessibility-section">
               <h3 class="accessibility-title">{{ t('header.contrast') }}</h3>
               <div class="accessibility-options" role="radiogroup" :aria-label="t('header.contrast')">
-                <label v-for="option in CONTRAST_OPTIONS" :key="option.value" class="accessibility-option">
+                <label v-for="option in CONTRAST_OPTIONS" :key="option.value" class="accessibility-option" :for="option.value">
                   <input
+                    :id="option.value"
                     type="radio"
                     name="contrast"
                     :value="option.value"
@@ -301,8 +303,9 @@ onBeforeUnmount(() => {
             <div class="accessibility-section">
               <h3 class="accessibility-title">{{ t('header.colorScheme') }}</h3>
               <div class="accessibility-options accessibility-options--stacked" role="radiogroup" :aria-label="t('header.colorScheme')">
-                <label v-for="option in COLOR_SCHEME_OPTIONS" :key="option.value" class="accessibility-option">
+                <label v-for="option in COLOR_SCHEME_OPTIONS" :key="option.value" class="accessibility-option" :for="option.value">
                   <input
+                    :id="option.value"
                     type="radio"
                     name="colorScheme"
                     :value="option.value"

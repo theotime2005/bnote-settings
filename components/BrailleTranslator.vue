@@ -22,7 +22,7 @@ const unicode = computed(() => toBrailleUnicode(displayedWord.value));
     </h2>
 
     <div class="translator-field">
-      <label for="translator-input" class="translator-label index-label">{{ t('home.translator.label') }}</label>
+      <label for="translator-input" class="translator-label index-label">{{ t('home.translator.label') }}
       <input
         id="translator-input"
         v-model="text"
@@ -34,6 +34,7 @@ const unicode = computed(() => toBrailleUnicode(displayedWord.value));
         :placeholder="t('home.translator.placeholder')"
         aria-describedby="translator-hint"
       />
+      </label>
       <p id="translator-hint" class="translator-hint">{{ t('home.translator.hint') }}</p>
     </div>
 
