@@ -21,7 +21,6 @@ const WORDMARK = ["B", ".", "n", "o", "t", "e"];
 
       <div class="footer-bottom">
         <LanguageComponent />
-        <p class="footer-credits">{{ t('footer.credits') }}</p>
         <p class="footer-meta">{{ t('footer.version', { version: packageInfo.version }) }} · © {{ currentYear }}</p>
       </div>
     </div>
