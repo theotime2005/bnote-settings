@@ -277,7 +277,7 @@ onBeforeUnmount(() => {
           </div>
 
           <div class="search-container">
-            <label for="settings-search" class="sr-only">{{ t('settings.page.search') }}</label>
+            <label for="settings-search" class="sr-only">{{ t('settings.page.search') }}
             <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
               <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
               <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -290,6 +290,7 @@ onBeforeUnmount(() => {
               :placeholder="t('settings.page.search')"
               @keydown.enter.prevent="() => { if (Object.keys(filteredSettings).length === 1) activeSection = Object.keys(filteredSettings)[0]; }"
             />
+            </label>
           </div>
           <ToolBar
             :actions="TOOLBAR_ACTION" :aria-label="t('settings.page.toolbar')" />

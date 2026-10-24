@@ -47,11 +47,14 @@ function setDefault() {
 </script>
 
 <template>
-  <div class="setting-container" :class="[setting.type, { 'setting-container--modified': settingValue !== setting.default }]">
+  <div
+    class="setting-container"
+    :class="[setting.type, { 'setting-container--modified': settingValue !== setting.default }]"
+  >
     <div class="setting-header">
-      <label :for="labelId" class="setting-label">
+      <span :id="labelId + '-name'" class="setting-label">
         {{ name }}
-      </label>
+      </span>
       <button
         v-if="settingValue !== setting.default"
         type="button"
@@ -65,14 +68,15 @@ function setDefault() {
 
     <!-- Checkbox -->
     <div v-if="props.setting.type === 'checkbox'" class="setting-control">
-      <input
-        :id="labelId"
-        v-model="settingValue"
-        type="checkbox"
-        :name="name"
-        class="setting-checkbox focus-ring"
-      />
       <label :for="labelId" class="setting-checkbox-label">
+        <input
+          :id="labelId"
+          v-model="settingValue"
+          type="checkbox"
+          :name="name"
+          :aria-labelledby="labelId + '-name'"
+          class="setting-checkbox focus-ring"
+        />
         <span class="setting-checkbox-indicator"></span>
       </label>
     </div>
@@ -83,7 +87,9 @@ function setDefault() {
         :id="labelId"
         v-model="settingValue"
         :name="name"
-        class="setting-select focus-ring">
+        :aria-labelledby="labelId + '-name'"
+        class="setting-select focus-ring"
+      >
         <option
           v-for="option in props.setting.values"
           :key="option"
@@ -103,15 +109,22 @@ function setDefault() {
         :name="name"
         :min="props.setting.min"
         :max="props.setting.max"
+        :aria-labelledby="labelId + '-name'"
         class="setting-range focus-ring"
         :style="{ '--progress': `${rangeProgress}%` }"
         :list="labelId + 'tickmarks'"
       />
-      <output class="setting-value">{{ settingValue }}</output>
+      <output
+        :for="labelId"
+        :aria-labelledby="labelId + '-name'"
+        class="setting-value"
+      >
+        {{ settingValue }}
+      </output>
       <datalist :id="labelId + 'tickmarks'">
-        <option :value="props.setting.min" :label="props.setting.min"></option>
-        <option :value="props.setting.default" :label="props.setting.default"></option>
-        <option :value="props.setting.max" :label="props.setting.max"></option>
+        <option :value="props.setting.min" :label="String(props.setting.min)"></option>
+        <option :value="props.setting.default" :label="String(props.setting.default)"></option>
+        <option :value="props.setting.max" :label="String(props.setting.max)"></option>
       </datalist>
     </div>
 
@@ -122,6 +135,7 @@ function setDefault() {
         v-model="settingValue"
         type="text"
         :name="name"
+        :aria-labelledby="labelId + '-name'"
         class="setting-input focus-ring"
         :placeholder="t('settings.values.default')"
       />
@@ -168,10 +182,10 @@ function setDefault() {
   min-height: 1.75rem;
 }
 
+/* Le titre est un <span> : plus de curseur "main" */
 .setting-label {
   font-weight: 600;
   line-height: 1.35;
-  cursor: pointer;
 }
 
 .setting-default-button {
@@ -205,6 +219,7 @@ function setDefault() {
   position: relative;
 }
 
+/* Checkbox masquée visuellement mais accessible (clavier + lecteurs d'écran) */
 .setting-checkbox {
   position: absolute;
   opacity: 0;
@@ -240,17 +255,18 @@ function setDefault() {
   transition: transform var(--transition-base), background-color var(--transition-base);
 }
 
-.setting-checkbox:checked + .setting-checkbox-label .setting-checkbox-indicator {
+/* L'input est maintenant juste avant l'indicateur : input + .indicator */
+.setting-checkbox:checked + .setting-checkbox-indicator {
   background: var(--accent);
   border-color: var(--accent);
 }
 
-.setting-checkbox:checked + .setting-checkbox-label .setting-checkbox-indicator::after {
+.setting-checkbox:checked + .setting-checkbox-indicator::after {
   background: var(--accent-contrast);
   transform: translate(1.25rem, -50%);
 }
 
-.setting-checkbox:focus-visible + .setting-checkbox-label .setting-checkbox-indicator {
+.setting-checkbox:focus-visible + .setting-checkbox-indicator {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }

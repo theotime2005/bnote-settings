@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import { useSettingsStore } from "@/stores/settingsStore.js";
@@ -10,7 +10,6 @@ const inputRef = ref(null);
 const selectedFile = ref(null);
 const isDragOver = ref(false);
 const { t } = useI18n();
-
 function handleFileUpload(event) {
   const files = event.target.files;
   selectedFile.value = files && files.length ? files[0] : null;
@@ -72,23 +71,62 @@ function uploadFile() {
     sendLog({ fileName: "UploadFileComponent", functionName: "uploadFile", type: "error", log: error });
   }
 }
+
+const formRef = ref(null);
+
+function onDragEnter() {
+  isDragOver.value = true;
+}
+
+function onDragLeave(e) {
+  // ignore les dragleave déclenchés par les éléments enfants
+  if (!formRef.value?.contains(e.relatedTarget)) isDragOver.value = false;
+}
+
+function onDragOver(e) {
+  return e.preventDefault();
+}
+
+function onDrop(e) {
+  e.preventDefault();
+  isDragOver.value = false;
+  handleDrop(e);
+}
+
+onMounted(() => {
+  const el = formRef.value;
+  el?.addEventListener("dragenter", onDragEnter);
+  el?.addEventListener("dragleave", onDragLeave);
+  el?.addEventListener("dragover", onDragOver);
+  el?.addEventListener("drop", onDrop);
+});
+
+onBeforeUnmount(() => {
+  const el = formRef.value;
+  el?.removeEventListener("dragenter", onDragEnter);
+  el?.removeEventListener("dragleave", onDragLeave);
+  el?.removeEventListener("dragover", onDragOver);
+  el?.removeEventListener("drop", onDrop);
+});
 </script>
 
 <template>
   <div class="upload-container">
     <h2 class="upload-title">{{ t('uploadFile.title') }}</h2>
-    <form class="upload-form" @submit.prevent="uploadFile" @dragover.prevent @drop.prevent="handleDrop">
-      <label for="select" class="file-label">{{ t('uploadFile.select') }}</label>
-      <div class="file-input-wrapper" :class="{ 'drag-over': isDragOver }" @dragenter="isDragOver = true" @dragleave="isDragOver = false">
-        <input
-          id="select"
-          ref="inputRef"
-          type="file"
-          accept=".bnote"
-          required
-          class="file-input focus-ring"
-          @change="handleFileUpload"
-        />
+    <form ref="formRef" class="upload-form" @submit.prevent="uploadFile">
+      <div class="file-input-wrapper" :class="{ 'drag-over': isDragOver }">
+        <label for="select" class="file-label">
+          {{ t('uploadFile.select') }}
+          <input
+            id="select"
+            ref="inputRef"
+            type="file"
+            accept=".bnote"
+            required
+            class="file-input focus-ring"
+            @change="handleFileUpload"
+          />
+        </label>
         <div class="file-drop-zone">
           <svg class="file-drop-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
             <path d="M12 16V4m0 0-4.5 4.5M12 4l4.5 4.5M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
@@ -97,6 +135,7 @@ function uploadFile() {
           <p class="file-drop-subtext">{{ t('uploadFile.orClick') }}</p>
         </div>
       </div>
+
       <div v-if="selectedFile" class="file-preview">
         <div class="file-info">
           <span class="file-name">{{ selectedFile.name }}</span>
