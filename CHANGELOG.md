@@ -1,3 +1,17 @@
+## [6.5.0-beta.4](https://github.com/theotime2005/bnote-settings/compare/v6.5.0-beta.3...v6.5.0-beta.4) (2026-10-24)
+
+### 🚀 New features
+
+* Use a11y and add eslint plugin ([#754](https://github.com/theotime2005/bnote-settings/issues/754)) ([e4b5ec4](https://github.com/theotime2005/bnote-settings/commit/e4b5ec4faa1c64ef5c1550eaeb65fdb69d23ba10))
+
+### 🔖 Version bump
+
+* Update .nvmrc to Node.js 24.21.0 ([#753](https://github.com/theotime2005/bnote-settings/issues/753)) ([fbffeff](https://github.com/theotime2005/bnote-settings/commit/fbffeff2e0a523a049b7a1a5fa0c29189e0f56c6))
+
+### 🛠️ Tech
+
+* Use the lts node version ([#752](https://github.com/theotime2005/bnote-settings/issues/752)) ([43f2491](https://github.com/theotime2005/bnote-settings/commit/43f2491b3fef8945642e529fddab4ffd5196cd1e))
+
 ## [6.5.0-beta.3](https://github.com/theotime2005/bnote-settings/compare/v6.5.0-beta.2...v6.5.0-beta.3) (2026-10-24)
 
 ### 🚀 New features
