@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import vueI18n from "@intlify/eslint-plugin-vue-i18n";
 import prettierConfig from "@vue/eslint-config-prettier/skip-formatting";
+import knex from "eslint-plugin-knex";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
@@ -19,6 +20,7 @@ export default [
     plugins: {
       "simple-import-sort": simpleImportSort,
       "vitest-globals": vitestGlobals,
+      knex,
     },
 
     languageOptions: {
@@ -80,6 +82,7 @@ export default [
       ],
       "vue/multi-word-component-names": "off",
       "@intlify/vue-i18n/no-raw-text": "off",
+      "knex/avoid-injections": "error",
     },
     settings: {
       "vue-i18n": {
