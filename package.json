@@ -57,6 +57,7 @@
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.11",
     "eslint": "^10.5.0",
+    "eslint-plugin-knex": "^0.3.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "eslint-plugin-vitest-globals": "^1.6.1",
     "eslint-plugin-vue": "^10.11.1",
