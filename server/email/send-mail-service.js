@@ -15,47 +15,30 @@ async function sendMailService(req) {
     to: req.to,
     subject: req.subject || "No Subject",
   };
-
-  if (req.text) {
-    mailOptions.text = req.text;
-  } else if (req.html) {
+  if (req.html) {
     mailOptions.html = req.html;
+  } else if (req.text) {
+    mailOptions.text = req.text;
+  } else {
+    throw new Error("Email content is required");
   }
 
   if (!email.enabled) {
-    console.log(`Email disabled. Mail not sent. Mail info: ${JSON.stringify(mailOptions)}`);
+    console.log("Email disabled. Mail not sent. Mail info:", mailOptions);
     return {
       info: "Email sending disabled",
       data: mailOptions,
     };
   }
-  let transporter, testAccount;
-
-  if (email.testAccount) {
-    testAccount = await nodemailer.createTestAccount();
-    transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
-  } else {
-    transporter = nodemailer.createTransport({
-      host: email.host,
-      port: email.port,
-      secure: email.secure,
-      auth: email.auth,
-    });
-  }
+  const transporter = nodemailer.createTransport({
+    host: email.host,
+    port: email.port,
+    secure: email.secure,
+    auth: email.auth || {},
+  });
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    if (email.testAccount) {
-      console.log(`Email available on ${nodemailer.getTestMessageUrl(info)}`);
-    }
     return info;
   } catch (error) {
     sendLog({

@@ -4,10 +4,10 @@
         "contribution": "Vuoi contribuire?",
         "feature": "Suggerire una nuova funzionalità",
         "feature-bug": "Un'idea o un bug?",
-        "github": "Vedere il codice sorgente su GitHub",
+        "github": "Vedi il codice sorgente su GitHub",
         "message1": "Questo sito è stato creato nel 2024 da Théotime Berthod. Il suo codice sorgente è libero su GitHub.",
         "message2": "Se sei uno sviluppatore o una sviluppatrice e vuoi unirti all'avventura, non esitare più. Saremo sempre felici di vedere il sito arricchirsi di nuove funzionalità",
-        "message3": "Non esitate a segnalarci qualsiasi suggerimento o problema tramite GitHub.",
+        "message3": "Non esitare a segnalarci qualsiasi suggerimento o problema tramite GitHub.",
         "title": "A proposito del sito"
     },
     "changelog": {
@@ -86,15 +86,15 @@
     "report-contact-form": {
         "form": {
             "body-informations": {
-                "message": "Il suo messaggio",
-                "report-type": "Spero che:",
+                "message": "Il tuo messaggio",
+                "report-type": "Desidero:",
                 "subject": "Soggetto",
                 "title": "Contatto"
             },
             "personnal-informations": {
-                "email": "La sua email",
-                "firstname": "Il suo nome",
-                "lastname": "Il suo cognome",
+                "email": "La tua email",
+                "firstname": "Il tuo nome",
+                "lastname": "Il tuo cognome",
                 "title": "Informazioni personali"
             },
             "submit": "Invia il modulo",
@@ -104,7 +104,7 @@
         "report-type": {
             "bug": "Segnalare un bug",
             "select": "Seleziona un'opzione",
-            "suggestion": "Dai un suggerimento"
+            "suggestion": "Fare un suggerimento"
         },
         "submit": {
             "error": "Si è verificato un errore durante l'invio del modulo. Per favore riprova più tardi. 😞",
@@ -187,17 +187,17 @@
             "write_all": "Scrivere tutto"
         },
         "notifications": {
-            "configurationReset": "Configurazione ripristina correttamente",
-            "defaultConfigurationLoaded": "Carica la configurazione predefinita",
+            "configurationReset": "Configurazione ripristinata correttamente",
+            "defaultConfigurationLoaded": "Configurazione predefinita caricata",
             "downloadError": "Errore durante il download del file",
             "fileDownloaded": "File scaricato con successo",
-            "fileLoaded": "File riuscito"
+            "fileLoaded": "File caricato con successo"
         },
         "page": {
             "create": "Visualizzare il modello predefinito",
             "defaultName": "Configurazione di default",
             "download": "Scaricare il file",
-            "downloadName": "Preferenza {data}",
+            "downloadName": "Preferenza {date}",
             "explication": "È possibile creare un file direttamente dal sito utilizzando il modello predefinito o caricare il file da un dispositivo.",
             "how": "Come funziona?",
             "message": "Benvenuto nell'interfaccia online di gestione delle impostazioni di B.NOTE.",
@@ -260,11 +260,11 @@
     "skip-content": "Passare al contenuto",
     "title": "Gestione del B.note",
     "uploadFile": {
-        "dragDrop": "Fai scorrere il tuo file qui",
+        "dragDrop": "Trascina qui il tuo file",
         "incorrectFormatFile": "Formato file non corretto",
         "invalidFileContent": "Il contenuto del file non è valido",
         "orClick": "o fare clic per selezionare",
-        "remove": "Eliminare",
+        "remove": "Rimuovi",
         "select": "Seleziona un file",
         "show": "Mostra",
         "title": "Carica un file"

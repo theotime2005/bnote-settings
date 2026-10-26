@@ -1,0 +1,51 @@
+name: check-migrations
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/check-migrations.yml
+      - server/db/migrations/**
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+jobs:
+  migration-check:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup docker
+        uses: docker/setup-compose-action@v2
+
+      - name: Setup docker compose
+        run: |
+          cp sample.env .env
+          docker compose up -d
+          sleep ${{ vars.TIMER_WAIT }}
+
+      - name: Create database
+        run: npm run db:create
+
+      - name: run migrations
+        run: npm run db:migrate
+
+      - name: Rollback migrations
+        run: npm run db:rollback:all
