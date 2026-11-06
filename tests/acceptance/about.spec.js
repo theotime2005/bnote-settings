@@ -1,3 +1,4 @@
+import { registerEndpoint } from "@nuxt/test-utils/runtime";
 import { mount } from "@vue/test-utils";
 import { vi } from "vitest";
 
@@ -18,6 +19,9 @@ describe("Acceptance | AboutView", () => {
   let wrapper;
 
   beforeEach(async () => {
+    registerEndpoint("/contributors.txt", function() {
+      return "Hello";
+    });
     wrapper = mount(AboutView, {
       global: {
         plugins: [i18n],
@@ -31,7 +35,8 @@ describe("Acceptance | AboutView", () => {
 
     // then
     expect(title.exists()).toBe(true);
-    expect(title.text()).toBe(t("about.title"));
+    expect(title.find(".sr-only").text()).toBe(t("about.title"));
+    expect(title.find(".about-title-letters").attributes("aria-hidden")).toBe("true");
   });
 
   it("should display the main about message", () => {

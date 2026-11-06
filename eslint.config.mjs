@@ -5,6 +5,7 @@ import knex from "eslint-plugin-knex";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import vitestGlobals from "eslint-plugin-vitest-globals";
 import pluginVue from "eslint-plugin-vue";
+import pluginVueA11y from "eslint-plugin-vuejs-accessibility";
 import eslintPluginYml from "eslint-plugin-yml";
 import globals from "globals";
 
@@ -14,6 +15,7 @@ export default [
   prettierConfig,
   ...vueI18n.configs.recommended,
   ...eslintPluginYml.configs.recommended,
+  ...pluginVueA11y.configs["flat/recommended"],
   {
     plugins: {
       "simple-import-sort": simpleImportSort,

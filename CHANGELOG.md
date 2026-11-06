@@ -1,3 +1,41 @@
+## [6.6.0-beta.1](https://github.com/theotime2005/bnote-settings/compare/v6.5.0...v6.6.0-beta.1) (2026-10-26)
+
+### 🚀 New features
+
+* Add contributors section on about page ([#751](https://github.com/theotime2005/bnote-settings/issues/751)) ([034bc24](https://github.com/theotime2005/bnote-settings/commit/034bc24b4fcd06595b65b10b1160490fd26aedad))
+* Redesign the website interface ([#723](https://github.com/theotime2005/bnote-settings/issues/723)) ([273a70a](https://github.com/theotime2005/bnote-settings/commit/273a70a2685a0cbe8bc9da7971f5b35e2d392207))
+* Use a11y and add eslint plugin ([#754](https://github.com/theotime2005/bnote-settings/issues/754)) ([e4b5ec4](https://github.com/theotime2005/bnote-settings/commit/e4b5ec4faa1c64ef5c1550eaeb65fdb69d23ba10))
+* Use mailpit to test email service ([#746](https://github.com/theotime2005/bnote-settings/issues/746)) ([6e8fe07](https://github.com/theotime2005/bnote-settings/commit/6e8fe074f092c9cb78ac7925bf897a487ad3f6eb))
+
+### 🔖 Version bump
+
+* **deps-dev:** bump @vitejs/plugin-vue from 6.0.8 to 6.0.10 ([#734](https://github.com/theotime2005/bnote-settings/issues/734)) ([64937ba](https://github.com/theotime2005/bnote-settings/commit/64937ba0d3e40a91cff1e18a172f567c71149c57))
+* **deps-dev:** bump eslint-plugin-vue from 10.11.0 to 10.11.1 ([#737](https://github.com/theotime2005/bnote-settings/issues/737)) ([39f354e](https://github.com/theotime2005/bnote-settings/commit/39f354edc328386699a3b15678070d65238cb5cb))
+* **deps-dev:** bump eslint-plugin-yml from 3.8.1 to 3.9.0 ([#757](https://github.com/theotime2005/bnote-settings/issues/757)) ([4f6ec14](https://github.com/theotime2005/bnote-settings/commit/4f6ec145926511ed5101df7fd7f9f3dd595d9888))
+* **deps-dev:** bump happy-dom from 20.14.5 to 21.0.4 ([#750](https://github.com/theotime2005/bnote-settings/issues/750)) ([3ec5c0c](https://github.com/theotime2005/bnote-settings/commit/3ec5c0c0be105d53d3e0f795d457c9f5552c9cfe))
+* **deps:** bump @vercel/flags-core from 1.8.1 to 1.10.0 ([#735](https://github.com/theotime2005/bnote-settings/issues/735)) ([0723cc8](https://github.com/theotime2005/bnote-settings/commit/0723cc87fcb247c025c29ee898eaac37a0350a98))
+* **deps:** bump cycjimmy/semantic-release-action from 6 to 8 ([#739](https://github.com/theotime2005/bnote-settings/issues/739)) ([6313332](https://github.com/theotime2005/bnote-settings/commit/6313332ba33403bccd8ec873e318a6bc7591ec35))
+* **deps:** bump dotenv from 17.4.2 to 18.0.7 ([#725](https://github.com/theotime2005/bnote-settings/issues/725)) ([5f0c223](https://github.com/theotime2005/bnote-settings/commit/5f0c223dd096384258e6993350bf3455dfb9712d))
+* **deps:** bump launch-editor from 2.14.1 to 2.14.2 ([#742](https://github.com/theotime2005/bnote-settings/issues/742)) ([89e1c98](https://github.com/theotime2005/bnote-settings/commit/89e1c9871ddfd688d352a812a4514253ef5bf2b0))
+* **deps:** bump nodemailer from 10.0.9 to 10.1.0 ([#727](https://github.com/theotime2005/bnote-settings/issues/727)) ([380e559](https://github.com/theotime2005/bnote-settings/commit/380e55929ed0e9d8d150aad1173fe6a884f445d9))
+* **deps:** bump nodemailer from 10.1.0 to 10.1.4 ([#749](https://github.com/theotime2005/bnote-settings/issues/749)) ([32ded10](https://github.com/theotime2005/bnote-settings/commit/32ded10b63ca5e9b27f9bc927510cbdf1c9dd88a))
+* **deps:** bump nodemailer from 9.1.1 to 10.0.9 ([#724](https://github.com/theotime2005/bnote-settings/issues/724)) ([b95aee6](https://github.com/theotime2005/bnote-settings/commit/b95aee6a2b5d6f349f0d6b78b6442e5b12186a0f))
+* **deps:** bump pinia from 4.0.3 to 4.1.0 ([#758](https://github.com/theotime2005/bnote-settings/issues/758)) ([089b57e](https://github.com/theotime2005/bnote-settings/commit/089b57e2157dc7f07a32e59c824e33e533d1a2fb))
+* **deps:** bump postcss-selector-parser from 7.1.4 to 7.1.6 ([#730](https://github.com/theotime2005/bnote-settings/issues/730)) ([e9c2a96](https://github.com/theotime2005/bnote-settings/commit/e9c2a9600a84df5497820699283004827f239165))
+* **deps:** bump seroval from 1.5.4 to 1.6.9 ([#733](https://github.com/theotime2005/bnote-settings/issues/733)) ([8c1ee1e](https://github.com/theotime2005/bnote-settings/commit/8c1ee1e4b61288b589669dcf01404a7eb2d01dfb))
+* **deps:** bump shell-quote from 1.10.0 to 1.12.0 ([#732](https://github.com/theotime2005/bnote-settings/issues/732)) ([c5625e0](https://github.com/theotime2005/bnote-settings/commit/c5625e0d65ea2fe740627f1f5685bedf09e598ff))
+* **deps:** bump source-map-js from 1.2.1 to 1.2.2 ([#731](https://github.com/theotime2005/bnote-settings/issues/731)) ([e9730b2](https://github.com/theotime2005/bnote-settings/commit/e9730b2c06d4f42d877fb92dce83f089c17b4428))
+* **deps:** bump vite from 7.3.6 to 7.3.7 ([#741](https://github.com/theotime2005/bnote-settings/issues/741)) ([64f5a86](https://github.com/theotime2005/bnote-settings/commit/64f5a86eae863a3ea9260d7a78de9305da0c2888))
+* Update .nvmrc to Node.js 24.21.0 ([#753](https://github.com/theotime2005/bnote-settings/issues/753)) ([fbffeff](https://github.com/theotime2005/bnote-settings/commit/fbffeff2e0a523a049b7a1a5fa0c29189e0f56c6))
+* Update .nvmrc to Node.js 26.11.1 ([#728](https://github.com/theotime2005/bnote-settings/issues/728)) ([e2e326c](https://github.com/theotime2005/bnote-settings/commit/e2e326ca395016436b454b9594ccca91f8e6aace))
+* Update .nvmrc to Node.js 26.12.0 ([#740](https://github.com/theotime2005/bnote-settings/issues/740)) ([4c18249](https://github.com/theotime2005/bnote-settings/commit/4c1824949d58fe77f15926e927d6392f690afd6b))
+* Upgrade nuxt to latest version ([#748](https://github.com/theotime2005/bnote-settings/issues/748)) ([aa75b35](https://github.com/theotime2005/bnote-settings/commit/aa75b35809613d56041de6b13d90defc8cb4601c))
+
+### 🛠️ Tech
+
+* Setup the database ([#756](https://github.com/theotime2005/bnote-settings/issues/756)) ([0e6b7bc](https://github.com/theotime2005/bnote-settings/commit/0e6b7bcc42a3e5642eb3749320772fc3111ce5c7))
+* Use the lts node version ([#752](https://github.com/theotime2005/bnote-settings/issues/752)) ([43f2491](https://github.com/theotime2005/bnote-settings/commit/43f2491b3fef8945642e529fddab4ffd5196cd1e))
+
 ## [6.5.0](https://github.com/theotime2005/bnote-settings/compare/v6.4.7...v6.5.0) (2026-10-26)
 
 ### 🚀 New features

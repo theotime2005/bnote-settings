@@ -202,4 +202,72 @@ describe("Acceptance | FaqView", () => {
     // then
     expect(sendLog).toHaveBeenCalled();
   });
+  describe("search", () => {
+    const mockFaq = [
+      {
+        question: "How to export preferences?",
+        answer: { a: "Open the preferences menu.", b: ["Choose export", "Save the file"] },
+      },
+      {
+        question: "Where to download the software?",
+        answer: ["On the download page."],
+      },
+    ];
+
+    beforeEach(async () => {
+      fetchSpy.mockResolvedValue({
+        ok: true,
+        json: async () => mockFaq,
+      });
+      wrapper = mountFaqView();
+      await vi.waitFor(() => expect(wrapper.findAll(".faq-item").length).toBe(2));
+    });
+
+    it("should filter questions matching the query", async () => {
+      // when
+      await wrapper.find("#faq-search").setValue("download");
+
+      // then
+      const items = wrapper.findAll(".faq-item");
+      expect(items.length).toBe(1);
+      expect(items[0].find(".faq-question").text()).toBe("Where to download the software?");
+      expect(items[0].find(".faq-match").text()).toBe("download");
+    });
+
+    it("should search inside the answers", async () => {
+      // when
+      await wrapper.find("#faq-search").setValue("save the file");
+
+      // then
+      const items = wrapper.findAll(".faq-item");
+      expect(items.length).toBe(1);
+      expect(items[0].find(".faq-question").text()).toBe("How to export preferences?");
+      expect(items[0].find(".faq-summary").attributes("aria-expanded")).toBe("true");
+      expect(items[0].find(".faq-body").attributes("hidden")).toBeUndefined();
+    });
+
+    it("should display a message when nothing matches", async () => {
+      // when
+      await wrapper.find("#faq-search").setValue("bluetooth");
+
+      // then
+      expect(wrapper.findAll(".faq-item").length).toBe(0);
+      expect(wrapper.find(".faq-no-result").text()).toBe(t("faq.noResult"));
+    });
+    it("should toggle an answer from its question button", async () => {
+      // given
+      const button = wrapper.findAll(".faq-summary")[1];
+      const answer = wrapper.find(`#${button.attributes("aria-controls")}`);
+      expect(button.attributes("aria-expanded")).toBe("false");
+      expect(answer.attributes("hidden")).toBeDefined();
+
+      // when
+      await button.trigger("click");
+
+      // then
+      expect(button.attributes("aria-expanded")).toBe("true");
+      expect(answer.attributes("hidden")).toBeUndefined();
+      expect(answer.attributes("aria-labelledby")).toBe(button.attributes("id"));
+    });
+  });
 });
